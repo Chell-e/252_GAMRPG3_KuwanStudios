@@ -46,10 +46,10 @@ public class TestPoolSpawner : MonoBehaviour
             }
 
             //// cycles back to first wave
-            //if (waveIndex >= waves.Count)
-            //{
-            //    waveIndex = 0;
-            //}
+            if (waveIndex >= waves.Count)
+            {
+                waveIndex = 0;
+            }
         }
 
     }

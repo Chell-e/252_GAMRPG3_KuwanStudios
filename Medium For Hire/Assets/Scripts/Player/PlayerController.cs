@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 minPos;
     [SerializeField] private Vector2 maxPos;
 
-    private PlayerStats playerStats;
+    public PlayerStats playerStats;
     private Vector2 lastFacingDirection = Vector2.right;
     private void Awake()
     {
@@ -38,13 +38,16 @@ public class PlayerController : MonoBehaviour
         playerStats = GetComponent<PlayerStats>();
 
         // exp needed for each level up (currently 10 muna per level)
-        for (int i = 0; i < playerStats.maxLevel; i++)
-        {
-            playerStats.expToLevelUp.Add(10);
-        }
+        //for (int i = 0; i < playerStats.maxLevel; i++)
+        //{
+        //    playerStats.expToLevelUp.Add(10);
+        //}
 
         // initialize health
         playerStats.currentHealth = playerStats.maxHealth;
+
+        // update exp slider UI
+        UIManager.Instance.UpdateExpSlider();
     }
 
     void Update()
@@ -87,6 +90,19 @@ public class PlayerController : MonoBehaviour
     {
         playerStats.currentEXP += amount;
         UIManager.Instance.UpdateExpSlider();
+
+        if (playerStats.currentEXP >= playerStats.expToLevel)
+        {
+            playerStats.currentEXP = 0;
+            playerStats.currentLevel++;
+            UIManager.Instance.UpdateExpSlider();
+        }
+
+        //int index = playerStats.currentLevel - 1;
+        //if (playerStats.currentEXP >= playerStats.expToLevelUp[index])
+        //{
+        //    playerStats.expToLevelUp[index]++;
+        //}
     }
 
     public Vector2 GetLastFacingDirection()

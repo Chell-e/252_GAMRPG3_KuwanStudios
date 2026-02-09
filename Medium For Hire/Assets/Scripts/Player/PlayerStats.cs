@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [Header("Player Level")]
-    public int maxLevel;
+    //public int maxLevel;
     public int currentLevel;
-    public List<int> expToLevelUp;
+    public int expToLevel;
+    //public List<int> expToLevelUp;
 
     [Header("EXP")]
     public int currentEXP;
