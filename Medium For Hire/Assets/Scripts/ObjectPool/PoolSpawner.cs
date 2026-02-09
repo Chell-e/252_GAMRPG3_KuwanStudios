@@ -20,33 +20,38 @@ public class TestPoolSpawner : MonoBehaviour
 
     void Update()
     {
-        waves[waveIndex].spawnTimer += Time.deltaTime;
-
-        if (waves[waveIndex].spawnTimer >= waves[waveIndex].spawnInterval)
+        if (PlayerController.Instance.gameObject.activeSelf)
         {
-            // more accurate than resetting to 0
-            waves[waveIndex].spawnTimer = waves[waveIndex].spawnTimer - waves[waveIndex].spawnInterval;
-            SpawnEnemy();
-        }
-        // once all enemies in wave have been spawned, move to next wave
-        if (waves[waveIndex].spawnedEnemyCount >= waves[waveIndex].enemiesPerWave)
-        {
-            // reset spawned enemy count for current wave
-            waves[waveIndex].spawnedEnemyCount = 0;
+            waves[waveIndex].spawnTimer += Time.deltaTime;
 
-            // doesnt go below 0.3 seconds spawn interval
-            if (waves[waveIndex].spawnInterval > 0.3f)
+            if (waves[waveIndex].spawnTimer >= waves[waveIndex].spawnInterval)
             {
-                waves[waveIndex].spawnInterval *= 0.9f; // reduce spawn interval by 10%, increase difficulty
+                // more accurate than resetting to 0
+                waves[waveIndex].spawnTimer = waves[waveIndex].spawnTimer - waves[waveIndex].spawnInterval;
+                SpawnEnemy();
+            }
+            // once all enemies in wave have been spawned, move to next wave
+            if (waves[waveIndex].spawnedEnemyCount >= waves[waveIndex].enemiesPerWave)
+            {
+                // reset spawned enemy count for current wave
+                waves[waveIndex].spawnedEnemyCount = 0;
+
+                // doesnt go below 0.3 seconds spawn interval
+                if (waves[waveIndex].spawnInterval > 0.3f)
+                {
+                    waves[waveIndex].spawnInterval *= 0.9f; // reduce spawn interval by 10%, increase difficulty
+                }
+
+                waveIndex++;
             }
 
-            waveIndex++;
+            //// cycles back to first wave
+            //if (waveIndex >= waves.Count)
+            //{
+            //    waveIndex = 0;
+            //}
         }
-        // cycles back to first wave
-        if (waveIndex >= waves.Count)
-        {
-            waveIndex = 0;
-        }
+
     }
 
     private void SpawnEnemy()

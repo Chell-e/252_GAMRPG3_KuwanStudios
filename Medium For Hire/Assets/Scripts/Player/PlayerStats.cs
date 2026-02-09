@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    [Header("Player Level")]
+    public int maxLevel;
+    public int currentLevel;
+    public List<int> expToLevelUp;
+
     [Header("EXP")]
     public int currentEXP;
 
     [Header("Health")]
-    public int currentHealth;
     public int maxHealth;
+    public int currentHealth;
 
     [Header("Attack")]
     public int attackDamage;

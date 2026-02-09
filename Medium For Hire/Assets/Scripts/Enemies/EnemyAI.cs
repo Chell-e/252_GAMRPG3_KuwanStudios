@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class Enemy : MonoBehaviour
+public class EnemyAI : MonoBehaviour
 {
     [Header("Enemy Sprite")]
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MoveTowardPlayer();
+        MoveTowardPlayer();       
     }
 
     private void LookAtPlayer()
@@ -43,27 +43,38 @@ public class Enemy : MonoBehaviour
     }
     private void MoveTowardPlayer()
     {
-        // gets distance from player 
-        Vector3 direction = (PlayerController.Instance.transform.position - transform.position).normalized;
-        rb.velocity = new Vector2(
-            direction.x * enemyStats.moveSpeed,
-            direction.y * enemyStats.moveSpeed
-        );
+        if (PlayerController.Instance.gameObject.activeSelf)
+        {
+            // gets distance from player 
+            Vector3 direction = (PlayerController.Instance.transform.position - transform.position).normalized;
+            rb.velocity = new Vector2(
+                direction.x * enemyStats.moveSpeed,
+                direction.y * enemyStats.moveSpeed
+            );
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        // contact damage to player
+        // when in contact with player
         if (collision.gameObject.GetComponent<PlayerController>())
         {
-            // returns enemy back
-            PoolManager.ReturnObjectToPool(gameObject);
-
-            // drop exp when killed
-            PoolManager.SpawnObject(orbPrefab, transform.position, transform.rotation, PoolManager.PoolType.ExpOrb);
-
             // Damage player here
+            PlayerController.Instance.GetComponent<PlayerController>().TakeDamage(enemyStats.damage);
         }
+    }
 
+    public void TakeDamage(float damageAmount)
+    {
+        enemyStats.health -= damageAmount;
+        if (enemyStats.health <= 0)
+        {
+            PoolManager.ReturnObjectToPool(gameObject);
+            PoolManager.SpawnObject(orbPrefab, transform.position, transform.rotation, PoolManager.PoolType.ExpOrb);
+        }
     }
 }

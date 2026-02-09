@@ -12,18 +12,14 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Movement")]
     [SerializeField] private Rigidbody2D rb;
-    //[SerializeField] private float moveSpeed;
     private Vector3 moveDirection;
 
     [Header("Player Map Boundaries")]
-    [SerializeField] private float minX;
-    [SerializeField] private float maxX;
-    [SerializeField] private float minY;
-    [SerializeField] private float maxY;
+    [SerializeField] private Vector2 minPos;
+    [SerializeField] private Vector2 maxPos;
 
     private PlayerStats playerStats;
-
-    //public int experience;
+    private Vector2 lastFacingDirection = Vector2.right;
     private void Awake()
     {
         // singleton 
@@ -40,6 +36,15 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
+
+        // exp needed for each level up (currently 10 muna per level)
+        for (int i = 0; i < playerStats.maxLevel; i++)
+        {
+            playerStats.expToLevelUp.Add(10);
+        }
+
+        // initialize health
+        playerStats.currentHealth = playerStats.maxHealth;
     }
 
     void Update()
@@ -47,6 +52,11 @@ public class PlayerController : MonoBehaviour
         // get player input
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
+
+        if (inputX != 0 || inputY != 0)
+        {
+            lastFacingDirection = new Vector2(inputX, inputY).normalized;
+        }
 
         // set movement direction
         moveDirection = new Vector2(inputX, inputY).normalized;
@@ -68,13 +78,29 @@ public class PlayerController : MonoBehaviour
 
         // clamp player within map boundaries (wont need this if tileset map is implemented later)
         transform.position = new Vector3(
-            Mathf.Clamp(transform.position.x, minX, maxX),
-            Mathf.Clamp(transform.position.y, minY, maxY),
+            Mathf.Clamp(transform.position.x, minPos.x, maxPos.x),
+            Mathf.Clamp(transform.position.y, minPos.y, maxPos.y),
             transform.position.z
         );
     }
     public void GainExperience(int amount)
     {
         playerStats.currentEXP += amount;
+        UIManager.Instance.UpdateExpSlider();
+    }
+
+    public Vector2 GetLastFacingDirection()
+    {
+        return lastFacingDirection;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        playerStats.currentHealth -= damage;
+        if (playerStats.currentHealth <= 0)
+        {
+            //Die();
+            gameObject.SetActive(false);
+        }
     }
 }
