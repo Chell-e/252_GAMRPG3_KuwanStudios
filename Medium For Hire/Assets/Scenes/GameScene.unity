@@ -479,8 +479,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 407680233}
   m_CullTransparentMesh: 1
-<<<<<<< Updated upstream
-=======
 --- !u!1 &488056727
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,7 +569,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
->>>>>>> Stashed changes
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1372,7 +1369,6 @@ MonoBehaviour:
   aimCursor: {fileID: 2800000, guid: d5d80d59850421645ba068462a22f756, type: 3}
   defaultCursor: {fileID: 0}
   weapon: {fileID: 2115408546}
->>>>>>> Stashed changes
   playerStats: {fileID: 0}
 --- !u!70 &1308892171
 CapsuleCollider2D:
@@ -2322,7 +2318,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 8fe36b2e0ccc31747b3de8f742fbf8b5, type: 2}
   cooldown: 1
->>>>>>> Stashed changes
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
