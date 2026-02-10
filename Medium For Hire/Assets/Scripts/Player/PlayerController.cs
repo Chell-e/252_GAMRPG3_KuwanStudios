@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
     [Header("Weapons Equipped")]
     public WeaponController weapon;
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     public PlayerStats playerStats;
     private Vector2 lastFacingDirection = Vector2.right;
@@ -71,6 +74,9 @@ public class PlayerController : MonoBehaviour
             ToggleAimForAllWeapons();
         }
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         // get player input
         float inputX = Input.GetAxis("Horizontal");
@@ -152,6 +158,9 @@ public class PlayerController : MonoBehaviour
         UnityEngine.Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
 
         weapon.weaponData.isAimed = isAiming;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     }
 
