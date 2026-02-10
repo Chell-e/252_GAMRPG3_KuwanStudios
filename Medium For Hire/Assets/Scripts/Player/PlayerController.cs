@@ -18,8 +18,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 minPos;
     [SerializeField] private Vector2 maxPos;
 
-<<<<<<< Updated upstream
-=======
     [Header("Aim Mechanics")]
     [SerializeField] private bool isAiming;
     [SerializeField] private Texture2D aimCursor;
@@ -28,10 +26,6 @@ public class PlayerController : MonoBehaviour
     [Header("Weapons Equipped")]
     public WeaponController weapon;
 
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     public PlayerStats playerStats;
     private Vector2 lastFacingDirection = Vector2.right;
     private void Awake()
@@ -67,17 +61,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-<<<<<<< Updated upstream
-=======
+
         if (Input.GetMouseButtonDown(1))
         { 
             ToggleAimForAllWeapons();
         }
 
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         // get player input
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
@@ -144,8 +133,6 @@ public class PlayerController : MonoBehaviour
             //Die();
             gameObject.SetActive(false);
         }
-<<<<<<< Updated upstream
-=======
 
         UIManager.Instance.UpdateHpSlider();
     }
@@ -158,10 +145,6 @@ public class PlayerController : MonoBehaviour
         UnityEngine.Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
 
         weapon.weaponData.isAimed = isAiming;
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     }
 
     //public void ToggleAimForAllWeapons() // may be better to just serialize the weapons
