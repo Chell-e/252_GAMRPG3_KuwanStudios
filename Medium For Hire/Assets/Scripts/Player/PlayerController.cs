@@ -18,6 +18,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 minPos;
     [SerializeField] private Vector2 maxPos;
 
+    [Header("Aim Mechanics")]
+    [SerializeField] private bool isAiming;
+    [SerializeField] private Texture2D aimCursor;
+    [SerializeField] private Texture2D defaultCursor; // optional: leave null to use OS default
+
     public PlayerStats playerStats;
     private Vector2 lastFacingDirection = Vector2.right;
     private void Awake()
@@ -48,10 +53,18 @@ public class PlayerController : MonoBehaviour
 
         // update exp slider UI
         UIManager.Instance.UpdateExpSlider();
+        UIManager.Instance.UpdateHpSlider();
+
     }
 
     void Update()
     {
+        if (Input.GetMouseButtonDown(1))
+        { 
+            ToggleAimForAllWeapons();
+        }
+
+
         // get player input
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
@@ -93,8 +106,14 @@ public class PlayerController : MonoBehaviour
 
         if (playerStats.currentEXP >= playerStats.expToLevel)
         {
+            if (UpgradeManager.Instance != null)
+            {
+                UpgradeManager.Instance.ShowUpgradeOptions();
+            }
+
             playerStats.currentEXP = 0;
             playerStats.currentLevel++;
+
             UIManager.Instance.UpdateExpSlider();
         }
 
@@ -117,6 +136,23 @@ public class PlayerController : MonoBehaviour
         {
             //Die();
             gameObject.SetActive(false);
+        }
+
+        UIManager.Instance.UpdateHpSlider();
+    }
+
+    public void ToggleAimForAllWeapons() // may be better to just serialize the weapons
+    {
+        Debug.Log("aim toggle");
+        isAiming = !isAiming;
+        Texture2D tex = isAiming ? aimCursor : defaultCursor;
+        UnityEngine.Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
+
+
+        ProjectileWeapon[] weapons = GetComponentsInChildren<ProjectileWeapon>();
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            weapons[i].isAimed = !weapons[i].isAimed;
         }
     }
 }
