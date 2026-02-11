@@ -25,4 +25,5 @@ public class PlayerStats : MonoBehaviour
     [Header("Mobility")]
     public int moveSpeed;
     public int pickupRange;
+
 }

@@ -57,6 +57,8 @@ public class PlayerController : MonoBehaviour
 
         // update exp slider UI
         UIManager.Instance.UpdateExpSlider();
+        UIManager.Instance.UpdateHpSlider();
+
     }
 
     void Update()
@@ -66,6 +68,7 @@ public class PlayerController : MonoBehaviour
         { 
             ToggleAimForAllWeapons();
         }
+
 
         // get player input
         float inputX = Input.GetAxis("Horizontal");
@@ -108,8 +111,14 @@ public class PlayerController : MonoBehaviour
 
         if (playerStats.currentEXP >= playerStats.expToLevel)
         {
+            if (UpgradeManager.Instance != null)
+            {
+                UpgradeManager.Instance.ShowUpgradeOptions();
+            }
+
             playerStats.currentEXP = 0;
             playerStats.currentLevel++;
+
             UIManager.Instance.UpdateExpSlider();
         }
 

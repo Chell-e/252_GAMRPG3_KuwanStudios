@@ -14,6 +14,9 @@ public class ProjectileWeapon : MonoBehaviour
     public float lifespan;
     private float spawnCounter;
 
+    [Header("Attack Pattern")]
+    [SerializeField] public bool isAimed;
+
     void Start()
     {
 
@@ -25,7 +28,13 @@ public class ProjectileWeapon : MonoBehaviour
         if (spawnCounter <= 0)
         {
             spawnCounter = cooldown;
-            Instantiate(projectilePrefab, transform.position, transform.rotation, transform);
+            //Instantiate(projectilePrefab, transform.position, transform.rotation, transform);
+            Fire();
         }
+    }
+
+    void Fire()
+    {
+        Instantiate(projectilePrefab, transform.position, transform.rotation, transform);
     }
 }
