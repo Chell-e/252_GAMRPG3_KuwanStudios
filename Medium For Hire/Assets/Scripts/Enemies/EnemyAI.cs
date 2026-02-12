@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour
 {
     [Header("Enemy Sprite")]
     [SerializeField] private SpriteRenderer spriteRenderer;
+    private HitFlash hitFlash;
 
     [Header("Physics")]
     [SerializeField] private Rigidbody2D rb;
@@ -19,8 +20,8 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-        // get reference to enemy stats
         enemyStats = GetComponent<EnemyStats>();
+        hitFlash = GetComponent<HitFlash>();
     }
     void Update()
     {
@@ -34,18 +35,17 @@ public class EnemyAI : MonoBehaviour
 
     private void LookAtPlayer()
     {
-        // safety check for when player is destroyed later (killed emz)
         if (PlayerController.Instance == null)
             return;
 
-        // flips sprite to always face the player
+        // Flips sprite to always face the player
         spriteRenderer.flipX = PlayerController.Instance.transform.position.x < transform.position.x;
     }
     private void MoveTowardPlayer()
     {
         if (PlayerController.Instance.gameObject.activeSelf)
         {
-            // gets distance from player 
+            // Get distance from player 
             Vector3 direction = (PlayerController.Instance.transform.position - transform.position).normalized;
             rb.velocity = new Vector2(
                 direction.x * enemyStats.moveSpeed,
@@ -60,10 +60,8 @@ public class EnemyAI : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        // when in contact with player
         if (collision.gameObject.GetComponent<PlayerController>())
         {
-            // Damage player here
             PlayerController.Instance.GetComponent<PlayerController>().TakeDamage(enemyStats.damage);
         }
     }
@@ -76,5 +74,8 @@ public class EnemyAI : MonoBehaviour
             PoolManager.ReturnObjectToPool(gameObject);
             PoolManager.SpawnObject(orbPrefab, transform.position, transform.rotation, PoolManager.PoolType.ExpOrb);
         }
+
+        // Hit flash fx
+        hitFlash.TriggerHitFlash();
     }
 }
