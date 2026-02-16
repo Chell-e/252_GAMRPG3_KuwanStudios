@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class ProjectileMovement : MonoBehaviour
 {
-    public WeaponData weaponData;
     [SerializeField] private Rigidbody2D rb;
+
+    [SerializeField] public WeaponData weaponData; // derive stats from weaponData
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.up * weaponData.projectileSpeed;
-        Destroy(gameObject, weaponData.duration);
+
+        Destroy(gameObject, weaponData.duration); // set weapon's lifetime to weaponData.duration
     }
 
     public void AimAtCursor()
@@ -36,9 +39,10 @@ public class ProjectileMovement : MonoBehaviour
         }
     }
 
-    public void AimAtPlayerDirection(Vector2 direction)
+    public void AimAtPlayerDirectionX(Vector2 direction)
     {
-        float angle = (direction.x == -1f) ? 90f : -90f;
+        float angle = (direction.x < 0f) ? 90f : -90f;
+
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }

@@ -10,8 +10,6 @@ public class ProjectileBehavior : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rb;
 
-    private static float lastFacingDirectionX = 1f;
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -20,13 +18,9 @@ public class ProjectileBehavior : MonoBehaviour
             playerController = PlayerController.Instance;
 
         if (weaponData.isAimed)
-        {
             AimAtCursor();
-        }
         else
-        {
             AimAtPlayerDirection();
-        }
 
         rb.velocity = transform.up * weaponData.projectileSpeed;
 
@@ -35,16 +29,16 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void AimAtCursor()
     {
-        Vector3 mouseScreen = Input.mousePosition;
+        Vector3 mouseToScreen = Input.mousePosition;
         Camera cam = Camera.main;
 
         if (cam != null)
         {
-            Vector3 mouseWorld = cam.ScreenToWorldPoint(mouseScreen);
+            Vector3 mouseToWorld = cam.ScreenToWorldPoint(mouseToScreen);
             // Ensure same Z-plane as spawner (2D game)
-            mouseWorld.z = transform.position.z;
+            mouseToWorld.z = transform.position.z;
 
-            Vector3 dir = mouseWorld - transform.position;
+            Vector3 dir = mouseToWorld - transform.position;
             if (dir.sqrMagnitude > 0.000001f)
             {
                 // Angle in degrees where 0 points along +X. If your projectile faces up in its sprite,
@@ -57,7 +51,7 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void AimAtPlayerDirection()
     {
-        Vector2 currentFacingDirection = playerController.GetLastFacingDirection();
+        /*Vector2 currentFacingDirection = playerController.GetLastFacingDirectionX();
         if (currentFacingDirection.x < 0)
         {
             lastFacingDirectionX = -1f;
@@ -66,8 +60,10 @@ public class ProjectileBehavior : MonoBehaviour
         {
             lastFacingDirectionX = 1f;
         }
-        float angle = (lastFacingDirectionX == -1f) ? 90f : -90f;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        float angle = (playerController.GetLastFacingDirectionX().x == -1f) ? 90f : -90f;
+        transform.rotation = Quaternion.Euler(0, 0, angle);*/
+
+        transform.rotation = Quaternion.Euler(0,0 , playerController.GetLastFacingDirectionX().x);
     }
 
     public void SetData(WeaponData data, PlayerController pc)

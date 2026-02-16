@@ -18,3 +18,4 @@ MonoBehaviour:
   upgradeType: 2
   intValue: 1
   floatValue: 0
+  duplicates: -1

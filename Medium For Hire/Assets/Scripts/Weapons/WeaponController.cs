@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Responsible for firing projectiles based on weapon data
+// EXCLUSIVELY responsible for SPAWNING/INSTANTIATING weapons, basing it off of stats from weapon data
 public class WeaponController : MonoBehaviour
 {
     public WeaponData weaponData;
@@ -21,22 +21,20 @@ public class WeaponController : MonoBehaviour
     public void Fire()
     {
         var projectileObj = Instantiate(weaponData.weaponPrefab, transform.position, transform.rotation);
-        //var projectileBehavior = projectileObj.GetComponent<ProjectileBehavior>();
 
-        //projectileBehavior.GetComponent<ProjectileBehavior>().SetData(weaponData, PlayerController.Instance); 
-        var movement = projectileObj.GetComponent<ProjectileMovement>();
-        movement.weaponData = weaponData;
+        var projectileMovement = projectileObj.GetComponent<ProjectileMovement>();
+        projectileMovement.weaponData = weaponData;
 
-        var damage = projectileObj.GetComponent<ProjectileDamage>();
-        damage.weaponData = weaponData;
+        var projectileDamage = projectileObj.GetComponent<ProjectileDamage>();
+        projectileDamage.weaponData = weaponData;
 
         if (weaponData.isAimed)
         {
-            movement.AimAtCursor();
+            projectileMovement.AimAtCursor();
         }
         else
         {
-            movement.AimAtPlayerDirection(PlayerController.Instance.GetLastFacingDirection());
+            projectileMovement.AimAtPlayerDirectionX(PlayerController.Instance.GetLastFacingDirectionX());
         }
     }
 }
