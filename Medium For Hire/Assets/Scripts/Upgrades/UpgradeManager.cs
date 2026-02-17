@@ -9,38 +9,49 @@ public class UpgradeManager : MonoBehaviour
     public static UpgradeManager Instance;
 
     [Header("Pool & UI")]
-    public UpgradeDefinition[] upgradePool;
+    [SerializeField] public UpgradeDefinition[] upgradePool;
     public GameObject cardPrefab;
     public Transform cardContainer;
 
     [Header("Options")]
     [SerializeField] public int cardsToShow = 3;
 
+
+
+    [Header("Debug")]
     private bool isOpen = false;
     private List<GameObject> spawnedCards = new List<GameObject>();
 
-    private void Awake()
+
+    private void Awake() 
     {
+        // for making SINGLETON
         if (Instance != null && Instance != this) Destroy(this);
         else Instance = this;
     }
 
     public void ShowUpgradeOptions()
     {
+        // avoid duplicating UI
         if (isOpen) return;
+
+        // return if null
         if (upgradePool == null || upgradePool.Length == 0 || cardPrefab == null || cardContainer == null)
         {
             Debug.LogWarning("UpgradeManager: missing references or empty pool.");
             return;
         }
 
-        int count = cardsToShow; // ?? = null coalescing operator
-        //count = Mathf.Clamp(count, 1, Mathf.Min(upgradePool.Length, 6));
+
+        // clamp the upgrades shown between 3 and remaining pool
+        int shownCards = Mathf.Clamp(cardsToShow, 0 , upgradePool.Length);
 
         // pick unique random upgrades
         var available = upgradePool.ToList();
+        Debug.Log(available);
+
         var chosen = new List<UpgradeDefinition>();
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < shownCards; i++)
         {
             int idx = Random.Range(0, available.Count);
             chosen.Add(available[idx]);
@@ -100,11 +111,15 @@ public class UpgradeManager : MonoBehaviour
                 break;
 
             case UpgradeType.MoveSpeedIncrease:
-                stats.moveSpeed += def.intValue;
+                stats.movespeedPercent += def.intValue;
                 break;
 
             case UpgradeType.DamageIncrease:
-                stats.attackDamage += def.intValue;
+                stats.dmgPercent += def.intValue;
+                break;
+
+            case UpgradeType.ProjectileSpeedIncrease:
+                stats.projectileSpeedPercent += def.intValue;
                 break;
 
             default:

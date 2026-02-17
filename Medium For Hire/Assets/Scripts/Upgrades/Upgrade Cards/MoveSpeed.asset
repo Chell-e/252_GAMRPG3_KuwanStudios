@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 514e05b8f8def7945809d189e2695e31, type: 3}
   title: Increase Speed
-  description: Move faster
+  description: Increase movement speed by 1.0.
   upgradeType: 2
   intValue: 1
   floatValue: 0
+  duplicates: -1
