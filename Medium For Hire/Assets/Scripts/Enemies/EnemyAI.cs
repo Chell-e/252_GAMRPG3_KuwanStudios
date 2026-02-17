@@ -30,7 +30,7 @@ public class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MoveTowardPlayer();       
+        MoveTowardPlayer();      
     }
 
     private void LookAtPlayer()

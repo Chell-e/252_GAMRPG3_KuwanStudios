@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10748fda1ec331c42ac26086de9b74e6, type: 3}
-  m_Name: Damage
+  m_Name: ProjectileSpeed
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 514e05b8f8def7945809d189e2695e31, type: 3}
-  title: Increase Damage
-  description: 10% increase to DMG.
-  upgradeType: 3
+  title: Increase Projectile Speed
+  description: Increase your Projectile Speed by 10%.
+  upgradeType: 4
   intValue: 10
   floatValue: 0
-  duplicates: -1
+  duplicates: 0

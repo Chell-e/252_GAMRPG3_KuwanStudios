@@ -118,6 +118,10 @@ public class UpgradeManager : MonoBehaviour
                 stats.dmgPercent += def.intValue;
                 break;
 
+            case UpgradeType.ProjectileSpeedIncrease:
+                stats.projectileSpeedPercent += def.intValue;
+                break;
+
             default:
                 Debug.Log($"UpgradeManager: unhandled upgrade type {def.upgradeType}");
                 break;

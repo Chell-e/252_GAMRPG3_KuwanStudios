@@ -19,12 +19,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 maxPos;
 
     [Header("Aim Mechanics")]
-    [SerializeField] private bool isAiming;
+    [SerializeField] public bool IsAiming;
     [SerializeField] private Texture2D aimCursor; // change the cursor into a crosshair or smth
     [SerializeField] private Texture2D defaultCursor; // optional: leave null to use OS default
-
-    [Header("Weapons Equipped")]
-    public List<WeaponController> weaponList; // we need a List to support having multiple weapons later on
 
     public PlayerStats playerStats;
     //private Vector2 lastFacingDirection = Vector2.right;
@@ -46,8 +43,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
-        weaponList.Add(GetComponentInChildren<WeaponController>());
-
+        
         /*exp needed for each level up(currently 10 muna per level)
         for (int i = 0; i < playerStats.maxLevel; i++)
             {
@@ -64,22 +60,9 @@ public class PlayerController : MonoBehaviour
 
     void Update() // for most update logic stuff
     {
-        if (Input.GetMouseButtonDown(1))
-        { 
-            ToggleAimForAllWeapons();
-        }
-
-
         // get player input from Input Controller
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
-
-
-        /*if (inputX != 0 || inputY != 0) // update lastFacingDirection whenever moving
-        {
-            lastFacingDirection = new Vector2(inputX, inputY).normalized;
-            Debug.Log(lastFacingDirection);
-        }*/
 
         if (inputX != 0) // update lastFacingDirectionX only when we move horizontally
         {
@@ -129,30 +112,4 @@ public class PlayerController : MonoBehaviour
         UIManager.Instance.UpdateHpSlider();
     }
 
-    public void ToggleAimForAllWeapons() 
-    {
-        Debug.Log("aim toggle");
-        isAiming = !isAiming;
-        Texture2D tex = isAiming ? aimCursor : defaultCursor;
-        UnityEngine.Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
-
-        foreach (var weapon in weaponList)
-        {
-            weapon.weaponData.isAimed = isAiming;
-        }
-    }
-
-    /*public void ToggleAimForAllWeapons() // may be better to just serialize the weapons
-    {
-        Debug.Log("aim toggle");
-        isAiming = !isAiming;
-        Texture2D tex = isAiming ? aimCursor : defaultCursor;
-        UnityEngine.Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
-
-        ProjectileWeapon[] weapons = GetComponentsInChildren<ProjectileWeapon>();
-        for (int i = 0; i < weapons.Length; i++)
-        {
-            weapons[i].isAimed = !weapons[i].isAimed;
-        }
-    }*/
 }

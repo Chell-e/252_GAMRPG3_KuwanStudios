@@ -25,6 +25,7 @@ public class PlayerStats : MonoBehaviour
     [Header("Base Stats")]
     [Space(5)]
     [Header("Mobility")]
+    [Tooltip("Base, flat movement speed. Normally unupgradeable.")]
     public float movespeedBase;
     public float pickupRangeBase;
 
@@ -32,15 +33,25 @@ public class PlayerStats : MonoBehaviour
     [Header("Upgrade Stats")]
     [Space(5)]
 
-    [Header("Attack")]
-    public int dmgPercent;
-    public int cooldownPercent;
+    [Header("Health Upgrades")]
+    [Tooltip("Percentage multiplying max health.")]
+    public int maxHealthPercent = 100;
 
-    [Header("Mobility")]
-    public int movespeedPercent;
+    [Header("Attack Upgrades")]
+    [Tooltip("Percentage multiplying weapon damage.")]
+    public int dmgPercent = 100;
+    [Tooltip("Percentage dividing weapon cooldown.")]
+    public int atkSpeedPercent = 100;
+    [Tooltip("Percentage multiplying weapon velocity/speed.")]
+    public int projectileSpeedPercent = 100;
 
-    [Header("Other")]
-    public int pickupRangePercent;
+
+    [Header("Mobility Upgrades")]
+    [Tooltip("Percentage multiplying player movement speed.")]
+    public int movespeedPercent = 100;
+
+    [Header("Other Upgrades")]
+    public int pickupRangePercent = 100;
 
     public float GetFinalMovespeed()
     {

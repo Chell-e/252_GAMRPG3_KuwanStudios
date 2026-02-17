@@ -7,7 +7,8 @@ public enum UpgradeType
     Heal,
     MaxHealthIncrease,
     MoveSpeedIncrease,
-    DamageIncrease
+    DamageIncrease,
+    ProjectileSpeedIncrease
 }
 
 [CreateAssetMenu(fileName = "UpgradeDefinition", menuName = "Upgrades/Upgrade Definition")]

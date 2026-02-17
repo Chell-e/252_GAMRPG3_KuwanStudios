@@ -95,9 +95,6 @@ GameObject:
   - component: {fileID: 2555525225764374699}
   - component: {fileID: 8910497368457177779}
   - component: {fileID: 682399242493572842}
-  - component: {fileID: 5628035473030390301}
-  - component: {fileID: 3693671384004924149}
-  - component: {fileID: 8819229846895749996}
   m_Layer: 6
   m_Name: Juru Pakal
   m_TagString: Untagged
@@ -129,7 +126,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7945672913616275268}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -183,45 +180,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25
---- !u!114 &5628035473030390301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7945672913616275268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65e908b3bdcd8254ca89edf6376f5706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 8fe36b2e0ccc31747b3de8f742fbf8b5, type: 2}
-  rb: {fileID: 8910497368457177779}
---- !u!114 &3693671384004924149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7945672913616275268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfc8dd696710af544b308a2104698d63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 8fe36b2e0ccc31747b3de8f742fbf8b5, type: 2}
---- !u!114 &8819229846895749996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7945672913616275268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 587a03e6dbb23fe409065eabad8121f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 8fe36b2e0ccc31747b3de8f742fbf8b5, type: 2}
-  piercingCount: 3
-  piercedEnemies: 0
