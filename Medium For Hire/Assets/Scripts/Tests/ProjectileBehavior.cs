@@ -57,7 +57,7 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void AimAtPlayerDirection()
     {
-        Vector2 currentFacingDirection = playerController.GetLastFacingDirection();
+        Vector2 currentFacingDirection = playerController.GetLastFacingDirectionX();
         if (currentFacingDirection.x < 0)
         {
             lastFacingDirectionX = -1f;

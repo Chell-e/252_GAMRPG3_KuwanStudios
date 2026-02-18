@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Schema;
-using UnityEditor.ShaderGraph.Internal;
+//using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class JuruPakalController : MonoBehaviour
@@ -192,12 +192,30 @@ public class JuruPakalController : MonoBehaviour
 
     public void HandleHitboxTriggerEnter(Collider2D collision)
     {
-        if (collision != null)
-        {
-            if (!collision.GetComponent<EnemyAI>()) return; // return if not enemy
-            collision.GetComponent<EnemyAI>().TakeDamage(finalDamage * (playerStats.dmgPercent / 100f));
-            //Debug.Log(finalDamage * (playerStats.dmgPercent / 100f));
-        }
+        //if (collision != null)
+        //{
+        //    if (!collision.GetComponent<EnemyAI>()) return; // return if not enemy
+        //    collision.GetComponent<EnemyAI>().ApplyDamage(finalDamage * (playerStats.dmgPercent / 100f));
+        //    //Debug.Log(finalDamage * (playerStats.dmgPercent / 100f));
+        //}
+
+        // --FIX---
+        if (collision == null) return;
+
+        //EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
+
+        //if (enemy == null) return;
+
+        //float damage = finalDamage * (playerStats.dmgPercent / 100f);
+        //enemy.ApplyDamage(damage);
+
+        if (collision == null) return;
+
+        HealthComponent health = collision.GetComponent<HealthComponent>();
+        if (health == null) return;
+
+        float damage = finalDamage * (playerStats.dmgPercent / 100f);
+        health.TakeDamage(damage);
     }
 
     public void HandleHitboxTriggerStay(List<Collider2D> collision)
@@ -212,7 +230,7 @@ public class JuruPakalController : MonoBehaviour
                 {
                     if (barrageDamageTimer <= 0f)
                     {
-                        col.GetComponent<EnemyAI>().TakeDamage(0.1f * (playerStats.dmgPercent / 100f));
+                        col.GetComponent<EnemyAI>().ApplyDamage(0.1f * (playerStats.dmgPercent / 100f));
                         hitEnemy = true;
                     }
                 }

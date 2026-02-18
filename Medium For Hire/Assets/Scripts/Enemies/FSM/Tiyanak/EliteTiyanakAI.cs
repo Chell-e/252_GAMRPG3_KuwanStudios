@@ -121,7 +121,7 @@ public class EliteTiyanakAI : MonoBehaviour, IDamageable
 
     public void ApplyDamage(float damage)
     {
-        health.TakeDamage(damage);
+        GetComponent<HealthComponent>().TakeDamage(damage);
         hitFlash?.TriggerHitFlash();
     }
 

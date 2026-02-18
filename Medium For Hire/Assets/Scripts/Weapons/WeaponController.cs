@@ -36,7 +36,7 @@ public class WeaponController : MonoBehaviour
         }
         else
         {
-            movement.AimAtPlayerDirection(PlayerController.Instance.GetLastFacingDirection());
+            movement.AimAtPlayerDirection(PlayerController.Instance.GetLastFacingDirectionX());
         }
     }
 }

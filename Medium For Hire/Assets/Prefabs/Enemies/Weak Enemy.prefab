@@ -98,6 +98,8 @@ GameObject:
   - component: {fileID: 5531690359448252446}
   - component: {fileID: 7781253350044911756}
   - component: {fileID: 4338029527522529318}
+  - component: {fileID: 6662825558393670346}
+  - component: {fileID: 2227098574434141029}
   m_Layer: 0
   m_Name: Weak Enemy
   m_TagString: Untagged
@@ -210,7 +212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34acf1c22e7121140b9fef59083742b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
   damage: 1
   moveSpeed: 1
 --- !u!114 &4338029527522529318
@@ -260,3 +261,30 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6662825558393670346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8744352337212714709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9f0257afacb5341b18f93508b112c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  currentHealth: 0
+  isDead: 0
+--- !u!114 &2227098574434141029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8744352337212714709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb81083cc8a3ddd408efc4af94188879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
