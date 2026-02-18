@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 514e05b8f8def7945809d189e2695e31, type: 3}
   title: Increase Damage
-  description: Higher damage
+  description: 10% increase to DMG.
   upgradeType: 3
-  intValue: 1
+  intValue: 10
   floatValue: 0
+  duplicates: -1

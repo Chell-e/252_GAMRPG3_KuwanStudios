@@ -10,7 +10,7 @@ public class ExpOrb : MonoBehaviour
     {
         if (collision.GetComponent<PlayerController>())
         {
-            PlayerController.Instance.GainExperience(experienceValue);
+            PlayerController.Instance.playerStats.GainExperience(experienceValue);
             PoolManager.ReturnObjectToPool(gameObject);
         }
     }

@@ -15,21 +15,20 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] Animator animator;
     private Vector3 moveDirection;
 
-    [Header("Player Map Boundaries")]
+    [Header("Player Map Boundaries")] // for limiting player to map boundaries
     [SerializeField] private Vector2 minPos;
     [SerializeField] private Vector2 maxPos;
 
     [Header("Aim Mechanics")]
-    [SerializeField] private bool isAiming;
-    [SerializeField] private Texture2D aimCursor;
+    [SerializeField] public bool IsAiming;
+    [SerializeField] private Texture2D aimCursor; // change the cursor into a crosshair or smth
     [SerializeField] private Texture2D defaultCursor; // optional: leave null to use OS default
 
-    [Header("Weapons Equipped")]
-    public WeaponController weapon;
-
     public PlayerStats playerStats;
-    private Vector2 lastFacingDirection = Vector2.right;
-    private void Awake()
+    //private Vector2 lastFacingDirection = Vector2.right;
+    private Vector2 lastFacingDirectionX = Vector2.right;
+
+    private void Awake() // for SINGLETON
     {
         // singleton 
         if (Instance != null && Instance != this)
@@ -45,13 +44,12 @@ public class PlayerController : MonoBehaviour, IDamageable
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
-        weapon = GetComponentInChildren<WeaponController>();
-
-        // exp needed for each level up (currently 10 muna per level)
-        //for (int i = 0; i < playerStats.maxLevel; i++)
-        //{
-        //    playerStats.expToLevelUp.Add(10);
-        //}
+        
+        /*exp needed for each level up(currently 10 muna per level)
+        for (int i = 0; i < playerStats.maxLevel; i++)
+            {
+                playerStats.expToLevelUp.Add(10);
+            }*/
 
         // initialize health
         //playerStats.currentHealth = playerStats.maxHealth;
@@ -59,25 +57,17 @@ public class PlayerController : MonoBehaviour, IDamageable
         // update exp slider UI
         UIManager.Instance.UpdateExpSlider();
         UIManager.Instance.UpdateHpSlider();
-
     }
 
-    void Update()
+    void Update() // for most update logic stuff
     {
-
-        if (Input.GetMouseButtonDown(1))
-        { 
-            ToggleAimForAllWeapons();
-        }
-
-
-        // get player input
+        // get player input from Input Controller
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
 
-        if (inputX != 0 || inputY != 0)
+        if (inputX != 0) // update lastFacingDirectionX only when we move horizontally
         {
-            lastFacingDirection = new Vector2(inputX, inputY).normalized;
+            lastFacingDirectionX = new Vector2(inputX, 0);
         }
         
         // set movement direction
@@ -100,12 +90,12 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
-    void FixedUpdate()
+    void FixedUpdate() // for physics update stuff
     {
         // move player
         rb.velocity = new Vector2(
-            moveDirection.x * playerStats.moveSpeed,
-            moveDirection.y * playerStats.moveSpeed
+            moveDirection.x * playerStats.GetFinalMovespeed(),
+            moveDirection.y * playerStats.GetFinalMovespeed()
         );
 
         // clamp player within map boundaries (wont need this if tileset map is implemented later)
@@ -115,34 +105,10 @@ public class PlayerController : MonoBehaviour, IDamageable
             transform.position.z
         );
     }
-    public void GainExperience(int amount)
+
+    public Vector2 GetLastFacingDirectionX() // to be called outside this class
     {
-        playerStats.currentEXP += amount;
-        UIManager.Instance.UpdateExpSlider();
-
-        if (playerStats.currentEXP >= playerStats.expToLevel)
-        {
-            if (UpgradeManager.Instance != null)
-            {
-                UpgradeManager.Instance.ShowUpgradeOptions();
-            }
-
-            playerStats.currentEXP = 0;
-            playerStats.currentLevel++;
-
-            UIManager.Instance.UpdateExpSlider();
-        }
-
-        //int index = playerStats.currentLevel - 1;
-        //if (playerStats.currentEXP >= playerStats.expToLevelUp[index])
-        //{
-        //    playerStats.expToLevelUp[index]++;
-        //}
-    }
-
-    public Vector2 GetLastFacingDirection()
-    {
-        return lastFacingDirection;
+        return lastFacingDirectionX;
     }
 
     //public void UpdateHealth(int damage)
@@ -156,27 +122,4 @@ public class PlayerController : MonoBehaviour, IDamageable
         UIManager.Instance.UpdateHpSlider();
     }
 
-    public void ToggleAimForAllWeapons() 
-    {
-        Debug.Log("aim toggle");
-        isAiming = !isAiming;
-        Texture2D tex = isAiming ? aimCursor : defaultCursor;
-        UnityEngine.Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
-
-        weapon.weaponData.isAimed = isAiming;
-    }
-
-    //public void ToggleAimForAllWeapons() // may be better to just serialize the weapons
-    //{
-    //    Debug.Log("aim toggle");
-    //    isAiming = !isAiming;
-    //    Texture2D tex = isAiming ? aimCursor : defaultCursor;
-    //    UnityEngine.Cursor.SetCursor(tex, Vector2.zero, CursorMode.Auto);
-
-    //    ProjectileWeapon[] weapons = GetComponentsInChildren<ProjectileWeapon>();
-    //    for (int i = 0; i < weapons.Length; i++)
-    //    {
-    //        weapons[i].isAimed = !weapons[i].isAimed;
-    //    }
-    //}
 }
