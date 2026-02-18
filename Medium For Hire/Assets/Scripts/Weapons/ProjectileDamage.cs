@@ -8,11 +8,10 @@ public class ProjectileDamage : MonoBehaviour
 
     public void ApplyDamage(GameObject target)
     {
-        EnemyAI enemy = target.GetComponent<EnemyAI>();
-        if (enemy != null)
+        IDamageable damageable = target.GetComponent<IDamageable>();
+        if (damageable != null)
         {
-            // kills enemy
-            enemy.TakeDamage(weaponData.damage);
+            damageable.ApplyDamage(weaponData.damage);
         }
     }
 }

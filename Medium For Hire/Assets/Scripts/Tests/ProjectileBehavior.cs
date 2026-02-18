@@ -81,7 +81,7 @@ public class ProjectileBehavior : MonoBehaviour
         if (collision.gameObject.GetComponent<EnemyAI>())
         {
             // kills enemy
-            collision.gameObject.GetComponent<EnemyAI>().TakeDamage(weaponData.damage);
+            collision.gameObject.GetComponent<EnemyAI>().ApplyDamage(weaponData.damage);
             Destroy(gameObject);
         }
     }

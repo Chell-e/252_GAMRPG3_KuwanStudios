@@ -95,8 +95,6 @@ GameObject:
   - component: {fileID: 817041480039877804}
   - component: {fileID: 5328992831337381862}
   - component: {fileID: 5487881146827937750}
-  - component: {fileID: 6680371231066320578}
-  - component: {fileID: 1848415634294100092}
   - component: {fileID: 5324880680136506113}
   m_Layer: 0
   m_Name: PumpkinZombie
@@ -115,8 +113,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 440970815784384273}
   m_Father: {fileID: 0}
@@ -183,36 +181,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.09396248, y: -0.3605359}
   m_Size: {x: 0.5702523, y: 0.39479548}
   m_Direction: 1
---- !u!114 &6680371231066320578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6279641034575621146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f32a2b62506b98d43812504a3ed93c87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 7821973067659130721}
-  rb: {fileID: 5328992831337381862}
-  orbPrefab: {fileID: 6478155236546599093, guid: df5ce64a0dd6ade46bd618adc83f9c08, type: 3}
---- !u!114 &1848415634294100092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6279641034575621146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34acf1c22e7121140b9fef59083742b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  damage: 0
-  moveSpeed: 1.5
 --- !u!58 &5324880680136506113
 CircleCollider2D:
   m_ObjectHideFlags: 0

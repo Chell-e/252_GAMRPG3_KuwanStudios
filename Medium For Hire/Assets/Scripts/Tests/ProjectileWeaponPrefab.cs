@@ -98,7 +98,7 @@ public class ProjectileWeaponPrefab : MonoBehaviour
         if (collision.gameObject.GetComponent<EnemyAI>())
         {
             // kills enemy
-            collision.gameObject.GetComponent<EnemyAI>().TakeDamage(projectileWeapon.damage);
+            collision.gameObject.GetComponent<EnemyAI>().ApplyDamage(projectileWeapon.damage);
             Destroy(gameObject);
         }
     }

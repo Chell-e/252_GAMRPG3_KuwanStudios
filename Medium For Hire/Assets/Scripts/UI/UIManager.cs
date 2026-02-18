@@ -46,8 +46,11 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHpSlider()
     {
-        hpSlider.maxValue = PlayerController.Instance.playerStats.maxHealth;
-        hpSlider.value = PlayerController.Instance.playerStats.currentHealth;
+        //hpSlider.maxValue = PlayerController.Instance.playerStats.maxHealth;
+        //hpSlider.value = PlayerController.Instance.playerStats.currentHealth;
+        var health = PlayerController.Instance.GetComponent<HealthComponent>();
+        hpSlider.maxValue = health.GetMaxHealth();
+        hpSlider.value = health.GetCurrentHealth();
 
         hpText.text = hpSlider.value + " / " + hpSlider.maxValue;
     }

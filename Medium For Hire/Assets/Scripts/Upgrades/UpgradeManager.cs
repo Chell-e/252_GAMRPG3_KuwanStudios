@@ -85,17 +85,29 @@ public class UpgradeManager : MonoBehaviour
         }
 
         var stats = PlayerController.Instance.playerStats;
+        var health = PlayerController.Instance.GetComponent<HealthComponent>();
+        //var maxHealth = health.GetMaxHealth();
+        //var currentHealth = health.GetCurrentHealth();
 
         switch (def.upgradeType)
         {
             case UpgradeType.MaxHealthIncrease:
-                stats.maxHealth += def.intValue;
-                stats.currentHealth += def.intValue; // also heal by same amount
+                //stats.maxHealth += def.intValue;
+                //stats.currentHealth += def.intValue; // also heal by same amount
+
+                //maxHealth += def.intValue;
+                //currentHealth += def.intValue;
+
+                health.IncreaseMaxHealth(def.intValue);
                 UIManager.Instance.UpdateHpSlider();
                 break;
 
             case UpgradeType.Heal:
-                stats.currentHealth = Mathf.Min(stats.maxHealth, stats.currentHealth + def.intValue);
+                //stats.currentHealth = Mathf.Min(stats.maxHealth, stats.currentHealth + def.intValue);
+
+                //currentHealth = Mathf.Min(maxHealth, currentHealth + def.intValue);
+
+                health.Heal(def.intValue);
                 UIManager.Instance.UpdateHpSlider();
                 break;
 

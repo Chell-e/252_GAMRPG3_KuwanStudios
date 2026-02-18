@@ -13,10 +13,6 @@ public class PlayerStats : MonoBehaviour
     [Header("EXP")]
     public int currentEXP;
 
-    [Header("Health")]
-    public int maxHealth;
-    public int currentHealth;
-
     [Header("Attack")]
     public int attackDamage;
     public int attackSpeed;
@@ -25,5 +21,4 @@ public class PlayerStats : MonoBehaviour
     [Header("Mobility")]
     public int moveSpeed;
     public int pickupRange;
-
 }
