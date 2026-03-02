@@ -19,6 +19,12 @@ public class EliteTiyanakAI : MonoBehaviour, IDamageable
     public Rigidbody2D rb;
     public HealthComponent health;
     private HitFlash hitFlash;
+    //public SpriteRenderer spriteRenderer;
+
+    [Header("State Sprites")]
+    public GameObject crawling;
+    public GameObject crying;
+    public GameObject transformed;
 
     [Header("Settings")]
     public float approachSpeed;
@@ -41,6 +47,7 @@ public class EliteTiyanakAI : MonoBehaviour, IDamageable
         health = GetComponent<HealthComponent>();
         hitFlash = GetComponent<HitFlash>();
         rbPlayer = PlayerController.Instance.GetComponent<Rigidbody2D>();
+        //spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
         currentState = EliteTiyanakState.Approach;
     }
@@ -54,9 +61,17 @@ public class EliteTiyanakAI : MonoBehaviour, IDamageable
             return;
         }
 
+        // look at player
+        LookAtPlayer();
+
+        crawling.SetActive(false);
+        crying.SetActive(false);
+        transformed.SetActive(false);
+
         switch (currentState)
         {
             case EliteTiyanakState.Approach:
+                crawling.SetActive(true);
                 ApproachPlayer();
                 if (health.IsDead())
                 {
@@ -64,6 +79,7 @@ public class EliteTiyanakAI : MonoBehaviour, IDamageable
                 }
                 break;
             case EliteTiyanakState.Transform:
+                transformed.SetActive(true);
                 TransformTiyanak();
                 if (health.IsDead())
                 {
@@ -71,8 +87,8 @@ public class EliteTiyanakAI : MonoBehaviour, IDamageable
                 }
                 break;
             case EliteTiyanakState.Lure:
+                crying.SetActive(true);
                 LurePlayer();
-
                 if (health.IsDead())
                 {
                     ChangeState(EliteTiyanakState.Dead);
@@ -87,6 +103,15 @@ public class EliteTiyanakAI : MonoBehaviour, IDamageable
     public void ChangeState(EliteTiyanakState newState)
     {
         currentState = newState;
+    }
+
+    public void LookAtPlayer()
+    {
+        var playerPosition = PlayerController.Instance.transform.position;
+        bool flipSprite = playerPosition.x < transform.position.x;
+
+        crawling.GetComponent<SpriteRenderer>().flipX = flipSprite;
+        transformed.GetComponent<SpriteRenderer>().flipX = flipSprite;
     }
 
     public void ApproachPlayer()
