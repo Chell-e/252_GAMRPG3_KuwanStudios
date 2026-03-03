@@ -17,7 +17,6 @@ public class TestPoolSpawner : MonoBehaviour
     public int waveIndex;
     public List<Wave> waves;
 
-
     void Update()
     {
         if (PlayerController.Instance.gameObject.activeSelf)
@@ -56,7 +55,12 @@ public class TestPoolSpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        PoolManager.SpawnObject(waves[waveIndex].enemyPrefab, RandomSpawnPosition(), transform.rotation, PoolManager.PoolType.Enemy);
+        GameObject enemy = PoolManager.SpawnObject(waves[waveIndex].enemyPrefab, RandomSpawnPosition(), transform.rotation, PoolManager.PoolType.Enemy);
+        EnemyAI ai = enemy.GetComponent<EnemyAI>();
+        if (ai != null)
+        {
+            ai.GetComponent<EnemyStats>().moveSpeed *= 1 + (waveIndex * 0.1f); // increase move speed by 10% per wave, increase difficulty  
+        }
         waves[waveIndex].spawnedEnemyCount++;
     }
 

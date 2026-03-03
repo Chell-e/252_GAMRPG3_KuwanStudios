@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 8910497368457177779}
   - component: {fileID: 682399242493572842}
   m_Layer: 6
-  m_Name: Juru Pakal
+  m_Name: juru pakal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

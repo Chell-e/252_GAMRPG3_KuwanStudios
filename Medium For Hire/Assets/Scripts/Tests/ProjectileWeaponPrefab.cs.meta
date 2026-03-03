@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Medium For Hire/Assets/Scripts/Weapons/HitboxType.cs.meta
+guid: 729476bdc9418d244911883312a83d81
+========
+guid: 62cdec2d762c495439a73e5b826e1bd5
+>>>>>>>> main:Medium For Hire/Assets/Scripts/Tests/ProjectileWeaponPrefab.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

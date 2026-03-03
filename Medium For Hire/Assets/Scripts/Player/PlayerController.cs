@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     public static PlayerController Instance;
 
@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Movement")]
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] Animator animator;
     private Vector3 moveDirection;
 
     [Header("Player Map Boundaries")] // for limiting player to map boundaries
@@ -51,7 +52,7 @@ public class PlayerController : MonoBehaviour
             }*/
 
         // initialize health
-        playerStats.currentHealth = playerStats.maxHealth;
+        //playerStats.currentHealth = playerStats.maxHealth;
 
         // update exp slider UI
         UIManager.Instance.UpdateExpSlider();
@@ -68,7 +69,7 @@ public class PlayerController : MonoBehaviour
         {
             lastFacingDirectionX = new Vector2(inputX, 0);
         }
-
+        
         // set movement direction
         moveDirection = new Vector2(inputX, inputY).normalized;
 
@@ -77,6 +78,16 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.flipX = true;
         if (inputX > 0)
             spriteRenderer.flipX = false;
+
+        // animation
+        if (inputX != 0 || inputY != 0)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     void FixedUpdate() // for physics update stuff
@@ -100,15 +111,14 @@ public class PlayerController : MonoBehaviour
         return lastFacingDirectionX;
     }
 
-    public void TakeDamage(int damage)
+    //public void UpdateHealth(int damage)
+    //{
+    //    GetComponent<HealthComponent>().TakeDamage(damage);
+    //    UIManager.Instance.UpdateHpSlider();
+    //}
+    public void ApplyDamage(float damage)
     {
-        playerStats.currentHealth -= damage;
-        if (playerStats.currentHealth <= 0)
-        {
-            //Die();
-            gameObject.SetActive(false);
-        }
-
+        GetComponent<HealthComponent>().TakeDamage(damage);
         UIManager.Instance.UpdateHpSlider();
     }
 

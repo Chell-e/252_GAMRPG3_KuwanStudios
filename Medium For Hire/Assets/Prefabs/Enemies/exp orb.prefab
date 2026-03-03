@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b19ab829eee0d4189f92e7eb7f977c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experienceValue: 4
+  experienceValue: 1
 --- !u!1 &7507388374793105461
 GameObject:
   m_ObjectHideFlags: 0

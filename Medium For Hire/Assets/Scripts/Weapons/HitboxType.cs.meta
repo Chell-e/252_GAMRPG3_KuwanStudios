@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 729476bdc9418d244911883312a83d81
+<<<<<<<< HEAD:Medium For Hire/Assets/Scripts/Enemies/HitFlash.cs.meta
+guid: 40899a0b4b6a28043af2f652f77707fb
+========
+guid: b2dffbe5b5d687b41b6b44e065a3a84c
+>>>>>>>> main:Medium For Hire/Assets/Scripts/Weapons/HitboxType.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

@@ -40,12 +40,12 @@ public class PoolManager : MonoBehaviour
 
     public static GameObject SpawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, PoolType poolType = PoolType.None)
     {
-        PooledObjectInfo pool = pooledObjects.Find(p => p.lookupString == objectToSpawn.name);
+        PooledObjectInfo pool = pooledObjects.Find(p => p.prefab == objectToSpawn);
 
         // if pool doesnt exist, create it
         if (pool == null)
         {
-            pool = new PooledObjectInfo() { lookupString = objectToSpawn.name };
+            pool = new PooledObjectInfo() { prefab = objectToSpawn };
             pooledObjects.Add(pool);
         }
 
@@ -60,6 +60,14 @@ public class PoolManager : MonoBehaviour
             // if no inactive objects, create new one
             spawnableObj = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
 
+            // attach pool member and set prefab name for lookup
+            var member = spawnableObj.GetComponent<PoolMember>();
+            if (member == null)
+            {
+                member = spawnableObj.AddComponent<PoolMember>();
+            }
+            member.prefab = objectToSpawn;
+
             if (parentObj != null)
             {
                 spawnableObj.transform.SetParent(parentObj.transform);
@@ -72,6 +80,13 @@ public class PoolManager : MonoBehaviour
             spawnableObj.transform.rotation = spawnRotation;
             pool.inactiveObjects.Remove(spawnableObj);
             spawnableObj.SetActive(true);
+
+            // reset health pls huhu
+            var health = spawnableObj.GetComponent<HealthComponent>();
+            if (health != null)
+            {
+                health.ResetHealth();
+            }
         }
 
         return spawnableObj;
@@ -80,13 +95,20 @@ public class PoolManager : MonoBehaviour
     public static void ReturnObjectToPool(GameObject obj)
     {
         // removes (Clone) from the passed in obj name to match the lookup string in pool
-        string goName = obj.name.Substring(0, obj.name.Length - 7);
+        //string goName = obj.name.Substring(0, obj.name.Length - 7);
 
-        PooledObjectInfo pool = pooledObjects.Find(p => p.lookupString == goName);
+        var member = obj.GetComponent<PoolMember>();
+        if (member == null)
+        {
+            Debug.LogError($"Returned object: {obj.name} does not have a PoolMember component.");
+            return;
+        }
+
+        PooledObjectInfo pool = pooledObjects.Find(p => p.prefab == member.prefab);
 
         if (pool == null)
         {
-            Debug.LogError($"No pool found for object: {goName}.");
+            Debug.LogError($"No pool found for object: {member.prefab}.");
             return;
         }
         else
@@ -111,9 +133,8 @@ public class PoolManager : MonoBehaviour
         }
     }
 }
-
 public class PooledObjectInfo
 {
-    public string lookupString;
+    public GameObject prefab;
     public List<GameObject> inactiveObjects = new List<GameObject>();
 }

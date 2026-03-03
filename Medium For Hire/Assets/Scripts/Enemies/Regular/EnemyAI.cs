@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour, IDamageable
 {
     [Header("Enemy Sprite")]
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -39,7 +39,8 @@ public class EnemyAI : MonoBehaviour
             return;
 
         // Flips sprite to always face the player
-        spriteRenderer.flipX = PlayerController.Instance.transform.position.x < transform.position.x;
+        var playerPosition = PlayerController.Instance.transform.position;
+        spriteRenderer.flipX = playerPosition.x < transform.position.x;
     }
     private void MoveTowardPlayer()
     {
@@ -60,22 +61,18 @@ public class EnemyAI : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>())
+        var player = collision.gameObject.GetComponent<PlayerController>();
+
+        if (player!= null)
         {
-            PlayerController.Instance.GetComponent<PlayerController>().TakeDamage(enemyStats.damage);
+            //PlayerController.Instance.GetComponent<PlayerController>().UpdateHealth(enemyStats.damage);
+            player.ApplyDamage(enemyStats.damage);
         }
     }
 
-    public void TakeDamage(float damageAmount)
+    public void ApplyDamage(float damageAmount)
     {
-        enemyStats.health -= damageAmount;
-        if (enemyStats.health <= 0)
-        {
-            PoolManager.ReturnObjectToPool(gameObject);
-            PoolManager.SpawnObject(orbPrefab, transform.position, transform.rotation, PoolManager.PoolType.ExpOrb);
-        }
-
-        // Hit flash fx
-        hitFlash.TriggerHitFlash();
+        GetComponent<HealthComponent>().TakeDamage(damageAmount);
+        hitFlash?.TriggerHitFlash();
     }
 }
