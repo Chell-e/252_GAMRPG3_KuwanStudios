@@ -1983,6 +1983,7 @@ MonoBehaviour:
   atkSpeedPercent: 100
   projectileSpeedPercent: 100
   movespeedPercent: 100
+  movespeedAimingPercent: 50
   pickupRangePercent: 100
 --- !u!58 &1308892173
 CircleCollider2D:
@@ -2028,11 +2029,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1308892167}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff9f0257afacb5341b18f93508b112c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a91d4f373ded5648b970efa444db4b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 0
+  currentHealth: 100
   isDead: 0
 --- !u!114 &1308892175
 MonoBehaviour:

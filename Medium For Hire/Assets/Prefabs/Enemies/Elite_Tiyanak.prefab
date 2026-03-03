@@ -352,44 +352,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5321161873318774769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40899a0b4b6a28043af2f652f77707fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a91d4f373ded5648b970efa444db4b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashcolor: {r: 1, g: 0, b: 0, a: 1}
-  flashDuration: 0.25
-  flashSpeedCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -11.452054
-      outSlope: -11.452054
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.06228682
-      value: 0.28668794
-      inSlope: -6.48966
-      outSlope: -6.48966
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.25
-      value: 0
-      inSlope: -1.5272659
-      outSlope: -1.5272659
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  maxHealth: 30
+  currentHealth: 30
+  isDead: 0
 --- !u!114 &5522720565040724332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,7 +374,7 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   rbPlayer: {fileID: 0}
   rb: {fileID: 5675215068713667036}
-  health: {fileID: 9158083853907225384}
+  health: {fileID: 0}
   crawling: {fileID: 6803321055193022755}
   crying: {fileID: 815074376179219517}
   transformed: {fileID: 4207195186061423592}
@@ -489,12 +457,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5321161873318774769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff9f0257afacb5341b18f93508b112c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 604d973c81e0d194ab6ba75531737dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
-  currentHealth: 0
-  isDead: 0
+  flashcolor: {r: 1, g: 1, b: 1, a: 1}
+  flashDuration: 0.25
+  flashSpeedCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6803321055193022755
 GameObject:
   m_ObjectHideFlags: 0

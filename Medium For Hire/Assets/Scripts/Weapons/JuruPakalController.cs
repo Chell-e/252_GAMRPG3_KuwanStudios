@@ -92,9 +92,6 @@ public class JuruPakalController : MonoBehaviour
         UpdateFinalStats();
 
 
-        if (Input.GetMouseButtonDown(1))
-            isAimed = !isAimed; // toggle
-
         if (isAimed)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -120,6 +117,8 @@ public class JuruPakalController : MonoBehaviour
 
     private void UpdateFinalStats()
     {
+        isAimed = playerStats.isAiming;
+
         finalDamage = baseDamage * (playerStats.dmgPercent / 100f);
         finalMoveSpeed = baseMoveSpeed * (playerStats.projectileSpeedPercent / 100f);
         finalRotationSpeed = baseRotationSpeed * (playerStats.projectileSpeedPercent / 100f);
@@ -135,6 +134,7 @@ public class JuruPakalController : MonoBehaviour
             chaseStopDistance = Mathf.Max(0.1f, finalMoveSpeed * .05f);
         else
             chaseStopDistance = Mathf.Min(0.25f, finalMoveSpeed * .025f); ;
+        //
 
     }
 
@@ -199,23 +199,17 @@ public class JuruPakalController : MonoBehaviour
         //    //Debug.Log(finalDamage * (playerStats.dmgPercent / 100f));
         //}
 
-        // --FIX---
         if (collision == null) return;
 
-        //EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
+        /*EnemyAI enemyAI = collision.GetComponent<EnemyAI>();
+        if (enemyAI == null) return;
 
-        //if (enemy == null) return;
+        float damage = finalDamage * (playerStats.dmgPercent / 100f); *OG
+        enemyAI.ApplyDamage(damage);*/
 
-        //float damage = finalDamage * (playerStats.dmgPercent / 100f);
-        //enemy.ApplyDamage(damage);
+        IDamageable enemyDamageable = collision.GetComponent<IDamageable>();
+        if (enemyDamageable != null) enemyDamageable.ApplyDamage(finalDamage * (playerStats.dmgPercent / 100f));
 
-        if (collision == null) return;
-
-        HealthComponent health = collision.GetComponent<HealthComponent>();
-        if (health == null) return;
-
-        float damage = finalDamage * (playerStats.dmgPercent / 100f);
-        health.TakeDamage(damage);
     }
 
     public void HandleHitboxTriggerStay(List<Collider2D> collision)
@@ -226,14 +220,24 @@ public class JuruPakalController : MonoBehaviour
         {
             foreach (var col in collision)
             {
-                if (col.GetComponent<EnemyAI>())
+                Debug.Log(col);
+
+                if (barrageDamageTimer <= 0f)
+                {
+                    IDamageable enemyDamageable = col.GetComponent<IDamageable>();
+                    if (enemyDamageable != null) enemyDamageable.ApplyDamage(finalDamage * (playerStats.dmgPercent / 100f));
+                    hitEnemy = true;
+
+                }
+
+                /*if (col.GetComponent<EnemyAI>())
                 {
                     if (barrageDamageTimer <= 0f)
                     {
                         col.GetComponent<EnemyAI>().ApplyDamage(0.1f * (playerStats.dmgPercent / 100f));
                         hitEnemy = true;
                     }
-                }
+                }*/
             }
 
             if (hitEnemy) barrageDamageTimer = barrageDamageInterval / (playerStats.projectileSpeedPercent / 100f);

@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private Vector2 maxPos;
 
     [Header("Aim Mechanics")]
-    [SerializeField] public bool IsAiming;
     [SerializeField] private Texture2D aimCursor; // change the cursor into a crosshair or smth
     [SerializeField] private Texture2D defaultCursor; // optional: leave null to use OS default
 
@@ -61,6 +60,10 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void Update() // for most update logic stuff
     {
+        if (Input.GetMouseButtonDown(1)) // *******MAKE SURE THAT THIS TRIGGERS UpdateFinalStats() ON ALL WEAPONS
+            ToggleAimMode(); // toggle
+
+
         // get player input from Input Controller
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
@@ -93,17 +96,28 @@ public class PlayerController : MonoBehaviour, IDamageable
     void FixedUpdate() // for physics update stuff
     {
         // move player
-        rb.velocity = new Vector2(
-            moveDirection.x * playerStats.GetFinalMovespeed(),
-            moveDirection.y * playerStats.GetFinalMovespeed()
-        );
+        if (!playerStats.isAiming) // if not aiming
+        {
+            rb.velocity = new Vector2(
+                moveDirection.x * playerStats.GetFinalMovespeed(),
+                moveDirection.y * playerStats.GetFinalMovespeed()
+            );
+        }
+        else
+        {
+            rb.velocity = new Vector2(
+                moveDirection.x * playerStats.GetFinalAimedMovespeed(),
+                moveDirection.y * playerStats.GetFinalAimedMovespeed()
+            );
+        }
 
-        // clamp player within map boundaries (wont need this if tileset map is implemented later)
-        transform.position = new Vector3(
-            Mathf.Clamp(transform.position.x, minPos.x, maxPos.x),
-            Mathf.Clamp(transform.position.y, minPos.y, maxPos.y),
-            transform.position.z
-        );
+
+            // clamp player within map boundaries (wont need this if tileset map is implemented later)
+            transform.position = new Vector3(
+                Mathf.Clamp(transform.position.x, minPos.x, maxPos.x),
+                Mathf.Clamp(transform.position.y, minPos.y, maxPos.y),
+                transform.position.z
+            );
     }
 
     public Vector2 GetLastFacingDirectionX() // to be called outside this class
@@ -116,10 +130,23 @@ public class PlayerController : MonoBehaviour, IDamageable
     //    GetComponent<HealthComponent>().TakeDamage(damage);
     //    UIManager.Instance.UpdateHpSlider();
     //}
+
+    private void ToggleAimMode()
+    {
+        playerStats.isAiming = !playerStats.isAiming;
+        if (playerStats.isAiming)
+        {
+            UnityEngine.Cursor.SetCursor(aimCursor, Vector2.zero, CursorMode.Auto);
+        }
+        else
+        {
+            UnityEngine.Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+        }
+    }
+
     public void ApplyDamage(float damage)
     {
         GetComponent<HealthComponent>().TakeDamage(damage);
         UIManager.Instance.UpdateHpSlider();
     }
-
 }

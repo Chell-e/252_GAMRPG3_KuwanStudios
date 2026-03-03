@@ -16,6 +16,7 @@ public class OnDeath : MonoBehaviour
         }
         else if (enemyAI != null)
         {
+            GetComponent<HitFlash>().ResetFlash();
             PoolManager.ReturnObjectToPool(gameObject);
             PoolManager.SpawnObject(enemyAI.orbPrefab, transform.position, transform.rotation, PoolManager.PoolType.ExpOrb);
         }

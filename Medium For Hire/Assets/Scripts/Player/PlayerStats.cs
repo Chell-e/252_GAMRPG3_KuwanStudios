@@ -17,6 +17,8 @@ public class PlayerStats : MonoBehaviour
     public int currentExp;
     //public List<int> expToLevelUp;
 
+    public bool isAiming = false;
+
     [Header("Health")]
     public int maxHealth;
     public int currentHealth;
@@ -28,6 +30,10 @@ public class PlayerStats : MonoBehaviour
     [Tooltip("Base, flat movement speed. Normally unupgradeable.")]
     public float movespeedBase;
     public float pickupRangeBase;
+
+
+
+
 
     [Space(5)]
     [Header("Upgrade Stats")]
@@ -50,12 +56,20 @@ public class PlayerStats : MonoBehaviour
     [Tooltip("Percentage multiplying player movement speed.")]
     public int movespeedPercent = 100;
 
+    [Tooltip("Percentage of movespeed set to when aiming.")]
+    public int movespeedAimingPercent = 50;
+
     [Header("Other Upgrades")]
     public int pickupRangePercent = 100;
 
     public float GetFinalMovespeed()
     {
         return movespeedBase * (movespeedPercent / 100f);
+    }
+
+    public float GetFinalAimedMovespeed()
+    {
+        return movespeedBase * (movespeedAimingPercent / 100f);
     }
 
     public float GetFinalStat(Stat statToFinalize)

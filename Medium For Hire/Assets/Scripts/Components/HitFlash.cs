@@ -79,7 +79,7 @@ public class HitFlash : MonoBehaviour
     }
 
     // Ensure flash is reset when object is disabled 
-    private void ResetFlash()
+    public void ResetFlash()
     {
         if (hitFlashCoroutine == null) return;
 
