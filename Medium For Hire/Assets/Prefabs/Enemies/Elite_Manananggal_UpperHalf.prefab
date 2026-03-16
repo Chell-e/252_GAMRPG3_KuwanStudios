@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3614419323694613154}
   - component: {fileID: 3932194239184293513}
   m_Layer: 0
-  m_Name: Elite_Manananggal
+  m_Name: Elite_Manananggal_UpperHalf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ Transform:
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 1127961855373912691}
+  - {fileID: 7675911192742591646}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &3583457728688792620
@@ -71,7 +71,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.8
+  m_Radius: 0.7
 --- !u!50 &4443472077385015342
 Rigidbody2D:
   serializedVersion: 4
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 7675911192742591646}
   - component: {fileID: 1744687216962908485}
   m_Layer: 0
-  m_Name: Upper_Half_Manananggal
+  m_Name: UpperHalfSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,13 +205,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2945994503167579609}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1127961855373912691}
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_Father: {fileID: 324024687481400718}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1744687216962908485
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -264,35 +264,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &8868672463134829932
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1127961855373912691}
-  m_Layer: 0
-  m_Name: UpperHalf
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1127961855373912691
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8868672463134829932}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
-  m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 7675911192742591646}
-  m_Father: {fileID: 324024687481400718}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

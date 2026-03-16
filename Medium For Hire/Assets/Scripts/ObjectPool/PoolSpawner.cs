@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPoolSpawner : MonoBehaviour
+public class PoolSpawner : MonoBehaviour
 {
     [System.Serializable]
     public class Wave
