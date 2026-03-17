@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10748fda1ec331c42ac26086de9b74e6, type: 3}
-  m_Name: Damage
+  m_Script: {fileID: 11500000, guid: d789124abbfe41a418bac04b3de46be1, type: 3}
+  m_Name: Unlock_HolyWater
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 514e05b8f8def7945809d189e2695e31, type: 3}
-  title: Increase Damage
-  description: 10% increase to DMG.
-  upgradeType: 3
-  intValue: 10
-  floatValue: 0
-  duplicates: -1
+  title: Holy Water (WEAPON)
+  description: A spray of holy water.
+  cardOutlineColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
+  maxPicks: 1
+  weaponPrefab: {fileID: 0}

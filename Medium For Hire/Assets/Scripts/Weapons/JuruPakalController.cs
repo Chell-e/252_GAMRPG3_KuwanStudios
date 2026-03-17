@@ -199,46 +199,38 @@ public class JuruPakalController : MonoBehaviour
         //    //Debug.Log(finalDamage * (playerStats.dmgPercent / 100f));
         //}
 
-        // --FIX---
         if (collision == null) return;
 
-        //EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
+        //EnemyAI enemyHit = collision.gameObject.GetComponent<EnemyAI>();
+        IDamageable enemyDamageable = collision.gameObject.GetComponent<IDamageable>();
 
-        //if (enemy == null) return;
-
-        //float damage = finalDamage * (playerStats.dmgPercent / 100f);
-        //enemy.ApplyDamage(damage);
-
-        if (collision == null) return;
-
-        HealthComponent health = collision.GetComponent<HealthComponent>();
-        if (health == null) return;
+        if (enemyDamageable == null) return;
 
         float damage = finalDamage * (playerStats.dmgPercent / 100f);
-        health.TakeDamage(damage);
+        enemyDamageable.ApplyDamage(damage);
     }
 
     public void HandleHitboxTriggerStay(List<Collider2D> collision)
     {
         bool hitEnemy = false;
 
-        if (collision != null)
+        if (collision == null) return;
+        
+        foreach (var col in collision)
         {
-            foreach (var col in collision)
+            if (col.GetComponent<EnemyAI>())
             {
-                if (col.GetComponent<EnemyAI>())
+                if (barrageDamageTimer <= 0f)
                 {
-                    if (barrageDamageTimer <= 0f)
-                    {
-                        col.GetComponent<EnemyAI>().ApplyDamage(0.1f * (playerStats.dmgPercent / 100f));
-                        hitEnemy = true;
-                    }
+                    col.GetComponent<EnemyAI>().ApplyDamage(0.1f * (playerStats.dmgPercent / 100f));
+                    hitEnemy = true;
                 }
             }
-
-            if (hitEnemy) barrageDamageTimer = barrageDamageInterval / (playerStats.projectileSpeedPercent / 100f);
-
         }
+
+        if (hitEnemy) barrageDamageTimer = barrageDamageInterval / (playerStats.projectileSpeedPercent / 100f);
+
+        
     }
 
 }
@@ -250,7 +242,7 @@ public class HitboxForwarder : MonoBehaviour
     public JuruPakalController owner;
     public HitboxType hitboxType;
 
-    private List<Collider2D> objectsInTrigger = new List<Collider2D>();
+    private List<Collider2D> objectsInTrigger = new List<Collider2D>(); // foreach OnTriggerStay2D
 
     public void SetHitboxType(HitboxType hitboxType)
     {

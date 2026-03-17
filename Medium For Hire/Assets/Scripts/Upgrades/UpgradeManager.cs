@@ -3,40 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance;
 
-    [Header("Pool & UI")]
-    [SerializeField] public UpgradeDefinition[] upgradePool;
+        [Header("Pool & UI")]
+    [SerializeField] public BaseUpgradeData[] normalUpgradePool; // this data type supports both StatUpgrade and WeaponUnlock
+    [SerializeField] public BaseUpgradeData[] specialUpgradePool;
     public GameObject cardPrefab;
     public Transform cardContainer;
 
-    [Header("Options")]
+        [Header("Options")]
     [SerializeField] public int cardsToShow = 3;
 
 
-
-    [Header("Debug")]
+        [Header("Debug")]
     private bool isOpen = false;
     private List<GameObject> spawnedCards = new List<GameObject>();
 
+    // track how many times we picked specific upgrades
+    private Dictionary<BaseUpgradeData, int> totalCardsPicked = new Dictionary<BaseUpgradeData, int>(); 
 
+    // for making SINGLETON
     private void Awake() 
     {
-        // for making SINGLETON
         if (Instance != null && Instance != this) Destroy(this);
         else Instance = this;
     }
 
-    public void ShowUpgradeOptions()
+    public void ShowUpgradeOptions(bool isSpecial)
     {
         // avoid duplicating UI
         if (isOpen) return;
 
         // return if null
-        if (upgradePool == null || upgradePool.Length == 0 || cardPrefab == null || cardContainer == null)
+        if (normalUpgradePool == null || normalUpgradePool.Length == 0 || cardPrefab == null || cardContainer == null)
         {
             Debug.LogWarning("UpgradeManager: missing references or empty pool.");
             return;
@@ -44,33 +48,26 @@ public class UpgradeManager : MonoBehaviour
 
 
         // clamp the upgrades shown between 3 and remaining pool
-        int shownCards = Mathf.Clamp(cardsToShow, 0 , upgradePool.Length);
+        int displayedCardsCount = Mathf.Clamp(cardsToShow, 0 , normalUpgradePool.Length);
 
-        // pick unique random upgrades
-        var available = upgradePool.ToList();
-        Debug.Log(available);
-
-        var chosen = new List<UpgradeDefinition>();
-        for (int i = 0; i < shownCards; i++)
-        {
-            int idx = Random.Range(0, available.Count);
-            chosen.Add(available[idx]);
-            available.RemoveAt(idx);
-        }
+        var rolledUpgrades = RollNormalUpgrades();
+        if (isSpecial) rolledUpgrades = RollSpecialUpgrades();
 
         // Pause game
         Time.timeScale = 0f;
         isOpen = true;
 
         // instantiate cards
-        foreach (var def in chosen)
+        foreach (var upgrade in rolledUpgrades)
         {
-            var go = Instantiate(cardPrefab, cardContainer);
+            var cardObject = Instantiate(cardPrefab, cardContainer);
             // ensure correct scale so layout groups size/position correctly
-            go.transform.localScale = Vector3.one;
-            var ui = go.GetComponent<UpgradeCardUI>();
-            if (ui != null) ui.Setup(def, OnCardSelected);
-            spawnedCards.Add(go);
+            cardObject.transform.localScale = Vector3.one;
+            
+            var cardUI = cardObject.GetComponent<UpgradeCardUI>();
+            if (cardUI != null) cardUI.Setup(upgrade, OnCardSelected);
+
+            spawnedCards.Add(cardObject);
         }
 
         // Force the layout system to update immediately (important when Time.timeScale == 0)
@@ -81,74 +78,184 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    private void OnCardSelected(UpgradeDefinition def)
+    private List<BaseUpgradeData> RollNormalUpgrades()
     {
-        ApplyUpgrade(def);
+        int upgradesToRoll = Mathf.Clamp(cardsToShow, 0, normalUpgradePool.Length); // how many upgrades
+
+        // copy the entire normalUpgradePool
+        var allNormalUpgrades = normalUpgradePool.ToList();
+
+        // prepare a list of upgrades to be taken from the copy
+        var rolledUpgrades = new List<BaseUpgradeData>();
+
+        for (int i = 0; i < upgradesToRoll; i++)
+        {
+            int rolledIndex = Random.Range(0, allNormalUpgrades.Count); // roll a random upgrade
+
+            int amountPicked = 0;
+            totalCardsPicked.TryGetValue(allNormalUpgrades[rolledIndex], out amountPicked); // check if this upgrade has been picked before
+            
+            if (amountPicked < allNormalUpgrades[rolledIndex].maxPicks || allNormalUpgrades[rolledIndex].maxPicks == -1)
+            {
+                rolledUpgrades.Add(allNormalUpgrades[rolledIndex]);
+
+                if (allNormalUpgrades[rolledIndex].canDuplicate == false)
+                    allNormalUpgrades.RemoveAt(rolledIndex); // remove if the upgrade doesn't dupe
+            }
+            else // if exceeded picks, remove this card
+            {
+                allNormalUpgrades.RemoveAt(rolledIndex);
+            }
+            
+        }
+
+        return rolledUpgrades;
+    }
+
+    private List<BaseUpgradeData> RollSpecialUpgrades()
+    {
+        int upgradesToRoll = Mathf.Clamp(cardsToShow, 0, specialUpgradePool.Length); // how many upgrades
+
+        // copy the entire specialUpgradePool
+        var allSpecialUpgrades = specialUpgradePool.ToList();
+
+        // prepare a list of upgrades to be taken from the copy
+        var rolledUpgrades = new List<BaseUpgradeData>();
+
+        for (int i = 0; i < upgradesToRoll; i++)
+        {
+            int rolledIndex = Random.Range(0, allSpecialUpgrades.Count); // roll a random upgrade
+
+            int amountPicked = 0;
+            totalCardsPicked.TryGetValue(allSpecialUpgrades[rolledIndex], out amountPicked); // check if this upgrade has been picked before
+
+            if (amountPicked < allSpecialUpgrades[rolledIndex].maxPicks || allSpecialUpgrades[rolledIndex].maxPicks == -1)
+            {
+                rolledUpgrades.Add(allSpecialUpgrades[rolledIndex]);
+
+                if (allSpecialUpgrades[rolledIndex].canDuplicate == false)
+                    allSpecialUpgrades.RemoveAt(rolledIndex); // remove if the upgrade doesn't dupe
+            }
+            else // if exceeded picks, remove this card
+            {
+                allSpecialUpgrades.RemoveAt(rolledIndex);
+                i -= 1;
+            }
+
+        }
+
+        return rolledUpgrades;
+    }
+
+    private void OnCardSelected(BaseUpgradeData upgrade)
+    {
+        ApplyUpgrade(upgrade);
         CloseAndCleanup();
     }
 
-    private void ApplyUpgrade(UpgradeDefinition def)
+    private void ApplyUpgrade(BaseUpgradeData upgrade)
     {
         if (PlayerController.Instance == null || PlayerController.Instance.playerStats == null)
         {
             Debug.LogWarning("UpgradeManager: no player stats to apply upgrade to.");
             return;
         }
+        //================
 
-        var stats = PlayerController.Instance.playerStats;
-        var health = PlayerController.Instance.GetComponent<HealthComponent>();
-        //var maxHealth = health.GetMaxHealth();
-        //var currentHealth = health.GetCurrentHealth();
+        // Update the totalCardsPicked dictionary
+        if (totalCardsPicked.ContainsKey(upgrade) )
+            totalCardsPicked[upgrade]++;
+        else
+            totalCardsPicked[upgrade] = 1;
 
-        switch (def.upgradeType)
+            // remove this later
+        Debug.Log("PICKS:");
+        foreach (KeyValuePair<BaseUpgradeData, int> cardPicked in totalCardsPicked)
         {
-            case UpgradeType.MaxHealthIncrease:
-                //stats.maxHealth += def.intValue;
-                //stats.currentHealth += def.intValue; // also heal by same amount
+            Debug.Log(cardPicked);
+        }
+            // remove this later
 
-                //maxHealth += def.intValue;
-                //currentHealth += def.intValue;
+        var playerStats = PlayerController.Instance.playerStats;
+        var playerHealth = PlayerController.Instance.GetComponent<HealthComponent>();
 
-                health.IncreaseMaxHealth(def.intValue);
-                UIManager.Instance.UpdateHpSlider();
-                break;
 
-            case UpgradeType.Heal:
-                //stats.currentHealth = Mathf.Min(stats.maxHealth, stats.currentHealth + def.intValue);
 
-                //currentHealth = Mathf.Min(maxHealth, currentHealth + def.intValue);
+        if (upgrade is StatUpgrade statUpgrade) // the "is" keyword checks for a specific derived type
+        {
+            var targetedStats = statUpgrade.statsUpgraded;
 
-                health.Heal(def.intValue);
-                UIManager.Instance.UpdateHpSlider();
-                break;
+            foreach (var stat in targetedStats)
+            {
+                switch (stat.statToUpgrade) // *********************** ENCAPSULATION: SET PLAYER STATS TO PRIVATE LATER.
+                {
+                    case StatUpgradeType.DamagePercent:
+                        playerStats.dmgPercent += stat.value;
+                        break;
+                    case StatUpgradeType.AttackSpeedPercent:
+                        playerStats.atkSpeedPercent += stat.value;
+                        break;
 
-            case UpgradeType.MoveSpeedIncrease:
-                stats.movespeedPercent += def.intValue;
-                break;
+                    case StatUpgradeType.MaxHealthPercent:
+                        playerStats.maxHealthPercent += stat.value;
+                        break;
+                    case StatUpgradeType.MoveSpeedPercent:
+                        playerStats.movespeedPercent += stat.value;
+                        break;
 
-            case UpgradeType.DamageIncrease:
-                stats.dmgPercent += def.intValue;
-                break;
+                    case StatUpgradeType.ProjectileSpeedPercent:
+                        playerStats.projectileSpeedPercent += stat.value;
+                        break;
 
-            case UpgradeType.ProjectileSpeedIncrease:
-                stats.projectileSpeedPercent += def.intValue;
-                break;
+                    case StatUpgradeType.Heal:
+                        playerHealth.Heal(stat.value);
+                        break;
 
-            default:
-                Debug.Log($"UpgradeManager: unhandled upgrade type {def.upgradeType}");
-                break;
+
+                    case StatUpgradeType.OffenseBonus:
+                        playerStats.offenseDomainStat += stat.value;
+                        break;
+                    case StatUpgradeType.SurvivalBonus:
+                        playerStats.survivalDomainStat += stat.value;
+                        break;
+                    case StatUpgradeType.UtilityBonus:
+                        playerStats.utilityDomainStat += stat.value;
+                        break;
+
+
+                    default:
+                        Debug.Log($"UpgradeManager: unhandled upgrade type {stat.statToUpgrade}");
+                        break;
+                }
+
+            }
+
         }
 
-        // update any relevant UI
+        if (upgrade is WeaponUnlock weaponUnlock)
+        {
+            // add new weapon to player
+        }
+
+        if (upgrade is WeaponEvolution weaponEvolution)
+        {
+            // weapon evolution logic here
+        }
+
+
+            // update any relevant UI
         UIManager.Instance.UpdateExpSlider();
         UIManager.Instance.UpdateHpSlider();
+
+            // update player
+        playerStats.UpdatePlayerStat(Stat.MaxHealth);
 
     }
 
     private void CloseAndCleanup()
     {
         // destroy spawned card GameObjects
-        foreach (var go in spawnedCards) if (go != null) Destroy(go);
+        foreach (var cardToRemove in spawnedCards) if (cardToRemove != null) Destroy(cardToRemove);
         spawnedCards.Clear();
 
         // unpause

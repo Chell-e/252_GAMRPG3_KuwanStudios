@@ -94,8 +94,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         // move player
         rb.velocity = new Vector2(
-            moveDirection.x * playerStats.GetFinalMovespeed(),
-            moveDirection.y * playerStats.GetFinalMovespeed()
+            moveDirection.x * playerStats.GetPlayerStat(Stat.FinalMoveSpeed),
+            moveDirection.y * playerStats.GetPlayerStat(Stat.FinalMoveSpeed)
         );
 
         // clamp player within map boundaries (wont need this if tileset map is implemented later)

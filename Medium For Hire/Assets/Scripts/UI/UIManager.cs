@@ -32,11 +32,12 @@ public class UIManager : MonoBehaviour
 
     public void UpdateExpSlider()
     {
-        expSlider.maxValue = PlayerController.Instance.playerStats.expToLevel;
-        expSlider.value = PlayerController.Instance.playerStats.currentExp;
+        expSlider.maxValue = PlayerController.Instance.playerStats.GetPlayerStat(Stat.ExpToLevel);
+        expSlider.value = PlayerController.Instance.playerStats.GetPlayerStat(Stat.CurrentExp);
+
         expText.text = expSlider.value + " / " + expSlider.maxValue;
 
-        levelText.text = "Level " + PlayerController.Instance.playerStats.currentLevel;
+        levelText.text = "Level " + PlayerController.Instance.playerStats.GetPlayerStat(Stat.CurrentLevel);
 
         //expSlider.maxValue = PlayerController.Instance.playerStats.expToLevelUp[PlayerController.Instance.playerStats.currentLevel - 1];
         //expSlider.value = PlayerController.Instance.playerStats.currentEXP;

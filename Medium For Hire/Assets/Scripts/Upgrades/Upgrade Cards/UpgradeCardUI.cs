@@ -11,24 +11,29 @@ public class UpgradeCardUI : MonoBehaviour
     public Image iconImage;
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI descriptionText;
+    public Image cardOutline;
     public Button selectButton;
 
-    private UpgradeDefinition definition;
-    private Action<UpgradeDefinition> onSelected;
+    //private UpgradeDefinition definition;
+    //private Action<UpgradeDefinition> onSelected;
 
-    public void Setup(UpgradeDefinition def, Action<UpgradeDefinition> onSelectedCallback)
+    private BaseUpgradeData upgradeData;
+    private Action<BaseUpgradeData> onSelected;
+
+    public void Setup(BaseUpgradeData _upgradeData, Action<BaseUpgradeData> onSelectedCallback)
     {
-        definition = def;
+        upgradeData = _upgradeData;
         onSelected = onSelectedCallback;
 
-        if (iconImage != null) iconImage.sprite = def.icon;
-        if (titleText != null) titleText.text = def.title;
-        if (descriptionText != null) descriptionText.text = def.description;
+        if (iconImage != null) iconImage.sprite = _upgradeData.icon;
+        if (titleText != null) titleText.text = _upgradeData.title;
+        if (descriptionText != null) descriptionText.text = _upgradeData.description;
+        if (cardOutline != null) cardOutline.color = _upgradeData.cardOutlineColor;
 
         if (selectButton != null)
         {
             selectButton.onClick.RemoveAllListeners();
-            selectButton.onClick.AddListener(() => onSelected?.Invoke(definition));
+            selectButton.onClick.AddListener(() => onSelected?.Invoke(upgradeData));
         }
     }
 

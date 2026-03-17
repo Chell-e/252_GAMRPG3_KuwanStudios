@@ -1559,7 +1559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1024280334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1651,7 +1651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1040966775}
   - component: {fileID: 1040966776}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: JuruPakalController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2041,6 +2041,9 @@ MonoBehaviour:
   projectileSpeedPercent: 100
   movespeedPercent: 100
   pickupRangePercent: 100
+  offenseDomainStat: 0
+  survivalDomainStat: 0
+  utilityDomainStat: 0
 --- !u!58 &1308892173
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2607,7 +2610,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1520259085}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2881,7 +2884,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1832605970}
   - component: {fileID: 1832605971}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2997,11 +3000,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fcde388ad6641e49a5a464db1e44dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradePool:
-  - {fileID: 11400000, guid: ec9f7eda4a1fd6945bd0e7325558cf2d, type: 2}
-  - {fileID: 11400000, guid: f69b34f5daa5c1c4cbdd8e5fed9e7ff1, type: 2}
-  - {fileID: 11400000, guid: 9e2f75a65e3d1c446bb0f48f5a8dbfcf, type: 2}
-  - {fileID: 11400000, guid: e78547114af040041aef9fe4f970387d, type: 2}
+  normalUpgradePool:
+  - {fileID: 11400000, guid: e6c7d0c6c02f8004188b4957194122fc, type: 2}
+  - {fileID: 11400000, guid: ed956ba1a3ab6c243a5a544c240d26fe, type: 2}
+  - {fileID: 11400000, guid: a9bab07a73fa03944818100914402aa5, type: 2}
+  - {fileID: 11400000, guid: 0bb86fa3d7f0e16478a5f7c777311aad, type: 2}
+  specialUpgradePool:
+  - {fileID: 11400000, guid: bc279ecc61087a04ead73a1214431c3d, type: 2}
+  - {fileID: 11400000, guid: 8c69eeaa2d6d04644927ab6c3c489b70, type: 2}
+  - {fileID: 11400000, guid: 44b425acdbb244246ad902b85951435a, type: 2}
   cardPrefab: {fileID: 5195733446731502837, guid: 2528ca3ba3aca334597d1cbf284dfabc, type: 3}
   cardContainer: {fileID: 1122408987}
   cardsToShow: 3

@@ -16,6 +16,11 @@ public class OnDeath : MonoBehaviour
         }
         else if (enemyAI != null)
         {
+
+            // Find a way to make HitFlash reset properly
+            // since ResetFlash() is private
+            // enemyAI.GetComponent<HitFlash>().ResetFlash();
+
             PoolManager.ReturnObjectToPool(gameObject);
             PoolManager.SpawnObject(enemyAI.orbPrefab, transform.position, transform.rotation, PoolManager.PoolType.ExpOrb);
         }
