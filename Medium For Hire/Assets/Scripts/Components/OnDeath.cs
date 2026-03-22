@@ -4,25 +4,52 @@ using UnityEngine;
 
 public class OnDeath : MonoBehaviour
 {
+    private HealthComponent health;
+
+    private void Awake()
+    {
+        health = GetComponent<HealthComponent>();
+        if (health != null )
+        {
+            health.OnDeath += HandleDeath; // Subscribe
+        }
+    }
+
     public void HandleDeath()
     {
         PlayerController playerController = GetComponent<PlayerController>();
-        EnemyAI enemyAI = GetComponent<EnemyAI>();
+        BaseEnemy baseEnemy = GetComponent<BaseEnemy>();
 
         if (playerController != null)
         {
             gameObject.SetActive(false);
-            UIManager.Instance.UpdateHpSlider();
         }
-        else if (enemyAI != null)
+        else if (baseEnemy != null)
         {
-
-            // Find a way to make HitFlash reset properly
-            // since ResetFlash() is private
-            // enemyAI.GetComponent<HitFlash>().ResetFlash();
-
+            DropLoot(baseEnemy);
             PoolManager.ReturnObjectToPool(gameObject);
-            PoolManager.SpawnObject(enemyAI.orbPrefab, transform.position, transform.rotation, PoolManager.PoolType.ExpOrb);
+        }
+    }
+
+    private void DropLoot(BaseEnemy enemy)
+    {
+        foreach (var drop in enemy.possibleDrops)
+        {
+            var random = Random.value;
+            Debug.Log(random);
+            if (random <= drop.dropChance)
+            {
+                PoolManager.SpawnObject(drop.itemPrefab, transform.position, Quaternion.identity, PoolManager.PoolType.ExpOrb);
+                break;
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if ( health != null )
+        {
+            health.OnDeath -= HandleDeath; // Unsubscribe
         }
     }
 }

@@ -83,9 +83,11 @@ public class PoolManager : MonoBehaviour
 
             // reset health pls huhu
             var health = spawnableObj.GetComponent<HealthComponent>();
-            if (health != null)
+            var hitFlash = spawnableObj.GetComponent<HitFlash>();
+            if (health != null || hitFlash != null)
             {
                 health.ResetHealth();
+                hitFlash.ResetFlash();
             }
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,46 +7,38 @@ public class HealthComponent : MonoBehaviour
 {
     [SerializeField] private float maxHealth;
     [SerializeField] private float currentHealth;
-    [SerializeField] bool isDead = false;
+    public bool IsDead { get; private set; }
 
-    private OnDeath onDeath;
+    public event Action<float, float> OnHealthChanged;
+    public event Action OnDeath;
 
     private void Awake()
     {
         currentHealth = maxHealth;
-        onDeath = GetComponent<OnDeath>();
     }
 
-    public float GetCurrentHealth()
-    {
-        return currentHealth;
-    }
-
-    public float GetMaxHealth()
-    {
-        return maxHealth;
-    }
-
-    public bool IsDead()
-    {
-        return isDead;
-    }
+    public float GetCurrentHealth() { return currentHealth; }
+    public float GetMaxHealth() { return maxHealth; }
 
     public void TakeDamage(float damage)
     {
-        if (isDead)
-            return;
+        if (IsDead) return;
 
         currentHealth -= damage;
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+
+        // TRIGGER HIT FLASH HERE
+        var hitFlash = GetComponent<HitFlash>();
+        if (hitFlash != null)
+        {
+            hitFlash.TriggerHitFlash();
+        }
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            isDead = true;
-
-            if (onDeath != null)
-            {
-                onDeath.HandleDeath();
-            }
+            IsDead = true;
+            OnDeath?.Invoke();
         }
     }
 
@@ -53,19 +46,22 @@ public class HealthComponent : MonoBehaviour
     {
         maxHealth += amount;
         currentHealth += amount;
+        OnHealthChanged?.Invoke(currentHealth, maxHealth); 
     }
 
     public void Heal(float amount)
     {
-        if (isDead)
+        if (IsDead)
             return;
 
         currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
     public void ResetHealth()
     {
         currentHealth = maxHealth;
-        isDead = false;
+        IsDead = false;
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 }

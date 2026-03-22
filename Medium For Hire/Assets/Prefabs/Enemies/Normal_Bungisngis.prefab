@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 3366300114048162784}
   - component: {fileID: 3236135436300384826}
   - component: {fileID: 547521485374839147}
-  - component: {fileID: 4477839608808946610}
+  - component: {fileID: 8777314831928768756}
   - component: {fileID: 149713768457277641}
   - component: {fileID: 1081750909805947457}
   - component: {fileID: 531879977886953976}
-  - component: {fileID: 1096893164826108737}
   - component: {fileID: 2096872244181922712}
   m_Layer: 0
   m_Name: Normal_Bungisngis
@@ -34,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6330232389157122945}
@@ -102,7 +101,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4477839608808946610
+--- !u!114 &8777314831928768756
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,12 +110,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 890917171892679484}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f32a2b62506b98d43812504a3ed93c87, type: 3}
+  m_Script: {fileID: 11500000, guid: 5863f17fe82e31a489f1252892f75abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 4369014137350994726}
-  rb: {fileID: 547521485374839147}
-  orbPrefab: {fileID: 6478155236546599093, guid: df5ce64a0dd6ade46bd618adc83f9c08, type: 3}
+  enemyType: 0
+  possibleDrops:
+  - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
+  attackDamage: 1.5
+  moveSpeed: 2
+  isKnockedBack: 0
 --- !u!114 &149713768457277641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,9 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9f0257afacb5341b18f93508b112c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 8
+  maxHealth: 10
   currentHealth: 0
-  isDead: 0
 --- !u!114 &1081750909805947457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,20 +192,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1096893164826108737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890917171892679484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34acf1c22e7121140b9fef59083742b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 3
-  moveSpeed: 1.1
 --- !u!114 &2096872244181922712
 MonoBehaviour:
   m_ObjectHideFlags: 0

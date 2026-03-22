@@ -48,7 +48,7 @@ public class HitFlash : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             currentFlashAmount = Mathf.Lerp(1f, flashSpeedCurve.Evaluate(elapsedTime), (elapsedTime / flashDuration));
-            
+
             spriteRenderer.GetPropertyBlock(mpb);
             mpb.SetFloat("_FlashAmount", currentFlashAmount);
             spriteRenderer.SetPropertyBlock(mpb);
@@ -78,14 +78,26 @@ public class HitFlash : MonoBehaviour
         spriteRenderer.SetPropertyBlock(mpb);
     }
 
+
     // Ensure flash is reset when object is disabled 
-    private void ResetFlash()
+    public void ResetFlash()
     {
-        if (hitFlashCoroutine == null) return;
+        //if (hitFlashCoroutine == null) return;
 
         spriteRenderer.GetPropertyBlock(mpb);
         mpb.SetFloat("_FlashAmount", 0f);
         mpb.SetColor("_FlashColor", flashcolor);
         spriteRenderer.SetPropertyBlock(mpb);
+
+        if (hitFlashCoroutine != null)
+        {
+            StopCoroutine(hitFlashCoroutine);
+            hitFlashCoroutine = null;
+        }
+    }
+
+    private void OnDisable()
+    {
+        ResetFlash();
     }
 }

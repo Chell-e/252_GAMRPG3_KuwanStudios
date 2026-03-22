@@ -29,8 +29,20 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        var health = PlayerController.Instance.GetComponent<HealthComponent>();
+        float currentHealth = health.GetCurrentHealth();
+        float maxHealth = health.GetMaxHealth();
 
-    public void UpdateExpSlider()
+        if (health != null)
+        {
+            health.OnHealthChanged += UpdateHpUI;
+            UpdateHpUI(currentHealth, maxHealth);
+        }
+    }
+
+    public void UpdateExpUI()
     {
         expSlider.maxValue = PlayerController.Instance.playerStats.GetPlayerStat(Stat.ExpToLevel);
         expSlider.value = PlayerController.Instance.playerStats.GetPlayerStat(Stat.CurrentExp);
@@ -44,15 +56,21 @@ public class UIManager : MonoBehaviour
         //expText.text = expSlider.value + " / " + expSlider.maxValue;    
     }
 
-
-    public void UpdateHpSlider()
+    public void UpdateHpUI(float current, float max)
     {
-        //hpSlider.maxValue = PlayerController.Instance.playerStats.maxHealth;
-        //hpSlider.value = PlayerController.Instance.playerStats.currentHealth;
-        var health = PlayerController.Instance.GetComponent<HealthComponent>();
-        hpSlider.maxValue = health.GetMaxHealth();
-        hpSlider.value = health.GetCurrentHealth();
-
-        hpText.text = hpSlider.value + " / " + hpSlider.maxValue;
+        hpSlider.maxValue = max;
+        hpSlider.value = current;
+        hpText.text = current + " / " + max;
     }
+
+    //public void UpdateHpSlider()
+    //{
+    //    //hpSlider.maxValue = PlayerController.Instance.playerStats.maxHealth;
+    //    //hpSlider.value = PlayerController.Instance.playerStats.currentHealth;
+    //    var health = PlayerController.Instance.GetComponent<HealthComponent>();
+    //    hpSlider.maxValue = health.GetMaxHealth();
+    //    hpSlider.value = health.GetCurrentHealth();
+
+    //    hpText.text = hpSlider.value + " / " + hpSlider.maxValue;
+    //}
 }

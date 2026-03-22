@@ -1,103 +1,115 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PoolSpawner : MonoBehaviour
 {
     [System.Serializable]
+    public class EnemyEntry
+    {
+        public GameObject normalPrefab;
+        public GameObject elitePrefab;
+        public float unlockTime; // time in seconds when this enemy joins
+    }
+
+    [System.Serializable]
     public class Wave
     {
-        public GameObject enemyPrefab;
         public float spawnTimer;
         public float spawnInterval;
         public int enemiesPerWave;
         public int spawnedEnemyCount;
     }
 
+    [Header("Elite Settings")]
+    private float eliteTimer = 0f;
+    public float eliteSpawnInterval = 60f; // spawn elite every 60s
+
+    [Header("Enemy Unlocks")]
+    public List<EnemyEntry> enemyEntries;   
+    private List<GameObject> activeNormals = new List<GameObject>();
+    private List <GameObject> activeElites = new List<GameObject>();
+
+    [Header("Wave Settings")]
     public int waveIndex;
     public List<Wave> waves;
 
+    private float elapsedTime = 0f;
+
     void Update()
     {
-        if (PlayerController.Instance.gameObject.activeSelf)
+        if (!PlayerController.Instance.gameObject.activeSelf) return;
+
+        elapsedTime += Time.deltaTime;
+        eliteTimer += Time.deltaTime;
+
+        // unlock enemies based on time
+        foreach (var entry in enemyEntries)
         {
-            waves[waveIndex].spawnTimer += Time.deltaTime;
-
-            if (waves[waveIndex].spawnTimer >= waves[waveIndex].spawnInterval)
+            if (elapsedTime >= entry.unlockTime && !activeNormals.Contains(entry.normalPrefab))
             {
-                // more accurate than resetting to 0
-                waves[waveIndex].spawnTimer = waves[waveIndex].spawnTimer - waves[waveIndex].spawnInterval;
-                SpawnEnemy();
-            }
-            // once all enemies in wave have been spawned, move to next wave
-            if (waves[waveIndex].spawnedEnemyCount >= waves[waveIndex].enemiesPerWave)
-            {
-                // reset spawned enemy count for current wave
-                waves[waveIndex].spawnedEnemyCount = 0;
-
-                // doesnt go below 0.3 seconds spawn interval
-                if (waves[waveIndex].spawnInterval > 0.3f)
-                {
-                    waves[waveIndex].spawnInterval *= 0.9f; // reduce spawn interval by 10%, increase difficulty
-                }
-
-                waveIndex++;
-            }
-
-            //// cycles back to first wave
-            if (waveIndex >= waves.Count)
-            {
-                waveIndex = 0;
+                activeNormals.Add(entry.normalPrefab);
+                activeElites.Add(entry.elitePrefab); // when a normal enemy is unlocked, add its elite version too
             }
         }
 
+        if (eliteTimer >= eliteSpawnInterval)
+        {
+            eliteTimer = 0f;
+            SpawnElite();
+        }
+
+        HandleWaveSpawning();
+    }
+
+    private void HandleWaveSpawning()
+    {
+        Wave wave = waves[waveIndex];
+        wave.spawnTimer += Time.deltaTime;
+
+        if (wave.spawnTimer >= wave.spawnInterval)
+        {
+            wave.spawnTimer -= wave.spawnInterval;
+            SpawnEnemy();
+        }
+
+        if (wave.spawnedEnemyCount >= wave.enemiesPerWave)
+        {
+            wave.spawnedEnemyCount = 0;
+
+            if (wave.spawnInterval > 0.3f)
+                wave.spawnInterval *= 0.9f; 
+
+            waveIndex = (waveIndex + 1) % waves.Count; 
+        }
+    }
+
+    private void SpawnElite()
+    {
+        if (activeElites.Count == 0) return;
+
+        // pick a random unlocked elite
+        GameObject prefab = activeElites[Random.Range(0, activeElites.Count)];
+        GameObject elite = PoolManager.SpawnObject(prefab, RandomSpawnPosition(), Quaternion.identity, PoolManager.PoolType.Enemy);
     }
 
     private void SpawnEnemy()
     {
-        GameObject enemy = PoolManager.SpawnObject(waves[waveIndex].enemyPrefab, RandomSpawnPosition(), transform.rotation, PoolManager.PoolType.Enemy);
-        EnemyAI ai = enemy.GetComponent<EnemyAI>();
-        if (ai != null)
-        {
-            ai.GetComponent<EnemyStats>().moveSpeed *= 1 + (waveIndex * 0.1f); // increase move speed by 10% per wave, increase difficulty  
-        }
+        if (activeNormals.Count == 0) return;
+
+        // pick a random unlocked enemy
+        GameObject prefab = activeNormals[Random.Range(0, activeNormals.Count)];
+        GameObject enemy = PoolManager.SpawnObject(prefab, RandomSpawnPosition(), Quaternion.identity, PoolManager.PoolType.Enemy);
+
         waves[waveIndex].spawnedEnemyCount++;
     }
 
     private Vector2 RandomSpawnPosition()
     {
         float edgeOffset = 1.1f;
+        Vector2 pos = Random.value > 0.5f
+            ? new Vector2(Random.value > 0.5f ? 1 - edgeOffset : edgeOffset, Random.value)
+            : new Vector2(Random.value, Random.value > 0.5f ? 1 - edgeOffset : edgeOffset);
 
-        Vector2 spawnViewportPos;
-        Vector2 spawnWorldPos;
-
-        // coin flip (horizontal/vertical)
-        if (Random.Range(0f, 1f) > 0.5f)
-        {
-            // left/right
-            if (Random.Range(0f, 1f) > 0.5f)
-            {
-                spawnViewportPos = new Vector3(1 - edgeOffset, Random.value);
-            }
-            else
-            {
-                spawnViewportPos = new Vector3(edgeOffset, Random.value);
-            }
-        }
-        else
-        {
-            // top/bottom
-            if (Random.Range(0f, 1f) > 0.5f)
-            {
-                spawnViewportPos = new Vector3(Random.value, 1 - edgeOffset);
-            }
-            else
-            {
-                spawnViewportPos = new Vector3(Random.value, edgeOffset);
-            }
-        }
-
-        spawnWorldPos = Camera.main.ViewportToWorldPoint(spawnViewportPos);
-        return spawnWorldPos;
+        return Camera.main.ViewportToWorldPoint(pos);
     }
 }

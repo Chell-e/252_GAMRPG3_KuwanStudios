@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
 
@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private Vector2 maxPos;
 
     [Header("Aim Mechanics")]
-    [SerializeField] public bool IsAiming;
+    //[SerializeField] public bool IsAiming;
     [SerializeField] private Texture2D aimCursor; // change the cursor into a crosshair or smth
     [SerializeField] private Texture2D defaultCursor; // optional: leave null to use OS default
 
@@ -55,12 +55,14 @@ public class PlayerController : MonoBehaviour, IDamageable
         //playerStats.currentHealth = playerStats.maxHealth;
 
         // update exp slider UI
-        UIManager.Instance.UpdateExpSlider();
-        UIManager.Instance.UpdateHpSlider();
+        UIManager.Instance.UpdateExpUI();
     }
 
     void Update() // for most update logic stuff
     {
+        if (Input.GetMouseButtonDown(1)) // *******MAKE SURE THAT THIS TRIGGERS UpdateFinalStats() ON ALL WEAPONS
+            ToggleAimMode(); // toggle
+
         // get player input from Input Controller
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
@@ -92,11 +94,34 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void FixedUpdate() // for physics update stuff
     {
-        // move player
-        rb.velocity = new Vector2(
-            moveDirection.x * playerStats.GetPlayerStat(Stat.FinalMoveSpeed),
-            moveDirection.y * playerStats.GetPlayerStat(Stat.FinalMoveSpeed)
-        );
+        //// move player
+        //rb.velocity = new Vector2(
+        //    moveDirection.x * playerStats.GetPlayerStat(Stat.FinalMoveSpeed),
+        //    moveDirection.y * playerStats.GetPlayerStat(Stat.FinalMoveSpeed)
+        //);
+
+        //// clamp player within map boundaries (wont need this if tileset map is implemented later)
+        //transform.position = new Vector3(
+        //    Mathf.Clamp(transform.position.x, minPos.x, maxPos.x),
+        //    Mathf.Clamp(transform.position.y, minPos.y, maxPos.y),
+        //    transform.position.z
+        //);
+
+        if (!playerStats.isAiming) // if not aiming
+        {
+            rb.velocity = new Vector2(
+                moveDirection.x * playerStats.GetFinalMovespeed(),
+                moveDirection.y * playerStats.GetFinalMovespeed()
+            );
+        }
+        else
+        {
+            rb.velocity = new Vector2(
+                moveDirection.x * playerStats.GetFinalAimedMovespeed(),
+                moveDirection.y * playerStats.GetFinalAimedMovespeed()
+            );
+        }
+
 
         // clamp player within map boundaries (wont need this if tileset map is implemented later)
         transform.position = new Vector3(
@@ -116,10 +141,23 @@ public class PlayerController : MonoBehaviour, IDamageable
     //    GetComponent<HealthComponent>().TakeDamage(damage);
     //    UIManager.Instance.UpdateHpSlider();
     //}
-    public void ApplyDamage(float damage)
+
+    private void ToggleAimMode()
     {
-        GetComponent<HealthComponent>().TakeDamage(damage);
-        UIManager.Instance.UpdateHpSlider();
+        playerStats.isAiming = !playerStats.isAiming;
+        if (playerStats.isAiming)
+        {
+            UnityEngine.Cursor.SetCursor(aimCursor, Vector2.zero, CursorMode.Auto);
+        }
+        else
+        {
+            UnityEngine.Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+        }
     }
 
+
+    public void TakeDamage(float damage)
+    {
+        GetComponent<HealthComponent>().TakeDamage(damage);
+    }
 }

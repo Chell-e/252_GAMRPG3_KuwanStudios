@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7215145029685732684
 Transform:
   m_ObjectHideFlags: 0
@@ -378,11 +378,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4226368186068965917}
-  - component: {fileID: 1870942896393968486}
-  - component: {fileID: 5522720565040724332}
   - component: {fileID: 5675215068713667036}
   - component: {fileID: 4321998263819937999}
+  - component: {fileID: 398668653929753789}
   - component: {fileID: 9158083853907225384}
+  - component: {fileID: 3743106294744777836}
+  - component: {fileID: 1870942896393968486}
+  - component: {fileID: 4070578649576019979}
   m_Layer: 0
   m_Name: Elite_Tiyanak
   m_TagString: Untagged
@@ -400,88 +402,13 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7175620991717000608}
   - {fileID: 7109270774496205058}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1870942896393968486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5321161873318774769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40899a0b4b6a28043af2f652f77707fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flashcolor: {r: 1, g: 0, b: 0, a: 1}
-  flashDuration: 0.25
-  flashSpeedCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -11.452054
-      outSlope: -11.452054
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.06228682
-      value: 0.28668794
-      inSlope: -6.48966
-      outSlope: -6.48966
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.25
-      value: 0
-      inSlope: -1.5272659
-      outSlope: -1.5272659
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &5522720565040724332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5321161873318774769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d5b8e7edae2c254095534997914fd20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: 0
-  playerTransform: {fileID: 0}
-  rbPlayer: {fileID: 0}
-  rb: {fileID: 5675215068713667036}
-  health: {fileID: 9158083853907225384}
-  crawling: {fileID: 6803321055193022755}
-  crying: {fileID: 815074376179219517}
-  transformed: {fileID: 4207195186061423592}
-  approachSpeed: 1
-  transformSpeed: 3
-  hasTransformed: 0
-  influenceRange: 10
-  intensity: 80
-  distanceToPlayer: 0
-  lureCollider: {fileID: 4465729328267722292}
-  transformCollider: {fileID: 5896083197987586221}
 --- !u!50 &5675215068713667036
 Rigidbody2D:
   serializedVersion: 4
@@ -544,6 +471,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.8
+--- !u!114 &398668653929753789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5321161873318774769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5863f17fe82e31a489f1252892f75abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 1
+  possibleDrops:
+  - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
+  attackDamage: 1
+  moveSpeed: 2
+  isKnockedBack: 0
 --- !u!114 &9158083853907225384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -558,7 +503,78 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   currentHealth: 0
-  isDead: 0
+--- !u!114 &3743106294744777836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5321161873318774769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb81083cc8a3ddd408efc4af94188879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1870942896393968486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5321161873318774769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40899a0b4b6a28043af2f652f77707fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashcolor: {r: 1, g: 1, b: 1, a: 1}
+  flashDuration: 0.25
+  flashSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -11.452054
+      outSlope: -11.452054
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.06228682
+      value: 0.28668794
+      inSlope: -6.48966
+      outSlope: -6.48966
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.25
+      value: 0
+      inSlope: -1.5272659
+      outSlope: -1.5272659
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &4070578649576019979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5321161873318774769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 355f91dca6fb8eb4d830c28265f8a881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5321161873318774769}
 --- !u!1 &6803321055193022755
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,7 +591,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1495265914866588324
 Transform:
   m_ObjectHideFlags: 0

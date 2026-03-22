@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 5047458127875363129}
   - component: {fileID: 2644516638210991229}
   - component: {fileID: 1076813881236424299}
+  - component: {fileID: 3831841459158012396}
   m_Layer: 0
-  m_Name: EXP Orb
+  m_Name: exp orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +82,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b19ab829eee0d4189f92e7eb7f977c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experienceValue: 1
+  maxExperienceValue: 5
+--- !u!114 &3831841459158012396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6478155236546599093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 355f91dca6fb8eb4d830c28265f8a881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6478155236546599093}
 --- !u!1 &7507388374793105461
 GameObject:
   m_ObjectHideFlags: 0

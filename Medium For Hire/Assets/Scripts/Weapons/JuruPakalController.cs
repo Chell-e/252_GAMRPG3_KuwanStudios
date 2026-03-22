@@ -14,6 +14,10 @@ public class JuruPakalController : MonoBehaviour
         Barrage // <- only one implemented right now
     }
 
+    [Header("Knockback Applied")] // ========== new!
+    public float knockbackForce = 5f;
+    public float knockbackDuration = 1f;
+
     [Header("Weapon Base Stats")]
     [SerializeField] private float baseDamage = 2f;
     [SerializeField] private float baseRotationSpeed = -0.5f; // in rotations per second
@@ -24,8 +28,6 @@ public class JuruPakalController : MonoBehaviour
     [SerializeField] private float finalDamage;
     [SerializeField] private float finalRotationSpeed;
     [SerializeField] private float finalMoveSpeed;
-
-
 
     [Header("Barrage Evolution Stats")]
     [SerializeField] private JuruPakalEvolution currentEvolution = JuruPakalEvolution.Base;
@@ -69,7 +71,6 @@ public class JuruPakalController : MonoBehaviour
         var forwarder = weaponArea.AddComponent<HitboxForwarder>();
         forwarder.SetHitboxType(HitboxType.Hit);
         forwarder.owner = this;
-
 
         Evolve(JuruPakalEvolution.Barrage);
     }
@@ -201,13 +202,17 @@ public class JuruPakalController : MonoBehaviour
 
         if (collision == null) return;
 
-        //EnemyAI enemyHit = collision.gameObject.GetComponent<EnemyAI>();
-        IDamageable enemyDamageable = collision.gameObject.GetComponent<IDamageable>();
+        BaseEnemy enemyHit = collision.gameObject.GetComponent<BaseEnemy>();
 
-        if (enemyDamageable == null) return;
+        if (enemyHit == null) return;
 
         float damage = finalDamage * (playerStats.dmgPercent / 100f);
-        enemyDamageable.ApplyDamage(damage);
+        enemyHit.GetComponent<HealthComponent>().TakeDamage(damage);
+
+        // APPLY KNOCKBACK
+        Vector2 direction = (enemyHit.transform.position - weaponArea.transform.position).normalized;
+        enemyHit.ApplyKnockback(direction, knockbackForce, knockbackDuration); 
+        Debug.Log("apply knockback, direction: " + direction);
     }
 
     public void HandleHitboxTriggerStay(List<Collider2D> collision)
@@ -218,11 +223,11 @@ public class JuruPakalController : MonoBehaviour
         
         foreach (var col in collision)
         {
-            if (col.GetComponent<EnemyAI>())
+            if (col.GetComponent<BaseEnemy>())
             {
                 if (barrageDamageTimer <= 0f)
                 {
-                    col.GetComponent<EnemyAI>().ApplyDamage(0.1f * (playerStats.dmgPercent / 100f));
+                    col.GetComponent<HealthComponent>().TakeDamage(0.1f * (playerStats.dmgPercent / 100f));
                     hitEnemy = true;
                 }
             }
@@ -257,7 +262,6 @@ public class HitboxForwarder : MonoBehaviour
         {
             objectsInTrigger.Add(other);
         }
-
     }
 
     private void OnTriggerStay2D(Collider2D other)

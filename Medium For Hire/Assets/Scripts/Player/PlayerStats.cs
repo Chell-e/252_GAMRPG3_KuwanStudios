@@ -45,7 +45,9 @@ public class PlayerStats : MonoBehaviour
     public int currentExp;
     //public List<int> expToLevelUp;
 
-        [Header("Health")]
+    public bool isAiming = false;
+
+    [Header("Health")]
     public int maxHealth;
     public int currentHealth;
 
@@ -81,7 +83,10 @@ public class PlayerStats : MonoBehaviour
             [Tooltip("Percentage multiplying player movement speed.")]
     public int movespeedPercent = 100;
 
-        [Header("Other Upgrades")]
+    [Tooltip("Percentage of movespeed set to when aiming.")]
+    public int movespeedAimingPercent = 50;
+
+    [Header("Other Upgrades")]
     public int pickupRangePercent = 100;
 
 
@@ -90,6 +95,18 @@ public class PlayerStats : MonoBehaviour
     public int offenseDomainStat = 0;
     public int survivalDomainStat = 0;
     public int utilityDomainStat = 0;
+
+
+    public float GetFinalMovespeed()
+    {
+        return movespeedBase * (movespeedPercent / 100f);
+    }
+
+
+    public float GetFinalAimedMovespeed()
+    {
+        return movespeedBase * (movespeedAimingPercent / 100f);
+    }
 
     // GETTER
     public float GetPlayerStat(Stat statToFinalize)
@@ -170,9 +187,9 @@ public class PlayerStats : MonoBehaviour
 
     public void GainExperience(int amount)
     {
-        //currentExp += amount;
-        currentExp += 10;
-        UIManager.Instance.UpdateExpSlider();
+        currentExp += amount;
+        //currentExp += 10;
+        UIManager.Instance.UpdateExpUI();
 
         if (currentExp >= expToLevel)
         {
@@ -186,7 +203,7 @@ public class PlayerStats : MonoBehaviour
 
             
 
-            UIManager.Instance.UpdateExpSlider();
+            UIManager.Instance.UpdateExpUI();
         }
 
         /*int index = playerStats.currentLevel - 1;

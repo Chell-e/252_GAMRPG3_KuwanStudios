@@ -198,6 +198,7 @@ public class UpgradeManager : MonoBehaviour
 
                     case StatUpgradeType.MaxHealthPercent:
                         playerStats.maxHealthPercent += stat.value;
+                        playerHealth.IncreaseMaxHealth(Mathf.RoundToInt(playerHealth.GetMaxHealth() * stat.value));
                         break;
                     case StatUpgradeType.MoveSpeedPercent:
                         playerStats.movespeedPercent += stat.value;
@@ -244,8 +245,8 @@ public class UpgradeManager : MonoBehaviour
 
 
             // update any relevant UI
-        UIManager.Instance.UpdateExpSlider();
-        UIManager.Instance.UpdateHpSlider();
+        UIManager.Instance.UpdateExpUI();
+        //UIManager.Instance.UpdateHpSlider();
 
             // update player
         playerStats.UpdatePlayerStat(Stat.MaxHealth);
