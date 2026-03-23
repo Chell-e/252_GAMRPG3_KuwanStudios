@@ -18,4 +18,6 @@ MonoBehaviour:
   cardOutlineColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
   maxPicks: -1
   canDuplicate: 1
+  requirements:
+  - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}
   weaponPrefab: {fileID: 0}

@@ -212,7 +212,7 @@ public class JuruPakalController : MonoBehaviour
         // APPLY KNOCKBACK
         Vector2 direction = (enemyHit.transform.position - weaponArea.transform.position).normalized;
         enemyHit.ApplyKnockback(direction, knockbackForce, knockbackDuration); 
-        Debug.Log("apply knockback, direction: " + direction);
+            //Debug.Log("apply knockback, direction: " + direction);
     }
 
     public void HandleHitboxTriggerStay(List<Collider2D> collision)

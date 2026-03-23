@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public enum EnemyType
@@ -67,12 +68,22 @@ public abstract class BaseEnemy : MonoBehaviour
 
     private IEnumerator DamageTick(PlayerController player)
     {
-        var playerHealth = player.GetComponent<HealthComponent>();
+        // Don't access
+        /*var playerHealth = player.GetComponent<HealthComponent>();
         while (true)
         {
             if (playerHealth != null && !playerHealth.IsDead)
             {
                 playerHealth.TakeDamage(attackDamage);
+            }
+            yield return new WaitForSeconds(0.7f); // -------> Adjust if necessary!
+        }*/
+
+        while (true)
+        {
+            if (player != null && !player.GetComponent<HealthComponent>().IsDead)
+            {
+                player.TakeDamage(attackDamage, this);
             }
             yield return new WaitForSeconds(0.7f); // -------> Adjust if necessary!
         }
@@ -98,6 +109,16 @@ public abstract class BaseEnemy : MonoBehaviour
         isKnockedBack = false;
     }
     // ====================== KNOCKBACK
+
+
+    // ====================== DAMAGE
+    public void TakeDamage(float damage)
+    {
+        health.TakeDamage(damage);
+    }
+    // ====================== DAMAGE
+
+
     protected virtual void Move()
     {
         if (isKnockedBack) return;

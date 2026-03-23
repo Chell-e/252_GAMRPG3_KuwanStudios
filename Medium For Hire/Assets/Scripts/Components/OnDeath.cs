@@ -36,7 +36,7 @@ public class OnDeath : MonoBehaviour
         foreach (var drop in enemy.possibleDrops)
         {
             var random = Random.value;
-            Debug.Log(random);
+            //Debug.Log(random);
             if (random <= drop.dropChance)
             {
                 PoolManager.SpawnObject(drop.itemPrefab, transform.position, Quaternion.identity, PoolManager.PoolType.ExpOrb);

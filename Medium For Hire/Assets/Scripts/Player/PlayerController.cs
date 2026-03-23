@@ -6,28 +6,9 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
-
-    [Header("Player Sprite")]
-    [SerializeField] private SpriteRenderer spriteRenderer;
-
-    [Header("Player Movement")]
-    [SerializeField] private Rigidbody2D rb;
-    [SerializeField] Animator animator;
-    private Vector3 moveDirection;
-
-    [Header("Player Map Boundaries")] // for limiting player to map boundaries
-    [SerializeField] private Vector2 minPos;
-    [SerializeField] private Vector2 maxPos;
-
-    [Header("Aim Mechanics")]
-    //[SerializeField] public bool IsAiming;
-    [SerializeField] private Texture2D aimCursor; // change the cursor into a crosshair or smth
-    [SerializeField] private Texture2D defaultCursor; // optional: leave null to use OS default
-
-    public PlayerStats playerStats;
-    //private Vector2 lastFacingDirection = Vector2.right;
-    private Vector2 lastFacingDirectionX = Vector2.right;
-
+    [SerializeField] public PlayerStats playerStats;
+    [SerializeField] public PlayerEvents Events;
+    [SerializeField] public WeaponManager weaponManager;
     private void Awake() // for SINGLETON
     {
         // singleton 
@@ -41,9 +22,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    [Header("Player Sprite")]
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
+        [Header("Player Movement")]
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] Animator animator;
+    private Vector3 moveDirection;
+
+        [Header("Player Map Boundaries")] // for limiting player to map boundaries
+    [SerializeField] private Vector2 minPos;
+    [SerializeField] private Vector2 maxPos;
+
+        [Header("Aim Mechanics")]
+    //[SerializeField] public bool IsAiming;
+    [SerializeField] private Texture2D aimCursor; // change the cursor into a crosshair or smth
+    [SerializeField] private Texture2D defaultCursor; // optional: leave null to use OS default
+
+    //private Vector2 lastFacingDirection = Vector2.right;
+    private Vector2 lastFacingDirectionX = Vector2.right;
+
+    
+
     void Start()
     {
-        playerStats = GetComponent<PlayerStats>();
+        //playerStats = GetComponent<PlayerStats>();
         
         /*exp needed for each level up(currently 10 muna per level)
         for (int i = 0; i < playerStats.maxLevel; i++)
@@ -94,31 +98,21 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate() // for physics update stuff
     {
-        //// move player
-        //rb.velocity = new Vector2(
-        //    moveDirection.x * playerStats.GetPlayerStat(Stat.FinalMoveSpeed),
-        //    moveDirection.y * playerStats.GetPlayerStat(Stat.FinalMoveSpeed)
-        //);
-
-        //// clamp player within map boundaries (wont need this if tileset map is implemented later)
-        //transform.position = new Vector3(
-        //    Mathf.Clamp(transform.position.x, minPos.x, maxPos.x),
-        //    Mathf.Clamp(transform.position.y, minPos.y, maxPos.y),
-        //    transform.position.z
-        //);
+        var finalMoveSpeed = playerStats.GetPlayerStat(Stat.FinalMoveSpeed);
+        var finalAimedMoveSpeed = playerStats.GetPlayerStat(Stat.FinalAimedMoveSpeed);
 
         if (!playerStats.isAiming) // if not aiming
         {
             rb.velocity = new Vector2(
-                moveDirection.x * playerStats.GetFinalMovespeed(),
-                moveDirection.y * playerStats.GetFinalMovespeed()
+                moveDirection.x * finalMoveSpeed,
+                moveDirection.y * finalMoveSpeed
             );
         }
         else
         {
             rb.velocity = new Vector2(
-                moveDirection.x * playerStats.GetFinalAimedMovespeed(),
-                moveDirection.y * playerStats.GetFinalAimedMovespeed()
+                moveDirection.x * finalAimedMoveSpeed,
+                moveDirection.y * finalAimedMoveSpeed
             );
         }
 
@@ -136,28 +130,56 @@ public class PlayerController : MonoBehaviour
         return lastFacingDirectionX;
     }
 
-    //public void UpdateHealth(int damage)
-    //{
-    //    GetComponent<HealthComponent>().TakeDamage(damage);
-    //    UIManager.Instance.UpdateHpSlider();
-    //}
-
     private void ToggleAimMode()
     {
+        Events.OnAimToggle?.Invoke();
+
         playerStats.isAiming = !playerStats.isAiming;
         if (playerStats.isAiming)
         {
+            Events.OnAimActivate?.Invoke();
             UnityEngine.Cursor.SetCursor(aimCursor, Vector2.zero, CursorMode.Auto);
         }
         else
         {
+            Events.OnAimDeactivate?.Invoke();
             UnityEngine.Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
         }
     }
 
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, object damageSource = null)
     {
-        GetComponent<HealthComponent>().TakeDamage(damage);
+        DamageContext context = new DamageContext(); // context object
+        context.damage = damage;
+
+            // this below gives the enemy the option to pass itself as a target for proccing OnBeforeGetHit events.
+            // simply pass "this" if so ---> TakeDamage(10, this)
+        context.target = damageSource is BaseEnemy enemy
+            ? enemy
+            : null; 
+
+        /*EVENT*/ Events.OnBeforeGetHit?.Invoke(context);
+
+        if (!context.isNulled)
+            GetComponent<HealthComponent>().TakeDamage(damage);
+
+        /*EVENT*/ Events.OnAfterGetHit?.Invoke(context);
+
+    }
+
+    // call this for proccing OnDamage effects 
+    public void DealDamage(float damage, BaseEnemy enemy)
+    {
+        DamageContext context = new DamageContext();
+        context.damage = damage;
+        context.target = enemy;
+
+            // invoke events
+        /*EVENT*/ Events.OnBeforeDealDamage?.Invoke(context);
+
+        enemy.TakeDamage(damage);
+
+        /*EVENT*/ Events.OnAfterDealDamage?.Invoke(context);
     }
 }

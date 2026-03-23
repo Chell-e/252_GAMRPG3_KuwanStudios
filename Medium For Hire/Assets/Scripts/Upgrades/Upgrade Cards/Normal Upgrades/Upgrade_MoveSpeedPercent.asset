@@ -17,6 +17,9 @@ MonoBehaviour:
   description: +15% Movement Speed.
   cardOutlineColor: {r: 0, g: 1, b: 0, a: 1}
   maxPicks: -1
+  canDuplicate: 0
+  requirements:
+  - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}
   statsUpgraded:
   - statToUpgrade: 3
     value: 15

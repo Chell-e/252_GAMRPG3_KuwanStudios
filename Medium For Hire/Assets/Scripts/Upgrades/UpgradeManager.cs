@@ -6,9 +6,28 @@ using System.Linq;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
+public enum UpgradePool
+{
+    Normal,
+    Special
+}
+
 public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance;
+    private void Awake() // for SINGLETON
+    {
+        // singleton 
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
 
         [Header("Pool & UI")]
     [SerializeField] public BaseUpgradeData[] normalUpgradePool; // this data type supports both StatUpgrade and WeaponUnlock
@@ -16,23 +35,20 @@ public class UpgradeManager : MonoBehaviour
     public GameObject cardPrefab;
     public Transform cardContainer;
 
+
         [Header("Options")]
     [SerializeField] public int cardsToShow = 3;
 
 
         [Header("Debug")]
     private bool isOpen = false;
-    private List<GameObject> spawnedCards = new List<GameObject>();
+    private List<GameObject> spawnedCards = new List<GameObject>(); // currently displayed cards
+
 
     // track how many times we picked specific upgrades
     private Dictionary<BaseUpgradeData, int> totalCardsPicked = new Dictionary<BaseUpgradeData, int>(); 
 
-    // for making SINGLETON
-    private void Awake() 
-    {
-        if (Instance != null && Instance != this) Destroy(this);
-        else Instance = this;
-    }
+
 
     public void ShowUpgradeOptions(bool isSpecial)
     {
@@ -47,12 +63,12 @@ public class UpgradeManager : MonoBehaviour
         }
 
 
-        // clamp the upgrades shown between 3 and remaining pool
-        int displayedCardsCount = Mathf.Clamp(cardsToShow, 0 , normalUpgradePool.Length);
-
-        var rolledUpgrades = RollNormalUpgrades();
-        if (isSpecial) rolledUpgrades = RollSpecialUpgrades();
-
+        List<BaseUpgradeData> rolledUpgrades; // list of upgrades that qualify
+        if (isSpecial)
+            rolledUpgrades = RollUpgrades(UpgradePool.Special);
+        else
+            rolledUpgrades = RollUpgrades(UpgradePool.Normal);
+        
         // Pause game
         Time.timeScale = 0f;
         isOpen = true;
@@ -78,67 +94,57 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    private List<BaseUpgradeData> RollNormalUpgrades()
+    private List<BaseUpgradeData> RollUpgrades(UpgradePool upgradePoolType)
     {
-        int upgradesToRoll = Mathf.Clamp(cardsToShow, 0, normalUpgradePool.Length); // how many upgrades
+        Debug.Log(upgradePoolType);
+        
+        var upgradeListOfType =     // make a copy of the upgrade pool specified
+            (upgradePoolType == UpgradePool.Normal)
+            ? normalUpgradePool.ToList()
+            : specialUpgradePool.ToList();
 
-        // copy the entire normalUpgradePool
-        var allNormalUpgrades = normalUpgradePool.ToList();
+        int upgradesToRoll = Mathf.Clamp(cardsToShow, 0, upgradeListOfType.Count); // determine how many upgrades we're rolling
 
-        // prepare a list of upgrades to be taken from the copy
-        var rolledUpgrades = new List<BaseUpgradeData>();
-
-        for (int i = 0; i < upgradesToRoll; i++)
+        // first filter out which upgrades we actually have access to
+        List<BaseUpgradeData> viableUpgradeList = new List<BaseUpgradeData>();  // prepare list of upgrades
+        foreach (var upgrade in upgradeListOfType)      // iterate thru the copied pool
         {
-            int rolledIndex = Random.Range(0, allNormalUpgrades.Count); // roll a random upgrade
-
-            int amountPicked = 0;
-            totalCardsPicked.TryGetValue(allNormalUpgrades[rolledIndex], out amountPicked); // check if this upgrade has been picked before
-            
-            if (amountPicked < allNormalUpgrades[rolledIndex].maxPicks || allNormalUpgrades[rolledIndex].maxPicks == -1)
+            bool upgradeViability = true;
+            foreach (var requirement in upgrade.requirements)
             {
-                rolledUpgrades.Add(allNormalUpgrades[rolledIndex]);
+                if (!requirement.IsAvailable())
+                {
+                    upgradeViability = false;
+                    Debug.Log(upgrade + " does not meet condition: " + requirement);
+                }
+                    
+            }
 
-                if (allNormalUpgrades[rolledIndex].canDuplicate == false)
-                    allNormalUpgrades.RemoveAt(rolledIndex); // remove if the upgrade doesn't dupe
-            }
-            else // if exceeded picks, remove this card
-            {
-                allNormalUpgrades.RemoveAt(rolledIndex);
-            }
-            
+            if (upgradeViability == true)
+                viableUpgradeList.Add(upgrade);
+
         }
 
-        return rolledUpgrades;
-    }
 
-    private List<BaseUpgradeData> RollSpecialUpgrades()
-    {
-        int upgradesToRoll = Mathf.Clamp(cardsToShow, 0, specialUpgradePool.Length); // how many upgrades
-
-        // copy the entire specialUpgradePool
-        var allSpecialUpgrades = specialUpgradePool.ToList();
-
-        // prepare a list of upgrades to be taken from the copy
         var rolledUpgrades = new List<BaseUpgradeData>();
 
         for (int i = 0; i < upgradesToRoll; i++)
         {
-            int rolledIndex = Random.Range(0, allSpecialUpgrades.Count); // roll a random upgrade
+            int rolledIndex = Random.Range(0, viableUpgradeList.Count); // roll a random upgrade
 
             int amountPicked = 0;
-            totalCardsPicked.TryGetValue(allSpecialUpgrades[rolledIndex], out amountPicked); // check if this upgrade has been picked before
+            totalCardsPicked.TryGetValue(viableUpgradeList[rolledIndex], out amountPicked); // check if this upgrade has been picked before
 
-            if (amountPicked < allSpecialUpgrades[rolledIndex].maxPicks || allSpecialUpgrades[rolledIndex].maxPicks == -1)
+            if (amountPicked < viableUpgradeList[rolledIndex].maxPicks || viableUpgradeList[rolledIndex].maxPicks == -1)
             {
-                rolledUpgrades.Add(allSpecialUpgrades[rolledIndex]);
+                rolledUpgrades.Add(viableUpgradeList[rolledIndex]);
 
-                if (allSpecialUpgrades[rolledIndex].canDuplicate == false)
-                    allSpecialUpgrades.RemoveAt(rolledIndex); // remove if the upgrade doesn't dupe
+                if (viableUpgradeList[rolledIndex].canDuplicate == false)
+                    viableUpgradeList.RemoveAt(rolledIndex); // remove if the upgrade doesn't dupe
             }
             else // if exceeded picks, remove this card
             {
-                allSpecialUpgrades.RemoveAt(rolledIndex);
+                viableUpgradeList.RemoveAt(rolledIndex);
                 i -= 1;
             }
 
@@ -146,6 +152,7 @@ public class UpgradeManager : MonoBehaviour
 
         return rolledUpgrades;
     }
+
 
     private void OnCardSelected(BaseUpgradeData upgrade)
     {
@@ -236,6 +243,15 @@ public class UpgradeManager : MonoBehaviour
         if (upgrade is WeaponUnlock weaponUnlock)
         {
             // add new weapon to player
+
+            if (weaponUnlock.weaponPrefab == null)
+            {
+                Debug.Log("weaponPrefab is null.");
+                return;
+            }
+
+            PlayerController.Instance.weaponManager.AddWeapon(weaponUnlock.weaponPrefab);
+            Debug.Log("Added weapon: " + weaponUnlock);
         }
 
         if (upgrade is WeaponEvolution weaponEvolution)

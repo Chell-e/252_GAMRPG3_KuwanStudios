@@ -17,6 +17,9 @@ MonoBehaviour:
   description: +25% Projectile Speed.
   cardOutlineColor: {r: 0, g: 0, b: 1, a: 1}
   maxPicks: -1
+  canDuplicate: 0
+  requirements:
+  - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}
   statsUpgraded:
   - statToUpgrade: 4
     value: 25

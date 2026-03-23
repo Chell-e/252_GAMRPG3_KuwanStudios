@@ -18,6 +18,7 @@ public enum Stat
     BaseMoveSpeed,
     MoveSpeedPercent,
     FinalMoveSpeed,
+    FinalAimedMoveSpeed,
 
     // DMG
     DamagePercent,
@@ -29,11 +30,31 @@ public enum Stat
     ProjectileSpeedPercent,
 
     // PICKUP RANGE
-    PickupRange
+    PickupRange,
+
+
+
+    // DOMAIN STUFF
+    DomainOffense,
+    DomainSurvival,
+    DomainUtility,
 }
 
 public class PlayerStats : MonoBehaviour
 {
+    public static PlayerStats Instance;
+    private void Awake() // for SINGLETON
+    {
+        // singleton 
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
 
     // ****** CHANGE ALL OF THE BELOW THESE TO PRIVATE LATER. ENCAPSULATION.
@@ -47,7 +68,7 @@ public class PlayerStats : MonoBehaviour
 
     public bool isAiming = false;
 
-    [Header("Health")]
+        [Header("Health")]
     public int maxHealth;
     public int currentHealth;
 
@@ -83,10 +104,10 @@ public class PlayerStats : MonoBehaviour
             [Tooltip("Percentage multiplying player movement speed.")]
     public int movespeedPercent = 100;
 
-    [Tooltip("Percentage of movespeed set to when aiming.")]
+            [Tooltip("Percentage of movespeed set to when aiming.")]
     public int movespeedAimingPercent = 50;
 
-    [Header("Other Upgrades")]
+        [Header("Other Upgrades")]
     public int pickupRangePercent = 100;
 
 
@@ -96,17 +117,6 @@ public class PlayerStats : MonoBehaviour
     public int survivalDomainStat = 0;
     public int utilityDomainStat = 0;
 
-
-    public float GetFinalMovespeed()
-    {
-        return movespeedBase * (movespeedPercent / 100f);
-    }
-
-
-    public float GetFinalAimedMovespeed()
-    {
-        return movespeedBase * (movespeedAimingPercent / 100f);
-    }
 
     // GETTER
     public float GetPlayerStat(Stat statToFinalize)
@@ -132,6 +142,8 @@ public class PlayerStats : MonoBehaviour
                 return movespeedPercent;
             case Stat.FinalMoveSpeed:
                 return movespeedBase * (movespeedPercent / 100f);
+            case Stat.FinalAimedMoveSpeed:
+                return movespeedBase * (movespeedAimingPercent / 100f);
 
             // DAMAGE
             case Stat.DamagePercent:
@@ -144,6 +156,16 @@ public class PlayerStats : MonoBehaviour
             // PROJECTILE SPEED
             case Stat.ProjectileSpeedPercent:
                 return dmgPercent;
+
+
+            // DOMAIN STUFF
+            case Stat.DomainOffense:
+                return offenseDomainStat;
+            case Stat.DomainSurvival:
+                return survivalDomainStat;
+            case Stat.DomainUtility:
+                return utilityDomainStat;
+
 
             default:
                 Debug.Log($"PlayerStats: unhandled stat type {statToFinalize}");
@@ -158,37 +180,12 @@ public class PlayerStats : MonoBehaviour
         {
         }
 
-        UpdateDomainStats();
     }
-
-    private void UpdateDomainStats()
-    {
-        // OFFENSE
-        /*int offense_dmgValue = Mathf.Max(dmgPercent - 100, 0);
-        int offense_atkSpeedValue = Mathf.Max(atkSpeedPercent - 100, 0);
-
-        offenseDomainStat = offense_dmgValue + offense_atkSpeedValue;*/
-
-        
-        // SURVIVAL
-        /*int survival_hpValue = Mathf.Max(maxHealthPercent - 100, 0);
-        int survival_moveSpeedValue = Mathf.Max(movespeedPercent - 100, 0);
-
-        survivalDomainStat = survival_hpValue + survival_moveSpeedValue;*/
-
-
-        // UTILITY
-        /*int utility_projectileSpeedValue = Mathf.Max(projectileSpeedPercent - 100, 0);
-        int utility_pickupRangeValue = Mathf.Max(pickupRangePercent - 100, 0);
-
-        utilityDomainStat = utility_projectileSpeedValue + utility_pickupRangeValue;*/
-    }
-
 
     public void GainExperience(int amount)
     {
-        currentExp += amount;
-        //currentExp += 10;
+        //currentExp += amount;
+        currentExp += 10;
         UIManager.Instance.UpdateExpUI();
 
         if (currentExp >= expToLevel)
@@ -198,7 +195,7 @@ public class PlayerStats : MonoBehaviour
             currentExp = 0;
             currentLevel++;
 
-            if ((currentLevel) % 5 == 0) UpgradeManager.Instance.ShowUpgradeOptions(true);
+            if ((currentLevel+1) % 3 == 0) UpgradeManager.Instance.ShowUpgradeOptions(true);
             else UpgradeManager.Instance.ShowUpgradeOptions(false);
 
             

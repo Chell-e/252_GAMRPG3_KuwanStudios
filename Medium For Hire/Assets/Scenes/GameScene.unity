@@ -1346,6 +1346,53 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.1224248
+--- !u!1 &958651460
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 958651462}
+  - component: {fileID: 958651461}
+  m_Layer: 3
+  m_Name: WeaponManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &958651461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958651460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 323688e202b40e641a9963be6474e04d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 1308892170}
+  playerStats: {fileID: 1308892172}
+  weapons: []
+--- !u!4 &958651462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958651460}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1308892168}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &990273369
 GameObject:
   m_ObjectHideFlags: 0
@@ -1878,6 +1925,7 @@ GameObject:
   - component: {fileID: 1308892172}
   - component: {fileID: 1308892174}
   - component: {fileID: 1308892175}
+  - component: {fileID: 1308892176}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -1900,6 +1948,7 @@ Transform:
   m_Children:
   - {fileID: 844161292}
   - {fileID: 1040966775}
+  - {fileID: 958651462}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1308892169
@@ -1941,6 +1990,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade05c4b5aaf97443b76a7bbe3ea44fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStats: {fileID: 1308892172}
+  Events: {fileID: 1308892176}
+  weaponManager: {fileID: 958651461}
   spriteRenderer: {fileID: 844161293}
   rb: {fileID: 1308892169}
   animator: {fileID: 844161294}
@@ -1948,7 +2000,6 @@ MonoBehaviour:
   maxPos: {x: 24, y: 24}
   aimCursor: {fileID: 2800000, guid: d5d80d59850421645ba068462a22f756, type: 3}
   defaultCursor: {fileID: 0}
-  playerStats: {fileID: 0}
 --- !u!114 &1308892172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2038,6 +2089,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb81083cc8a3ddd408efc4af94188879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1308892176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308892167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 014a810a285ab7747a5964b32ce26fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1359428169
@@ -2940,7 +3003,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a9bab07a73fa03944818100914402aa5, type: 2}
   - {fileID: 11400000, guid: 0bb86fa3d7f0e16478a5f7c777311aad, type: 2}
   specialUpgradePool:
-  - {fileID: 11400000, guid: bc279ecc61087a04ead73a1214431c3d, type: 2}
   - {fileID: 11400000, guid: 8c69eeaa2d6d04644927ab6c3c489b70, type: 2}
   - {fileID: 11400000, guid: 44b425acdbb244246ad902b85951435a, type: 2}
   cardPrefab: {fileID: 5195733446731502837, guid: 2528ca3ba3aca334597d1cbf284dfabc, type: 3}

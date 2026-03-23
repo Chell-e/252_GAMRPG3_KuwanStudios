@@ -26,7 +26,7 @@ public enum StatUpgradeType
     UtilityBonus
 }
 
-[CreateAssetMenu(menuName = "Upgrades/Stat Upgrade")]
+[CreateAssetMenu(menuName = "Upgrades/Upgrade Types/Stat Upgrade")]
 public class StatUpgrade : BaseUpgradeData
 {
     [System.Serializable]
