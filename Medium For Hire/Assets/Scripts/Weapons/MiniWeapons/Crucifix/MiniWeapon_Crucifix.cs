@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -11,6 +12,14 @@ public class MiniWeapon_Crucifix : BaseWeapon
     public int baseMaxCharges = 1;
             [Tooltip("Base recharge time. Affected by Player's Stats.")]
     public float baseRechargeTime = 10f;
+
+
+            [Tooltip("Blast damage.")]
+    public float blastDamage = 1f;
+            [Tooltip("Blast knockback power.")]
+    public float blastKnockbackPower = 1f;
+            [Tooltip("Blast lifetime.")]
+    public float blastLifetime = 0.2f;
 
         [Header("Effective Weapon Stats")]
             [Tooltip("Effective recharge CD per Charge.")]
@@ -51,12 +60,13 @@ public class MiniWeapon_Crucifix : BaseWeapon
             context.damage = 0;
 
 
-            context.target.ApplyKnockback
+            /*context.target.ApplyKnockback
                 (
                     context.target.transform.position - transform.position,
                     100,
                     1
-                );
+                );*/
+            SpawnCrucifixBlast();
 
             Debug.Log("Crucifix blocked damage! ");
         }
@@ -116,5 +126,15 @@ public class MiniWeapon_Crucifix : BaseWeapon
             shieldAura.SetActive(true);
         else
             shieldAura.SetActive(false);
+    }
+
+    private void SpawnCrucifixBlast()
+    {
+        GameObject blastObject = Instantiate(crucifixBlastPrefab, transform.position, Quaternion.identity);
+
+        CrucifixBlast blastStats = blastObject.GetComponent<CrucifixBlast>();
+        blastStats.lifetime = blastLifetime;
+        blastStats.knockbackPower = blastKnockbackPower;
+        blastStats.blastDamage = blastDamage;
     }
 }

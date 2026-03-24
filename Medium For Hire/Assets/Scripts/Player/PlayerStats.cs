@@ -8,6 +8,7 @@ public enum Stat
     CurrentLevel,
     CurrentExp,
     ExpToLevel,
+    RemainingLevels, // decrement this
 
     // HP
     CurrentHealth,
@@ -64,6 +65,7 @@ public class PlayerStats : MonoBehaviour
     public int currentLevel;
     public int expToLevel;
     public int currentExp;
+    public int remainingLevels; // relative to max
     //public List<int> expToLevelUp;
 
     public bool isAiming = false;
@@ -130,6 +132,8 @@ public class PlayerStats : MonoBehaviour
                 return currentExp;
             case Stat.ExpToLevel:
                 return expToLevel;
+            case Stat.RemainingLevels:
+                return remainingLevels;
 
             //  HEALTH
             case Stat.CurrentHealth:
@@ -194,6 +198,9 @@ public class PlayerStats : MonoBehaviour
 
             currentExp = 0;
             currentLevel++;
+            // find a cleaner way for this
+            remainingLevels--;
+
 
             if ((currentLevel+1) % 3 == 0) UpgradeManager.Instance.ShowUpgradeOptions(true);
             else UpgradeManager.Instance.ShowUpgradeOptions(false);

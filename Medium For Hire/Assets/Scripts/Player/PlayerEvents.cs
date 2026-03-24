@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PlayerEvents : MonoBehaviour
 {
+    // *****These events work for superstitions too
+
     public System.Action<DamageContext> OnBeforeGetHit;
     public System.Action<DamageContext> OnAfterGetHit;
 
     public System.Action<DamageContext> OnBeforeDealDamage;
     public System.Action<DamageContext> OnAfterDealDamage;
+
+    public System.Action<DamageContext> OnAfterKillEnemy;
 
     public System.Action OnAimActivate;
     public System.Action OnAimDeactivate;
