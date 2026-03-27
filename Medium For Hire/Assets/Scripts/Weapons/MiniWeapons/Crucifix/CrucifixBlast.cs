@@ -36,6 +36,12 @@ public class CrucifixBlast : MonoBehaviour
                 enemy.ApplyKnockback(direction, knockbackPower, .2f);
 
                 Debug.Log("Crucifix blasted " + enemy);
+
+
+                // ffffffff
+                StatusEffect_Vulnerable vulnerable = new StatusEffect_Vulnerable();
+                vulnerable.Initialize(10f, 2.0f);
+                enemy.ApplyStatusEffect(vulnerable);
             }
             
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,18 +14,29 @@ public enum EnemyType
 
 public abstract class BaseEnemy : MonoBehaviour
 {
+        [Header("Enemy Stats")]
     [SerializeField] private EnemyType enemyType = EnemyType.Normal;
     [SerializeField] public DropItem[] possibleDrops;
 
     [SerializeField] protected float attackDamage;
     [SerializeField] protected float moveSpeed;
 
+
+        [Header("Runtime Stats")]
+    //
+    [SerializeField] List<BaseStatusEffect> activeStatusEffects = new List<BaseStatusEffect>();
+    [SerializeField] private float moveSpeedMultiplier = 1.0f;
+    [SerializeField] private float incomingDamageMultiplier = 1.0f;
+    //
+
+    public bool isKnockedBack = false;
+    private Coroutine damageRoutine;
+
+
     protected HealthComponent health;
     protected Rigidbody2D rb;
     private HitFlash hitFlash;
-
-    private Coroutine damageRoutine;
-    public bool isKnockedBack = false;
+    
     public EnemyType EnemyType => enemyType;
     protected virtual void Awake()
     {
@@ -35,6 +47,8 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected virtual void Update()
     {
+        UpdateStatusEffects(Time.deltaTime);
+
         LookAtPlayer();
         Move();
     }
@@ -45,19 +59,19 @@ public abstract class BaseEnemy : MonoBehaviour
         transform.rotation = playerPosition.x < transform.position.x ? Quaternion.Euler(0f, 0f, 0f) : Quaternion.Euler(0f, 180f, 0f);
     }
     
-    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D _collision)
     {
         if (!gameObject.activeInHierarchy || health == null || health.IsDead)
             return;
 
-        var player = collision.gameObject.GetComponent<PlayerController>();
+        var player = _collision.gameObject.GetComponent<PlayerController>();
         if (player)
         {
             damageRoutine = StartCoroutine(DamageTick(player));
         }
     }
 
-    protected virtual void OnCollisionExit2D(Collision2D collision)
+    protected virtual void OnCollisionExit2D(Collision2D _collision)
     {
         if (damageRoutine != null)
         {
@@ -66,7 +80,7 @@ public abstract class BaseEnemy : MonoBehaviour
         }
     }
 
-    private IEnumerator DamageTick(PlayerController player)
+    private IEnumerator DamageTick(PlayerController _player)
     {
         // Don't access
         /*var playerHealth = player.GetComponent<HealthComponent>();
@@ -81,47 +95,49 @@ public abstract class BaseEnemy : MonoBehaviour
 
         while (true)
         {
-            if (player != null && !player.GetComponent<HealthComponent>().IsDead)
+            if (_player != null && !_player.GetComponent<HealthComponent>().IsDead)
             {
-                player.TakeDamage(attackDamage, this);
+                _player.TakeDamage(attackDamage, this);
             }
             yield return new WaitForSeconds(0.7f); // -------> Adjust if necessary!
         }
     }
 
     // ====================== KNOCKBACK
-    public void ApplyKnockback(Vector2 direction, float force, float duration)
+    public void ApplyKnockback(Vector2 _direction, float _force, float _duration)
     {
         if (!gameObject.activeInHierarchy || health == null || health.IsDead)
             return;
 
-        StartCoroutine(KnockbackRoutine(direction, force, duration));
+        StartCoroutine(KnockbackRoutine(_direction, _force, _duration));
     }
 
-    private IEnumerator KnockbackRoutine(Vector2 direction, float force, float duration)
+    private IEnumerator KnockbackRoutine(Vector2 _direction, float _force, float _duration)
     {
         isKnockedBack = true;
         rb.velocity = Vector2.zero;
-        rb.AddForce(direction * force, ForceMode2D.Impulse);
+        rb.AddForce(_direction * _force, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.05f);
 
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(_duration);
         isKnockedBack = false;
     }
     // ====================== KNOCKBACK
 
 
     // ====================== DAMAGE
-    public void TakeDamage(float damage)
+    public void TakeDamage(float _damage)
     {
-        health.TakeDamage(damage);
+        float finalDamage = _damage * incomingDamageMultiplier;
+        
+        health.TakeDamage(finalDamage);
     }
     // ====================== DAMAGE
 
 
     protected virtual void Move()
     {
-        if (isKnockedBack) return;
+        if (isKnockedBack) return; 
     }
 
     protected virtual void OnDisable()
@@ -135,4 +151,50 @@ public abstract class BaseEnemy : MonoBehaviour
         isKnockedBack = false;
         rb.velocity = Vector2.zero;
     }
+
+
+    // ====================== STATUS EFFECTS
+    public void SetMoveSpeedMultiplier(float _moveSpeedMultiplier)
+    {
+        moveSpeedMultiplier = _moveSpeedMultiplier; 
+    }
+    public void SetIncomingDamageMultiplier(float _incomingDamageMultiplier)
+    {
+        incomingDamageMultiplier = _incomingDamageMultiplier;
+    }
+
+    public void ApplyStatusEffect(BaseStatusEffect _newEffect)
+    {
+        foreach (var activeEffect in activeStatusEffects)
+        {
+            if (_newEffect.GetType() == activeEffect.GetType())  // check if status effect already exists
+            {
+                activeEffect.Refresh();
+                return;
+            }
+        }
+
+        // otherwise, initialize the new effect and register it for the enemy
+        _newEffect.OnApply(this);
+        activeStatusEffects.Add(_newEffect);
+    }
+    private void UpdateStatusEffects(float _timeElapsed)
+    {
+        // ENEMY is responsible for driving status effect logic
+
+        foreach (var activeEffect in activeStatusEffects) // loop thru each active status effect
+        {
+            activeEffect.TickEffect(this, _timeElapsed); 
+
+            if (activeEffect.IsFinished())
+            {
+                activeEffect.OnExpire(this);
+                activeStatusEffects.Remove(activeEffect);
+            }
+        }
+    }
+
+    // ====================== STATUS EFFECTS
+
+
 }

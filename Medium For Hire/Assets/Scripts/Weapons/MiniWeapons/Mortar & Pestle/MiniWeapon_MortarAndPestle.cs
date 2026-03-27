@@ -95,6 +95,7 @@ public class MiniWeapon_MortarAndPestle : BaseWeapon
         {
             if (enemyHit.GetComponent<BaseEnemy>() == null) continue;
 
+
             BaseEnemy enemy = enemyHit.GetComponent<BaseEnemy>();
 
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
@@ -113,9 +114,15 @@ public class MiniWeapon_MortarAndPestle : BaseWeapon
 
     private void SpawnMortarAndPestleBlast(GameObject target)
     {
+        if (target == null)
+        {
+            Debug.Log("M&P: No target detected");
+            return;
+        }
+
         GameObject blastObject = Instantiate(mortarAndPestleBlastPrefab, target.transform.position, Quaternion.identity);
 
-        CrucifixBlast blastStats = blastObject.GetComponent<CrucifixBlast>();
+        MortarAndPestleBlast blastStats = blastObject.GetComponent<MortarAndPestleBlast>();
         blastStats.lifetime = blastLifetime;
         blastStats.blastDamage = blastDamage;
     }

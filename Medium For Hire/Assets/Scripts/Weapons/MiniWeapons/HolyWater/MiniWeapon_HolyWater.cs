@@ -71,7 +71,7 @@ public class MiniWeapon_HolyWater : BaseWeapon
     private void SplashHolyWater()
     {
         CircleCollider2D[] hitboxes;
-        hitboxes = holyWaterSplashHitbox.GetComponentsInChildren<CircleCollider2D>();
+        hitboxes = holyWaterSplashHitbox.GetComponentsInChildren<CircleCollider2D>(); // dont use this?
     }
 
     private void AimHolyWater()
