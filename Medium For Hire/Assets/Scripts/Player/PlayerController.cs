@@ -161,10 +161,24 @@ public class PlayerController : MonoBehaviour
 
         /*EVENT*/ Events.OnBeforeGetHit?.Invoke(context);
 
-        if (!context.isNulled)
-            GetComponent<HealthComponent>().TakeDamage(damage);
+        //if (!context.isNulled)
+        //    GetComponent<HealthComponent>().TakeDamage(damage);
 
-        /*EVENT*/ Events.OnAfterGetHit?.Invoke(context);
+        // new!
+        // since take damage logic is in player now, not the health component anymore
+        var health = GetComponent<HealthComponent>();
+        health.SetCurrentHealth(health.GetCurrentHealth() - damage);
+        
+        if (health.GetCurrentHealth() <= 0 && !health.IsDead)
+        {
+            health.IsDead = true;
+            health.TriggerDeath();
+        }
+
+        UIManager.Instance.UpdateHpUI();
+
+        /*EVENT*/
+        Events.OnAfterGetHit?.Invoke(context);
 
     }
 

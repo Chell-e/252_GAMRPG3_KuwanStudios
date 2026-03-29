@@ -262,9 +262,9 @@ public class UpgradeManager : MonoBehaviour
 
             // update any relevant UI
         UIManager.Instance.UpdateExpUI();
-        //UIManager.Instance.UpdateHpSlider();
+        UIManager.Instance.UpdateHpUI();
 
-            // update player
+        // update player
         playerStats.UpdatePlayerStat(Stat.MaxHealth);
 
     }

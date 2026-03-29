@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public enum EnemyType
@@ -134,10 +133,24 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         float finalDamage = _damage * incomingDamageMultiplier;
         
-        health.TakeDamage(finalDamage);
+        //health.TakeDamage(finalDamage);
+
+        // new!
+        health.SetCurrentHealth(health.GetCurrentHealth() - finalDamage);
+        
+            // trigger hit flash 
+        if (hitFlash != null)
+        {
+            hitFlash.TriggerHitFlash();
+        }
+            // trigger death
+        if (health.GetCurrentHealth() <= 0 && !health.IsDead)
+        {
+            health.IsDead = true;
+            health.TriggerDeath();
+        }
     }
     // ====================== DAMAGE
-
 
     protected virtual void Move()
     {

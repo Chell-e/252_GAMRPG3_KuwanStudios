@@ -37,8 +37,7 @@ public class UIManager : MonoBehaviour
 
         if (health != null)
         {
-            health.OnHealthChanged += UpdateHpUI;
-            UpdateHpUI(currentHealth, maxHealth);
+            UpdateHpUI();
         }
     }
 
@@ -50,27 +49,18 @@ public class UIManager : MonoBehaviour
         expText.text = expSlider.value + " / " + expSlider.maxValue;
 
         levelText.text = "Level " + PlayerController.Instance.playerStats.GetPlayerStat(Stat.CurrentLevel);
-
-        //expSlider.maxValue = PlayerController.Instance.playerStats.expToLevelUp[PlayerController.Instance.playerStats.currentLevel - 1];
-        //expSlider.value = PlayerController.Instance.playerStats.currentEXP;
-        //expText.text = expSlider.value + " / " + expSlider.maxValue;    
     }
 
-    public void UpdateHpUI(float current, float max)
+    public void UpdateHpUI()
     {
-        hpSlider.maxValue = max;
-        hpSlider.value = current;
-        hpText.text = current + " / " + max;
+        // update player stats
+        hpSlider.maxValue = PlayerController.Instance.playerStats.GetPlayerStat(Stat.MaxHealth);
+        hpSlider.value = PlayerController.Instance.playerStats.GetPlayerStat(Stat.CurrentHealth);
+        
+        // update health component too
+        hpSlider.maxValue = PlayerController.Instance.GetComponent<HealthComponent>().GetMaxHealth();
+        hpSlider.value = PlayerController.Instance.GetComponent<HealthComponent>().GetCurrentHealth();
+
+        hpText.text = hpSlider.value + " / " + hpSlider.maxValue;
     }
-
-    //public void UpdateHpSlider()
-    //{
-    //    //hpSlider.maxValue = PlayerController.Instance.playerStats.maxHealth;
-    //    //hpSlider.value = PlayerController.Instance.playerStats.currentHealth;
-    //    var health = PlayerController.Instance.GetComponent<HealthComponent>();
-    //    hpSlider.maxValue = health.GetMaxHealth();
-    //    hpSlider.value = health.GetCurrentHealth();
-
-    //    hpText.text = hpSlider.value + " / " + hpSlider.maxValue;
-    //}
 }

@@ -2,21 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class GameSceneManager : MonoBehaviour
 {
     public static GameSceneManager Instance;
 
     private void Awake()
     {
-        if (Instance == null)
+        Instance = this;
+    }
+
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "ShopScene" || SceneManager.GetActiveScene().name == "BestiaryScene")
         {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            // if there's an instance already, destroy this
-            Destroy(this.gameObject);
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                LoadScene("MainMenu");
+            }
         }
     }
 
@@ -24,5 +27,10 @@ public class GameSceneManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void ExitApplication()
+    {
+        Application.Quit();
     }
 }

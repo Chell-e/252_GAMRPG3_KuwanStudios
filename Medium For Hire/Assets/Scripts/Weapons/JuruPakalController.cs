@@ -207,7 +207,7 @@ public class JuruPakalController : MonoBehaviour
         if (enemyHit == null) return;
 
         float damage = finalDamage * (playerStats.dmgPercent / 100f);
-        enemyHit.GetComponent<HealthComponent>().TakeDamage(damage);
+        enemyHit.TakeDamage(damage);
 
         // APPLY KNOCKBACK
         Vector2 direction = (enemyHit.transform.position - weaponArea.transform.position).normalized;
@@ -227,7 +227,8 @@ public class JuruPakalController : MonoBehaviour
             {
                 if (barrageDamageTimer <= 0f)
                 {
-                    col.GetComponent<HealthComponent>().TakeDamage(0.1f * (playerStats.dmgPercent / 100f));
+                    //col.GetComponent<HealthComponent>().TakeDamage(0.1f * (playerStats.dmgPercent / 100f));
+                    col.GetComponent<BaseEnemy>().TakeDamage(0.1f * (playerStats.dmgPercent / 100f));
                     hitEnemy = true;
                 }
             }
