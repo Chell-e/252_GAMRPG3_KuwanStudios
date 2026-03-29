@@ -143,3 +143,4 @@ MonoBehaviour:
   currentCharges: 0
   shieldAura: {fileID: 2433749821034485789}
   crucifixBlastPrefab: {fileID: 7030057932218827032, guid: 127c9b905727d0b4aa5996c886742a0a, type: 3}
+  crucifixStatus: {fileID: 11400000, guid: 085ea97dad7a2fd46976495bca12600d, type: 2}

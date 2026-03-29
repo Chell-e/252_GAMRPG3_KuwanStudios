@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1081750909805947457}
   - component: {fileID: 531879977886953976}
   - component: {fileID: 2096872244181922712}
+  - component: {fileID: 8014834337946421846}
   m_Layer: 0
   m_Name: Normal_Bungisngis
   m_TagString: Untagged
@@ -118,6 +119,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
   attackDamage: 1.5
   moveSpeed: 2
+  moveSpeedMultiplier: 1
+  incomingDamageMultiplier: 1
   isKnockedBack: 0
 --- !u!114 &149713768457277641
 MonoBehaviour:
@@ -205,6 +208,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 890917171892679484}
+--- !u!114 &8014834337946421846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890917171892679484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1b7b2f7c7c8c041bc2011c52d15a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &950978041597673009
 GameObject:
   m_ObjectHideFlags: 0

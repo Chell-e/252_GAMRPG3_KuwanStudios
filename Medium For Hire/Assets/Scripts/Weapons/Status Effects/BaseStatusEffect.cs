@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public abstract class BaseStatusEffect
+public abstract class BaseStatusEffect : ScriptableObject 
 {
-    protected float duration; // how long effect lasts
-    protected float potency; // potency 
+    public string effectName;
+    public float lifetime; // runtime timer for duration
+    //public bool canStack;
 
-    protected float lifetime; //  runtime timer for duration
+    public abstract void OnApply(BaseEnemy _enemy, float _power);
+    public abstract void OnTick(BaseEnemy _enemy, float _power, float _timeElapsed);
+    public abstract void OnExpire(BaseEnemy _enemy);
 
-    public void Initialize(float _duration, float _potency)
+    /*public void Initialize(float _duration, float _potency)
     {
         this.duration = _duration;
         this.potency = _potency;
@@ -36,5 +39,5 @@ public abstract class BaseStatusEffect
 
     public abstract void OnApply(BaseEnemy _enemy);
     public abstract void OnUpdate(BaseEnemy _enemy, float _timeElapsed);
-    public abstract void OnExpire(BaseEnemy _enemy);
+    public abstract void OnExpire(BaseEnemy _enemy);*/
 }

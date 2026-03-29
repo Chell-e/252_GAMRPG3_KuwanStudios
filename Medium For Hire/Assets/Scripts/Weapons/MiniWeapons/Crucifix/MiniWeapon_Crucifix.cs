@@ -59,7 +59,6 @@ public class MiniWeapon_Crucifix : BaseWeapon
             context.isNulled = true;
             context.damage = 0;
 
-
             /*context.target.ApplyKnockback
                 (
                     context.target.transform.position - transform.position,

@@ -132,7 +132,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blastDamage: 0
   knockbackPower: 0
-  lifetime: 0
+  lifetime: 0.1
+  crucifixStatus: {fileID: 11400000, guid: 085ea97dad7a2fd46976495bca12600d, type: 2}
 --- !u!58 &758922675297971969
 CircleCollider2D:
   m_ObjectHideFlags: 0

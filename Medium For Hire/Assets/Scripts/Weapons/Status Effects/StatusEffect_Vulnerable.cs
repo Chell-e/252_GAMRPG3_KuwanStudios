@@ -2,22 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Status Effects/Vulnerable")]
+
 public class StatusEffect_Vulnerable : BaseStatusEffect
 {
-    private float damageMultiplier;
+    public float newDamageMultiplier;
 
-
-    public override void OnApply(BaseEnemy _enemy)
+    public override void OnApply(BaseEnemy _enemy, float _power)
     {
-        damageMultiplier = potency;
-
-        _enemy.SetIncomingDamageMultiplier(damageMultiplier);
-        Debug.Log("Vulnerabled " + _enemy);
+        // set enemy incoming damage
+        _enemy.SetIncomingDamageModifier(newDamageMultiplier);
+        Debug.Log("APPLIED HOLY WATER");
     }
 
-    public override void OnUpdate(BaseEnemy _enemy, float _timeElapsed) { }
+    public override void OnTick(BaseEnemy _enemy, float _power, float _timeElapsed)
+    {
+        Debug.Log("TICKING HOLY WATER");
+    }
     public override void OnExpire(BaseEnemy _enemy)
     {
-        _enemy.SetIncomingDamageMultiplier(1.0f);
+        _enemy.SetIncomingDamageModifier(1.0f); // just resets to 1 flat for now
+
     }
 }

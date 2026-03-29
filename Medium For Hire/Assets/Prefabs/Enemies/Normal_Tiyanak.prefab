@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 2227098574434141029}
   - component: {fileID: 4338029527522529318}
   - component: {fileID: 5583616141856030277}
+  - component: {fileID: 5144799945267151951}
   m_Layer: 0
   m_Name: Normal_Tiyanak
   m_TagString: Untagged
@@ -202,6 +203,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
   attackDamage: 2.5
   moveSpeed: 2
+  moveSpeedMultiplier: 1
+  incomingDamageMultiplier: 1
   isKnockedBack: 0
 --- !u!114 &6662825558393670346
 MonoBehaviour:
@@ -289,3 +292,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 8744352337212714709}
+--- !u!114 &5144799945267151951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8744352337212714709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1b7b2f7c7c8c041bc2011c52d15a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

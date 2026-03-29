@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 4922310476057141699}
   - component: {fileID: 9205607052876529417}
   - component: {fileID: -9195687003099657493}
+  - component: {fileID: 4722217217629380700}
   m_Layer: 0
   m_Name: Normal_Duwende
   m_TagString: Untagged
@@ -202,6 +203,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
   attackDamage: 1
   moveSpeed: 2
+  moveSpeedMultiplier: 1
+  incomingDamageMultiplier: 1
   isKnockedBack: 0
 --- !u!114 &830175651863537479
 MonoBehaviour:
@@ -289,3 +292,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 8723128743462484333}
+--- !u!114 &4722217217629380700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8723128743462484333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1b7b2f7c7c8c041bc2011c52d15a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

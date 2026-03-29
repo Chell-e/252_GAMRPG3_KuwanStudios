@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7774132969775627633}
   - component: {fileID: 3932194239184293513}
   - component: {fileID: 7760202839318810419}
+  - component: {fileID: 4626219271581687764}
   m_Layer: 0
   m_Name: Elite_Manananggal_UpperHalf
   m_TagString: Untagged
@@ -118,6 +119,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
   attackDamage: 1
   moveSpeed: 2
+  moveSpeedMultiplier: 1
+  incomingDamageMultiplier: 1
   isKnockedBack: 0
 --- !u!114 &3614419323694613154
 MonoBehaviour:
@@ -205,6 +208,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1139407022206917121}
+--- !u!114 &4626219271581687764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139407022206917121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1b7b2f7c7c8c041bc2011c52d15a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2945994503167579609
 GameObject:
   m_ObjectHideFlags: 0

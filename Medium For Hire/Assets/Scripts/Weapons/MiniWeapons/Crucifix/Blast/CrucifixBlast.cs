@@ -8,6 +8,8 @@ public class CrucifixBlast : MonoBehaviour
     [SerializeField] public float knockbackPower;
     [SerializeField] public float lifetime;
 
+    // test
+    [SerializeField] BaseStatusEffect crucifixStatus;
     //=======
 
     PlayerController playerController;
@@ -38,10 +40,8 @@ public class CrucifixBlast : MonoBehaviour
                 Debug.Log("Crucifix blasted " + enemy);
 
 
-                // ffffffff
-                StatusEffect_Vulnerable vulnerable = new StatusEffect_Vulnerable();
-                vulnerable.Initialize(10f, 2.0f);
-                enemy.ApplyStatusEffect(vulnerable);
+                // status
+                enemy.GetStatusEffectHandler().ApplyEffect(crucifixStatus, 0f);
             }
             
         }

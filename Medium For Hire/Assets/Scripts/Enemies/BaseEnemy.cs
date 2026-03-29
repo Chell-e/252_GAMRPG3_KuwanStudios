@@ -22,12 +22,11 @@ public abstract class BaseEnemy : MonoBehaviour
     [SerializeField] protected float moveSpeed;
 
 
+    // new
         [Header("Runtime Stats")]
-    //
-    [SerializeField] List<BaseStatusEffect> activeStatusEffects = new List<BaseStatusEffect>();
     [SerializeField] private float moveSpeedMultiplier = 1.0f;
     [SerializeField] private float incomingDamageMultiplier = 1.0f;
-    //
+
 
     public bool isKnockedBack = false;
     private Coroutine damageRoutine;
@@ -37,18 +36,23 @@ public abstract class BaseEnemy : MonoBehaviour
     protected Rigidbody2D rb;
     private HitFlash hitFlash;
     
+    // new
+    private StatusEffectHandlerComponent statusEffectHandler;
+
+    
     public EnemyType EnemyType => enemyType;
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         health = GetComponent<HealthComponent>();
         hitFlash = GetComponent<HitFlash>();
+
+        // new
+        statusEffectHandler = GetComponent<StatusEffectHandlerComponent>();
     }
 
     protected virtual void Update()
     {
-        UpdateStatusEffects(Time.deltaTime);
-
         LookAtPlayer();
         Move();
     }
@@ -154,47 +158,19 @@ public abstract class BaseEnemy : MonoBehaviour
 
 
     // ====================== STATUS EFFECTS
-    public void SetMoveSpeedMultiplier(float _moveSpeedMultiplier)
+    public StatusEffectHandlerComponent GetStatusEffectHandler()
     {
-        moveSpeedMultiplier = _moveSpeedMultiplier; 
-    }
-    public void SetIncomingDamageMultiplier(float _incomingDamageMultiplier)
-    {
-        incomingDamageMultiplier = _incomingDamageMultiplier;
+        return statusEffectHandler;
     }
 
-    public void ApplyStatusEffect(BaseStatusEffect _newEffect)
+    public void SetIncomingDamageModifier(float _newIncomingDamageModifier)
     {
-        foreach (var activeEffect in activeStatusEffects)
-        {
-            if (_newEffect.GetType() == activeEffect.GetType())  // check if status effect already exists
-            {
-                activeEffect.Refresh();
-                return;
-            }
-        }
-
-        // otherwise, initialize the new effect and register it for the enemy
-        _newEffect.OnApply(this);
-        activeStatusEffects.Add(_newEffect);
-    }
-    private void UpdateStatusEffects(float _timeElapsed)
-    {
-        // ENEMY is responsible for driving status effect logic
-
-        foreach (var activeEffect in activeStatusEffects) // loop thru each active status effect
-        {
-            activeEffect.TickEffect(this, _timeElapsed); 
-
-            if (activeEffect.IsFinished())
-            {
-                activeEffect.OnExpire(this);
-                activeStatusEffects.Remove(activeEffect);
-            }
-        }
+        this.incomingDamageMultiplier = _newIncomingDamageModifier;
     }
 
+    public void SetMoveSpeedModifier(float _newMoveSpeedModifier)
+    {
+        this.moveSpeedMultiplier = _newMoveSpeedModifier;
+    }
     // ====================== STATUS EFFECTS
-
-
 }
