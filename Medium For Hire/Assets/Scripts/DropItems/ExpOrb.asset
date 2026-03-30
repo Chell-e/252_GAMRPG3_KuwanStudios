@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ExpOrb
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 6478155236546599093, guid: df5ce64a0dd6ade46bd618adc83f9c08, type: 3}
-  dropChance: 0.75
+  dropChance: 0.5

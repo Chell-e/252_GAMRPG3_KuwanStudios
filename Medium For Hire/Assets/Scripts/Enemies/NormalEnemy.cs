@@ -6,15 +6,21 @@ public class NormalEnemy : BaseEnemy
 {
     protected override void Awake()
     {
-        base.Awake(); // Executes base's awake -> Gets rb & health component
+        base.Awake(); 
     }
 
-    protected override void Move()
+    protected override void OnEnable()
     {
-        if (isKnockedBack) return;
+        base.OnEnable(); 
+    }
 
-        Transform player = PlayerController.Instance.transform;
-        Vector3 direction = (player.position - transform.position).normalized;
-        rb.velocity = direction * moveSpeed;
+    protected override void Update()
+    {
+        base.Update();
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
     }
 }

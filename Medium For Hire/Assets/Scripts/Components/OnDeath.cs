@@ -20,15 +20,27 @@ public class OnDeath : MonoBehaviour
         PlayerController playerController = GetComponent<PlayerController>();
         BaseEnemy baseEnemy = GetComponent<BaseEnemy>();
 
-        if (playerController != null)
+        if (playerController)
         {
-            gameObject.SetActive(false);
+            HandlePlayerDeath();
         }
         else if (baseEnemy != null)
         {
-            DropLoot(baseEnemy);
-            PoolManager.ReturnObjectToPool(gameObject);
+            HandleEnemyDeath(baseEnemy);
         }
+    }
+
+    public void HandlePlayerDeath()
+    {
+        gameObject.SetActive(false);
+
+        // trigger game over screen here
+    }
+
+    public void HandleEnemyDeath(BaseEnemy baseEnemy)
+    {
+        DropLoot(baseEnemy);
+        PoolManager.ReturnObjectToPool(gameObject);
     }
 
     private void DropLoot(BaseEnemy enemy)
@@ -36,7 +48,6 @@ public class OnDeath : MonoBehaviour
         foreach (var drop in enemy.possibleDrops)
         {
             var random = Random.value;
-            //Debug.Log(random);
             if (random <= drop.dropChance)
             {
                 PoolManager.SpawnObject(drop.itemPrefab, transform.position, Quaternion.identity, PoolManager.PoolType.ExpOrb);

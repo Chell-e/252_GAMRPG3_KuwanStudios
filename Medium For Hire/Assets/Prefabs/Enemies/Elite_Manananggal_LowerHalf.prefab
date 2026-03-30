@@ -95,8 +95,11 @@ GameObject:
   - component: {fileID: 7116300368272640081}
   - component: {fileID: 5546884644438627863}
   - component: {fileID: 2950414631191966558}
+  - component: {fileID: -676281965790901281}
   - component: {fileID: 3674358403680853303}
+  - component: {fileID: 7076923497742274986}
   - component: {fileID: 5168675748378769977}
+  - component: {fileID: 2220468757920783953}
   - component: {fileID: -6626904047375148710}
   m_Layer: 0
   m_Name: Elite_Manananggal_LowerHalf
@@ -183,6 +186,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
+--- !u!114 &-676281965790901281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2459172418608303314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd2303e8e8a3124196060e4ca1cd836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possibleDrops:
+  - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
+  attackDamage: 1
+  baseMoveSpeed: 1
+  moveSpeedMultiplier: 1
+  incomingDamageMultiplier: 1
+  isKnockedBack: 0
+  damageTick: 0.7
+  upperHalf: {fileID: 0}
 --- !u!114 &3674358403680853303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,8 +219,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9f0257afacb5341b18f93508b112c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 20
   currentHealth: 0
+  CanDie: 1
+--- !u!114 &7076923497742274986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2459172418608303314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb81083cc8a3ddd408efc4af94188879, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5168675748378769977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +281,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2220468757920783953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2459172418608303314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 355f91dca6fb8eb4d830c28265f8a881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 2459172418608303314}
 --- !u!114 &-6626904047375148710
 MonoBehaviour:
   m_ObjectHideFlags: 0

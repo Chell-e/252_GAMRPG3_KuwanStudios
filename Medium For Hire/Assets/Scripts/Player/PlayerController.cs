@@ -164,16 +164,8 @@ public class PlayerController : MonoBehaviour
         //if (!context.isNulled)
         //    GetComponent<HealthComponent>().TakeDamage(damage);
 
-        // new!
-        // since take damage logic is in player now, not the health component anymore
-        var health = GetComponent<HealthComponent>();
-        health.SetCurrentHealth(health.GetCurrentHealth() - damage);
-        
-        if (health.GetCurrentHealth() <= 0 && !health.IsDead)
-        {
-            health.IsDead = true;
-            health.TriggerDeath();
-        }
+        if (!context.isNulled)
+            GetComponent<HealthComponent>().ReduceHealth(damage);
 
         UIManager.Instance.UpdateHpUI();
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 324024687481400718}
   - component: {fileID: 3583457728688792620}
   - component: {fileID: 4443472077385015342}
-  - component: {fileID: 4016436694379604109}
+  - component: {fileID: 2240192134540510543}
   - component: {fileID: 3614419323694613154}
   - component: {fileID: 7774132969775627633}
   - component: {fileID: 3932194239184293513}
@@ -102,7 +102,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4016436694379604109
+--- !u!114 &2240192134540510543
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,17 +111,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1139407022206917121}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5863f17fe82e31a489f1252892f75abf, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c3d23ef2069bb843a8577ae50d9cee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 1
   possibleDrops:
   - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
   attackDamage: 1
-  moveSpeed: 2
+  baseMoveSpeed: 1
   moveSpeedMultiplier: 1
   incomingDamageMultiplier: 1
   isKnockedBack: 0
+  damageTick: 0.7
+  currentState: 0
+  lowerHalfPrefab: {fileID: 2459172418608303314, guid: f790254bd05efd04f83c8a4ce1a93d15, type: 3}
+  regenDuration: 5
+  regenTimer: 0
 --- !u!114 &3614419323694613154
 MonoBehaviour:
   m_ObjectHideFlags: 0

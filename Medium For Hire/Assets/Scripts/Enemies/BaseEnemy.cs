@@ -4,42 +4,40 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public enum EnemyType
-{
-    Normal,
-    Elite,
-    Boss
-}
-
 public abstract class BaseEnemy : MonoBehaviour
 {
         [Header("Enemy Stats")]
-    [SerializeField] private EnemyType enemyType = EnemyType.Normal;
     [SerializeField] public DropItem[] possibleDrops;
 
-    [SerializeField] protected float attackDamage;
-    [SerializeField] protected float moveSpeed;
+    [SerializeField] protected float attackDamage = 1f;
+    [SerializeField] protected float baseMoveSpeed = 1f;
+
+
+    // getters for base enemy stats
+    public float getAttackDamage() { return attackDamage; }
+    public float getBaseMoveSpeed() { return baseMoveSpeed; }
 
 
     // new
-        [Header("Runtime Stats")]
+    [Header("Runtime Stats")]
     [SerializeField] private float moveSpeedMultiplier = 1.0f;
     [SerializeField] private float incomingDamageMultiplier = 1.0f;
 
-
-    public bool isKnockedBack = false;
-    private Coroutine damageRoutine;
+    // new
+    private StatusEffectHandlerComponent statusEffectHandler;
 
 
     protected HealthComponent health;
     protected Rigidbody2D rb;
-    private HitFlash hitFlash;
-    
-    // new
-    private StatusEffectHandlerComponent statusEffectHandler;
+    protected HitFlash hitFlash;
 
-    
-    public EnemyType EnemyType => enemyType;
+    public bool isKnockedBack = false;
+    private Coroutine damageRoutine;
+    public float damageTick = 0.7f;
+
+    protected Transform playerTransform;
+    protected HealthComponent playerHealth;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -48,35 +46,69 @@ public abstract class BaseEnemy : MonoBehaviour
 
         // new
         statusEffectHandler = GetComponent<StatusEffectHandlerComponent>();
+
+        // new!
+        if (PlayerController.Instance != null)
+        {
+            playerTransform = PlayerController.Instance.transform;
+            playerHealth = PlayerController.Instance.GetComponent<HealthComponent>();
+        }
+    }
+
+    // IMPORTANT for pooling: reset these once they get spawned from pool
+    protected virtual void OnEnable()
+    {
+        moveSpeedMultiplier = 1.0f;
+        incomingDamageMultiplier = 1.0f;
+
+        if (health != null)
+            health.ResetHealth();
     }
 
     protected virtual void Update()
     {
-        LookAtPlayer();
+        // don't do anything if dead
+        if (health.IsDead) return;
+
+        LookAtTarget();
         Move();
     }
 
-    protected virtual void LookAtPlayer()
+    protected virtual void LookAtTarget()
     {
-        var playerPosition = PlayerController.Instance.transform.position;
-        transform.rotation = playerPosition.x < transform.position.x ? Quaternion.Euler(0f, 0f, 0f) : Quaternion.Euler(0f, 180f, 0f);
+        // don't look if player is dead or player tranform is null
+        if (playerTransform == null) return;
+
+        bool facingPlayer = playerTransform.position.x < transform.position.x;
+        transform.rotation = facingPlayer
+            ? Quaternion.Euler(0f, 0f, 0f) 
+            : Quaternion.Euler(0f, 180f, 0f);
     }
-    
+
+    protected virtual void Move()
+    {
+        if (isKnockedBack || playerTransform == null) return;
+
+        Vector2 direction = (playerTransform.position - transform.position).normalized;
+        rb.velocity = direction * baseMoveSpeed * moveSpeedMultiplier;
+    }
+
     protected virtual void OnCollisionEnter2D(Collision2D _collision)
     {
-        if (!gameObject.activeInHierarchy || health == null || health.IsDead)
-            return;
+        //if (!gameObject.activeInHierarchy || health == null || health.IsDead)
+        if (health.IsDead) return;
 
         var player = _collision.gameObject.GetComponent<PlayerController>();
         if (player)
         {
-            damageRoutine = StartCoroutine(DamageTick(player));
+            if (damageRoutine == null) 
+                damageRoutine = StartCoroutine(DamageTick(player));
         }
     }
 
     protected virtual void OnCollisionExit2D(Collision2D _collision)
     {
-        if (damageRoutine != null)
+        if (_collision.gameObject.GetComponent<PlayerController>() && damageRoutine != null)
         {
             StopCoroutine(damageRoutine);
             damageRoutine = null;
@@ -85,31 +117,22 @@ public abstract class BaseEnemy : MonoBehaviour
 
     private IEnumerator DamageTick(PlayerController _player)
     {
-        // Don't access
-        /*var playerHealth = player.GetComponent<HealthComponent>();
-        while (true)
-        {
-            if (playerHealth != null && !playerHealth.IsDead)
-            {
-                playerHealth.TakeDamage(attackDamage);
-            }
-            yield return new WaitForSeconds(0.7f); // -------> Adjust if necessary!
-        }*/
-
         while (true)
         {
             if (_player != null && !_player.GetComponent<HealthComponent>().IsDead)
             {
                 _player.TakeDamage(attackDamage, this);
             }
-            yield return new WaitForSeconds(0.7f); // -------> Adjust if necessary!
+            
+            yield return new WaitForSeconds(damageTick);
         }
     }
 
     // ====================== KNOCKBACK
     public void ApplyKnockback(Vector2 _direction, float _force, float _duration)
     {
-        if (!gameObject.activeInHierarchy || health == null || health.IsDead)
+        //if (!gameObject.activeInHierarchy || health == null || health.IsDead)
+        if (health.IsDead)
             return;
 
         StartCoroutine(KnockbackRoutine(_direction, _force, _duration));
@@ -135,38 +158,32 @@ public abstract class BaseEnemy : MonoBehaviour
         
         //health.TakeDamage(finalDamage);
 
-        // new!
-        health.SetCurrentHealth(health.GetCurrentHealth() - finalDamage);
-        
-            // trigger hit flash 
+        health.ReduceHealth(finalDamage);
+
         if (hitFlash != null)
-        {
             hitFlash.TriggerHitFlash();
-        }
-            // trigger death
-        if (health.GetCurrentHealth() <= 0 && !health.IsDead)
-        {
-            health.IsDead = true;
-            health.TriggerDeath();
-        }
     }
     // ====================== DAMAGE
 
-    protected virtual void Move()
-    {
-        if (isKnockedBack) return; 
-    }
 
-    protected virtual void OnDisable()
+    // IMPORTANT for pooling: these reset BEFORE they return to pool
+    protected virtual void OnDisable() 
     {
         if (damageRoutine != null)
         {
             StopCoroutine(damageRoutine);
             damageRoutine = null;
         }
-        StopAllCoroutines();
-        isKnockedBack = false;
+
+        // stop movement immediately when disabled and reset knockback state
         rb.velocity = Vector2.zero;
+        isKnockedBack = false;
+
+        // reset hitflash ONLY before it returns to pool
+        if (hitFlash != null)
+        {
+            hitFlash.ResetFlash();
+        }
     }
 
 

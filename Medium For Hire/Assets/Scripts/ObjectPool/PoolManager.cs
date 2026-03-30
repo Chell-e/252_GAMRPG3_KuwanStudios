@@ -80,15 +80,6 @@ public class PoolManager : MonoBehaviour
             spawnableObj.transform.rotation = spawnRotation;
             pool.inactiveObjects.Remove(spawnableObj);
             spawnableObj.SetActive(true);
-
-            // reset health pls huhu
-            var health = spawnableObj.GetComponent<HealthComponent>();
-            var hitFlash = spawnableObj.GetComponent<HitFlash>();
-            if (health != null || hitFlash != null)
-            {
-                health.ResetHealth();
-                hitFlash.ResetFlash();
-            }
         }
 
         return spawnableObj;

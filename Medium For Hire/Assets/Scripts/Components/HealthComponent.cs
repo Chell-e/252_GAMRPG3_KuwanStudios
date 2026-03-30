@@ -7,10 +7,12 @@ public class HealthComponent : MonoBehaviour
 {
     [SerializeField] private float maxHealth;
     [SerializeField] private float currentHealth;
-    public bool IsDead { get; set; }
 
-    //public event Action<float, float> OnHealthChanged;
-    public event Action OnDeath;
+    public bool IsDead { get; set; }
+    public bool CanDie { get; set; } = true;
+
+
+    public event System.Action OnDeath;
 
     private void Awake()
     {
@@ -20,38 +22,31 @@ public class HealthComponent : MonoBehaviour
     public float GetCurrentHealth() { return currentHealth; }
     public float GetMaxHealth() { return maxHealth; }
 
-    public void SetCurrentHealth(float value)
+    public void ReduceHealth(float amount)
     {
-        currentHealth = Mathf.Clamp(value, 0, maxHealth);
+        if (IsDead) return;
+
+        currentHealth -= amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        // for manananggal
+        if (currentHealth <= 0f && !CanDie)
+        {
+            currentHealth = 1f;
+        }
+
+        // for normal enemies and player
+        if (currentHealth <= 0f && CanDie)
+        {
+            Die();
+        }
     }
 
-    // new!
-    public void TriggerDeath()
+    public void Die()
     {
+        IsDead = true;
         OnDeath?.Invoke();
     }
-
-    //public void TakeDamage(float damage)
-    //{
-    //    if (IsDead) return;
-
-    //    currentHealth -= damage;
-    //    OnHealthChanged?.Invoke(currentHealth, maxHealth);
-
-    //    // TRIGGER HIT FLASH HERE
-    //    var hitFlash = GetComponent<HitFlash>();
-    //    if (hitFlash != null)
-    //    {
-    //        hitFlash.TriggerHitFlash();
-    //    }
-
-    //    if (currentHealth <= 0)
-    //    {
-    //        currentHealth = 0;
-    //        IsDead = true;
-    //        OnDeath?.Invoke();
-    //    }
-    //}
 
     public void IncreaseMaxHealth(int amount)
     {
@@ -61,8 +56,7 @@ public class HealthComponent : MonoBehaviour
 
     public void Heal(float amount)
     {
-        if (IsDead)
-            return;
+        if (IsDead) return;
 
         currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
     }
