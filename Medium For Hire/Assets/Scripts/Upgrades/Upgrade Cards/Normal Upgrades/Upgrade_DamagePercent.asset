@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988b2ec479412cb4e8834c0ff9a5f8a3, type: 3}
   m_Name: Upgrade_DamagePercent
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 514e05b8f8def7945809d189e2695e31, type: 3}
-  title: Warrior Anino
-  description: +25% Damage.
-  cardOutlineColor: {r: 1, g: 0, b: 0, a: 1}
+  icon: {fileID: 21300000, guid: 3278c55a1352a22409f1afd355188a28, type: 3}
+  title: Damage
+  subtitle: Stat
+  flavorText: The wrath of your ancestors empowers you.
+  description: 'Increase the damage of your weapons.
+
+
+    <color=#FF0000>+25% Damage.</color>'
   maxPicks: -1
   canDuplicate: 0
   requirements:
@@ -24,4 +28,4 @@ MonoBehaviour:
   - statToUpgrade: 0
     value: 25
   - statToUpgrade: 7
-    value: 1
+    value: 4

@@ -5,11 +5,17 @@ using UnityEngine;
 public abstract class BaseUpgradeData : ScriptableObject
 {
     public Sprite icon;
+
     public string title;
+    public string subtitle;
+    
+    [TextArea(2, 2)]
+    public string flavorText;
 
     [TextArea(2, 6)]
     public string description;
-    public Color cardOutlineColor;
+
+    // UpgradeCardUI will handle the Domain displays
 
             [Tooltip("How many times this can be picked. -1 for uncapped.")]
     public int maxPicks; // how many of these you can pick; -1 for indefinite

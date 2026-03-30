@@ -10,21 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d789124abbfe41a418bac04b3de46be1, type: 3}
-  m_Name: Unlock_MortarAndPestle
+  m_Name: Unlock_HolyWater
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: e4b8410e3fc7eaa459225dc580aa9fb9, type: 3}
-  title: Mortar & Pestle
+  icon: {fileID: 21300000, guid: d653ad7b16ca3b249bb6bcd89a9a5169, type: 3}
+  title: Holy Water
   subtitle: Weapon
-  flavorText: 'Dak
+  flavorText: 'Blessed by the bells of Quiapo;
 
-    Dak'
-  description: 'Crush nearby enemies, spawning a
+    a rain that pulls monsters closer
+    to the grave.'
+  description: 'Splash <color=#FF0000>Holy Water</color> towards your <color=#FF0000>cursor</color>,
+    forcing Monsters to take more damage.
 
 
-    Herb drop chance scales with
-    Damage.'
+    Status Duration scales with Damage
+    %.'
   maxPicks: 1
   canDuplicate: 0
   requirements:
   - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}
-  weaponPrefab: {fileID: 2759569689738054847, guid: 94bcf722b0c8aea4b8778209a4699544, type: 3}
+  weaponPrefab: {fileID: 192077901703021012, guid: f110a5ac007c10344b6e1ea3fa41f09d, type: 3}

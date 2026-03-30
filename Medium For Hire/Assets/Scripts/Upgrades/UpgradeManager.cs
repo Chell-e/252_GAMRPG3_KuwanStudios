@@ -55,13 +55,15 @@ public class UpgradeManager : MonoBehaviour
         // avoid duplicating UI
         if (isOpen) return;
 
-        // return if null
+        /*// return if null
         if (normalUpgradePool == null || normalUpgradePool.Length == 0 || cardPrefab == null || cardContainer == null)
         {
             Debug.LogWarning("UpgradeManager: missing references or empty pool.");
             return;
-        }
+        }*/
 
+
+        UIManager.Instance.ToggleUpgradeGraphics(true);
 
         List<BaseUpgradeData> rolledUpgrades; // list of upgrades that qualify
         if (isSpecial)
@@ -274,6 +276,9 @@ public class UpgradeManager : MonoBehaviour
         // destroy spawned card GameObjects
         foreach (var cardToRemove in spawnedCards) if (cardToRemove != null) Destroy(cardToRemove);
         spawnedCards.Clear();
+
+        // remove upgrades from UI Controller 
+        UIManager.Instance.ToggleUpgradeGraphics(false);
 
         // unpause
         Time.timeScale = 1f;

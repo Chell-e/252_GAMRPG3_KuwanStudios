@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Reflection;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [Header("EXP UI")]
+        [Header("EXP UI")]
     [SerializeField] private Slider expSlider;
     [SerializeField] private TMP_Text expText;
     [SerializeField] private TMP_Text levelText;
 
-    [Header("HP UI")]
+        [Header("HP UI")]
     [SerializeField] private Slider hpSlider;
     [SerializeField] private TMP_Text hpText;
+
+        [Header("Upgrade Screen")]
+    [SerializeField] private Image upgradeBackground;
 
     private void Awake()
     {
@@ -62,5 +66,13 @@ public class UIManager : MonoBehaviour
         hpSlider.value = PlayerController.Instance.GetComponent<HealthComponent>().GetCurrentHealth();
 
         hpText.text = hpSlider.value + " / " + hpSlider.maxValue;
+    }
+
+    public void ToggleUpgradeGraphics(bool isOn)
+    {
+        if (isOn) 
+            upgradeBackground.gameObject.SetActive(true);
+        else
+            upgradeBackground.gameObject.SetActive(false);
     }
 }
