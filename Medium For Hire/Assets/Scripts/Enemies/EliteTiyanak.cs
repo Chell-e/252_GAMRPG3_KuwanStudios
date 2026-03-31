@@ -16,9 +16,11 @@ public class EliteTiyanak : BaseEnemy
     [Header("Animator")]
     [SerializeField] private Animator animator;
 
-    [Header("Transformed Settings")]
-    public float transformSpeed = 2f;
-    public float healthHealOnTransform = 5f;
+    [Header("Transformed Stats")]
+    public float transformedSpeed = 2.5f;
+    public float transformedHealth = 5f;
+    public float transformedAttackDamage = 3f;
+
     public bool hasTransformed;
 
     [Header("Lure Settings")]
@@ -39,8 +41,8 @@ public class EliteTiyanak : BaseEnemy
     protected override void Awake()
     {
         base.Awake(); // Executes base's awake -> Gets rb, health component, player transform & hit flash
-
-        originalBaseMoveSpeed = baseMoveSpeed;
+        
+        originalBaseMoveSpeed = baseMoveSpeed; 
 
         if (PlayerController.Instance != null)
         {
@@ -54,7 +56,9 @@ public class EliteTiyanak : BaseEnemy
         
         hasTransformed = false;
         currentState = TiyanakState.Approach;
+
         rb.velocity = Vector2.zero;
+
         baseMoveSpeed = originalBaseMoveSpeed;
 
         if (animator != null)
@@ -63,7 +67,10 @@ public class EliteTiyanak : BaseEnemy
 
     protected override void Update()
     {
-        if (health.IsDead) return;
+        if (IsPlayerDead())
+        {
+            animator.enabled = false;
+        }
 
         base.Update(); 
 
@@ -72,8 +79,6 @@ public class EliteTiyanak : BaseEnemy
 
         UpdateTiyanakState();
         ExecuteCurrentState();
-        //CheckDistanceToPlayer();
-        //CheckState(currentState);
     }
 
     private void UpdateTiyanakState()
@@ -132,8 +137,8 @@ public class EliteTiyanak : BaseEnemy
 
     private void TransformTiyanak()
     {
-        health.Heal(healthHealOnTransform);
-        baseMoveSpeed = transformSpeed;
+        health.Heal(transformedHealth);
+        baseMoveSpeed = transformedSpeed;
         hasTransformed = true;
     }
 

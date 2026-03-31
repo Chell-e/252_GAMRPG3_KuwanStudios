@@ -34,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 0.20000002, y: 0.20000002, z: 0.20000002}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6330232389157122945}
@@ -74,7 +74,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.23
+  m_Radius: 1
 --- !u!50 &547521485374839147
 Rigidbody2D:
   serializedVersion: 4
@@ -114,14 +114,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5863f17fe82e31a489f1252892f75abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 0
   possibleDrops:
   - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
-  attackDamage: 1.5
-  moveSpeed: 2
+  attackDamage: 1
+  baseMoveSpeed: 1
   moveSpeedMultiplier: 1
   incomingDamageMultiplier: 1
   isKnockedBack: 0
+  damageTick: 0.7
 --- !u!114 &149713768457277641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,7 +247,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3366300114048162784}
@@ -303,4 +303,4 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1

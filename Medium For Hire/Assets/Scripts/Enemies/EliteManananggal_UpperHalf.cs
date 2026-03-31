@@ -13,6 +13,9 @@ public class EliteManananggal_UpperHalf : BaseEnemy
     [Header("Manananggal State")]
     public ManananggalState currentState;
 
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
+
     [Header("Lower Half")]
     public GameObject lowerHalfPrefab;
 
@@ -49,12 +52,9 @@ public class EliteManananggal_UpperHalf : BaseEnemy
 
     protected override void Update()
     {
-        if (health.IsDead || PlayerController.Instance == null) return;
-
-        if (PlayerController.Instance.GetComponent<HealthComponent>().IsDead)
+        if (IsPlayerDead())
         {
-            rb.velocity = Vector2.zero;
-            return;
+            animator.enabled = false;
         }
 
         base.Update();

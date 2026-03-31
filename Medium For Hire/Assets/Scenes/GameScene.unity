@@ -1578,20 +1578,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c19189cc844f2244a837bac95db88b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eliteSpawnInterval: 60
   enemyEntries:
-  - normalPrefab: {fileID: 5321161873318774769, guid: 721364bdbeb86074a86dd2cf438bb350, type: 3}
-    elitePrefab: {fileID: 1139407022206917121, guid: b74c51f5b89348542a0857ff56e517ba, type: 3}
-    unlockTime: 0
-  - normalPrefab: {fileID: 8744352337212714709, guid: 04bb6e80b51ff0c4ab58c347b9206a47, type: 3}
+  - normalPrefab: {fileID: 1139407022206917121, guid: b74c51f5b89348542a0857ff56e517ba, type: 3}
     elitePrefab: {fileID: 5321161873318774769, guid: 721364bdbeb86074a86dd2cf438bb350, type: 3}
-    unlockTime: 5
-  waveIndex: 0
-  waves:
-  - spawnTimer: 0
-    spawnInterval: 3
-    enemiesPerWave: 10
-    spawnedEnemyCount: 0
+    unlockTime: 0
+  - normalPrefab: {fileID: 5948244809178194235, guid: 03062a7ea05d070479bff06fa1cda708, type: 3}
+    elitePrefab: {fileID: 1139407022206917121, guid: b74c51f5b89348542a0857ff56e517ba, type: 3}
+    unlockTime: 60
+  - normalPrefab: {fileID: 890917171892679484, guid: 1158f3907312a1f4aadeaba34ebc5bb3, type: 3}
+    elitePrefab: {fileID: 1139407022206917121, guid: b74c51f5b89348542a0857ff56e517ba, type: 3}
+    unlockTime: 60
+  initialSpawnInterval: 1.8
+  minimumSpawnInterval: 0.25
+  spawnRateMultiplier: 0.9
+  baseHordeSize: 12
+  hordeSizeIncrease: 7
+  timePerWave: 60
+  eliteSpawnInterval: 60
+  statMultiplierPerWave: 1.12
+  maxEnemiesOnScreen: 1
+  bossPrefab: {fileID: 7016573006937491978, guid: 9197dfee9f10c9043be7f69c2d527d03, type: 3}
+  spawnEdgeOffset: 1.1
 --- !u!114 &1024280337
 MonoBehaviour:
   m_ObjectHideFlags: 0

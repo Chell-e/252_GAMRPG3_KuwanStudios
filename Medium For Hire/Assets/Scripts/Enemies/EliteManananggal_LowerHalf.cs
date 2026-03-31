@@ -7,6 +7,9 @@ public class EliteManananggal_LowerHalf : BaseEnemy
     [Header("Upper Half Reference")]
     public EliteManananggal_UpperHalf upperHalf;
 
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -15,6 +18,16 @@ public class EliteManananggal_LowerHalf : BaseEnemy
         {
             health.OnDeath += HandleLowerHalfDeath;
         }
+    }
+
+    protected override void Update()
+    {
+        if (IsPlayerDead())
+        {
+            animator.enabled = false;
+        }
+
+        base.Update();
     }
 
 

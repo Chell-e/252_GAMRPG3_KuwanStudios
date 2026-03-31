@@ -12,11 +12,8 @@ public abstract class BaseEnemy : MonoBehaviour
     [SerializeField] protected float attackDamage = 1f;
     [SerializeField] protected float baseMoveSpeed = 1f;
 
-
-    // getters for base enemy stats
-    public float getAttackDamage() { return attackDamage; }
-    public float getBaseMoveSpeed() { return baseMoveSpeed; }
-
+    public float AttackDamage { get; set; }
+    public float BaseMoveSpeed { get; set; }
 
     // new
     [Header("Runtime Stats")]
@@ -26,7 +23,6 @@ public abstract class BaseEnemy : MonoBehaviour
     // new
     private StatusEffectHandlerComponent statusEffectHandler;
 
-
     protected HealthComponent health;
     protected Rigidbody2D rb;
     protected HitFlash hitFlash;
@@ -35,6 +31,8 @@ public abstract class BaseEnemy : MonoBehaviour
     private Coroutine damageRoutine;
     public float damageTick = 0.7f;
 
+    // player references
+    protected PlayerController playerController;
     protected Transform playerTransform;
     protected HealthComponent playerHealth;
 
@@ -50,6 +48,7 @@ public abstract class BaseEnemy : MonoBehaviour
         // new!
         if (PlayerController.Instance != null)
         {
+            playerController = PlayerController.Instance;
             playerTransform = PlayerController.Instance.transform;
             playerHealth = PlayerController.Instance.GetComponent<HealthComponent>();
         }
@@ -67,11 +66,20 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        // don't do anything if dead
-        if (health.IsDead) return;
+        // don't do anything if dead OR player is null
+        if (health.IsDead || IsPlayerDead())
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
 
         LookAtTarget();
         Move();
+    }
+
+    public bool IsPlayerDead()
+    {
+        return playerHealth == null || playerHealth.IsDead;
     }
 
     protected virtual void LookAtTarget()
@@ -95,7 +103,6 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected virtual void OnCollisionEnter2D(Collision2D _collision)
     {
-        //if (!gameObject.activeInHierarchy || health == null || health.IsDead)
         if (health.IsDead) return;
 
         var player = _collision.gameObject.GetComponent<PlayerController>();
@@ -131,7 +138,6 @@ public abstract class BaseEnemy : MonoBehaviour
     // ====================== KNOCKBACK
     public void ApplyKnockback(Vector2 _direction, float _force, float _duration)
     {
-        //if (!gameObject.activeInHierarchy || health == null || health.IsDead)
         if (health.IsDead)
             return;
 
@@ -179,7 +185,7 @@ public abstract class BaseEnemy : MonoBehaviour
         rb.velocity = Vector2.zero;
         isKnockedBack = false;
 
-        // reset hitflash ONLY before it returns to pool
+        // reset hitflash BEFORE it returns to pool
         if (hitFlash != null)
         {
             hitFlash.ResetFlash();
