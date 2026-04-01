@@ -12,6 +12,10 @@ public class BossGawigawen : BaseEnemy
 {
     [Header("Boss Gawigawen Settings")]
     public GawigawenState currentState = GawigawenState.Approach;
+    [SerializeField] private float baseHealth;
+    [SerializeField] private float baseDamage;
+    [SerializeField] private float healthBuffMultiplier = 1.1f;
+    [SerializeField] private float damageBuffMultipl = 1.1f;
 
     [Header("Animator")]
     [SerializeField] private Animator animator;
@@ -24,14 +28,12 @@ public class BossGawigawen : BaseEnemy
 
     public float bossWeaponAttackDamage = 15f;
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        baseHealth = health.GetMaxHealth();
+        baseDamage = bossWeaponAttackDamage;
 
         currentState = GawigawenState.Approach;
         nextAttackIsAxe = true;
@@ -41,6 +43,19 @@ public class BossGawigawen : BaseEnemy
             animator.SetBool("isSwinging", false);
             animator.SetBool("isThrusting", false);
         }
+
+        // listen to superstition manager
+        SuperstitionManager.OnSuperstionBroken += ApplyBuff;
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+
+        health.SetMaxHealth(baseHealth);
+        bossWeaponAttackDamage = baseDamage;
+
+        SuperstitionManager.OnSuperstionBroken -= ApplyBuff;
     }
 
     protected override void Update()
@@ -122,5 +137,41 @@ public class BossGawigawen : BaseEnemy
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    // =========== SUPERSTITION BUFF
+    public void BuffHealth(float multiplier)
+    {
+        // get base max health
+        // multiply it by the multiplier
+        // set it as the new max health
+            
+        health.SetMaxHealth(health.GetMaxHealth() * multiplier);
+    }
+
+    public void BuffDamage(float multiplier)
+    {
+        // multiply the boss's weapon attack damage by the multiplier
+        bossWeaponAttackDamage *= multiplier;
+    }
+    // =========== SUPERSTITION BUFF
+
+    private void ApplyBuff(int defyCount)
+    {
+        Debug.Log("buff applied");
+
+        // multiplicative if within 5 defies ?
+        if (defyCount <= 5)
+        {
+            BuffHealth(1.1f);
+            BuffDamage(1.1f);
+        }
+        else
+        {
+            // additive after ?
+            BuffHealth(1f + (0.05f * defyCount));
+            BuffDamage(1f + (0.05f * defyCount));
+        }
+
     }
 }

@@ -17,8 +17,7 @@ public class EliteTiyanak : BaseEnemy
     [SerializeField] private Animator animator;
 
     [Header("Transformed Stats")]
-    public float transformedSpeed = 2.5f;
-    public float transformedHealth = 5f;
+    public float transformedSpeed = 3f;
     public float transformedAttackDamage = 3f;
 
     public bool hasTransformed;
@@ -137,7 +136,6 @@ public class EliteTiyanak : BaseEnemy
 
     private void TransformTiyanak()
     {
-        health.Heal(transformedHealth);
         baseMoveSpeed = transformedSpeed;
         hasTransformed = true;
     }

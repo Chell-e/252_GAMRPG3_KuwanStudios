@@ -21,6 +21,9 @@ public class EliteManananggal_UpperHalf : BaseEnemy
 
     private GameObject lowerHalfInstance;
 
+    [Header("Stats")]
+    public float immuneMoveSpeedMultiplier = 5f;
+
     [Header("Regeneration")]
     public float regenDuration = 5f;
     public float regenTimer;
@@ -66,7 +69,7 @@ public class EliteManananggal_UpperHalf : BaseEnemy
     {
         if (IsLowerHalfDead())
         {
-            health.CanDie = true;
+            BecomeVulnerable();
             return;
         }
 
@@ -80,7 +83,14 @@ public class EliteManananggal_UpperHalf : BaseEnemy
                 break;
 
             case ManananggalState.Immune:
+
                 MoveToLowerHalf();
+
+                if (IsLowerHalfDead())
+                {
+                    BecomeVulnerable();
+                    return;
+                }
 
                 if (IsNearLowerHalf())
                 {
@@ -90,6 +100,13 @@ public class EliteManananggal_UpperHalf : BaseEnemy
                 break;
 
             case ManananggalState.Regenerate:
+
+                if (IsLowerHalfDead())
+                {
+                    BecomeVulnerable();
+                    return;
+                }
+
                 rb.velocity = Vector2.zero;
                 regenTimer -= Time.deltaTime;
 
@@ -98,10 +115,16 @@ public class EliteManananggal_UpperHalf : BaseEnemy
                     health.ResetHealth();
                     SetUpperHalfColliderEnabled(true);
                     currentState = ManananggalState.Approach;
-                    SetLowerHalfColliderEnabled(true);
                 }
                 break;
         }
+    }
+
+    private void BecomeVulnerable()
+    {
+        currentState = ManananggalState.Approach;
+        health.CanDie = true;
+        SetUpperHalfColliderEnabled(true);
     }
 
     private void EnterImmuneState()
@@ -112,7 +135,6 @@ public class EliteManananggal_UpperHalf : BaseEnemy
 
     private void EnterRegenerateState()
     {
-        SetLowerHalfColliderEnabled(false);
         currentState = ManananggalState.Regenerate;
         SetUpperHalfColliderEnabled(false);
     }
@@ -139,7 +161,7 @@ public class EliteManananggal_UpperHalf : BaseEnemy
         }
 
         Vector3 direction = (lowerHalfInstance.transform.position - transform.position).normalized;
-        rb.velocity = direction * baseMoveSpeed * 5f;
+        rb.velocity = direction * baseMoveSpeed * immuneMoveSpeedMultiplier;
     }
 
     protected override void LookAtTarget()

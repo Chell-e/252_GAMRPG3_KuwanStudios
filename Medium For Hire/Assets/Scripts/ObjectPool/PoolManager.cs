@@ -12,12 +12,15 @@ public class PoolManager : MonoBehaviour
 
     public static GameObject _enemyPoolEmpty;
     public static GameObject _expOrbPoolEmpty;
+    public static GameObject _projectilePoolEmpty;
+
     private static GameObject _gameObjectsEmpty;
 
     public enum PoolType
     {
         Enemy,
         ExpOrb,
+        Projectile,
         None
     }
     public static PoolType poolingType;
@@ -36,6 +39,9 @@ public class PoolManager : MonoBehaviour
 
         _expOrbPoolEmpty = new GameObject("Exp Orb Pooled Objects");
         _expOrbPoolEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+
+        _projectilePoolEmpty = new GameObject("Projectile Pooled Objects");
+        _projectilePoolEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
     }
 
     public static GameObject SpawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, PoolType poolType = PoolType.None)
@@ -119,6 +125,8 @@ public class PoolManager : MonoBehaviour
                 return _enemyPoolEmpty;
             case PoolType.ExpOrb:
                 return _expOrbPoolEmpty;
+            case PoolType.Projectile:
+                return _projectilePoolEmpty;
             case PoolType.None:
                 return null;
             default:

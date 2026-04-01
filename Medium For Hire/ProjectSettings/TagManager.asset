@@ -39,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Enemy Shadow
+    uniqueID: 3959983593
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

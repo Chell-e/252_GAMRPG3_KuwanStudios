@@ -12,15 +12,28 @@ public class HealthComponent : MonoBehaviour
     public bool CanDie { get; set; } = true;
 
 
-    public event System.Action OnDeath;
+    public event Action OnDeath;
 
     private void Awake()
     {
         currentHealth = maxHealth;
     }
 
+    // GETTERS
     public float GetCurrentHealth() { return currentHealth; }
     public float GetMaxHealth() { return maxHealth; }
+
+    // SETTERS
+    public void SetCurrentHealth(float amount) 
+    { 
+        currentHealth = amount; 
+    }
+
+    public void SetMaxHealth(float amount) 
+    { 
+        maxHealth = amount;
+    }
+
 
     public void ReduceHealth(float amount)
     {

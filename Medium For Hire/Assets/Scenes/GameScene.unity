@@ -1053,7 +1053,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 00000000e98d08ec
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1579,7 +1579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyEntries:
-  - normalPrefab: {fileID: 1139407022206917121, guid: b74c51f5b89348542a0857ff56e517ba, type: 3}
+  - normalPrefab: {fileID: 8744352337212714709, guid: 04bb6e80b51ff0c4ab58c347b9206a47, type: 3}
     elitePrefab: {fileID: 5321161873318774769, guid: 721364bdbeb86074a86dd2cf438bb350, type: 3}
     unlockTime: 0
   - normalPrefab: {fileID: 5948244809178194235, guid: 03062a7ea05d070479bff06fa1cda708, type: 3}
@@ -1596,7 +1596,7 @@ MonoBehaviour:
   timePerWave: 60
   eliteSpawnInterval: 60
   statMultiplierPerWave: 1.12
-  maxEnemiesOnScreen: 1
+  maxEnemiesOnScreen: 300
   bossPrefab: {fileID: 7016573006937491978, guid: 9197dfee9f10c9043be7f69c2d527d03, type: 3}
   spawnEdgeOffset: 1.1
 --- !u!114 &1024280337
@@ -1761,7 +1761,7 @@ GameObject:
   - component: {fileID: 1118073150}
   - component: {fileID: 1118073151}
   m_Layer: 0
-  m_Name: ~GameSceneManager
+  m_Name: ~GameScene Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2051,6 +2051,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242655443}
   m_CullTransparentMesh: 1
+--- !u!1 &1265621445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1265621446}
+  - component: {fileID: 1265621447}
+  m_Layer: 0
+  m_Name: ~Superstition Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1265621446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265621445}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1583053706}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1265621447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265621445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d4d7b3681814a4e8b434aecf9d2131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbsExpiredCount: 0
 --- !u!1 &1308892167
 GameObject:
   m_ObjectHideFlags: 0
@@ -2881,6 +2926,7 @@ Transform:
   - {fileID: 1024280335}
   - {fileID: 2038611120}
   - {fileID: 1143977122}
+  - {fileID: 1265621446}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1634449292
