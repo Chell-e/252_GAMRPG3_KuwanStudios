@@ -14,6 +14,7 @@ public class GameSceneManager : MonoBehaviour
 
     private void Update()
     {
+        // ESC can only happen in these scenes
         if (SceneManager.GetActiveScene().name == "ShopScene" || SceneManager.GetActiveScene().name == "BestiaryScene")
         {
             if (Input.GetKeyDown(KeyCode.Escape))

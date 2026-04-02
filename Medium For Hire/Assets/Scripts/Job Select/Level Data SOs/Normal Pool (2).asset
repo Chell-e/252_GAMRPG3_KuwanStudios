@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14119be1b292ae143850cfcd25035eec, type: 3}
+  m_Name: Normal Pool (2)
+  m_EditorClassIdentifier: 
+  enemyPool:
+  - {fileID: 11400000, guid: 99eb46c81ca83c442bb9bda7b0196514, type: 2}
+  - {fileID: 11400000, guid: ff67e5b8361fdfe428f1c7f1f32e0585, type: 2}

@@ -20,6 +20,9 @@ public class UIManager : MonoBehaviour
         [Header("Upgrade Screen")]
     [SerializeField] private Image upgradeBackground;
 
+    [Header("End Run Screen")]
+    [SerializeField] private GameObject endRunScreen;
+
     private void Awake()
     {
         // singleton 
@@ -74,5 +77,10 @@ public class UIManager : MonoBehaviour
             upgradeBackground.gameObject.SetActive(true);
         else
             upgradeBackground.gameObject.SetActive(false);
+    }
+
+    public void DisplayEndRunScreen()
+    {
+        endRunScreen.gameObject.SetActive(true);
     }
 }

@@ -185,11 +185,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
   attackDamage: 1
   baseMoveSpeed: 1
+  currentScaledDamage: 0
   moveSpeedMultiplier: 1
   incomingDamageMultiplier: 1
   isKnockedBack: 0
   damageTick: 0.7
   currentState: 0
+  baseHealth: 0
+  baseDamage: 0
+  healthBuffMultiplier: 1.1
+  damageBuffMultipl: 1.1
   animator: {fileID: 6649591652264610084}
   attackRange: 8
   attackThresholdY: -3.5
@@ -206,7 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9f0257afacb5341b18f93508b112c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  baseMaxHealth: 100
+  maxHealth: 0
   currentHealth: 0
 --- !u!114 &8536811281949996613
 MonoBehaviour:
@@ -220,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb81083cc8a3ddd408efc4af94188879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Events: {fileID: 0}
 --- !u!114 &5096519058993142814
 MonoBehaviour:
   m_ObjectHideFlags: 0

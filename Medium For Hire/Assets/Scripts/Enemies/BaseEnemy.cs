@@ -12,6 +12,9 @@ public abstract class BaseEnemy : MonoBehaviour
     [SerializeField] protected float attackDamage = 1f;
     [SerializeField] protected float baseMoveSpeed = 1f;
 
+    // scaled damage when spawning
+    [SerializeField] private float currentScaledDamage;
+
     public float AttackDamage { get; set; }
     public float BaseMoveSpeed { get; set; }
 
@@ -60,8 +63,20 @@ public abstract class BaseEnemy : MonoBehaviour
         moveSpeedMultiplier = 1.0f;
         incomingDamageMultiplier = 1.0f;
 
+        currentScaledDamage = attackDamage;
+
         if (health != null)
             health.ResetHealth();
+    }
+
+    public virtual void ScaleEnemyStat(float statMultiplier)
+    {
+        if (health != null)
+        {
+            health.ApplyHealthMultiplier(statMultiplier);
+        }
+
+        currentScaledDamage = attackDamage * statMultiplier;
     }
 
     protected virtual void Update()
@@ -128,7 +143,7 @@ public abstract class BaseEnemy : MonoBehaviour
         {
             if (_player != null && !_player.GetComponent<HealthComponent>().IsDead)
             {
-                _player.TakeDamage(attackDamage, this);
+                _player.TakeDamage(currentScaledDamage, this);
             }
             
             yield return new WaitForSeconds(damageTick);

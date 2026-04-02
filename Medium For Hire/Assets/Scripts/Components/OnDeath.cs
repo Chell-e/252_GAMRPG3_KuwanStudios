@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OnDeath : MonoBehaviour
 {
+    [SerializeField] public PlayerEvents Events;
     private HealthComponent health;
 
     private void Awake()
@@ -32,9 +33,17 @@ public class OnDeath : MonoBehaviour
 
     public void HandlePlayerDeath()
     {
-        gameObject.SetActive(false);
+        if (Events == null)
+        {
+            Events = GetComponent<PlayerEvents>();
+        }
 
-        // trigger game over screen here
+        if (Events != null)
+        {
+            Events.OnPlayerDeath?.Invoke();
+        }
+        
+        gameObject.SetActive(false);
     }
 
     public void HandleEnemyDeath(BaseEnemy baseEnemy)

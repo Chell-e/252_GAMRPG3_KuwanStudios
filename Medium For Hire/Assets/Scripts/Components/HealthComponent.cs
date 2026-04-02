@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
 {
+    [SerializeField] private float baseMaxHealth;
+
     [SerializeField] private float maxHealth;
     [SerializeField] private float currentHealth;
 
@@ -16,6 +18,7 @@ public class HealthComponent : MonoBehaviour
 
     private void Awake()
     {
+        maxHealth = baseMaxHealth;
         currentHealth = maxHealth;
     }
 
@@ -61,6 +64,11 @@ public class HealthComponent : MonoBehaviour
         OnDeath?.Invoke();
     }
 
+    public void ApplyHealthMultiplier(float amount)
+    {
+        maxHealth = baseMaxHealth * amount;
+    }
+
     public void IncreaseMaxHealth(int amount)
     {
         maxHealth += amount;
@@ -76,6 +84,7 @@ public class HealthComponent : MonoBehaviour
 
     public void ResetHealth()
     {
+        maxHealth = baseMaxHealth;
         currentHealth = maxHealth;
         IsDead = false;
     }

@@ -31,6 +31,10 @@ public class ExpOrb : MonoBehaviour
 
     private void Update()
     {
+        // stop expiring when player's dead
+        if (StageManager.Instance != null && StageManager.Instance.isGameOver)
+            return;
+
         if (Time.timeSinceLevelLoad - spawnTimeElaped >= expireTime)
         {
             ExpireOrb();

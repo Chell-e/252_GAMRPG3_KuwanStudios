@@ -4,56 +4,51 @@ using UnityEngine;
 
 public class PoolSpawner : MonoBehaviour
 {
-    [System.Serializable]
-    public class EnemyEntry
-    {
-        public GameObject normalPrefab;
-        public GameObject elitePrefab;
-        public float unlockTime; // time in seconds when this enemy joins
-    }
+    // ==== FROM LEVEL SELECT MANAGER
+    [SerializeField] private EnemyPoolData currentNormalPool;
+    [SerializeField] private EnemyPoolData currentElitePool;
+    [SerializeField] private BossData currentBoss;
 
-    [Header("Enemy Types")]
-    public List<EnemyEntry> enemyEntries = new List<EnemyEntry>();
-
-    [Header("Wave Progression")]
-    [Tooltip("Initial time between spawns")]
+        [Header("Wave Progression")]
+            [Tooltip("Initial time between spawns")]
     public float initialSpawnInterval = 1.8f;
-    [Tooltip("Fastest possible spawn interval")]
+            [Tooltip("Fastest possible spawn interval")]
     public float minimumSpawnInterval = 0.25f;
-    [Tooltip("Modifies spawn rate per wave")]
+            [Tooltip("Modifies spawn rate per wave")]
     public float spawnRateMultiplier = 0.9f;
 
-    [Header("Horde Size")]
-    [Tooltip("Base number of enemies per wave")]
+        [Header("Horde Size")]
+            [Tooltip("Base number of enemies per wave")]
     public int baseHordeSize = 12;
-    [Tooltip("Number of enemies added each wave")]
+            [Tooltip("Number of enemies added each wave")]
     public int hordeSizeIncrease = 7;
 
-    [Tooltip("How often a new wave triggers (in seconds)")]
+            [Tooltip("How often a new wave triggers (in seconds)")]
     public float timePerWave = 60f;
 
-    [Header("Elite")]
-    [Tooltip("Time between elite spawns")]
+        [Header("Boss")]
+            [Tooltip("Time when boss spawns")]
+    public float bossSpawnTime = 600f;  // 10 minutes
+
+        [Header("Elite")]
+            [Tooltip("Time between elite spawns")]
     public float eliteSpawnInterval = 60f;
 
-    [Header("Difficulty Scaling")]
-    [Tooltip("Enemy stats multiplier per wave (HP, DMG)")]
+        [Header("Difficulty Scaling")]
+            [Tooltip("Enemy stats multiplier per wave (HP, DMG)")]
     public float statMultiplierPerWave = 1.12f;
 
-    [Header("Enemy Cap")]
-    [Tooltip("Max enemies (normal + elite) on screen")]
+        [Header("Enemy Cap")]
+            [Tooltip("Max enemies (normal + elite) on screen")]
     public int maxEnemiesOnScreen = 100;
 
-    [Header("Boss")]
-    public GameObject bossPrefab;
-
-    [Header("Spawn Position")]
-    [Tooltip("How far off-screen to spawn (in viewport units)")]
+        [Header("Spawn Position")]
+            [Tooltip("How far off-screen to spawn (in viewport units)")]
     public float spawnEdgeOffset = 1.5f;
 
-    private List<GameObject> unlockedNormals = new List<GameObject>();
-    private List<GameObject> unlockedElites = new List<GameObject>();
-    private int nextUnlockIndex = 0;
+        [Header("Enemy Unlock Progression")]
+            [Tooltip("Seconds required to unlock a new enemy type")]
+    private float timeToUnlockNextEnemy = 60f;
 
     private float currentSpawnInterval;
     private float spawnTimer = 0f;
@@ -70,20 +65,46 @@ public class PoolSpawner : MonoBehaviour
     public int CurrentWave => currentWave;
     public float ElapsedTime => elapsedTime;
     public int CurrentEnemyCount => GetCurrentEnemyCount();
-    public bool IsAtEnemyCap => maxEnemiesOnScreen > 0 && GetCurrentEnemyCount() >= maxEnemiesOnScreen;
+    public bool IsAtEnemyCap() => maxEnemiesOnScreen > 0 && GetCurrentEnemyCount() >= maxEnemiesOnScreen;
+
+    private bool HasNormalEnemies() => currentNormalPool != null && currentNormalPool.enemyPool != null && currentNormalPool.enemyPool.Count > 0;
+    private bool HasEliteEnemies() => currentElitePool != null && currentElitePool.enemyPool != null && currentElitePool.enemyPool.Count > 0;
 
 
     private void Start()
     {
         currentSpawnInterval = initialSpawnInterval;
         enemiesToSpawnThisWave = baseHordeSize;
+    }
 
-        // sort enemy entries by unlock time to ensure correct unlocking order
-        enemyEntries.Sort((a, b) => a.unlockTime.CompareTo(b.unlockTime));
+    public void SetUpLevelData(LevelData levelData)
+    {
+        if (levelData == null)
+            return;
 
-        // unlock first enemy type immediately
-        if (enemyEntries.Count > 0 && enemyEntries[0].unlockTime <= 0f)
-            UnlockNextEnemyType();
+        currentNormalPool = levelData.normalEnemies;
+        currentElitePool = levelData.eliteEnemies;
+        currentBoss = levelData.boss;
+
+        // clean up level
+        ResetSpawnerState();
+    }
+
+    private void ResetSpawnerState()
+    {
+        elapsedTime = 0f;
+
+        currentWave = 0;
+        waveTimer = 0f;
+
+        spawnTimer = 0f;
+        eliteTimer = 0f;
+
+        enemiesSpawnedThisWave = 0;
+        bossSpawned = false;
+
+        currentSpawnInterval = initialSpawnInterval;
+        enemiesToSpawnThisWave = baseHordeSize;
     }
 
     private void Update()
@@ -95,30 +116,21 @@ public class PoolSpawner : MonoBehaviour
         spawnTimer += Time.deltaTime;
         eliteTimer += Time.deltaTime;
 
-        // unlock new enemy types over time
-        UnlockNewEnemyTypes();
-
         // --- normal enemy spawning
-        if (spawnTimer >= currentSpawnInterval && unlockedNormals.Count > 0)
+        if (spawnTimer >= currentSpawnInterval && HasNormalEnemies() && !IsAtEnemyCap())
         {
-            // check if we can spawn more enemies based on cap
-            if (GetCurrentEnemyCount() < maxEnemiesOnScreen || maxEnemiesOnScreen <= 0)
-            {
-                spawnTimer -= currentSpawnInterval;
-                SpawnNormalEnemy();
-                enemiesSpawnedThisWave++;
-            }
+            spawnTimer -= currentSpawnInterval;
+            SpawnNormalEnemy();
+            enemiesSpawnedThisWave++;
+            
         }
 
         // --- elite spawning
-        if (eliteTimer >= eliteSpawnInterval && unlockedElites.Count > 0)
+        if (eliteTimer >= eliteSpawnInterval && HasEliteEnemies() && !IsAtEnemyCap())
         {
-            // same cap check for elites
-            if (GetCurrentEnemyCount() < maxEnemiesOnScreen || maxEnemiesOnScreen <= 0)
-            {
-                eliteTimer -= eliteSpawnInterval;
-                SpawnElite();
-            }
+            eliteTimer -= eliteSpawnInterval;
+            SpawnElite();
+            
         }
 
         // --- wave progression
@@ -129,36 +141,6 @@ public class PoolSpawner : MonoBehaviour
         }
 
         HandleBossSpawn();
-
-
-    }
-
-    private void UnlockNewEnemyTypes()
-    {
-        // unlock any enemy types whose unlock time has passed
-        while (nextUnlockIndex < enemyEntries.Count && elapsedTime >= enemyEntries[nextUnlockIndex].unlockTime)
-        {
-            UnlockNextEnemyType();
-            nextUnlockIndex++;
-        }
-    }
-
-    private void UnlockNextEnemyType()
-    { 
-        if (nextUnlockIndex >= enemyEntries.Count) return;
-
-        // unlock the next enemy type and add to unlocked lists
-        EnemyEntry entry = enemyEntries[nextUnlockIndex];
-        
-        // unlock normal enemy
-        if (!unlockedNormals.Contains(entry.normalPrefab))
-            unlockedNormals.Add(entry.normalPrefab);
-
-        // unlock elite enemy if it exists
-        if (entry.elitePrefab != null && !unlockedElites.Contains(entry.elitePrefab))
-            unlockedElites.Add(entry.elitePrefab);
-
-        nextUnlockIndex++; // increment index for next unlock
     }
 
     private void AdvanceWave()
@@ -172,46 +154,74 @@ public class PoolSpawner : MonoBehaviour
         enemiesToSpawnThisWave = baseHordeSize + (currentWave * hordeSizeIncrease);
 
         enemiesSpawnedThisWave = 0; // reset count for new wave
-
-        Debug.Log($"[Wave {currentWave}] Spawn Interval: {currentSpawnInterval:F2}s | Horde Goal: {enemiesToSpawnThisWave} | Cap: {maxEnemiesOnScreen} ");
     }
 
     private void SpawnNormalEnemy()
     {
-        if (unlockedNormals.Count == 0) return;
-
-        GameObject prefab = unlockedNormals[Random.Range(0, unlockedNormals.Count)];
+        GameObject prefab = GetRandomPrefabFromPool(currentNormalPool);
+        if (prefab == null)
+            return;
 
         GameObject enemy = PoolManager.SpawnObject(prefab, GetRandomSpawnPosition(), Quaternion.identity, PoolManager.PoolType.Enemy);
-        // ApplyScaling(enemy);
+
+        // apply scaling
+        ApplyScaling(enemy);
     }
 
     private void SpawnElite()
     {
-        if (unlockedElites.Count == 0) return;
-
-        GameObject prefab = unlockedElites[Random.Range(0, unlockedElites.Count)];
+        GameObject prefab = GetRandomPrefabFromPool(currentElitePool);
+        if (prefab == null)
+            return;
 
         GameObject elite = PoolManager.SpawnObject(prefab, GetRandomSpawnPosition(), Quaternion.identity, PoolManager.PoolType.Enemy);
-        //ApplyScaling(elite);
+
+        // apply scaling
+        ApplyScaling(elite);
+    }
+
+    // 0-60: first enemy only, 60-120: first enemy + second enemy
+    private GameObject GetRandomPrefabFromPool(EnemyPoolData enemyPoolData)
+    {
+        if (enemyPoolData == null || enemyPoolData.enemyPool == null || enemyPoolData.enemyPool.Count == 0)
+            return null;
+
+        // calculate how many enemy types are currently unlocked
+        int maxPossibleIndex = Mathf.FloorToInt(elapsedTime / timeToUnlockNextEnemy) + 1;
+
+        // clamp it so it doesnt exceed list size
+        int unlockedCount = Mathf.Min(maxPossibleIndex, enemyPoolData.enemyPool.Count);
+
+        // get random enemy from unlocked enemies
+        int randomIndex = Random.Range(0, unlockedCount);
+        
+        EnemyData data = enemyPoolData.enemyPool[randomIndex];
+
+        // if data's not null, return prefab, otherwise return null
+        return data != null ? data.enemyPrefab : null;
     }
 
     private void ApplyScaling(GameObject enemyObj)
     {
-        // enemy stats (health, damage) scale here
+        if (enemyObj == null) return;
+
+        BaseEnemy _enemy = enemyObj.GetComponent<BaseEnemy>();
+        if (_enemy != null)
+        {
+            float multiplier = Mathf.Pow(statMultiplierPerWave, currentWave);
+            _enemy.ScaleEnemyStat(multiplier);
+        }
     }
 
     private void HandleBossSpawn()
     {
-        if (bossSpawned || bossPrefab == null) return;
+        if (bossSpawned || currentBoss == null)
+            return;
 
-        // change to max level once implemented
-        bool atMaxLevel = PlayerController.Instance.playerStats.currentLevel >= 5;
-
-        if (atMaxLevel)
+        if (elapsedTime >= bossSpawnTime)
         {
             Vector2 pos = GetRandomSpawnPosition();
-            PoolManager.SpawnObject(bossPrefab, pos, Quaternion.identity, PoolManager.PoolType.Enemy);
+            PoolManager.SpawnObject(currentBoss.bossPrefab, pos, Quaternion.identity, PoolManager.PoolType.Enemy);
             bossSpawned = true;
         }
     }
