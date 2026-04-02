@@ -186,6 +186,15 @@ public class PlayerStats : MonoBehaviour
 
     }
 
+    // debug
+    [ContextMenu("Force Level Up")]
+    void ForceLevelUp()
+    {
+        Debug.Log("Forced level up");
+        GainExperience(999999);
+    }
+
+
     public void GainExperience(int amount)
     {
         //currentExp += amount;

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988b2ec479412cb4e8834c0ff9a5f8a3, type: 3}
   m_Name: Upgrade_ProjectileSpeedPercent
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 514e05b8f8def7945809d189e2695e31, type: 3}
+  icon: {fileID: 21300000, guid: 91fbfced76019144ba45239c41aa8093, type: 3}
   title: Projectile Speed
   subtitle: Stat
   flavorText: Swift Anino
   description: 'Increase the travel speed of weapons.
 
 
-    <color=#000099>+25% Projectile
+    <color=#9ECBFF>+25% Projectile
     Speed.</color>'
   maxPicks: -1
   canDuplicate: 0

@@ -46,6 +46,12 @@ MonoBehaviour:
     m_Scale: 1
     m_Name: Grudge
     m_HashCode: -1465901050
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 0
+    m_Scale: 1
+    m_Name: Grudge
+    m_HashCode: -1465901050
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
@@ -65,9 +71,9 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 9dc80f5c9e1252143bdaf875e46453dd, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets:
-  - {fileID: 11400000, guid: e75497a536da8fb4196f17c659aa3be2, type: 2}
-  - {fileID: 11400000, guid: 6139a07485130b841a5386b44f75c7b2, type: 2}
-  - {fileID: 11400000, guid: 48231e6f2ef591942a1cf56b75178309, type: 2}
+  - {fileID: 11400000, guid: c49b4001cb3497546bf5af73112eec3c, type: 2}
+  - {fileID: 11400000, guid: 2b5c64bd549dfeb4680a0da7ca24c74c, type: 2}
+  - {fileID: 11400000, guid: 1196e2c246602ce43b6a1773f5062a1d, type: 2}
 --- !u!21 &8534900989111765818
 Material:
   serializedVersion: 8
