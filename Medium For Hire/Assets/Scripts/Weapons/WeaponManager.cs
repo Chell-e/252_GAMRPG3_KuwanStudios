@@ -7,14 +7,15 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerStats playerStats;
 
-    [SerializeField] List<GameObject> weapons = new List<GameObject>();
+    [SerializeField] GameObject mainWeapon;
+    [SerializeField] List<GameObject> subWeapons = new List<GameObject>();
 
     private void Awake()
     {
         //playerController = PlayerController.Instance;
         //playerStats = PlayerController.Instance.playerStats;
     }
-    public void AddWeapon(GameObject weaponPrefab)
+    public BaseWeapon AddMiniWeapon(GameObject weaponPrefab)
     {
         //// Check if already exists
         //foreach (var weapon in weapons)
@@ -25,12 +26,17 @@ public class WeaponManager : MonoBehaviour
         //    }
         //}
 
+        // We need to also pass some sort of data to the UI Manager
+
 
         GameObject instance = Instantiate(weaponPrefab, transform);
 
         instance.GetComponent<BaseWeapon>().Initialize(playerController); // dont forget to Initialize() function 
 
-        weapons.Add(instance);
+        subWeapons.Add(instance);
+
+
+        return instance.GetComponent<BaseWeapon>(); // return a reference to the added weapon
     }
 
 }

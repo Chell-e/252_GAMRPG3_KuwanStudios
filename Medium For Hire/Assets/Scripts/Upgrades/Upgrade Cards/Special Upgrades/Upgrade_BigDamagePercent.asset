@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 988b2ec479412cb4e8834c0ff9a5f8a3, type: 3}
+  m_Name: Upgrade_BigDamagePercent
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 3278c55a1352a22409f1afd355188a28, type: 3}
+  title: Damage+
+  subtitle: Stat
+  flavorText: The wrath of your ancestors empowers you.
+  description: 'Greatly increase the damage of your weapons.
+
+
+    <style="grudge">+75%
+    Damage.</style>'
+  maxPicks: -1
+  canDuplicate: 0
+  requirements:
+  - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}
+  statsUpgraded:
+  - statToUpgrade: 0
+    value: 75
+  - statToUpgrade: 7
+    value: 3

@@ -29,4 +29,4 @@ MonoBehaviour:
   canDuplicate: 0
   requirements:
   - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}
-  weaponPrefab: {fileID: 192077901703021012, guid: f110a5ac007c10344b6e1ea3fa41f09d, type: 3}
+  weaponPrefab: {fileID: 192077901703021012, guid: ae5877447410f254f86fe5b7fb01800b, type: 3}

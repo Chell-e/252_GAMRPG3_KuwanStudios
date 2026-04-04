@@ -252,8 +252,10 @@ public class UpgradeManager : MonoBehaviour
                 return;
             }
 
-            PlayerController.Instance.weaponManager.AddWeapon(weaponUnlock.weaponPrefab);
+            BaseWeapon newWeaponInstance = PlayerController.Instance.weaponManager.AddMiniWeapon(weaponUnlock.weaponPrefab);
             Debug.Log("Added weapon: " + weaponUnlock);
+
+            UIManager.Instance.AddWeaponSlot(weaponUnlock, newWeaponInstance);
         }
 
         if (upgrade is WeaponEvolution weaponEvolution)
@@ -265,6 +267,7 @@ public class UpgradeManager : MonoBehaviour
             // update any relevant UI
         UIManager.Instance.UpdateExpUI();
         UIManager.Instance.UpdateHpUI();
+        UIManager.Instance.UpdateDomainProgress();
 
         // update player
         playerStats.UpdatePlayerStat(Stat.MaxHealth);

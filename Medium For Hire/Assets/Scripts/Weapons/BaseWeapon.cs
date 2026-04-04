@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseWeapon : MonoBehaviour
+public class BaseWeapon : MonoBehaviour , ITooltipProvider
 {
     [SerializeField] protected PlayerController playerController;
     [SerializeField] protected PlayerStats playerStats;
@@ -22,5 +22,16 @@ public class BaseWeapon : MonoBehaviour
     protected virtual void OnDestroy()
     {
         Unsubscribe();
+    }
+
+    public virtual string GetTooltipText()
+    {
+        return "No override";
+    }
+
+    public virtual float GetFillProgress()
+    {
+        // If applicable, return the cooldown
+        return 1.0f;
     }
 }

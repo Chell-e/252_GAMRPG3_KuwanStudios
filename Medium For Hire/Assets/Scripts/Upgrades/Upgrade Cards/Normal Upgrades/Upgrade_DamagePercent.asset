@@ -19,7 +19,7 @@ MonoBehaviour:
   description: 'Increase the damage of your weapons.
 
 
-    <color=#EC526C>+25% Damage.</color>'
+    <style="grudge">+25% Damage.</style>'
   maxPicks: -1
   canDuplicate: 0
   requirements:
@@ -28,4 +28,4 @@ MonoBehaviour:
   - statToUpgrade: 0
     value: 25
   - statToUpgrade: 7
-    value: 4
+    value: 1

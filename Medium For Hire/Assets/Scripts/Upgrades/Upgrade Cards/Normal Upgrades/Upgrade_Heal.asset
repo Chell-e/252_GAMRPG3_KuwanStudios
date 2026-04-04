@@ -15,9 +15,9 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 514e05b8f8def7945809d189e2695e31, type: 3}
   title: Heal
   subtitle: Boon
-  flavorText: 'Good health
+  flavorText: 'FLAVOR TEXT
 
-    Safety'
+    Good health & Safety'
   description: Heal to full.
   maxPicks: -1
   canDuplicate: 0

@@ -180,9 +180,9 @@ public class PlayerStats : MonoBehaviour
     // ****** ENCAPSULATION: EXTERNAL CLASSES SHOULD CALL THIS INSTEAD. 
     public void UpdatePlayerStat(Stat statToUpdate)
     {
-        switch (statToUpdate)
+        /*switch (statToUpdate)
         {
-        }
+        }*/
 
     }
 

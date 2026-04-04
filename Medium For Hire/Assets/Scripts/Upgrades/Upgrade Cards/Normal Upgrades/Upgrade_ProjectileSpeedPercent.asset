@@ -19,8 +19,8 @@ MonoBehaviour:
   description: 'Increase the travel speed of weapons.
 
 
-    <color=#9ECBFF>+25% Projectile
-    Speed.</color>'
+    <style="guide">+25% Projectile
+    Speed.</style>'
   maxPicks: -1
   canDuplicate: 0
   requirements:

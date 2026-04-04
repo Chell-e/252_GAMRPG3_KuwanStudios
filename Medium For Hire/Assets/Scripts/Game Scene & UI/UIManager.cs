@@ -20,7 +20,20 @@ public class UIManager : MonoBehaviour
         [Header("Upgrade Screen")]
     [SerializeField] private Image upgradeBackground;
 
-    [Header("End Run Screen")]
+        [Header("MainWeapon UI")]
+    [SerializeField] private Slider grudgeProgress;
+    [SerializeField] private Slider guardProgress;
+    [SerializeField] private Slider guideProgress;
+
+
+    [Header("MiniWeapon UI")]
+    [SerializeField] private Transform slotContainer;
+    [SerializeField] private UI_WeaponSlot weaponSlotPrefab;
+
+        [Header("Tooltips")]
+    [SerializeField] public TooltipUI tooltip;
+
+        [Header("End Run Screen")]
     [SerializeField] private GameObject endRunScreen;
 
     private void Awake()
@@ -60,15 +73,34 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHpUI()
     {
-        // update player stats
-        hpSlider.maxValue = PlayerController.Instance.playerStats.GetPlayerStat(Stat.MaxHealth);
-        hpSlider.value = PlayerController.Instance.playerStats.GetPlayerStat(Stat.CurrentHealth);
-        
-        // update health component too
-        hpSlider.maxValue = PlayerController.Instance.GetComponent<HealthComponent>().GetMaxHealth();
-        hpSlider.value = PlayerController.Instance.GetComponent<HealthComponent>().GetCurrentHealth();
+        float maxValue = PlayerController.Instance.playerStats.GetPlayerStat(Stat.MaxHealth);
+        float currentvalue = PlayerController.Instance.playerStats.GetPlayerStat(Stat.CurrentHealth);
 
-        hpText.text = hpSlider.value + " / " + hpSlider.maxValue;
+        hpSlider.maxValue = maxValue;
+        //hpSlider.value = currentvalue;
+        hpSlider.value = maxValue - currentvalue; // HP bar is inverted; bottom-to-top
+
+        hpText.text = currentvalue + " / " + maxValue;
+    }
+
+    public void UpdateDomainProgress()
+    {
+        grudgeProgress.value = PlayerStats.Instance.GetPlayerStat(Stat.DomainOffense);
+        guardProgress.value = PlayerStats.Instance.GetPlayerStat(Stat.DomainSurvival);
+        guideProgress.value = PlayerStats.Instance.GetPlayerStat(Stat.DomainUtility);
+    }
+
+    public void AddWeaponSlot(WeaponUnlock _weaponUnlock, BaseWeapon _weaponData)
+    {
+        var newSlot = Instantiate(weaponSlotPrefab, slotContainer);
+        newSlot.SetupSlot(_weaponUnlock, _weaponData);
+        newSlot.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+    }
+
+    private void Update()
+    {
+        // dont do this
+        UpdateHpUI();
     }
 
     public void ToggleUpgradeGraphics(bool isOn)

@@ -14,8 +14,8 @@ public class BossGawigawen : BaseEnemy
     public GawigawenState currentState = GawigawenState.Approach;
     [SerializeField] private float baseHealth;
     [SerializeField] private float baseDamage;
-    [SerializeField] private float healthBuffMultiplier = 1.1f;
-    [SerializeField] private float damageBuffMultipl = 1.1f;
+    //[SerializeField] private float healthBuffMultiplier = 1.1f;
+    //[SerializeField] private float damageBuffMultipl = 1.1f;
 
     [Header("Animator")]
     [SerializeField] private Animator animator;

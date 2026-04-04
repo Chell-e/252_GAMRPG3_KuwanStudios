@@ -19,8 +19,8 @@ MonoBehaviour:
   description: 'Increase your general movement speed.
 
 
-    <color=#49DA8C>+15% Movement
-    Speed.</color>'
+    <style="guard">+15% Movement
+    Speed.</style>'
   maxPicks: -1
   canDuplicate: 0
   requirements:

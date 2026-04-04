@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2114bdc8544297b417dfefe9f1e410, type: 3}
+  m_Name: TMPStyle_Upgrades
+  m_EditorClassIdentifier: 
+  m_StyleList:
+  - m_Name: grudge
+    m_HashCode: -1422370458
+    m_OpeningDefinition: <color=#EC526C>
+    m_ClosingDefinition: </color>
+    m_OpeningTagArray: 3c000000630000006f0000006c0000006f000000720000003d000000230000004500000043000000350000003200000036000000430000003e000000
+    m_ClosingTagArray: 3c0000002f000000630000006f0000006c0000006f000000720000003e000000
+    m_OpeningTagUnicodeArray: 3c000000630000006f0000006c0000006f000000720000003d000000230000004500000043000000350000003200000036000000430000003e000000
+    m_ClosingTagUnicodeArray: 3c0000002f000000630000006f0000006c0000006f000000720000003e000000
+  - m_Name: guard
+    m_HashCode: 86963813
+    m_OpeningDefinition: <color=#49DA8C>
+    m_ClosingDefinition: </color>
+    m_OpeningTagArray: 3c000000630000006f0000006c0000006f000000720000003d000000230000003400000039000000440000004100000038000000430000003e000000
+    m_ClosingTagArray: 3c0000002f000000630000006f0000006c0000006f000000720000003e000000
+    m_OpeningTagUnicodeArray: 
+    m_ClosingTagUnicodeArray: 
+  - m_Name: guide
+    m_HashCode: 86973114
+    m_OpeningDefinition: <color=#9ECBFF>
+    m_ClosingDefinition: </color>
+    m_OpeningTagArray: 3c000000630000006f0000006c0000006f000000720000003d000000230000003900000045000000430000004200000046000000460000003e000000
+    m_ClosingTagArray: 3c0000002f000000630000006f0000006c0000006f000000720000003e000000
+    m_OpeningTagUnicodeArray: 
+    m_ClosingTagUnicodeArray: 
+  - m_Name: Normal
+    m_HashCode: -1183493901
+    m_OpeningDefinition: 
+    m_ClosingDefinition: 
+    m_OpeningTagArray: 
+    m_ClosingTagArray: 
+    m_OpeningTagUnicodeArray: 
+    m_ClosingTagUnicodeArray: 
