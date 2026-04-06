@@ -5,40 +5,39 @@ using UnityEngine;
 public enum Stat
 {
     // LEVELS
-    CurrentLevel,
-    CurrentExp,
-    ExpToLevel,
-    RemainingLevels, // decrement this
+    CurrentLevel = 0,
+    CurrentExp = 1,
+    ExpToLevel = 2,
+    RemainingLevels = 3, // decrement this
 
     // HP
-    CurrentHealth,
-    MaxHealth,
-    HealthPercentLeft,
+    CurrentHealth = 4,
+    MaxHealth = 5,
+    HealthPercentLeft = 6,
 
     // MOVESPEED
-    BaseMoveSpeed,
-    MoveSpeedPercent,
-    FinalMoveSpeed,
-    FinalAimedMoveSpeed,
+    BaseMoveSpeed = 7,
+    MoveSpeedPercent = 8,
+    FinalMoveSpeed = 9,
+    FinalAimedMoveSpeed = 10,
 
-    // DMG
-    DamagePercent,
 
-    // ATK SPD
-    AttackSpeedPercent,
+    // ATK
+    DamagePercent = 11,          // DMG
+    AttackSpeedPercent = 12,     // ATK SPD
+    ProjectileSpeedPercent = 13, // PROJECTILE SPD
+    AreaPercent = 14,            // AOE
 
-    // PROJECTILE SPD
-    ProjectileSpeedPercent,
 
     // PICKUP RANGE
-    PickupRange,
-
+    BasePickupRange = 15,
+    PickupRangePercent = 19,
 
 
     // DOMAIN STUFF
-    DomainOffense,
-    DomainSurvival,
-    DomainUtility,
+    DomainOffense = 16,
+    DomainSurvival = 17,
+    DomainUtility = 18,
 }
 
 public class PlayerStats : MonoBehaviour
@@ -58,7 +57,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     // ========== METAPROGRESSION (TWEAKABLE)
-        [Header("Metaprogression Stat Bonus Per Level")]
+    [Header("Metaprogression Stat Bonus Per Level")]
     public static int healthBonusPerLevel = 20;
     public static int dmgBonusPerLevel = 10;
     public static int atkSpeedBonusPerLevel = 10;
@@ -69,7 +68,7 @@ public class PlayerStats : MonoBehaviour
 
     // ****** CHANGE ALL OF THE BELOW THESE TO PRIVATE LATER. ENCAPSULATION.
     // MAKE NOW, FIX LATER.
-        [Header("Player Level")]
+    [Header("Player Level")]
     //public int maxLevel;
     public int currentLevel;
     public int expToLevel;
@@ -79,18 +78,25 @@ public class PlayerStats : MonoBehaviour
 
     public bool isAiming = false;
 
-        [Header("Health")]
+        [Header("Final Stats")]
     public int maxHealth;
     public int currentHealth;
+
 
                 [Space(5)]
         [Header("Base Stats")]
                 [Space(5)]
 
+        [Header("Health")]
+            [Tooltip("Base, flat movement speed. Normally unupgradeable.")]
+    private int healthBase = 100;
+
         [Header("Mobility")]
             [Tooltip("Base, flat movement speed. Normally unupgradeable.")]
-    public float movespeedBase;
-    public float pickupRangeBase;
+    private float movespeedBase = 3f;
+
+    private float pickupRangeBase = 1f;
+
 
                 [Space(5)]
         [Header("Upgrade Stats")]
@@ -109,6 +115,9 @@ public class PlayerStats : MonoBehaviour
 
             [Tooltip("Percentage multiplying weapon velocity/speed.")]
     public int projectileSpeedPercent = 100;
+
+            [Tooltip("Percentage multiplying weapon size.")]
+    public int areaPercent = 100;
 
 
         [Header("Mobility Upgrades")]
@@ -158,6 +167,7 @@ public class PlayerStats : MonoBehaviour
             case Stat.FinalAimedMoveSpeed:
                 return movespeedBase * (movespeedAimingPercent / 100f);
 
+            // ATK
             // DAMAGE
             case Stat.DamagePercent:
                 return dmgPercent;
@@ -169,6 +179,17 @@ public class PlayerStats : MonoBehaviour
             // PROJECTILE SPEED
             case Stat.ProjectileSpeedPercent:
                 return dmgPercent;
+
+            // AOE 
+            case Stat.AreaPercent:
+                return areaPercent;
+
+            // MISC
+            case Stat.BasePickupRange:
+                return pickupRangeBase;
+
+            case Stat.PickupRangePercent:
+                return pickupRangePercent;
 
 
             // DOMAIN STUFF
@@ -187,13 +208,13 @@ public class PlayerStats : MonoBehaviour
     }
 
     // ****** ENCAPSULATION: EXTERNAL CLASSES SHOULD CALL THIS INSTEAD. 
-    public void UpdatePlayerStat(Stat statToUpdate)
+    /*public void UpdatePlayerStat(Stat statToUpdate, float value)
     {
-        /*switch (statToUpdate)
+        *//*switch (statToUpdate)
         {
-        }*/
+        }*//*
 
-    }
+    }*/
 
     // debug
     [ContextMenu("Force Level Up")]
@@ -202,12 +223,28 @@ public class PlayerStats : MonoBehaviour
         Debug.Log("Forced level up");
         GainExperience(999999);
     }
+    private void Start()
+    {
 
+    }
+
+    private void Initialize()
+    {
+        DoScaleStats();
+
+        currentHealth = maxHealth;
+
+    }
+
+    public void DoScaleStats()
+    {
+        maxHealth = healthBase * (int)(maxHealthPercent / 100f);
+    }
 
     public void GainExperience(int amount)
     {
-        currentExp += amount;
-        //currentExp += 10;
+        //currentExp += amount;
+        currentExp += 10;
         UIManager.Instance.UpdateExpUI();
 
         if (currentExp >= expToLevel)
@@ -220,10 +257,10 @@ public class PlayerStats : MonoBehaviour
             remainingLevels--;
 
 
-            if ((currentLevel+1) % 3 == 0) UpgradeManager.Instance.ShowUpgradeOptions(true);
+            if ((currentLevel + 1) % 3 == 0) UpgradeManager.Instance.ShowUpgradeOptions(true);
             else UpgradeManager.Instance.ShowUpgradeOptions(false);
 
-            
+
 
             UIManager.Instance.UpdateExpUI();
         }

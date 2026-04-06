@@ -32,13 +32,6 @@ public class UpgradeCardUI : MonoBehaviour
 
 
 
-    // We need to read upgradeData, and set the following based on the logic:
-    // - Depending on Domain stat...
-        // - cardBackground
-        // - cardDomain
-
-
-
     public void Setup(BaseUpgradeData _upgradeData, Action<BaseUpgradeData> _onSelectedCallback)
     {
         upgradeData = _upgradeData;
@@ -80,8 +73,7 @@ public class UpgradeCardUI : MonoBehaviour
         // 4 = max/yellow
 
         if (upgradeData is WeaponUnlock) return 3; // white
-
-        //foreach (StatUpgradeType stat in upgradeData)
+        if (upgradeData is WeaponEvolution) return 4; // white
 
         StatUpgrade statUpgrade = upgradeData as StatUpgrade;
         int domainBackgroundIndex = 4; // return yellow if no domain detected
@@ -131,9 +123,9 @@ public class UpgradeCardUI : MonoBehaviour
         return domainPower;
     }
 
-    private String DomainIconsToTags(int _iconIndex, int _amount)
+    private string DomainIconsToTags(int _iconIndex, int _amount)
     {
-        String iconTag = "";
+        string iconTag = "";
         switch (_iconIndex)
         {
             case 0:
@@ -150,7 +142,7 @@ public class UpgradeCardUI : MonoBehaviour
                 return "";
         }
 
-        String iconText = "";
+        string iconText = "";
         for (int i = 0; i < _amount; i++)
             iconText += iconTag;
 

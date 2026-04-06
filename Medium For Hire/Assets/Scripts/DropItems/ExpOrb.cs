@@ -54,7 +54,7 @@ public class ExpOrb : MonoBehaviour
     {
         var randomExpValue = UnityEngine.Random.Range(1, maxExperienceValue + 1);
         
-        if (collision.GetComponent<PlayerController>())
+        if (collision.GetComponent<PickupRange>())
         {
             PlayerController.Instance.playerStats.GainExperience(randomExpValue);
             PoolManager.ReturnObjectToPool(gameObject);

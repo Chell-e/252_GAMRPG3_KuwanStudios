@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3932194239184293513}
   - component: {fileID: 7760202839318810419}
   - component: {fileID: 4626219271581687764}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Elite_Manananggal_UpperHalf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 7675911192742591646}
   - component: {fileID: 1744687216962908485}
   - component: {fileID: 6597401650758239787}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: UpperHalfSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

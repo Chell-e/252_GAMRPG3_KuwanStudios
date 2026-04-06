@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7638205784430206992}
   - component: {fileID: -2336574647098047583}
   - component: {fileID: -826319233541472479}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Normal_Manananggal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4823377886686845979}
   - component: {fileID: 8905922685162216570}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

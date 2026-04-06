@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2298388811473878694}
   - component: {fileID: 1174277023043793126}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Axe Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 5096519058993142814}
   - component: {fileID: 6252735324589897253}
   - component: {fileID: 3301168207532333302}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss_Gawigawen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1672800985899165137}
   - component: {fileID: 848284279150399602}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spear Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 6819251839226837728}
   - component: {fileID: 6649591652264610084}
   - component: {fileID: 2775171830488745561}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

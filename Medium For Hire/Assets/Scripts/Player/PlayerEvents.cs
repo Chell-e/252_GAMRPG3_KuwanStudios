@@ -21,6 +21,8 @@ public class PlayerEvents : MonoBehaviour
     public System.Func<float, float> OnBeforeGetExp;
     public System.Func<float, float> OnAfterGetExp;
 
+    public System.Action OnAfterGetUpgrade;
+
     public System.Action OnPlayerDeath;
 }
 

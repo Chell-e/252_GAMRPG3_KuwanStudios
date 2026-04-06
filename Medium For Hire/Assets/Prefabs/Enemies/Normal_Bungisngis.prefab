@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 531879977886953976}
   - component: {fileID: 2096872244181922712}
   - component: {fileID: 8014834337946421846}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Normal_Bungisngis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6330232389157122945}
   - component: {fileID: 4369014137350994726}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BungisngisSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

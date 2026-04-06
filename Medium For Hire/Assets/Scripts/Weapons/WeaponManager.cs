@@ -7,13 +7,21 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerStats playerStats;
 
-    [SerializeField] GameObject mainWeapon;
+    [SerializeField] public GameObject mainWeapon;
+    [SerializeField] WeaponUnlock mainWeaponUIData;
+
     [SerializeField] List<GameObject> subWeapons = new List<GameObject>();
 
     private void Awake()
     {
         //playerController = PlayerController.Instance;
         //playerStats = PlayerController.Instance.playerStats;
+    }
+    private void Start()
+    {
+
+        mainWeapon.GetComponent<BaseWeapon>().Initialize(playerController); // dont forget to Initialize() function 
+        UIManager.Instance.SetupMainWeaponSlot(mainWeaponUIData, mainWeapon.GetComponent<BaseWeapon>());
     }
     public BaseWeapon AddMiniWeapon(GameObject weaponPrefab)
     {

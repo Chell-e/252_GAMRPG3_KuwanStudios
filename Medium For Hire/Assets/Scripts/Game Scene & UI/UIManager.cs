@@ -46,12 +46,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image upgradeBackground;
 
         [Header("MainWeapon UI")]
+    [SerializeField] private UI_WeaponSlot mainSlot;
+
     [SerializeField] private Slider grudgeProgress;
     [SerializeField] private Slider guardProgress;
     [SerializeField] private Slider guideProgress;
 
 
-    [Header("MiniWeapon UI")]
+        [Header("MiniWeapon UI")]
     [SerializeField] private Transform slotContainer;
     [SerializeField] private UI_WeaponSlot weaponSlotPrefab;
 
@@ -123,6 +125,11 @@ public class UIManager : MonoBehaviour
         grudgeProgress.value = PlayerStats.Instance.GetPlayerStat(Stat.DomainOffense);
         guardProgress.value = PlayerStats.Instance.GetPlayerStat(Stat.DomainSurvival);
         guideProgress.value = PlayerStats.Instance.GetPlayerStat(Stat.DomainUtility);
+    }
+
+    public void SetupMainWeaponSlot(WeaponUnlock _weaponUnlock, BaseWeapon _weaponData)
+    {
+        mainSlot.SetupSlot(_weaponUnlock, _weaponData);
     }
 
     public void AddWeaponSlot(WeaponUnlock _weaponUnlock, BaseWeapon _weaponData)

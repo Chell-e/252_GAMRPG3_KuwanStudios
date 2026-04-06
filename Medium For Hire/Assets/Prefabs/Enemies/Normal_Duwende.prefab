@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5317403046383952139}
   - component: {fileID: 1255625406322497980}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemies_Sprite_Duwende
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 9205607052876529417}
   - component: {fileID: -9195687003099657493}
   - component: {fileID: 4722217217629380700}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Normal_Duwende
   m_TagString: Untagged
   m_Icon: {fileID: 0}

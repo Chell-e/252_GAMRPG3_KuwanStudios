@@ -32,6 +32,9 @@ public class UpgradeManager : MonoBehaviour
         [Header("Pool & UI")]
     [SerializeField] public BaseUpgradeData[] normalUpgradePool; // this data type supports both StatUpgrade and WeaponUnlock
     [SerializeField] public BaseUpgradeData[] specialUpgradePool;
+
+    [SerializeField] public BaseUpgradeData[] uniqueUpgradePool; // only separated from special for convenience
+    
     public GameObject cardPrefab;
     public Transform cardContainer;
 
@@ -48,11 +51,9 @@ public class UpgradeManager : MonoBehaviour
     // track how many times we picked specific upgrades
     private Dictionary<BaseUpgradeData, int> totalCardsPicked = new Dictionary<BaseUpgradeData, int>();
 
-
     public System.Action OnOffenseDomainUpgradeChosen;
     public System.Action OnSurvivalDomainUpgradeChosen;
     public System.Action OnUtilityDomainUpgradeChosen;
-
 
     public void ShowUpgradeOptions(bool isSpecial)
     {
@@ -67,17 +68,25 @@ public class UpgradeManager : MonoBehaviour
         }*/
 
 
-        UIManager.Instance.ToggleUpgradeGraphics(true);
+        // SHOW BACKGROUND GRAPHICS
+        UIManager.Instance.ToggleUpgradeGraphics(true); 
+        // SHOW BACKGROUND GRAPHICS
 
+
+        // ROLL QUALIFYING UPGRADES
         List<BaseUpgradeData> rolledUpgrades; // list of upgrades that qualify
         if (isSpecial)
             rolledUpgrades = RollUpgrades(UpgradePool.Special);
         else
             rolledUpgrades = RollUpgrades(UpgradePool.Normal);
-        
+        // ROLL QUALIFYING UPGRADES
+
+
         // Pause game
         Time.timeScale = 0f;
         isOpen = true;
+        // PAUSE GAME
+
 
         // instantiate cards
         foreach (var upgrade in rolledUpgrades)
@@ -104,16 +113,42 @@ public class UpgradeManager : MonoBehaviour
     {
         Debug.Log(upgradePoolType);
         
+        
+        // COPY LISTS TO DRAW FROM
         var upgradeListOfType =     // make a copy of the upgrade pool specified
             (upgradePoolType == UpgradePool.Normal)
             ? normalUpgradePool.ToList()
             : specialUpgradePool.ToList();
 
-        int upgradesToRoll = Mathf.Clamp(cardsToShow, 0, upgradeListOfType.Count); // determine how many upgrades we're rolling
+        List<BaseUpgradeData> upgradeListOfPriority = new List<BaseUpgradeData>();
+        if (upgradePoolType == UpgradePool.Special)
+            upgradeListOfPriority = uniqueUpgradePool.ToList(); // need to make ALL qualifying unique upgrades to show up.
+        // COPY LISTS TO DRAW FROM
 
-        // first filter out which upgrades we actually have access to
-        List<BaseUpgradeData> viableUpgradeList = new List<BaseUpgradeData>();  // prepare list of upgrades
-        foreach (var upgrade in upgradeListOfType)      // iterate thru the copied pool
+
+        // FILTER OUT WHICH UPGRADES ARE ACCESSIBLE
+        List<BaseUpgradeData> viableUpgradeList = FilterUpgradesByAvailability(upgradeListOfType); // iterate thru the copied pool
+        List<BaseUpgradeData> viablePriorities = FilterUpgradesByAvailability(upgradeListOfPriority);
+        // FILTER OUT WHICH UPGRADES ARE ACCESSIBLE
+
+
+        // RANDOMLY PICK FROM ACCESSIBLE UPGRADES
+        int upgradesToRoll = Mathf.Clamp(cardsToShow, 0, upgradeListOfType.Count); // determine how many upgrades we're rolling
+        var rolledUpgrades = new List<BaseUpgradeData>();
+
+        Debug.Log("# of upgrades to roll: " + upgradesToRoll);
+
+        PopulateUpgradeListRandomly(rolledUpgrades, viablePriorities, upgradesToRoll); // populate with priorities first
+        PopulateUpgradeListRandomly(rolledUpgrades, viableUpgradeList, upgradesToRoll);
+
+        return rolledUpgrades;
+    }
+
+    private List<BaseUpgradeData> FilterUpgradesByAvailability(List<BaseUpgradeData> _sourceUpgradeList)
+    {
+        List<BaseUpgradeData> filteredUpgrades = new List<BaseUpgradeData>();
+
+        foreach (var upgrade in _sourceUpgradeList)      // iterate thru the copied pool
         {
             bool upgradeViability = true;
             foreach (var requirement in upgrade.requirements)
@@ -123,40 +158,60 @@ public class UpgradeManager : MonoBehaviour
                     upgradeViability = false;
                     Debug.Log(upgrade + " does not meet condition: " + requirement);
                 }
-                    
+
             }
 
             if (upgradeViability == true)
-                viableUpgradeList.Add(upgrade);
+                filteredUpgrades.Add(upgrade);
 
         }
 
+        return filteredUpgrades;
 
-        var rolledUpgrades = new List<BaseUpgradeData>();
+    }
 
-        for (int i = 0; i < upgradesToRoll; i++)
+    private void PopulateUpgradeListRandomly(List<BaseUpgradeData> _targetList, List<BaseUpgradeData> _sourceList, int _maxItems)
+    {
+        int maxItemsRemaining = _maxItems - _targetList.Count; // check if _targetList actually still has space for items
+        if (maxItemsRemaining <= 0) return;
+
+        List<BaseUpgradeData> copyOfSource = _sourceList.ToList();
+        if (copyOfSource.Count <= 0) return; // return early if the source is empty...
+
+        foreach (var thing in copyOfSource)
+            Debug.Log(thing);
+
+        //Debug.Log("max items remaining: " + maxItemsRemaining);
+        for (int i = 0; i < maxItemsRemaining; i++)
         {
-            int rolledIndex = Random.Range(0, viableUpgradeList.Count); // roll a random upgrade
+            if (copyOfSource.Count <= 0) return; // return when source is empty
+
+
+            int rolledIndex = Random.Range(0, copyOfSource.Count); // roll a random upgrade
+
+            //Debug.Log("rolled index is: " + rolledIndex);
 
             int amountPicked = 0;
-            totalCardsPicked.TryGetValue(viableUpgradeList[rolledIndex], out amountPicked); // check if this upgrade has been picked before
+            totalCardsPicked.TryGetValue(copyOfSource[rolledIndex], out amountPicked); // check if this upgrade has been picked before
 
-            if (amountPicked < viableUpgradeList[rolledIndex].maxPicks || viableUpgradeList[rolledIndex].maxPicks == -1)
+            if (amountPicked < copyOfSource[rolledIndex].maxPicks
+                || copyOfSource[rolledIndex].maxPicks == -1)
             {
-                rolledUpgrades.Add(viableUpgradeList[rolledIndex]);
+                _targetList.Add(copyOfSource[rolledIndex]);
 
-                if (viableUpgradeList[rolledIndex].canDuplicate == false)
-                    viableUpgradeList.RemoveAt(rolledIndex); // remove if the upgrade doesn't dupe
+                if (copyOfSource[rolledIndex].canDuplicate == false)
+                    copyOfSource.RemoveAt(rolledIndex); // remove if the upgrade doesn't dupe
             }
             else // if exceeded picks, remove this card
             {
-                viableUpgradeList.RemoveAt(rolledIndex);
+                copyOfSource.RemoveAt(rolledIndex);
                 i -= 1;
             }
 
         }
 
-        return rolledUpgrades;
+        // no return, this should directly modify _targetList
+
     }
 
 
@@ -202,6 +257,7 @@ public class UpgradeManager : MonoBehaviour
             {
                 switch (stat.statToUpgrade) // *********************** ENCAPSULATION: SET PLAYER STATS TO PRIVATE LATER.
                 {
+                    // OFFENSE
                     case StatUpgradeType.DamagePercent:
                         playerStats.dmgPercent += stat.value;
                         break;
@@ -209,6 +265,7 @@ public class UpgradeManager : MonoBehaviour
                         playerStats.atkSpeedPercent += stat.value;
                         break;
 
+                    // SURVIVAL
                     case StatUpgradeType.MaxHealthPercent:
                         playerStats.maxHealthPercent += stat.value;
                         playerHealth.IncreaseMaxHealth(Mathf.RoundToInt(playerHealth.GetMaxHealth() * stat.value));
@@ -217,9 +274,17 @@ public class UpgradeManager : MonoBehaviour
                         playerStats.movespeedPercent += stat.value;
                         break;
 
+                    // UTILITY
                     case StatUpgradeType.ProjectileSpeedPercent:
                         playerStats.projectileSpeedPercent += stat.value;
                         break;
+                    case StatUpgradeType.AreaPercent:
+                        playerStats.areaPercent += stat.value;
+                        break;
+                    case StatUpgradeType.PickupRangePercent:
+                        playerStats.pickupRangePercent += stat.value;
+                        break;
+
 
                     case StatUpgradeType.Heal:
                         playerHealth.Heal(stat.value);
@@ -267,6 +332,30 @@ public class UpgradeManager : MonoBehaviour
 
         if (upgrade is WeaponEvolution weaponEvolution)
         {
+            var weaponManager = PlayerController.Instance.weaponManager;
+            switch (weaponEvolution.evolutionType)
+            {
+                case WeaponEvolutionType.OffenseEvolution:
+                    weaponManager.mainWeapon.GetComponent<BaseWeapon>()
+                        .EvolveOffense();
+                    break;
+
+                case WeaponEvolutionType.SurvivalEvolution:
+                    weaponManager.mainWeapon.GetComponent<BaseWeapon>()
+                        .EvolveSurvival();
+                    break;
+
+                case WeaponEvolutionType.UtilityEvolution:
+                    weaponManager.mainWeapon.GetComponent<BaseWeapon>()
+                        .EvolveUtility();
+                    break;
+
+
+                default:
+                    Debug.Log("Unsupported evolution type");
+                    break;
+            }
+
             // weapon evolution logic here
         }
 
@@ -276,9 +365,9 @@ public class UpgradeManager : MonoBehaviour
         UIManager.Instance.UpdateHpUI();
         UIManager.Instance.UpdateDomainProgress();
 
-        // update player
-        playerStats.UpdatePlayerStat(Stat.MaxHealth);
+        PlayerStats.Instance.DoScaleStats();
 
+        /*EVENT*/ PlayerController.Instance.Events.OnAfterGetUpgrade?.Invoke();
     }
 
     private void CloseAndCleanup()

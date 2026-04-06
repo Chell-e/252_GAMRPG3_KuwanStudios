@@ -147,7 +147,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     public void TakeDamage(float damage, object damageSource = null)
     {
         DamageContext context = new DamageContext(); // context object

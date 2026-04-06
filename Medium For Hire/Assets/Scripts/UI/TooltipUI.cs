@@ -85,26 +85,21 @@ public class TooltipUI : MonoBehaviour
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
 
-        //Vector2 tooltipSize = rectTransform.sizeDelta;
         Vector2 tooltipSize = text.rectTransform.sizeDelta;
-        tooltipSize *= 1920 / 850;
+        //tooltipSize *= 1920 / 800;
         Vector2 screenSize = new Vector2(Screen.width, Screen.height);
 
-        //Debug.Log("ScreenSize: " + screenSize);
-
         Vector2 pivot = rectTransform.pivot;
-        //Vector2 pivot = text.rectTransform.pivot;
 
 
-        Debug.Log("Mouse pos: " + mouse);
+        /*Debug.Log("Mouse pos: " + mouse);
         Debug.Log("tooltip size: " + tooltipSize);
 
-        Debug.Log("Final pos: " + (mouse + tooltipSize + offset));
+        Debug.Log("Final pos: " + (mouse + tooltipSize + offset));*/
 
-        //Vector2 oldPos = text.rectTransform.position;
 
         // Only flip pivot if necessary to prevent clipping
-        if (mouse.x + tooltipSize.x + offset.x >= screenSize.x)
+        if (mouse.x + tooltipSize.x + offset.x + 20 >= screenSize.x)
         {
             pivot.x = 1f; // flip right
             
@@ -117,7 +112,7 @@ public class TooltipUI : MonoBehaviour
             Debug.Log("tooltip X going right.");
         }
 
-        if (mouse.y + offset.y - (tooltipSize.y) <= 0)
+        if (mouse.y + offset.y - (tooltipSize.y + 40) <= 0)
         {
             pivot.y = 0f; // flip down
 

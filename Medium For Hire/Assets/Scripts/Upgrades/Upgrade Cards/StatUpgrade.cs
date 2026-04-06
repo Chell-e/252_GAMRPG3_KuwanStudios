@@ -5,25 +5,26 @@ using UnityEngine;
 public enum StatUpgradeType
 {
     // OFFENSE
-    DamagePercent,
-    AttackSpeedPercent,
+    DamagePercent=1,
+    AttackSpeedPercent=2,
 
     // SURVIVAL
-    MaxHealthPercent,
-    MoveSpeedPercent,
+    MaxHealthPercent=3,
+    MoveSpeedPercent=4,
 
     // UTILITY
-    ProjectileSpeedPercent,
-    PickupRangePercent,
+    ProjectileSpeedPercent=5,
+    AreaPercent=6,
+    PickupRangePercent=7,
 
 
     // MISC
-    Heal,
+    Heal=8,
 
     // DOMAIN STAT
-    OffenseBonus,
-    SurvivalBonus,
-    UtilityBonus
+    OffenseBonus=9,
+    SurvivalBonus=10,
+    UtilityBonus=11
 }
 
 [CreateAssetMenu(menuName = "Upgrades/Upgrade Types/Stat Upgrade")]

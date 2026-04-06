@@ -19,14 +19,14 @@ MonoBehaviour:
   description: 'Greatly increase the damage of your weapons.
 
 
-    <style="grudge">+75%
+    <style="grudge">+50%
     Damage.</style>'
   maxPicks: -1
   canDuplicate: 0
   requirements:
   - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}
   statsUpgraded:
-  - statToUpgrade: 0
-    value: 75
-  - statToUpgrade: 7
-    value: 3
+  - statToUpgrade: 1
+    value: 50
+  - statToUpgrade: 9
+    value: 2

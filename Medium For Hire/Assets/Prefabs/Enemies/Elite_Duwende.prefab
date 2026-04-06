@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7829134987895592324}
   - component: {fileID: 4757734577938444723}
   - component: {fileID: -1691909445694558590}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Elite_Duwende
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   m_Component:
   - component: {fileID: 649933040906590073}
   - component: {fileID: 2709912388151430787}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemies_Sprite_Elite_Duwende
   m_TagString: Untagged
   m_Icon: {fileID: 0}

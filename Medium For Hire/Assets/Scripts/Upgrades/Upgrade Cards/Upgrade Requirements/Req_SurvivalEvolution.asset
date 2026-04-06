@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Req_SurvivalEvolution
   m_EditorClassIdentifier: 
   requiredStatValue: 10
-  statType: 15
+  statType: 17

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7489791066683208915}
   - component: {fileID: 1340431432256766339}
   - component: {fileID: 3125484898612662716}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 2099204751427419250}
   - component: {fileID: 8492624952236052701}
   - component: {fileID: 7163191019396510580}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Elite_Bungisngis
   m_TagString: Untagged
   m_Icon: {fileID: 0}

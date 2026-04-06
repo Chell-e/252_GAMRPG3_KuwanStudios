@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3070194133504271550}
   - component: {fileID: 2150870380127750555}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 4338029527522529318}
   - component: {fileID: 5583616141856030277}
   - component: {fileID: 5144799945267151951}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Normal_Tiyanak
   m_TagString: Untagged
   m_Icon: {fileID: 0}

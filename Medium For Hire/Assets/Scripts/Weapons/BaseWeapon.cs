@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseWeapon : MonoBehaviour , ITooltipProvider
+public class BaseWeapon : MonoBehaviour, ITooltipProvider
 {
     [SerializeField] protected PlayerController playerController;
     [SerializeField] protected PlayerStats playerStats;
@@ -24,9 +24,19 @@ public class BaseWeapon : MonoBehaviour , ITooltipProvider
         Unsubscribe();
     }
 
+    public virtual void EvolveOffense() { }
+    public virtual void EvolveSurvival() { }
+    public virtual void EvolveUtility() { }
+
     public virtual string GetTooltipText()
     {
         return "No override";
+    }
+
+    public virtual float GetFillProgress()
+    {
+        // If applicable, return the cooldown
+        return 1.0f;
     }
 
     // new
@@ -38,11 +48,5 @@ public class BaseWeapon : MonoBehaviour , ITooltipProvider
     public virtual string GetDescription()
     {
         return "No description";
-    }
-
-    public virtual float GetFillProgress()
-    {
-        // If applicable, return the cooldown
-        return 1.0f;
-    }
+    }    
 }

@@ -21,14 +21,14 @@ MonoBehaviour:
   description: 'Greatly increase your maximum health.
 
 
-    <style="guard">+45% Max
+    <style="guard">+50% Max
     Health.</style>'
   maxPicks: -1
   canDuplicate: 0
   requirements:
   - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}
   statsUpgraded:
-  - statToUpgrade: 2
-    value: 45
-  - statToUpgrade: 8
-    value: 3
+  - statToUpgrade: 3
+    value: 50
+  - statToUpgrade: 10
+    value: 2

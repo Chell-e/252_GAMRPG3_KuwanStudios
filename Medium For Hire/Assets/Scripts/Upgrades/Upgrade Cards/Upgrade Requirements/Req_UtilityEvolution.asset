@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Req_UtilityEvolution
   m_EditorClassIdentifier: 
   requiredStatValue: 10
-  statType: 16
+  statType: 18

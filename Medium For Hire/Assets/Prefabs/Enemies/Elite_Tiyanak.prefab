@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6022858341449710011}
   - component: {fileID: 5071351562388205466}
   - component: {fileID: 7455408959016589237}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tiyanak Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 1870942896393968486}
   - component: {fileID: 4070578649576019979}
   - component: {fileID: -1578775793707257168}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Elite_Tiyanak
   m_TagString: Untagged
   m_Icon: {fileID: 0}

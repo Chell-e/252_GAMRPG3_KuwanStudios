@@ -27,7 +27,7 @@ MonoBehaviour:
   requirements:
   - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}
   statsUpgraded:
-  - statToUpgrade: 2
+  - statToUpgrade: 3
     value: 15
-  - statToUpgrade: 8
+  - statToUpgrade: 10
     value: 1

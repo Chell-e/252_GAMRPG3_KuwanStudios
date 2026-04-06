@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Req_OffenseEvolution
   m_EditorClassIdentifier: 
   requiredStatValue: 10
-  statType: 14
+  statType: 16

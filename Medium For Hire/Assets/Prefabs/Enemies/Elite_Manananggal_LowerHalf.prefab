@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6752126319678331194}
   - component: {fileID: 6036859732017617713}
   - component: {fileID: 7447104252183909825}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LowerHalfSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 5168675748378769977}
   - component: {fileID: 2220468757920783953}
   - component: {fileID: -6626904047375148710}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Elite_Manananggal_LowerHalf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
