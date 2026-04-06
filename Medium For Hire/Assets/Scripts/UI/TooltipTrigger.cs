@@ -27,11 +27,21 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (provider != null) tooltip.Show(provider);
+        if (provider != null && tooltip != null)
+        {
+            tooltip.Show(provider);
+
+            UIManager.Instance.ShowHoveredItemInfo(provider);
+        }
+        else if (provider == null || tooltip == null)
+        {
+            Debug.Log("tooltip reference is null: " + gameObject.name);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         tooltip.Hide();
+        UIManager.Instance.ShowPlayerStatsInfo();
     }
 }

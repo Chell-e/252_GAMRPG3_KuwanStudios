@@ -1,5 +1,6 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OnDeath : MonoBehaviour
@@ -10,7 +11,7 @@ public class OnDeath : MonoBehaviour
     private void Awake()
     {
         health = GetComponent<HealthComponent>();
-        if (health != null )
+        if (health != null)
         {
             health.OnDeath += HandleDeath; // Subscribe
         }
@@ -42,20 +43,30 @@ public class OnDeath : MonoBehaviour
         {
             Events.OnPlayerDeath?.Invoke();
         }
-        
+
         gameObject.SetActive(false);
     }
 
     public void HandleEnemyDeath(BaseEnemy baseEnemy)
     {
         DropLoot(baseEnemy);
+
+        baseEnemy.SpawnDeathAnimation();
+
         PoolManager.ReturnObjectToPool(gameObject);
+        PoolSpawner.Instance.NotifyEnemyDespawned();
+
+        StageManager.Instance.RegisterKill(baseEnemy.enemyID, baseEnemy.enemyType.ToString());
     }
 
     private void DropLoot(BaseEnemy enemy)
     {
+
         foreach (var drop in enemy.possibleDrops)
         {
+            if (drop == null)
+                return;
+
             var random = Random.value;
             if (random <= drop.dropChance)
             {
@@ -67,7 +78,7 @@ public class OnDeath : MonoBehaviour
 
     private void OnDestroy()
     {
-        if ( health != null )
+        if (health != null)
         {
             health.OnDeath -= HandleDeath; // Unsubscribe
         }

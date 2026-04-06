@@ -4,16 +4,28 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
+public enum EnemyType
+{
+    Normal,
+    Elite,
+    Boss
+}
+
 public abstract class BaseEnemy : MonoBehaviour
 {
-        [Header("Enemy Stats")]
+    [Header("Enemy Info")]
     [SerializeField] public DropItem[] possibleDrops;
+    public EnemyType enemyType;
+    public string enemyID;
 
     [SerializeField] protected float attackDamage = 1f;
     [SerializeField] protected float baseMoveSpeed = 1f;
 
     // scaled damage when spawning
     [SerializeField] private float currentScaledDamage;
+
+    [Header("Death VFX")]
+    [SerializeField] protected GameObject deathAnimationPrefab;
 
     public float AttackDamage { get; set; }
     public float BaseMoveSpeed { get; set; }
@@ -74,9 +86,10 @@ public abstract class BaseEnemy : MonoBehaviour
         if (health != null)
         {
             health.ApplyHealthMultiplier(statMultiplier);
+            health.SetCurrentHealth(health.GetMaxHealth());
         }
 
-        currentScaledDamage = attackDamage * statMultiplier;
+        currentScaledDamage = attackDamage + statMultiplier;
     }
 
     protected virtual void Update()
@@ -104,7 +117,7 @@ public abstract class BaseEnemy : MonoBehaviour
 
         bool facingPlayer = playerTransform.position.x < transform.position.x;
         transform.rotation = facingPlayer
-            ? Quaternion.Euler(0f, 0f, 0f) 
+            ? Quaternion.Euler(0f, 0f, 0f)
             : Quaternion.Euler(0f, 180f, 0f);
     }
 
@@ -123,7 +136,7 @@ public abstract class BaseEnemy : MonoBehaviour
         var player = _collision.gameObject.GetComponent<PlayerController>();
         if (player)
         {
-            if (damageRoutine == null) 
+            if (damageRoutine == null)
                 damageRoutine = StartCoroutine(DamageTick(player));
         }
     }
@@ -145,7 +158,7 @@ public abstract class BaseEnemy : MonoBehaviour
             {
                 _player.TakeDamage(currentScaledDamage, this);
             }
-            
+
             yield return new WaitForSeconds(damageTick);
         }
     }
@@ -176,7 +189,7 @@ public abstract class BaseEnemy : MonoBehaviour
     public void TakeDamage(float _damage)
     {
         float finalDamage = _damage * incomingDamageMultiplier;
-        
+
         //health.TakeDamage(finalDamage);
 
         health.ReduceHealth(finalDamage);
@@ -188,7 +201,7 @@ public abstract class BaseEnemy : MonoBehaviour
 
 
     // IMPORTANT for pooling: these reset BEFORE they return to pool
-    protected virtual void OnDisable() 
+    protected virtual void OnDisable()
     {
         if (damageRoutine != null)
         {
@@ -224,4 +237,16 @@ public abstract class BaseEnemy : MonoBehaviour
         this.moveSpeedMultiplier = _newMoveSpeedModifier;
     }
     // ====================== STATUS EFFECTS
+
+
+    public virtual void SpawnDeathAnimation()
+    {
+        if (deathAnimationPrefab != null)
+        {
+            GameObject explosionVFX = PoolManager.SpawnObject(deathAnimationPrefab, transform.position, Quaternion.identity, PoolManager.PoolType.Projectile);
+
+            //match the enemy's scale
+            explosionVFX.transform.localScale = this.transform.localScale * 1.5f;
+        }
+    }
 }

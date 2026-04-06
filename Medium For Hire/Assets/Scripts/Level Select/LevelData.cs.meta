@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 7caeb35ff87184340b24802289b282d2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - map: {instanceID: 0}
+  - normalEnemies: {instanceID: 0}
+  - eliteEnemies: {instanceID: 0}
+  - boss: {instanceID: 0}
+  - superstition: {instanceID: 0}
+  - endRewards: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

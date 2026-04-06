@@ -123,7 +123,6 @@ GameObject:
   - component: {fileID: 1870942896393968486}
   - component: {fileID: 4070578649576019979}
   - component: {fileID: -1578775793707257168}
-  - component: {fileID: 2579297136879832811}
   m_Layer: 0
   m_Name: Elite_Tiyanak
   m_TagString: Untagged
@@ -223,9 +222,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   possibleDrops:
   - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
+  enemyType: 1
+  enemyID: Tiyanak
   attackDamage: 1
   baseMoveSpeed: 1
   currentScaledDamage: 0
+  deathAnimationPrefab: {fileID: 3874769906211055584, guid: dffbc71a182f77c48a1e66c25dd4d19a, type: 3}
   moveSpeedMultiplier: 1
   incomingDamageMultiplier: 1
   isKnockedBack: 0
@@ -339,24 +341,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d1b7b2f7c7c8c041bc2011c52d15a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &2579297136879832811
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5321161873318774769}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3da13c05d3cc28c4eaf8a3e26490e8c3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0

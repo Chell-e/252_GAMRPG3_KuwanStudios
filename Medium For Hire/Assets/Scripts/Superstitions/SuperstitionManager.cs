@@ -5,13 +5,13 @@ using System;
 
 public class SuperstitionManager : MonoBehaviour
 {
-    // ===== 1ST SUPERSTITION: NO LEFT OVER =====
-
     [Header("Active Superstition")]
-    public int orbsExpiredCount = 0;
+    private SuperstitionData activeSuperstition;
+    public int totalViolations = 0;
 
-    // EVENT
-    public static event Action<int> OnSuperstionBroken;
+        // EVENT
+    public static event Action<int> OnSuperstitionBroken;
+
 
     public static SuperstitionManager Instance;
     private void Awake() // for SINGLETON
@@ -27,26 +27,33 @@ public class SuperstitionManager : MonoBehaviour
         }
     }
 
-
-    // OnEnable --> when the scene loads, this manager becomes active
-    private void OnEnable()
+    public void ActivateSuperstition(SuperstitionData _superstitionData)
     {
-        // subscribe
-        ExpOrb.OnExpOrbExpire += TrackExpiredExpOrbs;
+        if (_superstitionData == null)
+        {
+            UIManager.Instance.SetSuperstitionText("None", "No Active Superstition.", "No flavor text.");
+            return;
+        }
+
+        activeSuperstition = _superstitionData;
+        activeSuperstition.Initialize(StageManager.Instance);
+
+        UIManager.Instance.SetSuperstitionText(activeSuperstition.superstitionName, activeSuperstition.description, activeSuperstition.flavorText);
+    }    
+
+    public void NotifyRuleBroken(SuperstitionData rule, int amount)
+    {
+        totalViolations += amount;
+        OnSuperstitionBroken?.Invoke(totalViolations);
+
+        Debug.Log("Total violations: " + totalViolations);
     }
 
-    private void TrackExpiredExpOrbs()
+    private void OnDestroy()
     {
-        orbsExpiredCount++;
-        OnSuperstionBroken?.Invoke(orbsExpiredCount); // hi, this is the current count of orbs expired
-
-        Debug.Log("Expired Orbs: " + orbsExpiredCount);
-    }
-
-    // OnDisable --> when manager's inactive
-    private void OnDisable()
-    {
-        // unsubscribe
-        ExpOrb.OnExpOrbExpire -= TrackExpiredExpOrbs;
+        if (activeSuperstition != null)
+        {
+            activeSuperstition.Deinitialize();
+        }
     }
 }

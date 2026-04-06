@@ -12,12 +12,12 @@ public class PoolSpawner : MonoBehaviour
         [Header("Wave Progression")]
             [Tooltip("Initial time between spawns")]
     public float initialSpawnInterval = 1.8f;
-            [Tooltip("Fastest possible spawn interval")]
-    public float minimumSpawnInterval = 0.25f;
-            [Tooltip("Modifies spawn rate per wave")]
-    public float spawnRateMultiplier = 0.9f;
+        [Tooltip("How much FASTER spawning gets each wave (value > 1). Example: 1.12 = 12% faster per wave")]
+    public float spawnRateMultiplier = 1.12f;
+        [Tooltip("Fastest possible spawn interval")]
+    private float minimumSpawnInterval = 0.25f;
 
-        [Header("Horde Size")]
+    [Header("Horde Size")]
             [Tooltip("Base number of enemies per wave")]
     public int baseHordeSize = 12;
             [Tooltip("Number of enemies added each wave")]
@@ -32,7 +32,7 @@ public class PoolSpawner : MonoBehaviour
 
         [Header("Elite")]
             [Tooltip("Time between elite spawns")]
-    public float eliteSpawnInterval = 60f;
+    public float eliteSpawnInterval = 90f;
 
         [Header("Difficulty Scaling")]
             [Tooltip("Enemy stats multiplier per wave (HP, DMG)")]
@@ -40,11 +40,11 @@ public class PoolSpawner : MonoBehaviour
 
         [Header("Enemy Cap")]
             [Tooltip("Max enemies (normal + elite) on screen")]
-    public int maxEnemiesOnScreen = 100;
+    public int maxEnemiesOnScreen = 250;
 
         [Header("Spawn Position")]
             [Tooltip("How far off-screen to spawn (in viewport units)")]
-    public float spawnEdgeOffset = 1.5f;
+    public float spawnEdgeOffset = 1.3f;
 
         [Header("Enemy Unlock Progression")]
             [Tooltip("Seconds required to unlock a new enemy type")]
@@ -62,15 +62,29 @@ public class PoolSpawner : MonoBehaviour
 
     private bool bossSpawned = false;
 
+    private int activeEnemyCount;
     public int CurrentWave => currentWave;
     public float ElapsedTime => elapsedTime;
-    public int CurrentEnemyCount => GetCurrentEnemyCount();
-    public bool IsAtEnemyCap() => maxEnemiesOnScreen > 0 && GetCurrentEnemyCount() >= maxEnemiesOnScreen;
+    public int CurrentEnemyCount => activeEnemyCount;
+    public bool IsAtEnemyCap() => maxEnemiesOnScreen > 0 && activeEnemyCount >= maxEnemiesOnScreen;
 
     private bool HasNormalEnemies() => currentNormalPool != null && currentNormalPool.enemyPool != null && currentNormalPool.enemyPool.Count > 0;
     private bool HasEliteEnemies() => currentElitePool != null && currentElitePool.enemyPool != null && currentElitePool.enemyPool.Count > 0;
 
+    public static PoolSpawner Instance;
 
+    private void Awake() // for SINGLETON
+    {
+        // singleton 
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     private void Start()
     {
         currentSpawnInterval = initialSpawnInterval;
@@ -102,6 +116,7 @@ public class PoolSpawner : MonoBehaviour
 
         enemiesSpawnedThisWave = 0;
         bossSpawned = false;
+        activeEnemyCount = 0;
 
         currentSpawnInterval = initialSpawnInterval;
         enemiesToSpawnThisWave = baseHordeSize;
@@ -136,6 +151,8 @@ public class PoolSpawner : MonoBehaviour
         // --- wave progression
         if (waveTimer >= timePerWave)
         {
+            Debug.Log($"Wave {currentWave} | Spawn Interval: {currentSpawnInterval:F3}s | Horde: {enemiesToSpawnThisWave}");
+
             AdvanceWave();
             waveTimer = 0f;
         }
@@ -147,13 +164,12 @@ public class PoolSpawner : MonoBehaviour
     {
         currentWave++;
 
-        // current spawn interval is multiplied by spawnRateMultiplier each wave, but never goes below minimumSpawnInterval
-        currentSpawnInterval = Mathf.Max(minimumSpawnInterval, currentSpawnInterval * spawnRateMultiplier);
-
-        // 10 + (0 * 7) = 10, 10 + (1 * 7) = 17, 10 + (2 * 7) = 24, etc.
+        //currentSpawnInterval = Mathf.Max(minimumSpawnInterval, currentSpawnInterval / spawnRateMultiplier);
+        currentSpawnInterval = Mathf.Max(minimumSpawnInterval,initialSpawnInterval / Mathf.Pow(spawnRateMultiplier, currentWave));
         enemiesToSpawnThisWave = baseHordeSize + (currentWave * hordeSizeIncrease);
 
         enemiesSpawnedThisWave = 0; // reset count for new wave
+
     }
 
     private void SpawnNormalEnemy()
@@ -163,9 +179,12 @@ public class PoolSpawner : MonoBehaviour
             return;
 
         GameObject enemy = PoolManager.SpawnObject(prefab, GetRandomSpawnPosition(), Quaternion.identity, PoolManager.PoolType.Enemy);
+        if (enemy == null)
+            return;
 
         // apply scaling
         ApplyScaling(enemy);
+        activeEnemyCount++;
     }
 
     private void SpawnElite()
@@ -175,9 +194,12 @@ public class PoolSpawner : MonoBehaviour
             return;
 
         GameObject elite = PoolManager.SpawnObject(prefab, GetRandomSpawnPosition(), Quaternion.identity, PoolManager.PoolType.Enemy);
+        if (elite == null)
+            return;
 
         // apply scaling
         ApplyScaling(elite);
+        activeEnemyCount++;
     }
 
     // 0-60: first enemy only, 60-120: first enemy + second enemy
@@ -186,18 +208,18 @@ public class PoolSpawner : MonoBehaviour
         if (enemyPoolData == null || enemyPoolData.enemyPool == null || enemyPoolData.enemyPool.Count == 0)
             return null;
 
-        // calculate how many enemy types are currently unlocked
+            // calculate how many enemy types are currently unlocked
         int maxPossibleIndex = Mathf.FloorToInt(elapsedTime / timeToUnlockNextEnemy) + 1;
 
-        // clamp it so it doesnt exceed list size
+            // clamp it so it doesnt exceed list size
         int unlockedCount = Mathf.Min(maxPossibleIndex, enemyPoolData.enemyPool.Count);
 
-        // get random enemy from unlocked enemies
+            // get random enemy from unlocked enemies
         int randomIndex = Random.Range(0, unlockedCount);
         
         EnemyData data = enemyPoolData.enemyPool[randomIndex];
 
-        // if data's not null, return prefab, otherwise return null
+            // if data's not null, return prefab, otherwise return null
         return data != null ? data.enemyPrefab : null;
     }
 
@@ -208,6 +230,7 @@ public class PoolSpawner : MonoBehaviour
         BaseEnemy _enemy = enemyObj.GetComponent<BaseEnemy>();
         if (_enemy != null)
         {
+            //float multiplier = 1f + (statMultiplierPerWave * CurrentWave);
             float multiplier = Mathf.Pow(statMultiplierPerWave, currentWave);
             _enemy.ScaleEnemyStat(multiplier);
         }
@@ -223,21 +246,22 @@ public class PoolSpawner : MonoBehaviour
             Vector2 pos = GetRandomSpawnPosition();
             PoolManager.SpawnObject(currentBoss.bossPrefab, pos, Quaternion.identity, PoolManager.PoolType.Enemy);
             bossSpawned = true;
+            activeEnemyCount++;
         }
     }
 
-    private int GetCurrentEnemyCount()
-    {
-        if (PoolManager._enemyPoolEmpty == null) return 0;
+    //private int GetCurrentEnemyCount()
+    //{
+    //    if (PoolManager._enemyPoolEmpty == null) return 0;
 
-        int count = 0;
-        foreach (Transform child in PoolManager._enemyPoolEmpty.transform)
-        {
-            if (child.gameObject.activeSelf)
-                count++;
-        }
-        return count;
-    }
+    //    int count = 0;
+    //    foreach (Transform child in PoolManager._enemyPoolEmpty.transform)
+    //    {
+    //        if (child.gameObject.activeSelf)
+    //            count++;
+    //    }
+    //    return count;
+    //}
 
     private Vector2 GetRandomSpawnPosition()
     {
@@ -246,5 +270,10 @@ public class PoolSpawner : MonoBehaviour
             : new Vector2(Random.value, Random.value > 0.5f ? 1 - spawnEdgeOffset : spawnEdgeOffset);
 
         return Camera.main.ViewportToWorldPoint(pos);
+    }
+
+    public void NotifyEnemyDespawned()
+    {
+        activeEnemyCount = Mathf.Max(0, activeEnemyCount - 1);
     }
 }

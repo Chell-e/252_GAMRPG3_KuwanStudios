@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7caeb35ff87184340b24802289b282d2, type: 3}
+  m_Name: Level 03
+  m_EditorClassIdentifier: 
+  levelName: Hala!
+  description: please help
+  map: {fileID: 11400000, guid: d097debe64b26f249a4f11155158b162, type: 2}
+  normalEnemies: {fileID: 11400000, guid: cd2198fb0cf425d4b95572870b341af7, type: 2}
+  eliteEnemies: {fileID: 11400000, guid: 7f2cc67422c06a64eb54e7af69f11a06, type: 2}
+  boss: {fileID: 11400000, guid: 3fad75174824fee4eb6302e481fba698, type: 2}
+  superstition: {fileID: 11400000, guid: 6b99bf322a4ab7247b0f417fc19f81bb, type: 2}
+  endRewards: {fileID: 11400000, guid: 1309931aaa822804486d811d423d3965, type: 2}

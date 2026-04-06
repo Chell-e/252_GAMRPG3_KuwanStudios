@@ -29,6 +29,17 @@ public class BaseWeapon : MonoBehaviour , ITooltipProvider
         return "No override";
     }
 
+    // new
+    public virtual string GetName()
+    {
+        return "No name";
+    }
+
+    public virtual string GetDescription()
+    {
+        return "No description";
+    }
+
     public virtual float GetFillProgress()
     {
         // If applicable, return the cooldown

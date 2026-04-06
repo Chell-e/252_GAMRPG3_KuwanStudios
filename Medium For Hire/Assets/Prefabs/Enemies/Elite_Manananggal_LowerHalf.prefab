@@ -222,15 +222,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   possibleDrops:
   - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
+  enemyType: 1
+  enemyID: Manananggal
   attackDamage: 1
   baseMoveSpeed: 1
   currentScaledDamage: 0
+  deathAnimationPrefab: {fileID: 3874769906211055584, guid: dffbc71a182f77c48a1e66c25dd4d19a, type: 3}
   moveSpeedMultiplier: 1
   incomingDamageMultiplier: 1
   isKnockedBack: 0
   damageTick: 0.7
   upperHalf: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 7447104252183909825}
 --- !u!114 &3674358403680853303
 MonoBehaviour:
   m_ObjectHideFlags: 0

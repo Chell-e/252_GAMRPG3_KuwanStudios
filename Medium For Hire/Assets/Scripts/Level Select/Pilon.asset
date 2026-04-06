@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1039fb84159c6d34a98cd3a3b97a6586, type: 3}
+  m_Name: Pilon
+  m_EditorClassIdentifier: 
+  minRewardAmount: 100
+  maxRewardAmount: 200
+  rewardPrefab: {fileID: 9035648006041557980, guid: ad00c3bf3d0afb14bac625a53155d979, type: 3}

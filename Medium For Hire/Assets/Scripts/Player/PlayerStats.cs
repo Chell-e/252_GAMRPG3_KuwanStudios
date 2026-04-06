@@ -57,6 +57,15 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    // ========== METAPROGRESSION (TWEAKABLE)
+        [Header("Metaprogression Stat Bonus Per Level")]
+    public static int healthBonusPerLevel = 20;
+    public static int dmgBonusPerLevel = 10;
+    public static int atkSpeedBonusPerLevel = 10;
+    public static int moveSpeedBonusPerLevel = 5;
+    public static int projSpeedBonusPerLevel = 15;
+    public static int pickupRangeBonusPerLevel = 25;
+
 
     // ****** CHANGE ALL OF THE BELOW THESE TO PRIVATE LATER. ENCAPSULATION.
     // MAKE NOW, FIX LATER.
@@ -197,8 +206,8 @@ public class PlayerStats : MonoBehaviour
 
     public void GainExperience(int amount)
     {
-        //currentExp += amount;
-        currentExp += 10;
+        currentExp += amount;
+        //currentExp += 10;
         UIManager.Instance.UpdateExpUI();
 
         if (currentExp >= expToLevel)
@@ -224,5 +233,17 @@ public class PlayerStats : MonoBehaviour
         {
             playerStats.expToLevelUp[index]++;
         }*/
+    }
+
+    public void ApplyShopPurchases()
+    {
+        PlayerData data = PlayerData.Instance;
+
+        maxHealth = 100 + (data.healthLevel * healthBonusPerLevel);
+        dmgPercent = 100 + (data.damageLevel * dmgBonusPerLevel);
+        atkSpeedPercent = 100 + (data.attackSpeedLevel * atkSpeedBonusPerLevel);
+        movespeedBase = 100 + (data.moveSpeedLevel * moveSpeedBonusPerLevel);
+        projectileSpeedPercent = 100 + (data.projectileSpeedLevel * projSpeedBonusPerLevel);
+        pickupRangeBase = 100 + (data.pickupRangeLevel * pickupRangeBonusPerLevel);
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using UnityEditor.PackageManager;
+//using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class MiniWeapon_Crucifix : BaseWeapon
@@ -166,5 +166,15 @@ public class MiniWeapon_Crucifix : BaseWeapon
 
         return description;
 
+    }
+
+    public override string GetName()
+    {
+        return "Crucifix";
+    }
+
+    public override string GetDescription()
+    {
+        return "Negates damage and releases a holy blast that knocks back enemies.";
     }
 }

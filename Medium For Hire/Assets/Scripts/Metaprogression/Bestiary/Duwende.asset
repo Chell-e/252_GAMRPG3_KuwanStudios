@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7be3d24aec72448b029dfe7952bee2, type: 3}
+  m_Name: Duwende
+  m_EditorClassIdentifier: 
+  entryName: Duwende
+  entryDescription: Small, yet mischievous.
+  entryLore: "A client\u2019s leg turned purple because they moved over a punso.
+    Had to offer gold and a prayer just to stop the rot. Small folk, massive grudges.
+    Fought with one, their curses could manifest as insects that bite so painfully."
+  entrySprite: {fileID: 21300000, guid: 24c01d26623e3b94b98f5c67b593aaeb, type: 3}
+  killsNeededToUnlockName: 100
+  killsNeededToUnlockImage: 250
+  killsNeededToUnlockLore: 400

@@ -54,6 +54,16 @@ public class EliteManananggal_LowerHalf : BaseEnemy
 
     protected override void Move()
     {
-        rb.velocity = Vector2.zero; 
+        rb.velocity = Vector2.zero;
+    }
+
+    protected override void OnCollisionEnter2D(Collision2D _collision)
+    {
+        // nothing, a lower half can't attack right?
+    }
+
+    protected override void OnCollisionExit2D(Collision2D _collision)
+    {
+        // again, nothing.
     }
 }

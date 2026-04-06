@@ -43,4 +43,35 @@ public class SimpleStatTooltip : MonoBehaviour , ITooltipProvider
 
         return tooltipString;
     }
+
+    public virtual string GetName()
+    {
+        switch (statForTooltip)
+        {
+            case Stat.DomainOffense:
+                return "Ancestral Grudge";
+            case Stat.DomainSurvival:
+                return "Ancestral Guardian";
+            case Stat.DomainUtility:
+                return "Ancestral Guidance";
+            default:
+                return statForTooltip.ToString();
+        }
+    }
+
+    public virtual string GetDescription()
+    {
+        switch (statForTooltip)
+        {
+            case Stat.DomainOffense:
+                return "The fury of your ancestral spirit manifests as physical power, increasing your weapon's damage.";
+            case Stat.DomainSurvival:
+                return "The spirit of your ancestor shields you from harm, increasing your survivability.";
+            case Stat.DomainUtility:
+                return "Your ancestral spirit guides your path.";
+            default:
+                return statForTooltip.ToString();
+
+        }
+    }
 }

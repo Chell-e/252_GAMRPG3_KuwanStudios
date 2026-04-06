@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Data.Common;
 
 public class TooltipUI : MonoBehaviour
 {
@@ -47,7 +48,22 @@ public class TooltipUI : MonoBehaviour
 
     private void UpdateTextIfChanged()
     {
+        // null check
+        if (text == null)
+        {
+            Debug.Log("text is null");
+            return;
+        }
+
         string newText = currentProvider.GetTooltipText();
+
+        // null check
+        if (newText == null)
+        {
+            Debug.Log("new text is null");
+            newText = "";
+        }
+
         if (newText != lastText)
         {
             lastText = newText;

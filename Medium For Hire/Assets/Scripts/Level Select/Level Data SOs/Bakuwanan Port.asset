@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6750d0c0c0c992f45b405e8ef6363974, type: 3}
+  m_Name: Bakuwanan Port
+  m_EditorClassIdentifier: 
+  mapName: Bakuwanan Port
+  mapSprites:
+  - {fileID: 21300000, guid: 6570bf35084b76245ad7c2470f392e6f, type: 3}
+  - {fileID: 21300000, guid: de36056995ed6944199995d2917273a6, type: 3}
+  mapPrefab: {fileID: 9056932897608723553, guid: e1ec38e3585f940409a3a6a3c840d2cc, type: 3}

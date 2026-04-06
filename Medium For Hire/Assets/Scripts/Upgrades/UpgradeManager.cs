@@ -46,8 +46,12 @@ public class UpgradeManager : MonoBehaviour
 
 
     // track how many times we picked specific upgrades
-    private Dictionary<BaseUpgradeData, int> totalCardsPicked = new Dictionary<BaseUpgradeData, int>(); 
+    private Dictionary<BaseUpgradeData, int> totalCardsPicked = new Dictionary<BaseUpgradeData, int>();
 
+
+    public System.Action OnOffenseDomainUpgradeChosen;
+    public System.Action OnSurvivalDomainUpgradeChosen;
+    public System.Action OnUtilityDomainUpgradeChosen;
 
 
     public void ShowUpgradeOptions(bool isSpecial)
@@ -224,12 +228,15 @@ public class UpgradeManager : MonoBehaviour
 
                     case StatUpgradeType.OffenseBonus:
                         playerStats.offenseDomainStat += stat.value;
+                        OnOffenseDomainUpgradeChosen?.Invoke();
                         break;
                     case StatUpgradeType.SurvivalBonus:
                         playerStats.survivalDomainStat += stat.value;
+                        OnSurvivalDomainUpgradeChosen?.Invoke();
                         break;
                     case StatUpgradeType.UtilityBonus:
                         playerStats.utilityDomainStat += stat.value;
+                        OnUtilityDomainUpgradeChosen?.Invoke();
                         break;
 
 

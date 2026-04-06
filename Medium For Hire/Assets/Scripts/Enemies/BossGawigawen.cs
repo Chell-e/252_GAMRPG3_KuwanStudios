@@ -14,14 +14,16 @@ public class BossGawigawen : BaseEnemy
     public GawigawenState currentState = GawigawenState.Approach;
     [SerializeField] private float baseHealth;
     [SerializeField] private float baseDamage;
-    //[SerializeField] private float healthBuffMultiplier = 1.1f;
-    //[SerializeField] private float damageBuffMultipl = 1.1f;
+
+    [Header("Superstition Buffs")]
+    [SerializeField] private float healthBuffMultiplier = 1.1f;
+    [SerializeField] private float damageBuffMultiplier = 1.1f;
 
     [Header("Animator")]
     [SerializeField] private Animator animator;
 
     [Header("Attack Settings")]
-    public float attackRange = 5f;          
+    public float attackRange = 5f;
     public float attackThresholdY = -3.5f; // vertical threshold for attack
 
     private bool nextAttackIsAxe = true;
@@ -45,7 +47,7 @@ public class BossGawigawen : BaseEnemy
         }
 
         // listen to superstition manager
-        SuperstitionManager.OnSuperstionBroken += ApplyBuff;
+        SuperstitionManager.OnSuperstitionBroken += ApplyBuff;
     }
 
     protected override void OnDisable()
@@ -55,7 +57,7 @@ public class BossGawigawen : BaseEnemy
         health.SetMaxHealth(baseHealth);
         bossWeaponAttackDamage = baseDamage;
 
-        SuperstitionManager.OnSuperstionBroken -= ApplyBuff;
+        SuperstitionManager.OnSuperstitionBroken -= ApplyBuff;
     }
 
     protected override void Update()
@@ -92,10 +94,10 @@ public class BossGawigawen : BaseEnemy
     private bool IsPlayerInAttackablePosition()
     {
         if (playerTransform == null) return false;
-        
+
         float verticalDifference = playerTransform.position.y - transform.position.y;
 
-        return verticalDifference > attackThresholdY ;
+        return verticalDifference > attackThresholdY;
     }
 
     private void ExecuteCurrentState()
@@ -145,7 +147,7 @@ public class BossGawigawen : BaseEnemy
         // get base max health
         // multiply it by the multiplier
         // set it as the new max health
-            
+
         health.SetMaxHealth(health.GetMaxHealth() * multiplier);
     }
 
@@ -163,12 +165,12 @@ public class BossGawigawen : BaseEnemy
         // multiplicative if within 5 defies ?
         if (defyCount <= 5)
         {
-            BuffHealth(1.1f);
-            BuffDamage(1.1f);
+            BuffHealth(healthBuffMultiplier);
+            BuffDamage(damageBuffMultiplier);
         }
         else
         {
-            // additive after ?
+            // additive after ? HSHS
             BuffHealth(1f + (0.05f * defyCount));
             BuffDamage(1f + (0.05f * defyCount));
         }

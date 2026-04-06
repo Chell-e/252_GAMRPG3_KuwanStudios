@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using UnityEditor.PackageManager;
+//using UnityEditor.PackageManager;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 
@@ -127,5 +127,13 @@ public class MiniWeapon_HolyWater : BaseWeapon
 
     }
 
+    public override string GetName()
+    {
+        return "Holy Water";
+    }
 
+    public override string GetDescription()
+    {
+        return "Sprinkles holy water towards the cursor. Holy Water makes Enemies take more Damage.";
+    }
 }

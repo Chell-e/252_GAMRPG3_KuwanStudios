@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using UnityEditor.PackageManager;
+//using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class MiniWeapon_MortarAndPestle : BaseWeapon
@@ -147,5 +147,15 @@ public class MiniWeapon_MortarAndPestle : BaseWeapon
 
         return description;
 
+    }
+
+    public override string GetName()
+    {
+        return "Mortar & Pestle";
+    }
+
+    public override string GetDescription()
+    {
+        return "Releases a damaging blast on a nearby enemy. Has a change to spawn a health pickup.";
     }
 }
