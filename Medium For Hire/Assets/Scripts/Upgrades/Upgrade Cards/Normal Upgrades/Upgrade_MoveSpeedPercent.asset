@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: b67bd9f144f1ce84bb4200826cac28bc, type: 3}
   title: Movement Speed
   subtitle: Stat
-  flavorText: Gatherer Anino
+  flavorText: The anino lightens your footsteps.
   description: 'Increase your general movement speed.
 
 

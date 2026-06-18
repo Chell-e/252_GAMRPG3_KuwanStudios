@@ -6,7 +6,7 @@ public class Boulder : MonoBehaviour
 {
     [Header("Boulder Speed")]
     private Transform target;
-    [SerializeField] private float moveSpeed = 20f;
+    [SerializeField] private float moveSpeed = 10f;
 
     private float damage;
 

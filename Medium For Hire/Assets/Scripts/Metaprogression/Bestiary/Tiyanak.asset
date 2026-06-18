@@ -19,6 +19,6 @@ MonoBehaviour:
     for fresh meat. It lured me with its cries, though I escaped. If you hear or
     see one, RUN. It\u2019s a trap."
   entrySprite: {fileID: 21300000, guid: 7674dcd622139fd469154e6afe6a396d, type: 3}
-  killsNeededToUnlockName: 100
-  killsNeededToUnlockImage: 250
-  killsNeededToUnlockLore: 400
+  killsNeededToUnlockName: 30
+  killsNeededToUnlockImage: 50
+  killsNeededToUnlockLore: 100

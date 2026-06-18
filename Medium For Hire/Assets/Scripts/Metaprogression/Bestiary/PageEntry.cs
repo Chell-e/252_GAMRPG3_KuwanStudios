@@ -11,9 +11,9 @@ public class PageEntry : ScriptableObject
     public Sprite entrySprite;
 
     [Header("Unlock Threshold")]
-    public int killsNeededToUnlockName = 100;
-    public int killsNeededToUnlockImage = 250;
-    public int killsNeededToUnlockLore = 400;
+    public int killsNeededToUnlockName = 30;
+    public int killsNeededToUnlockImage = 50;
+    public int killsNeededToUnlockLore = 100;
 
     // total kills needed for full unlock
     public int MaxKillsNeeded => killsNeededToUnlockLore;

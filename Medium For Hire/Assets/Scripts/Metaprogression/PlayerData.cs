@@ -72,7 +72,7 @@ public class PlayerData
         this.projectileSpeedLevel = _projectileSpeedLevel;
         this.pickupRangeLevel = _pickupRangeLevel;
 
-        onDataChange?.Invoke(_pilonAmount, _healthLevel, _damageLevel, _attackSpeedLevel, _moveSpeedLevel, _projectileSpeedLevel, _pickupRangeLevel);
+        InvokeChange();
     }
 
     public EnemyKillData GetEnemyKillData(string name)
@@ -100,9 +100,12 @@ public class PlayerData
     public void AddPilon(int amount)
     {
         pilonAmount += amount;
-        onDataChange?.Invoke(pilonAmount, healthLevel, damageLevel, attackSpeedLevel, moveSpeedLevel, projectileSpeedLevel, pickupRangeLevel);
+        InvokeChange();
+    }
 
-        Debug.Log(amount + " pilon is added. Current pilon now is: " + pilonAmount);
+    public void InvokeChange()
+    {
+        onDataChange?.Invoke(pilonAmount, healthLevel, damageLevel, attackSpeedLevel, moveSpeedLevel, projectileSpeedLevel, pickupRangeLevel);
     }
 }
 

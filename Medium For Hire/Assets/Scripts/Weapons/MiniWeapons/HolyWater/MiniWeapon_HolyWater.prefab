@@ -55,6 +55,7 @@ MonoBehaviour:
   cooldownTimer: 0
   holyWaterVfx: {fileID: 5823882352699820368}
   holyWaterHitbox: {fileID: 7824596156813064418}
+  vfxPrefab: {fileID: 8720510761939852404, guid: fcaaaf7c1abb95747a93a2664824c597, type: 3}
 --- !u!58 &7824596156813064418
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -15,3 +15,4 @@ MonoBehaviour:
   enemyPool:
   - {fileID: 11400000, guid: 99eb46c81ca83c442bb9bda7b0196514, type: 2}
   - {fileID: 11400000, guid: ff67e5b8361fdfe428f1c7f1f32e0585, type: 2}
+  - {fileID: 11400000, guid: daaadf62afc1e4642bfeba8ce463433b, type: 2}

@@ -110,8 +110,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHpUI()
     {
-        float maxValue = PlayerController.Instance.playerStats.GetPlayerStat(Stat.MaxHealth);
-        float currentvalue = PlayerController.Instance.playerStats.GetPlayerStat(Stat.CurrentHealth);
+        float maxValue = PlayerController.Instance.GetComponent<HealthComponent>().GetMaxHealth();
+        float currentvalue = PlayerController.Instance.GetComponent<HealthComponent>().GetCurrentHealth();
 
         hpSlider.maxValue = maxValue;
         //hpSlider.value = currentvalue;

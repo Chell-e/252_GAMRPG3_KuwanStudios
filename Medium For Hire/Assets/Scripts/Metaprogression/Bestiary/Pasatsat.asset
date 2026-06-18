@@ -19,6 +19,6 @@ MonoBehaviour:
     to cut through the center with a blade. When it died, the mat opened to reveal
     nothing but a putrid smell."
   entrySprite: {fileID: 0}
-  killsNeededToUnlockName: 100
-  killsNeededToUnlockImage: 250
-  killsNeededToUnlockLore: 400
+  killsNeededToUnlockName: 30
+  killsNeededToUnlockImage: 50
+  killsNeededToUnlockLore: 100

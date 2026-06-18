@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 65c006504e2d2e54ca868938a26ab7be, type: 3}
   title: Pickup Range
   subtitle: Stat
-  flavorText: Gatherer Anino
+  flavorText: The anino reaches where your ams cannot.
   description: 'Increase your pickup radius.
 
 

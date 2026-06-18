@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 91fbfced76019144ba45239c41aa8093, type: 3}
   title: Projectile Speed
   subtitle: Stat
-  flavorText: Swift Anino
+  flavorText: The spirit throws its weight behind your attacks.
   description: 'Increase the travel speed of weapons.
 
 

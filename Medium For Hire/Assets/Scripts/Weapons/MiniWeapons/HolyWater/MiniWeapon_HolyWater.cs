@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 //using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEngine.EventSystems.EventTrigger;
 
 public class MiniWeapon_HolyWater : BaseWeapon
@@ -30,6 +31,7 @@ public class MiniWeapon_HolyWater : BaseWeapon
             [Tooltip("Holy Water melee splash object.")]
     [SerializeField] SpriteRenderer holyWaterVfx;
     [SerializeField] CircleCollider2D holyWaterHitbox;
+    [SerializeField] public TboliVFX vfxPrefab;
 
 
     protected override void Subscribe()
@@ -72,7 +74,7 @@ public class MiniWeapon_HolyWater : BaseWeapon
     private void SplashHolyWater()
     {
         // ***** make this an animation instead
-        holyWaterVfx.GetComponent<SpriteRenderer>().enabled = true;
+        //holyWaterVfx.GetComponent<SpriteRenderer>().enabled = true;
         // *****
 
         Collider2D[] targetsHit = Physics2D.OverlapCircleAll(holyWaterVfx.transform.position, this.GetComponent<CircleCollider2D>().radius);
@@ -88,6 +90,9 @@ public class MiniWeapon_HolyWater : BaseWeapon
                 Debug.Log("holyWater hit " + enemy);
             }
         }
+
+        Instantiate(vfxPrefab, holyWaterVfx.transform.position, Quaternion.identity)
+            .Init(holyWaterHitbox.radius);
     }
 
     private void HolyWaterRechargeLogic()

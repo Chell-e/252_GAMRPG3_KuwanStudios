@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 3278c55a1352a22409f1afd355188a28, type: 3}
   title: Damage+
   subtitle: Stat
-  flavorText: The wrath of your ancestors empowers you.
+  flavorText: The wrath of your ancestors empowers you greatly.
   description: 'Greatly increase the damage of your weapons.
 
 

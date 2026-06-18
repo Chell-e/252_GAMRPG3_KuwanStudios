@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7caeb35ff87184340b24802289b282d2, type: 3}
   m_Name: Level 03
   m_EditorClassIdentifier: 
-  levelName: Hala!
-  description: please help
+  levelName: 'RUSH: Spiritual Sanitation'
+  description: Negotiable rates.
   map: {fileID: 11400000, guid: d097debe64b26f249a4f11155158b162, type: 2}
   normalEnemies: {fileID: 11400000, guid: cd2198fb0cf425d4b95572870b341af7, type: 2}
   eliteEnemies: {fileID: 11400000, guid: 7f2cc67422c06a64eb54e7af69f11a06, type: 2}

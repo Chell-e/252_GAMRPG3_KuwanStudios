@@ -19,6 +19,6 @@ MonoBehaviour:
     already close. Remember: Trust your eyes, not your ears. The silence is the real
     herald of the kill. "
   entrySprite: {fileID: 0}
-  killsNeededToUnlockName: 100
-  killsNeededToUnlockImage: 250
-  killsNeededToUnlockLore: 400
+  killsNeededToUnlockName: 30
+  killsNeededToUnlockImage: 50
+  killsNeededToUnlockLore: 100

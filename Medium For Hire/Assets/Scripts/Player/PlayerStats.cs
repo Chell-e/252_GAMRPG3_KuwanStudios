@@ -243,8 +243,8 @@ public class PlayerStats : MonoBehaviour
 
     public void GainExperience(int amount)
     {
-        //currentExp += amount;
-        currentExp += 10;
+        currentExp += amount;
+        //currentExp += 10;
         UIManager.Instance.UpdateExpUI();
 
         if (currentExp >= expToLevel)

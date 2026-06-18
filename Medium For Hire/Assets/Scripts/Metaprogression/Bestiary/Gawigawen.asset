@@ -19,5 +19,5 @@ MonoBehaviour:
     never be approached. Running won\u2019t do you good; it's best to hide. "
   entrySprite: {fileID: 21300000, guid: 4307471ce4500334a972d4b5c94d36ba, type: 3}
   killsNeededToUnlockName: 1
-  killsNeededToUnlockImage: 3
-  killsNeededToUnlockLore: 5
+  killsNeededToUnlockImage: 2
+  killsNeededToUnlockLore: 3

@@ -59,7 +59,15 @@ public class SaveDataJSON : MonoBehaviour
 
             // dont't forget to update singleton
             //PlayerData.SetInstance(loadedData);
-            playerData.SetPlayerData(loadedData.pilonAmount, loadedData.enemyKills, loadedData.healthLevel, loadedData.attackSpeedLevel, loadedData.moveSpeedLevel, loadedData.projectileSpeedLevel, loadedData.projectileSpeedLevel, loadedData.pickupRangeLevel);
+            playerData.SetPlayerData(
+                loadedData.pilonAmount, 
+                loadedData.enemyKills, 
+                loadedData.healthLevel, 
+                loadedData.damageLevel, 
+                loadedData.attackSpeedLevel, 
+                loadedData.moveSpeedLevel, 
+                loadedData.projectileSpeedLevel, 
+                loadedData.pickupRangeLevel);
 
             Debug.Log("Data loaded");
         }

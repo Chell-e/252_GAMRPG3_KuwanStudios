@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7caeb35ff87184340b24802289b282d2, type: 3}
   m_Name: Level 02
   m_EditorClassIdentifier: 
-  levelName: Naur
-  description: Test lng
+  levelName: 'LF: LEGIT MEDIUM'
+  description: (Not for content, seriously, check my bio)
   map: {fileID: 11400000, guid: d097debe64b26f249a4f11155158b162, type: 2}
   normalEnemies: {fileID: 11400000, guid: 6c9b939ca5bea524ca2617b08dc6ee7f, type: 2}
   eliteEnemies: {fileID: 11400000, guid: ced8502e3c339244aaca9e27b2919091, type: 2}

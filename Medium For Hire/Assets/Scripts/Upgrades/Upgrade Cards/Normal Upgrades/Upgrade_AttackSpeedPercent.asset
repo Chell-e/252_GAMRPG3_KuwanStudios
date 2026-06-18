@@ -15,7 +15,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 91fbfced76019144ba45239c41aa8093, type: 3}
   title: Attack Speed
   subtitle: Stat
-  flavorText: Swift Anino
+  flavorText: A cold wind guides your hand; the anino strikes a beat before you even
+    think to move.
   description: 'Increase the attack frequency of weapons.
 
 

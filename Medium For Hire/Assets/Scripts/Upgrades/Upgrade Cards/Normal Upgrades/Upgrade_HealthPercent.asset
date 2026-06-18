@@ -15,9 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 8abc917122702c1499c8c32ee07a2a81, type: 3}
   title: Health
   subtitle: Stat
-  flavorText: 'FLAVOR TEXT
-
-    healthy anino or smth'
+  flavorText: Your shadow grows thick and heavy, absorbing the blows meant for you.
   description: 'Increase your maximum health.
 
 
