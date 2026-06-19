@@ -267,8 +267,15 @@ public class UpgradeManager : MonoBehaviour
 
                     // SURVIVAL
                     case StatUpgradeType.MaxHealthPercent:
+                        Debug.Log("maxHealth stat.value: " + stat.value);
+                        Debug.Log("IncreaseMaxHealth: " + Mathf.RoundToInt(playerHealth.GetMaxHealth() * stat.value));
                         playerStats.maxHealthPercent += stat.value;
-                        playerHealth.IncreaseMaxHealth(Mathf.RoundToInt(playerHealth.GetMaxHealth() * stat.value));
+
+                        // make sure maxHealthPercent multiplies the maxHealth base value.
+                        //playerHealth.IncreaseMaxHealth(Mathf.RoundToInt(playerHealth.GetMaxHealth() * stat.value )); 
+
+                        // this is applied as a flat bonus for now
+                        playerHealth.IncreaseMaxHealth(stat.value);
                         break;
                     case StatUpgradeType.MoveSpeedPercent:
                         playerStats.movespeedPercent += stat.value;
