@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 988b2ec479412cb4e8834c0ff9a5f8a3, type: 3}
-  m_Name: Upgrade_PickUpRangePercent
+  m_Name: Upgrade_BigPickUpRangePercent
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 65c006504e2d2e54ca868938a26ab7be, type: 3}
   title: Pickup Range
@@ -20,6 +20,7 @@ MonoBehaviour:
 
 
     <style="guide">+50% Pickup Range.</style>'
+  rarityStars: 2
   maxPicks: -1
   canDuplicate: 0
   requirements:
@@ -28,4 +29,4 @@ MonoBehaviour:
   - statToUpgrade: 7
     value: 50
   - statToUpgrade: 11
-    value: 3
+    value: 2

@@ -20,6 +20,7 @@ MonoBehaviour:
 
 
     <style="guide">+10% Area.</style>'
+  rarityStars: 1
   maxPicks: -1
   canDuplicate: 0
   requirements:

@@ -21,6 +21,7 @@ MonoBehaviour:
 
     <style="guard">+15% Movement
     Speed.</style>'
+  rarityStars: 1
   maxPicks: -1
   canDuplicate: 0
   requirements:

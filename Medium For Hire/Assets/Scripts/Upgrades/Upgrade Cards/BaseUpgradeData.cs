@@ -16,6 +16,8 @@ public abstract class BaseUpgradeData : ScriptableObject
     [TextArea(2, 6)]
     public string description;
 
+    public int rarityStars; 
+
     // UpgradeCardUI will handle the Domain displays
 
             [Tooltip("How many times this can be picked. -1 for uncapped.")]

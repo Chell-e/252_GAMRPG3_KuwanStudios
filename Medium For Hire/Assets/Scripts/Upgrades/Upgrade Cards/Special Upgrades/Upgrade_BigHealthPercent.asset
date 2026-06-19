@@ -22,6 +22,7 @@ MonoBehaviour:
 
     <style="guard">+50% Max
     Health.</style>'
+  rarityStars: 2
   maxPicks: -1
   canDuplicate: 0
   requirements:

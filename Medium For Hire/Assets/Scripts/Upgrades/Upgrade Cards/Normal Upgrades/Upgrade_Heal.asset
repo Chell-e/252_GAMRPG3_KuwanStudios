@@ -18,6 +18,7 @@ MonoBehaviour:
   flavorText: The Anino does not wish to see its vessel break. It stitches your flesh
     with threads of shade.
   description: Heal to full.
+  rarityStars: 1
   maxPicks: -1
   canDuplicate: 0
   requirements:

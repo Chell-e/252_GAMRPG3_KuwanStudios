@@ -22,6 +22,7 @@ MonoBehaviour:
 
     Charges
     scale with Max Health.'
+  rarityStars: -1
   maxPicks: 1
   canDuplicate: 0
   requirements:

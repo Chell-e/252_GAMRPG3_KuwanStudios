@@ -21,6 +21,7 @@ MonoBehaviour:
 
     <style="grudge">+50%
     Damage.</style>'
+  rarityStars: 2
   maxPicks: -1
   canDuplicate: 0
   requirements:
