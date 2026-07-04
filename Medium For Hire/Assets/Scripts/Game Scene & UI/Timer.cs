@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
     [SerializeField] public PlayerEvents Events;
 
     [SerializeField] TextMeshProUGUI timerText;
-    private float elapseTime;
+    public float elapseTime;
 
     public bool isTimerRunning = true;
 

@@ -10,9 +10,9 @@ public class UIManager : MonoBehaviour
 
         [Header("Superstition UI")]
     [SerializeField] private TMP_Text superstitionText;
-    [SerializeField] private Image[] antingAntingImages;
-    [SerializeField] private Sprite[] unbrokenAntingSprite;
-    [SerializeField] private Sprite[] crackedAntingSprites;
+    //[SerializeField] private Image[] antingAntingImages;
+    //[SerializeField] private Sprite[] unbrokenAntingSprite;
+    //[SerializeField] private Sprite[] crackedAntingSprites;
 
         [Header("Information Tab Panel ")]
     [SerializeField] private GameObject infoTabPanel;
@@ -78,12 +78,12 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        SuperstitionManager.OnSuperstitionBroken += CrackAntingAnting;
+        //SuperstitionManager.OnSuperstitionBroken += CrackAntingAnting;
     }
 
     private void OnDisable()
     {
-        SuperstitionManager.OnSuperstitionBroken -= CrackAntingAnting;
+        //SuperstitionManager.OnSuperstitionBroken -= CrackAntingAnting;
     }
 
     private void Start()
@@ -220,25 +220,25 @@ public class UIManager : MonoBehaviour
         superstitionDescriptionText.text = description;
         superstitionFlavorText.text = flavorText;
 
-        // reset broken sprites
-        for (int i = 0; i < antingAntingImages.Length; i++)
-        {
-            antingAntingImages[i].sprite = unbrokenAntingSprite[i];
-        }
+        //// reset broken sprites
+        //for (int i = 0; i < antingAntingImages.Length; i++)
+        //{
+        //    antingAntingImages[i].sprite = unbrokenAntingSprite[i];
+        //}
     }
 
-    private void CrackAntingAnting(int violationCount)
-    {
-        int indexToCrack = violationCount - 1;
+    //private void CrackAntingAnting(int violationCount)
+    //{
+    //    int indexToCrack = violationCount - 1;
 
-        if (indexToCrack >= 0 && indexToCrack < antingAntingImages.Length)
-        {
-            antingAntingImages[indexToCrack].sprite = crackedAntingSprites[indexToCrack];
+    //    if (indexToCrack >= 0 && indexToCrack < antingAntingImages.Length)
+    //    {
+    //        antingAntingImages[indexToCrack].sprite = crackedAntingSprites[indexToCrack];
 
-            StartCoroutine(ShakeAmulet(antingAntingImages[indexToCrack].rectTransform));
-            antingAntingImages[indexToCrack].color = new Color(0.5f, 0.5f, 0.5f, 1f);
-        }
-    }
+    //        StartCoroutine(ShakeAmulet(antingAntingImages[indexToCrack].rectTransform));
+    //        antingAntingImages[indexToCrack].color = new Color(0.5f, 0.5f, 0.5f, 1f);
+    //    }
+    //}
 
     private IEnumerator ShakeAmulet(RectTransform rt)
     {

@@ -6,7 +6,7 @@ using System;
 public class SuperstitionManager : MonoBehaviour
 {
     [Header("Active Superstition")]
-    private SuperstitionData activeSuperstition;
+    public SuperstitionData activeSuperstition;
     public int totalViolations = 0;
 
         // EVENT

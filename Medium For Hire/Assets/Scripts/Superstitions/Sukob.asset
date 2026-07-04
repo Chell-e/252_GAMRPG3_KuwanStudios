@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sukob
   m_EditorClassIdentifier: 
   superstitionName: Sukob
-  description: Do not select an upgrade of the same Domain consecutively.
+  description: Do not select an upgrade of the same Path consecutively.
   flavorText: "\u201CCareful, child. Taking the same path twice so soon is an invitation
     for misfortune. Remember what happened to your cousin who married in the same
     year as her sister?\u201D "
