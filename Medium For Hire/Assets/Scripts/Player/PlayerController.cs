@@ -6,9 +6,6 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
-    [SerializeField] public PlayerStats playerStats;
-    [SerializeField] public PlayerEvents Events;
-    [SerializeField] public WeaponManager weaponManager;
     private void Awake() // for SINGLETON
     {
         // singleton 
@@ -21,6 +18,10 @@ public class PlayerController : MonoBehaviour
             Instance = this;
         }
     }
+
+    [SerializeField] public PlayerStats playerStats;
+    [SerializeField] public PlayerEvents Events;
+    [SerializeField] public WeaponManager weaponManager;
 
 
     [Header("Player Sprite")]
@@ -64,6 +65,9 @@ public class PlayerController : MonoBehaviour
 
     void Update() // for most update logic stuff
     {
+        if (GameStateManager.Instance.currentState != GameState.Gameplay)
+            return;
+
         if (Input.GetMouseButtonDown(1)) // *******MAKE SURE THAT THIS TRIGGERS UpdateFinalStats() ON ALL WEAPONS
             ToggleAimMode(); // toggle
 
