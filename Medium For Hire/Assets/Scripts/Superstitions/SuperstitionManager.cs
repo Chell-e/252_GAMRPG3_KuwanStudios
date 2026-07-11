@@ -49,6 +49,11 @@ public class SuperstitionManager : MonoBehaviour
         Debug.Log("Total violations: " + totalViolations);
     }
 
+    public void ResetTotalViolations()
+    {
+        totalViolations = 0;
+    }
+
     private void OnDestroy()
     {
         if (activeSuperstition != null)

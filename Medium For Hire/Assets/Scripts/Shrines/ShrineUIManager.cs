@@ -7,16 +7,16 @@ public class ShrineUIManager : MonoBehaviour
 {
     public static ShrineUIManager Instance;
 
-        [Header("Shrine UI Panel Windows")]
+    [Header("Shrine UI Panel Windows")]
     [SerializeField] private GameObject superstitionWindow;
     [SerializeField] private GameObject normalWindow;
 
-        [Header("Normal Panel Texts")]
+    [Header("Normal Panel Texts")]
     [SerializeField] private TextMeshProUGUI normalTitleText;
     [SerializeField] private TextMeshProUGUI normalFlavorText;
     [SerializeField] private TextMeshProUGUI normalDescriptionText;
 
-        [Header("Superstition Panel Texts")]
+    [Header("Superstition Panel Texts")]
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI superstitionNameText;
     [SerializeField] private TextMeshProUGUI superstitionDescriptionText;
@@ -85,22 +85,14 @@ public class ShrineUIManager : MonoBehaviour
     public void OnAccept()
     {
         if (currentActiveContext == null) return;
-
-        if (currentActiveContext is SpiritShrine spiritShrine) spiritShrine.ExecuteAccept();
-        else if (currentActiveContext is AkasiShrine akasiShrine) akasiShrine.ExecuteAccept();
-        else if (currentActiveContext is ApolakiShrine apolaki) apolaki.ExecuteAccept();
-
+        currentActiveContext.ExecuteAccept();
         CloseShrinePanel();
     }
 
     public void OnDecline()
     {
         if (currentActiveContext == null) return;
-
-        if (currentActiveContext is SpiritShrine spiritShrine) spiritShrine.ExecuteDecline();
-        else if (currentActiveContext is AkasiShrine akasiShrine) akasiShrine.ExecuteDecline();
-        else if (currentActiveContext is ApolakiShrine apolaki) apolaki.ExecuteDecline();
-
+        currentActiveContext.ExecuteDecline();
         CloseShrinePanel();
     }
 

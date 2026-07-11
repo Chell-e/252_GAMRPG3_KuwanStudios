@@ -82,6 +82,11 @@ public class HealthComponent : MonoBehaviour
         currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
     }
 
+    public void HealToFull()
+    {
+        Heal(maxHealth);
+    }
+
     public void ResetHealth()
     {
         maxHealth = baseMaxHealth;
