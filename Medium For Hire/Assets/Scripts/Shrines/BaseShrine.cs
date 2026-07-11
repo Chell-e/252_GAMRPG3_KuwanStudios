@@ -229,8 +229,11 @@ public class BaseShrine : MonoBehaviour
             isPlayerInside = true;
             player.SetCurrentShrine(this);
 
+            // no interaction prompt if u have a superstition
             if (currentType != ShrineType.Empty)
             {
+                if (currentType == ShrineType.Spirit && SuperstitionManager.Instance.hasSuperstition) return;
+
                 interactionPromptUI.SetActive(true);
             }
         }

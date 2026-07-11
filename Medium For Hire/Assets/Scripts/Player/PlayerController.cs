@@ -79,6 +79,8 @@ public class PlayerController : MonoBehaviour
         {
             if (currentShrine != null)
             {
+                if (currentShrine.CurrentType == ShrineType.Spirit && SuperstitionManager.Instance.hasSuperstition) return;
+
                 currentShrine.Interact();
             }
         }

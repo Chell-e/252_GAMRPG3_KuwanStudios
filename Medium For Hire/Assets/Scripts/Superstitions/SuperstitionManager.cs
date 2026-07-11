@@ -5,15 +5,29 @@ using System;
 
 public class SuperstitionManager : MonoBehaviour
 {
+    public static SuperstitionManager Instance;
+
     [Header("Active Superstition")]
     public SuperstitionData activeSuperstition;
     public int totalViolations = 0;
 
-        // EVENT
+    public bool hasSuperstition => activeSuperstition != null;
+
+    [Header("Timers")]
+    [SerializeField] private float milestoneTimer = 0f; // deserve mo ba reward ?
+    [SerializeField] private float nakedtimer = 0f; // no superstition equipped, thus, naked
+    private float milestoneDuration = 120f; // 2 mins
+    private float sitanGracePeriod = 10f; // 10s corruption brrr
+
+    [Header("Sitan's Corruption")]
+    private bool sitanCorruptionActive = false;
+    public float sitanStatMultiplier = 1.0f;
+    //public float sitanSpawnMultiplier = 1f; 
+
+    // EVENT
     public static event Action<int> OnSuperstitionBroken;
 
 
-    public static SuperstitionManager Instance;
     private void Awake() // for SINGLETON
     {
         // singleton 
@@ -24,6 +38,52 @@ public class SuperstitionManager : MonoBehaviour
         else
         {
             Instance = this;
+        }
+    }
+
+    private void Update()
+    {
+        HandleMilestoneTimer();
+        HandleSitanLogic();
+    }
+
+    private void HandleMilestoneTimer()
+    {
+        milestoneTimer += Time.deltaTime;
+
+        if (milestoneTimer >= milestoneDuration)
+        {
+            milestoneTimer = 0f;
+
+            // DO THEY HAVE A SUPERSTITION? AND DID THEY FOLLOW IT?
+            if (hasSuperstition && totalViolations == 0)
+            {
+                //ApplyReward();
+                Debug.Log("APLPYING REWARD");
+            }
+        }
+
+        // reset
+        totalViolations = 0;
+    }
+
+    private void HandleSitanLogic()
+    {
+        if (!hasSuperstition)
+        {
+            nakedtimer += Time.deltaTime;
+
+            if (nakedtimer >= sitanGracePeriod)
+            {
+                if (!sitanCorruptionActive)
+                {
+                    sitanCorruptionActive = true;
+                    Debug.Log("Sitan's Corruption starts!");
+                }
+
+                sitanStatMultiplier += 0.01f * Time.deltaTime; // scales up enemy stat modifiers (+1% per second)
+                //sitanSpawnMultiplier += 0.01f * Time.deltaTime; 
+            }
         }
     }
 
@@ -39,7 +99,12 @@ public class SuperstitionManager : MonoBehaviour
         activeSuperstition.Initialize(StageManager.Instance);
 
         UIManager.Instance.SetSuperstitionText(activeSuperstition.superstitionName, activeSuperstition.description, activeSuperstition.flavorText);
-    }    
+
+        // reset whenever a spirit is appeased
+        nakedtimer = 0f;
+        sitanCorruptionActive = false;
+        sitanStatMultiplier = 1.0f;
+    }
 
     public void NotifyRuleBroken(SuperstitionData rule, int amount)
     {
@@ -47,6 +112,33 @@ public class SuperstitionManager : MonoBehaviour
         OnSuperstitionBroken?.Invoke(totalViolations);
 
         Debug.Log("Total violations: " + totalViolations);
+
+        BreakSuperstition();
+    }
+
+    public void BreakSuperstition()
+    {
+        if (activeSuperstition != null)
+        {
+            // ApplyPenalty();
+
+            activeSuperstition.Deinitialize();
+            activeSuperstition = null;
+        }
+
+        UIManager.Instance.SetSuperstitionText("None", "...", "Spirits will offer only once and they'll begone; Find them once more.");
+
+        nakedtimer = 0f;
+    }
+
+    public void ApplyReward()
+    {
+
+    }
+
+    public void ApplyPenalty()
+    {
+
     }
 
     public void ResetTotalViolations()
