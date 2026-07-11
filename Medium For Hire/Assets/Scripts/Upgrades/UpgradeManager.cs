@@ -69,9 +69,16 @@ public class UpgradeManager : MonoBehaviour
 
 
         // SHOW BACKGROUND GRAPHICS
-        UIManager.Instance.ToggleUpgradeGraphics(true); 
+        UIManager.Instance.ToggleUpgradeGraphics(true);
         // SHOW BACKGROUND GRAPHICS
 
+        // PLAY SFX
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySFX(2);
+            SoundManager.Instance.LowerBGM();
+        }
+        // PLAY SFX
 
         // ROLL QUALIFYING UPGRADES
         List<BaseUpgradeData> rolledUpgrades; // list of upgrades that qualify
@@ -389,5 +396,11 @@ public class UpgradeManager : MonoBehaviour
         // unpause
         Time.timeScale = 1f;
         isOpen = false;
+
+        // revert bgm back
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.RevertBGM();
+        }
     }
 }

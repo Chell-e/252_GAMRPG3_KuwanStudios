@@ -17,3 +17,5 @@ MonoBehaviour:
   flavorText: "\u201CCareful, child. Taking the same path twice so soon is an invitation
     for misfortune. Remember what happened to your cousin who married in the same
     year as her sister?\u201D "
+  rewardText: 'Next level-up offers 1 additional upgrade choice.  '
+  penaltyText: 'Next level-up offers only 1 upgrade choice. '

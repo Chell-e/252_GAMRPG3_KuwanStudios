@@ -36,7 +36,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 minPos;
     [SerializeField] private Vector2 maxPos;
 
-        [Header("Aim Mechanics")]
+    [Header("Current Shrine I'm Standing On")]
+    [SerializeField] private BaseShrine currentShrine;
+
+    [Header("Aim Mechanics")]
     //[SerializeField] public bool IsAiming;
     [SerializeField] private Texture2D aimCursor; // change the cursor into a crosshair or smth
     [SerializeField] private Texture2D defaultCursor; // optional: leave null to use OS default
@@ -71,6 +74,15 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(1)) // *******MAKE SURE THAT THIS TRIGGERS UpdateFinalStats() ON ALL WEAPONS
             ToggleAimMode(); // toggle
 
+        // shrine interaction
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (currentShrine != null)
+            {
+                currentShrine.Interact();
+            }
+        }
+
         // get player input from Input Controller
         float inputX = Input.GetAxis("Horizontal");
         float inputY = Input.GetAxis("Vertical");
@@ -97,6 +109,19 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("isRunning", false);
+        }
+    }
+
+    public void SetCurrentShrine(BaseShrine shrine)
+    {
+        currentShrine = shrine;
+    }
+
+    public void ClearCurrentShrine(BaseShrine shrine)
+    {
+        if (currentShrine == shrine)
+        {
+            currentShrine = null;
         }
     }
 

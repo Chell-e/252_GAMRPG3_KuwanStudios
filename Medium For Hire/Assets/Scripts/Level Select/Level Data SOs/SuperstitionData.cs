@@ -7,6 +7,8 @@ public abstract class SuperstitionData : ScriptableObject
     public string superstitionName;
     public string description;
     public string flavorText;
+    public string rewardText;
+    public string penaltyText;
 
         // call when the stage starts
     public abstract void Initialize(StageManager stage);

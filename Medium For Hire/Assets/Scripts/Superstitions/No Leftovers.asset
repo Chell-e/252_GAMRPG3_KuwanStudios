@@ -17,3 +17,5 @@ MonoBehaviour:
   flavorText: "\u201CA wasted grain is a soul gone hungry,\u201D Lolo would always
     say. He\u2019d discourage me from leaving leftover rice, as it\u2019d anger the
     spirits."
+  rewardText: 'Gain +1 level instantly.  '
+  penaltyText: 'Increases current EXP required to level up by 2.5%.  '
