@@ -3,39 +3,143 @@
   [
     {
       "id": "intro_1",
-      "illustration": "",
-      "portrait": "kapre_placeholder",
-      "bodyText": "It all began one day while my Lola and I were preparing the shrine for a ritual.",
-      "nameText": "Narrator"
-
+      "illustration": "placeholder1",
+      "portrait": "elias",
+      "bodyText": "1...",
+      "nameText": "Elias"
     },
     {
       "id": "intro_2",
-      "illustration": "",
+      "illustration": "placeholder1",
       "portrait": "elias",
-      "bodyText": "i am elias",
+      "bodyText": "2...",
       "nameText": "Elias"
     },
     {
       "id": "intro_3",
-      "illustration": "",
-      "portrait": "kapre_placeholder",
-      "bodyText": "i am manong kapre",
-      "nameText": "Manong\nKapre"
+      "illustration": "placeholder1",
+      "portrait": "elias",
+      "bodyText": "...3!",
+      "nameText": "Elias"
     },
     {
       "id": "intro_4",
-      "illustration": "",
-      "portrait": "lola_isang",
-      "bodyText": "i am lola isang",
-      "nameText": "Lola Test"
+      "illustration": "placeholder1",
+      "portrait": "elias",
+      "bodyText": "Lola, why exactly do we have to do this every year?",
+      "nameText": "Elias"
     },
     {
       "id": "intro_5",
+      "illustration": "placeholder2",
+      "portrait": "lola_isang",
+      "bodyText": "Ah, apo. Could you pass me that <i>anito book</i> on the table?",
+      "nameText": "Lola Isang"
+    },
+    {
+      "id": "intro_6",
+      "illustration": "placeholder2",
+      "portrait": "elias",
+      "bodyText": "This one Lola? It..",
+      "nameText": "Elias"
+    },
+    {
+      "id": "intro_7",
+      "illustration": "placeholder2",
+      "portrait": "elias",
+      "bodyText": "It can hardly pass as a book at this point po.",
+      "nameText": "Elias"
+    },
+    {
+      "id": "intro_8",
+      "illustration": "placeholder2",
+      "portrait": "lola_isang",
+      "bodyText": "That's called an anito book, gifted to us by the spirits.",
+      "nameText": "Lola Isang"
+    },
+    {
+      "id": "intro_9",
+      "illustration": "placeholder2",
+      "portrait": "lola_isang",
+      "bodyText": "It has been passed down thr—!",
+      "nameText": "Lola Isang"
+    },
+    {
+      "id": "intro_10",
+      "illustration": "placeholder2",
+      "portrait": "elias",
+      "bodyText": "Are spirits usually this stingy?",
+      "nameText": "Elias"
+    },
+    {
+      "id": "intro_11",
+      "illustration": "placeholder2",
+      "portrait": "lola_isang",
+      "bodyText": "N-No Elias, do not—",
+      "nameText": "Lola Isang"
+    },
+    {
+      "id": "intro_12",
+      "illustration": "placeholder2",
+      "portrait": "lola_isang",
+      "bodyText": "...",
+      "nameText": "Lola Isang"
+    },
+    {
+      "id": "intro_13",
+      "illustration": "placeholder2",
+      "portrait": "elias",
+      "bodyText": "Lola! Why is this happening?!",
+      "nameText": "Elias"
+    },
+    {
+      "id": "intro_14",
+      "illustration": "placeholder2",
+      "portrait": "lola_isang",
+      "bodyText": "Torn pages...",
+      "nameText": "Lola Isang"
+    },
+    {
+      "id": "intro_15",
+      "illustration": "placeholder2",
+      "portrait": "lola_isang",
+      "bodyText": "Iho! Take the Anito book with you and get in the house!",
+      "nameText": "Lola Isang"
+    },
+    {
+      "id": "intro_16",
+      "illustration": "placeholder2",
+      "portrait": "elias",
+      "bodyText": "Wha— but what about you?!",
+      "nameText": "Elias"
+    },
+    {
+      "id": "intro_17",
       "illustration": "",
-      "portrait": "kirk",
-      "bodyText": "we are charlie kirk",
-      "nameText": "Kirk"
+      "portrait": "lola_isang",
+      "bodyText": "This isn't something we can stop together.",
+      "nameText": "Lola Isang"
+    },
+    {
+      "id": "intro_18",
+      "illustration": "",
+      "portrait": "lola_isang",
+      "bodyText": "Once things have subsided, an ally should be residing in the Balete trees..",
+      "nameText": "Lola Isang"
+    },
+    {
+      "id": "intro_19",
+      "illustration": "",
+      "portrait": "lola_isang",
+      "bodyText": "Now, go! Your Lola Isang will be looking after you!",
+      "nameText": "Lola Isang"
+    },
+    {
+      "id": "intro_20",
+      "illustration": "",
+      "portrait": "lola_isang",
+      "bodyText": "<i>I leave the rest to you Elias, go and be a babaylan...</i>",
+      "nameText": "Lola Isang"
     }
   ]
 }

@@ -1,0 +1,47 @@
+{
+  "dialogueLines":
+  [
+    {
+      "id": "intro_1",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "It all began one day while my Lola and I were preparing the shrine for a ritual.",
+      "nameText": "Narrator"
+    },
+    {
+      "id": "intro_2",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "i am elias",
+      "nameText": "Elias"
+    },
+    {
+      "id": "intro_3",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "i am manong kapre",
+      "nameText": "Manong\nKapre"
+    },
+    {
+      "id": "intro_4",
+      "illustration": "",
+      "portrait": "lola_isang",
+      "bodyText": "i am lola isang",
+      "nameText": "Lola Test"
+    },
+    {
+      "id": "intro_5",
+      "illustration": "",
+      "portrait": "kirk",
+      "bodyText": "we are charlie kirk",
+      "nameText": "Kirk"
+    }
+    {
+      "id": "intro_6",
+      "illustration": "",
+      "portrait": "kirk",
+      "bodyText": "we are charlie kirk",
+      "nameText": "Kirk"
+    }
+  ]
+}

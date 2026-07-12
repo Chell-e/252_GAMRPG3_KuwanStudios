@@ -1,0 +1,3 @@
+PORTRAIT for Dialogue:
+- preferably 200x200
+- but can be any 1:1 aspect ratio.

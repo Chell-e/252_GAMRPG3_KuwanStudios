@@ -11,10 +11,17 @@ public class Animation_DialoguePointer : MonoBehaviour
         Hidden // when RMB to "hide" dialogue box
     }
 
-    [Header("SETTINGS")]
+        [Header("SETTINGS")]
     public float bobSpeed = 5f;
     public float bobAmount = 8f;
 
+        [Header("REFERENCES")]
+    [SerializeField] private DialogueUI ui;
+
+
+    //
+    // =====================
+        [Header("DEBUG")]
     [SerializeField] private DialoguePointerState currentState = DialoguePointerState.Still;
 
     private Vector3 startPosition;
@@ -25,6 +32,10 @@ public class Animation_DialoguePointer : MonoBehaviour
     {
         startPosition = transform.localPosition;
         startScale = transform.localScale;
+
+        ui.OnDialogueTyping += OnDialogueTyping;
+        ui.OnDialogueFinished += OnDialogueFinished;
+        ui.OnDialogueHidden += OnDialogueHidden;
     }
 
     // Update is called once per frame
@@ -34,6 +45,7 @@ public class Animation_DialoguePointer : MonoBehaviour
         {
             case DialoguePointerState.Still:
                 ResetArrow();
+                Debug.Log("POINTER DETECTS TYPING COMPLETE!");
                 break;
 
             case DialoguePointerState.Bobbing:
@@ -49,9 +61,6 @@ public class Animation_DialoguePointer : MonoBehaviour
     void Bob(bool upsideDown)
     {
         float offset = Mathf.Sin(Time.unscaledTime * bobSpeed) * bobAmount;
-
-        Debug.Log("Time.unscaledTime: " + Time.time);
-        Debug.Log($"bobSpeed: {bobSpeed}; bobAmount: {bobAmount}");
 
         transform.localPosition = startPosition + (Vector3.up * Mathf.Abs(offset));
 
@@ -72,5 +81,29 @@ public class Animation_DialoguePointer : MonoBehaviour
     public void SetState(DialoguePointerState state)
     {
         currentState = state;
+    }
+
+    // ==========
+    // EVENTS
+    private void OnDialogueTyping()
+    {
+        SetState(DialoguePointerState.Still);
+    }
+
+    private void OnDialogueFinished()
+    {
+        SetState(DialoguePointerState.Bobbing);
+    }
+    private void OnDialogueHidden(bool isHidden)
+    {
+        if (isHidden)
+        {
+            SetState(DialoguePointerState.Hidden);
+        }
+        else
+        {
+            SetState(DialoguePointerState.Still);
+        }
+
     }
 }

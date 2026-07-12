@@ -21,35 +21,22 @@ public class DialogueManager : MonoBehaviour
     }
     // singleton stuff
 
-
-    // enums
-    public enum DialogueBoxState
-    {
-        Typing, // playing type-writer effect
-        Finished, // done
-        Hidden // boxes hidden
-    }
-    // enums
-
-
     [Header("SETTINGS")]
-
+    public bool changeSceneOnEnd;
+    public string targetScene;
 
     [Header("DEBUG")]
-    public DialogueBoxState state = DialogueBoxState.Typing;
     public DialogueFile currentSequence; // which dialogue to load 
     public int currentIndex; // current dialogue line displayed
     public int exploredIndex; // the "farthest" dialogue line displayed; caps the backtracking scroll function 
 
     [Header("REFERENCES")]
-    public GameObject ui;
-    public DialogueUI uiData; // the ui object to manipulate/load
-
+    public DialogueUI dialogueUI; // the ui object to manipulate/load
 
 
     public void StartDialogue(DialogueFile dialogueSequence)
     {
-        ui.SetActive(true);
+        dialogueUI.gameObject.SetActive(true);
 
         currentSequence = dialogueSequence;
         currentIndex = 0;
@@ -60,30 +47,8 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayCurrentLine()
     {
-        uiData.SetDialogue( currentSequence.dialogueLines[currentIndex] );
+        dialogueUI.PlayDialogue( currentSequence.dialogueLines[currentIndex] );
     }
-
-    /*IEnumerator TypeText(string message)
-    {
-
-        
-        *//*this.state = DialogueBoxState.Typing;
-
-        dialogueText.text = message;
-        dialogueText.ForceMeshUpdate();
-
-        dialogueText.maxVisibleCharacters = 0;
-
-        int total = dialogueText.textInfo.characterCount;
-
-        for (int i = 0; i <= total; i++)
-        {
-            dialogueText.maxVisibleCharacters = i;
-            yield return new WaitForSecondsRealtime(1f / charactersPerSecond);
-        }
-
-        isTyping = false;*//*
-    }*/
 
     // ====================== DIALOGUE NAVIGATION
     public void NextLine()
@@ -109,68 +74,67 @@ public class DialogueManager : MonoBehaviour
         currentIndex--;
         DisplayCurrentLine();
     }
+
+    public void RunLeftClick()
+    {
+        // if dialogue is hidden, dont execute
+        if (dialogueUI.isHidden == true)
+            return;
+
+        // if dialogue is playing, skip typing first
+        if (dialogueUI.isTyping)
+        {
+            dialogueUI.SkipTyping();
+            return;
+        }
+
+        NextLine();
+    }
+
+    public void RunRightClick()
+    {
+        dialogueUI.ToggleHide();
+    }
+
+    public void RunScrollUp()
+    {
+        PreviousLine();
+        dialogueUI.SkipTyping();
+    }
+
+    public void RunScrollDown()
+    {
+        if (currentIndex < exploredIndex)
+        {
+            NextLine();
+            dialogueUI.SkipTyping();
+        }
+    }
     // ====================== DIALOGUE NAVIGATION
 
-    private void Start()
-    {
 
-    }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) //on LMB
-        {
-            if (GameStateManager.Instance == null
+        if (GameStateManager.Instance == null
                 || GameStateManager.Instance.currentState == GameState.Cutscene)
-            {
-                // bypass the game state check if GameStateManager does not exist!
-                // ------
-
-                NextLine();
-            }
-
-        }
-
-        if (Input.GetMouseButtonDown(1)) //RMB
         {
+            // bypass the game state check if GameStateManager does not exist!
+            // ------
 
-            if (GameStateManager.Instance == null
-                || GameStateManager.Instance.currentState == GameState.Cutscene)
-            {
-                // bypass the game state check if GameStateManager does not exist!
-                // ------
+            if (Input.GetMouseButtonDown(0)) //on LMB
+                RunLeftClick();
 
-                //ui.ToggleVisibility();
-            }
-
-        }
-
-        float wheel = Input.mouseScrollDelta.y;
-
-        if (wheel > 0)
-        {
-            if (GameStateManager.Instance == null
-                || GameStateManager.Instance.currentState == GameState.Cutscene)
-            {
-                // bypass the game state check if GameStateManager does not exist!
-                // ------
-
-                PreviousLine();
-            }
-        }
+            if (Input.GetMouseButtonDown(1)) //on LMB
+                RunRightClick();
 
 
-        if (wheel < 0)
-        {
-            if (GameStateManager.Instance == null
-                || GameStateManager.Instance.currentState == GameState.Cutscene)
-            {
-                // bypass the game state check if GameStateManager does not exist!
-                // ------
+            float wheel = Input.mouseScrollDelta.y;
+            if (wheel > 0)
+                RunScrollUp();
 
-                if (currentIndex < exploredIndex)
-                    NextLine();
-            }
+            if (wheel < 0)
+                RunScrollDown();
         }
             
     }
@@ -187,12 +151,12 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
-        ui.SetActive(false);
+        dialogueUI.gameObject.SetActive(false);
         ResumeGame();
-    }
 
-    public void SetState(DialogueBoxState dialogueState)
-    {
-        this.state = dialogueState;
+        if (changeSceneOnEnd)
+        {
+            GameSceneManager.Instance.LoadScene(targetScene);
+        }
     }
 }

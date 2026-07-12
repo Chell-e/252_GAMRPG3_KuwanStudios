@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScreen.unity
     guid: 8f245379fb647374c9bba278bf047277
   - enabled: 1
+    path: Assets/Scenes/IntroSequence.unity
+    guid: 7e51405b67aba254b9f8ab6054ea3958
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 7d5cf04a94f99ec41b9979a89694499a
   - enabled: 1
@@ -23,7 +26,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JobScene.unity
     guid: 5d5d8659303daee439a096602b7b3e8d
-  - enabled: 1
-    path: Assets/Scenes/IntroSequence.unity
-    guid: 7e51405b67aba254b9f8ab6054ea3958
   m_configObjects: {}
