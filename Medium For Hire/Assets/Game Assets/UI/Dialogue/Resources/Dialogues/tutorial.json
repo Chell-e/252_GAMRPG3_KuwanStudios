@@ -1,0 +1,159 @@
+{
+  "dialogueLines":
+  [
+    {
+      "id": "tutorial_1",
+      "illustration": "",
+      "portrait": "placeholder",
+      "bodyText": "TUTORIAL PLACEHOLDER",
+      "nameText": "TUTORIAL PLACEHOLDER"
+    },
+    {
+      "id": "tutorial_2",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "Welcome to my humble abode! uh... what was your name again?",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_3",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "Elias Iho but my Lola calls me Elias- wait have you seen my Lola?",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_4",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "Lola? No normal person would be able to stay human in times like these, let alone after three days!",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_5",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "W-what does that mean? Why am I still here then?",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_6",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "Elias, may I see that book of yours?",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_7",
+      "illustration": "placeholder2",
+      "portrait": "kapre_placeholder",
+      "bodyText": "This book serves as a container for the supernatural world.",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_8",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "To be more specific, this book is a sanctuary for the supernatural creatures which includes me.. and the guys from earlier.",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_9",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "What's up with those creatures from earlier? Why were they only attacking me?",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_10",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "Elias, what would you feel if you woke up one day and suddenly your whole house is rubble?",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_11",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "What? of course I would be confused!",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_12",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "You would be confused and angry correct?",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_13",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "Correct.",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_14",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "You see, the reason for why this sanctuary exists wasn't just to protect humans, it's also to protect us creatures from ourselves.",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_15",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "A couple hundred years ago, humans and us creatures coexisted in this world. Although there were hostile and bloodthirsty creatures, most creatures including me prefer living quietly beside humans.",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_16",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "Everything changed when humans began a campaign against us. They hunted down hostile creatures with overwhelming power, and seized land from us.",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_17",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "Some of the creatures are not as wise as you humans, their innate instincts easily drive them angry when they see their home disturbed.",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_18",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "When the book lost its pages, the creatures were suddenly dragged back into this world, feeling intense anger unlike anything they've ever experienced and being consumed by it.",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_19",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "Why aren't you like those guys?",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_20",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "Elias, I've been around for 505 years, those guys that attack you? they were probably only been around for... 10 years. Their lifespan is relatively short and they are definitely not as wise as this old bugger.",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_21",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "Having my page on the book.. I think it actually made me feel quite better.",
+      "nameText": "Manong Kapre"
+    },
+    {
+      "id": "tutorial_22",
+      "illustration": "",
+      "portrait": "kapre_placeholder",
+      "bodyText": "You know what, this gives me an idea, follow me Elias.",
+      "nameText": "Manong Kapre"
+    }
+  ]
+}

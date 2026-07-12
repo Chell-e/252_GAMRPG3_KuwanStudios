@@ -654,7 +654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueManager: {fileID: 872334493}
   startsDialogueImmediately: 1
-  startingFile: intro
+  startingFile: tutorial
 --- !u!114 &872334493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,7 +668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeSceneOnEnd: 1
-  targetScene: TutorialSequence
+  targetScene: ShopScene
   currentSequence:
     dialogueLines: []
   currentIndex: 0

@@ -39,6 +39,12 @@ public class GameSceneManager : MonoBehaviour
 
     public void LoadPreviousScene()
     {
+        if (SceneManager.GetActiveScene().name == "ShopScene")
+        {
+            Debug.Log("SHOP SCENE DETECTED");
+            SceneManager.LoadScene("MainMenu");
+            return;
+        }
         SceneManager.LoadScene(previousSceneName);
     }
 
