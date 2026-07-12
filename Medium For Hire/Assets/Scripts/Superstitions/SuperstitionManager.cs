@@ -17,12 +17,18 @@ public class SuperstitionManager : MonoBehaviour
     [SerializeField] private float milestoneTimer = 0f; // deserve mo ba reward ?
     [SerializeField] private float nakedtimer = 0f; // no superstition equipped, thus, naked
     private float milestoneDuration = 120f; // 2 mins
-    private float sitanGracePeriod = 10f; // 10s corruption brrr
+    private float sitanGracePeriod = 20f; // 10s corruption brrr
 
     [Header("Sitan's Corruption")]
     private bool sitanCorruptionActive = false;
     public float sitanStatMultiplier = 1.0f;
     //public float sitanSpawnMultiplier = 1f; 
+
+    [Header("Notifications SO")]
+    [SerializeField] private NotificationSO pleasedSpiritsNotif;
+    [SerializeField] private NotificationSO angeredSpiritsNotif;
+    [SerializeField] private NotificationSO sitansCorruptionNotif;
+    [SerializeField] private NotificationSO sitansEndNotif;
 
     // EVENT
     public static event Action<int> OnSuperstitionBroken;
@@ -59,7 +65,12 @@ public class SuperstitionManager : MonoBehaviour
             if (hasSuperstition && totalViolations == 0)
             {
                 //ApplyReward();
-                Debug.Log("APLPYING REWARD");
+                //Debug.Log("APLPYING REWARD");
+
+                if (NotificationManager.Instance != null)
+                {
+                    NotificationManager.Instance.ShowNotification(pleasedSpiritsNotif);
+                }
             }
         }
 
@@ -78,7 +89,12 @@ public class SuperstitionManager : MonoBehaviour
                 if (!sitanCorruptionActive)
                 {
                     sitanCorruptionActive = true;
-                    Debug.Log("Sitan's Corruption starts!");
+                    //Debug.Log("Sitan's Corruption starts!");
+
+                    if (NotificationManager.Instance != null)
+                    {
+                        NotificationManager.Instance.ShowNotification(sitansCorruptionNotif);
+                    }
                 }
 
                 sitanStatMultiplier += 0.01f * Time.deltaTime; // scales up enemy stat modifiers (+1% per second)
@@ -104,6 +120,11 @@ public class SuperstitionManager : MonoBehaviour
         nakedtimer = 0f;
         sitanCorruptionActive = false;
         sitanStatMultiplier = 1.0f;
+
+        if (NotificationManager.Instance != null)
+        {
+            NotificationManager.Instance.ShowNotification(sitansEndNotif);
+        }
     }
 
     public void NotifyRuleBroken(SuperstitionData rule, int amount)
@@ -111,7 +132,11 @@ public class SuperstitionManager : MonoBehaviour
         totalViolations += amount;
         OnSuperstitionBroken?.Invoke(totalViolations);
 
-        Debug.Log("Total violations: " + totalViolations);
+        if (NotificationManager.Instance != null)
+        {
+            NotificationManager.Instance.ShowNotification(angeredSpiritsNotif);
+        }
+        //Debug.Log("Total violations: " + totalViolations);
 
         BreakSuperstition();
     }

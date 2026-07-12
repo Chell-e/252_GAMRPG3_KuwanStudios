@@ -7,17 +7,22 @@ public class ShrineSpawner : MonoBehaviour
     public static ShrineSpawner Instance;
 
     [Header("Shrine Spawn Times")]
-    [SerializeField] private float spiritSpawnDelay = 5f; // 10 sec
-    [SerializeField] private float akasiSpawnDelay = 10f; // 1 min
-    [SerializeField] private float apolakiSpawnDelay = 15f; // 5 min
+    [SerializeField] private float spiritSpawnDelay = 10; // 10 sec
+    [SerializeField] private float akasiSpawnDelay = 60f; // 1 min
+    [SerializeField] private float apolakiSpawnDelay = 300f; // 5 min
     private float attemptedDelay = 5f;
 
     [Header("Respawn Times")]
     [SerializeField] private float spiritCooldown = 30f;
-    [SerializeField] private float apolakiCooldown = 30f; // 5 mins
+    [SerializeField] private float apolakiCooldown = 300f; // 5 mins
 
     [Header("Map References")]
     [SerializeField] private List<BaseShrine> allShrineSpots;
+
+    [Header("Notification SO Shrines")]
+    [SerializeField] private NotificationSO spiritNotif;
+    [SerializeField] private NotificationSO akasiNotif;
+    [SerializeField] private NotificationSO apolakiNotif;
 
     private void Awake()
     {
@@ -60,7 +65,9 @@ public class ShrineSpawner : MonoBehaviour
             // pick a random spot for a pirit/deity to inhabit
             int randomIndex = Random.Range(0, emptySpots.Count);
             emptySpots[randomIndex].SetShrineType(type);
-            Debug.Log("{" + type + "} has inhabited an empty shrine!");
+            //Debug.Log("{" + type + "} has inhabited an empty shrine!");
+
+            SetUpNotification(type);
         }
         else
         {
@@ -78,6 +85,22 @@ public class ShrineSpawner : MonoBehaviour
         else if (oldType == ShrineType.Apolaki)
         {
             StartCoroutine(InhabitEmptyShrine(ShrineType.Apolaki, apolakiCooldown));
+        }
+    }
+
+    public void SetUpNotification(ShrineType type)
+    {
+        if (type == ShrineType.Spirit)
+        {
+            NotificationManager.Instance.ShowNotification(spiritNotif);
+        }
+        if (type == ShrineType.Akasi)
+        {
+            NotificationManager.Instance.ShowNotification(akasiNotif);
+        }
+        if (type == ShrineType.Apolaki)
+        {
+            NotificationManager.Instance.ShowNotification(apolakiNotif);
         }
     }
 }
