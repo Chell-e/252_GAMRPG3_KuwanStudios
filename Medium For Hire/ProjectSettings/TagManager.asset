@@ -42,6 +42,15 @@ TagManager:
   - name: Enemy Shadow
     uniqueID: 3959983593
     locked: 0
+  - name: Background
+    uniqueID: 46874727
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Effects
+    uniqueID: 2919098651
+    locked: 0
+  - name: Characters
+    uniqueID: 4090201597
     locked: 0

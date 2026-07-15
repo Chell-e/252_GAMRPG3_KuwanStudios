@@ -340,6 +340,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: ~Sound Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 1409344170248899597, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409344170248899597, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409344170248899597, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409344170248899597, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409344170248899597, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409344170248899597, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 2123845018365604400, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -429,9 +453,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
---- !u!4 &450489417 stripped
+--- !u!4 &657353302 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 2123845018365604400, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1409344170248899597, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
   m_PrefabInstance: {fileID: 450489416}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &701201222
@@ -882,7 +906,7 @@ Transform:
   m_GameObject: {fileID: 1254029678}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -137.16736, y: -22.19516, z: 1.5884566}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1094,7 +1118,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1254029680}
-  - {fileID: 450489417}
+  - {fileID: 657353302}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807

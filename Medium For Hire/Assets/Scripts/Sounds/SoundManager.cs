@@ -24,15 +24,20 @@ public class SoundManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            transform.SetParent(null); // detaches from parent folder
+
+            if (transform.parent != null)
+            {
+                transform.SetParent(null); // detaches from parent folder
+            }
             DontDestroyOnLoad(gameObject);
+
+            normalBGMVolume = bgmSource.volume;
         }
-        else if (Instance != this)
+        else
         {
             Destroy(gameObject);
         }
 
-        normalBGMVolume = bgmSource.volume;
     }
 
     public void PlaySFX(int audioIndex)

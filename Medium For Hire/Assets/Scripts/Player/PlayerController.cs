@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Player Sprite")]
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] public SpriteRenderer spriteRenderer;
 
         [Header("Player")]
     [SerializeField] private Rigidbody2D rb;
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        trailRenderer = GetComponent<TrailRenderer>();
+        trailRenderer = GetComponentInChildren<TrailRenderer>();
         //playerStats = GetComponent<PlayerStats>();
         
         /*exp needed for each level up(currently 10 muna per level)
@@ -127,7 +127,6 @@ public class PlayerController : MonoBehaviour
         
         // set movement direction
         moveDirection = new Vector2(inputX, inputY).normalized;
-
 
         // flips sprite based on movement direction
         if (inputX < 0)

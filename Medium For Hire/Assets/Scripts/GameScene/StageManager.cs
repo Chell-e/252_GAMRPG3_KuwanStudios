@@ -67,6 +67,11 @@ public class StageManager : MonoBehaviour
 
     private void OnDisable()
     {
+        if (SoundManager.Instance != null )
+        {
+            SoundManager.Instance.StopBGM();
+        }
+
         Events.OnPlayerDeath -= CompleteLevel;
         //SuperstitionManager.OnSuperstitionBroken -= CheckSuperstition;
 

@@ -27,13 +27,14 @@ public class GameSceneManager : MonoBehaviour
         }
 
         if (SceneManager.GetActiveScene().name == "GameScene")
-        {
-            if (Input.GetKeyDown(KeyCode.Escape) && UIManager.Instance.IsPausePanelActive)
+        {       
+            if (Input.GetKeyDown(KeyCode.Escape) && !UIManager.Instance.IsOptionsPanelActive)
             {
-                UIManager.Instance.TogglePauseScreen(false);
+                UIManager.Instance.TogglePauseScreen(true);
             }
-            else if (Input.GetKeyDown(KeyCode.Escape))
+            else if (Input.GetKeyDown(KeyCode.Escape) && UIManager.Instance.IsOptionsPanelActive)
             {
+                UIManager.Instance.ToggleOptionsPanel(false);
                 UIManager.Instance.TogglePauseScreen(true);
             }
         }
@@ -47,6 +48,7 @@ public class GameSceneManager : MonoBehaviour
         previousSceneName = SceneManager.GetActiveScene().name;
 
         SceneManager.LoadScene(sceneName);
+
     }
 
     public void LoadPreviousScene()

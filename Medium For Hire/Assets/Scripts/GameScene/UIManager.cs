@@ -6,19 +6,22 @@ using TMPro;
 using System.Reflection;
 using Unity.VisualScripting;
 using System.Linq.Expressions;
+using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [Header("Superstition UI")]
+        [Header("Superstition UI")]
     [SerializeField] private TMP_Text superstitionText;
     //[SerializeField] private Image[] antingAntingImages;
     //[SerializeField] private Sprite[] unbrokenAntingSprite;
     //[SerializeField] private Sprite[] crackedAntingSprites;
 
-    [Header("Options Panel")]
+        [Header("Pause Panel")]
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject optionsPanel;
     public bool IsPausePanelActive { get; private set; }
+    public bool IsOptionsPanelActive { get; private set; }
 
         [Header("Information Tab Panel ")]
     [SerializeField] private GameObject infoTabPanel;
@@ -233,6 +236,21 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 1f;
             IsPausePanelActive = false;
             pausePanel.gameObject.SetActive(false);
+        }
+    }
+
+    public void ToggleOptionsPanel(bool isDisplayed)
+    {
+        if (isDisplayed)
+        {
+            IsOptionsPanelActive = true;
+            optionsPanel.gameObject.SetActive(true);
+            pausePanel.gameObject.SetActive(false);
+        }
+        else
+        {
+            IsOptionsPanelActive = false;
+            optionsPanel.gameObject.SetActive(false);
         }
     }
 
