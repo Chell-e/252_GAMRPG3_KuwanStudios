@@ -2,10 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
+
+        [Header("Audio Mixer")]
+    [SerializeField] private AudioMixer mixer; 
 
         [Header("Audio Sources")]
     [SerializeField] private AudioSource bgmSource;
@@ -32,6 +36,7 @@ public class SoundManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             normalBGMVolume = bgmSource.volume;
+            LoadSavedVolumes();
         }
         else
         {
@@ -69,5 +74,28 @@ public class SoundManager : MonoBehaviour
         {
             bgmSource.Stop();
         }
+    }
+
+    public void LoadSavedVolumes()
+    {
+        float musicVolume = PlayerPrefs.GetFloat("musicVolume", 1f);
+        float sfxVolume = PlayerPrefs.GetFloat("sfxVolume", 1f);
+
+        SetMusicVolume(musicVolume);
+        SetSFXVolume(sfxVolume);
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        float targetDb = volume > 0 ? Mathf.Log10(volume) * 20 : -80f;
+        mixer.SetFloat("music", targetDb);
+        PlayerPrefs.SetFloat("musicVolume", volume);
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        float targetDb = volume > 0 ? Mathf.Log10(volume) * 20 : -80f;
+        mixer.SetFloat("sfx", targetDb);
+        PlayerPrefs.SetFloat("sfxVolume", volume);
     }
 }

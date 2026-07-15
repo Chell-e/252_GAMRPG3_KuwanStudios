@@ -6,43 +6,50 @@ using UnityEngine.UI;
 
 public class OptionsManager : MonoBehaviour
 {
-    [SerializeField] private AudioMixer mixer;
+        [Header("Audio")]
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
+
+        [Header("Graphics")]
+    [SerializeField] private Toggle fullscreenToggle;
     
     private void Start()
     {
-        if (PlayerPrefs.HasKey("musicVolume"))
+        musicSlider.value = PlayerPrefs.GetFloat("musicVolume", 1f);
+        sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", 1f);
+
+        fullscreenToggle.isOn = Screen.fullScreen; 
+
+        musicSlider.onValueChanged.AddListener(OnMusicSliderChanged);
+        sfxSlider.onValueChanged.AddListener(OnSFXSliderChanged);
+    }
+
+    private void OnDisable()
+    {
+        musicSlider.onValueChanged.RemoveListener(OnMusicSliderChanged);
+        sfxSlider.onValueChanged.RemoveListener(OnSFXSliderChanged);
+    }
+
+    public void OnMusicSliderChanged(float value)
+    {
+        if (SoundManager.Instance != null)
         {
-            LoadVolume();
+            SoundManager.Instance.SetMusicVolume(value);
         }
-        else
+    }
+
+    public void OnSFXSliderChanged(float value)
+    {
+        if (SoundManager.Instance != null)
         {
-            SetMusicVolume();
-            SetSFXVolume();
+            SoundManager.Instance.SetSFXVolume(value);  
         }
     }
 
-    public void SetMusicVolume()
-    {
-        float volume = musicSlider.value;
-        mixer.SetFloat("music", Mathf.Log10(volume)*20); 
-        PlayerPrefs.SetFloat("musicVolume", volume);
-    }
+    private void sfxVolume (float value) { }
 
-    public void SetSFXVolume()
+    public void ApplyGraphics()
     {
-        float volume = sfxSlider.value;
-        mixer.SetFloat("sfx", Mathf.Log10(volume) * 20);
-        PlayerPrefs.SetFloat("sfxVolume", volume);
-    }
-
-    private void LoadVolume()
-    {
-        musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume");
-
-        SetMusicVolume();
-        SetSFXVolume();
+        Screen.fullScreen = fullscreenToggle.isOn;
     }
 }
