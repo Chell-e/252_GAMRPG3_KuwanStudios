@@ -25,6 +25,18 @@ public class GameSceneManager : MonoBehaviour
                 LoadPreviousScene();
             }
         }
+
+        if (SceneManager.GetActiveScene().name == "GameScene")
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) && UIManager.Instance.IsPausePanelActive)
+            {
+                UIManager.Instance.TogglePauseScreen(false);
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                UIManager.Instance.TogglePauseScreen(true);
+            }
+        }
     }
 
     // can either use scene name or build index

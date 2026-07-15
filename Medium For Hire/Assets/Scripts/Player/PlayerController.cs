@@ -27,10 +27,19 @@ public class PlayerController : MonoBehaviour
     [Header("Player Sprite")]
     [SerializeField] private SpriteRenderer spriteRenderer;
 
-        [Header("Player Movement")]
+        [Header("Player")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] Animator animator;
     private Vector3 moveDirection;
+
+        [Header("Dashing Ability")]
+    [SerializeField] private float dashSpeed = 10f;
+    [SerializeField] private float dashDuration = 0.3f;
+    [SerializeField] private float dashCooldown = 1f;
+    private Vector2 dashDir;
+    private bool isDashing;
+    private bool canDash = true;
+    TrailRenderer trailRenderer;
 
         [Header("Player Map Boundaries")] // for limiting player to map boundaries
     [SerializeField] private Vector2 minPos;
@@ -51,6 +60,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        trailRenderer = GetComponent<TrailRenderer>();
         //playerStats = GetComponent<PlayerStats>();
         
         /*exp needed for each level up(currently 10 muna per level)
@@ -70,6 +80,27 @@ public class PlayerController : MonoBehaviour
     {
         if (GameStateManager.Instance.currentState != GameState.Gameplay)
             return;
+
+        // dashing
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        {
+            isDashing = true;
+            canDash = false;
+
+            dashDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+            if (dashDir == Vector2.zero)
+            {
+                dashDir = new Vector2(spriteRenderer.flipX ? -1f : 1f, 0f);
+            }
+            StartCoroutine(DashCoroutine());
+        }
+
+        if (isDashing)
+        {
+            return;
+        }
+
 
         if (Input.GetMouseButtonDown(1)) // *******MAKE SURE THAT THIS TRIGGERS UpdateFinalStats() ON ALL WEAPONS
             ToggleAimMode(); // toggle
@@ -97,6 +128,7 @@ public class PlayerController : MonoBehaviour
         // set movement direction
         moveDirection = new Vector2(inputX, inputY).normalized;
 
+
         // flips sprite based on movement direction
         if (inputX < 0)
             spriteRenderer.flipX = true;
@@ -114,6 +146,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private IEnumerator DashCoroutine()
+    {
+        trailRenderer.emitting = true;
+        yield return new WaitForSeconds(dashDuration);
+        isDashing = false;
+
+        trailRenderer.emitting = false;
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+
     public void SetCurrentShrine(BaseShrine shrine)
     {
         currentShrine = shrine;
@@ -129,6 +172,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate() // for physics update stuff
     {
+        if (isDashing)
+        {
+            rb.velocity = dashDir.normalized * dashSpeed;
+            return;
+        }
+
         var finalMoveSpeed = playerStats.GetPlayerStat(Stat.FinalMoveSpeed);
         var finalAimedMoveSpeed = playerStats.GetPlayerStat(Stat.FinalAimedMoveSpeed);
 

@@ -4,15 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Reflection;
+using Unity.VisualScripting;
+using System.Linq.Expressions;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-        [Header("Superstition UI")]
+    [Header("Superstition UI")]
     [SerializeField] private TMP_Text superstitionText;
     //[SerializeField] private Image[] antingAntingImages;
     //[SerializeField] private Sprite[] unbrokenAntingSprite;
     //[SerializeField] private Sprite[] crackedAntingSprites;
+
+    [Header("Options Panel")]
+    [SerializeField] private GameObject pausePanel;
+    public bool IsPausePanelActive { get; private set; }
 
         [Header("Information Tab Panel ")]
     [SerializeField] private GameObject infoTabPanel;
@@ -33,7 +39,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text hoveredItemNameText;
     [SerializeField] private TMP_Text hoveredItemDescriptionText;
 
-    [Header("EXP UI")]
+        [Header("EXP UI")]
     [SerializeField] private Slider expSlider;
     [SerializeField] private TMP_Text expText;
     [SerializeField] private TMP_Text levelText;
@@ -212,6 +218,22 @@ public class UIManager : MonoBehaviour
     public void DisplayEndRunScreen()
     {
         endRunScreen.gameObject.SetActive(true);
+    }
+
+    public void TogglePauseScreen(bool isDisplayed)
+    {
+        if (isDisplayed)
+        {
+            Time.timeScale = 0f;
+            IsPausePanelActive = true;
+            pausePanel.gameObject.SetActive(true);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            IsPausePanelActive = false;
+            pausePanel.gameObject.SetActive(false);
+        }
     }
 
     public void SetSuperstitionText(string name, string description, string flavorText)
