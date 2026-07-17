@@ -24,7 +24,7 @@ public class EliteBungisngis : BaseEnemy
     private bool hasPanicked = false;
 
     [Header("Attack Settings")]
-    public float throwRange = 8f;
+    public float throwRange = 5f;
 
     [Header("Boulder")]
     [SerializeField] private GameObject boulderPrefab;

@@ -126,6 +126,7 @@ MonoBehaviour:
   incomingDamageMultiplier: 1
   isKnockedBack: 0
   damageTick: 0.7
+  animator: {fileID: 8138996447696099671}
 --- !u!114 &149713768457277641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9f0257afacb5341b18f93508b112c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseMaxHealth: 10
+  baseMaxHealth: 0.8
   maxHealth: 0
   currentHealth: 0
 --- !u!114 &1081750909805947457
@@ -236,6 +237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6330232389157122945}
   - component: {fileID: 4369014137350994726}
+  - component: {fileID: 8138996447696099671}
   m_Layer: 8
   m_Name: BungisngisSprite
   m_TagString: Untagged
@@ -299,7 +301,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5a57d6db632002a41ae618cf37a2ecc2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ac94097527ed16047abdaad83918c155, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -310,3 +312,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!95 &8138996447696099671
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950978041597673009}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 524af010e98936b4e940be54073ceba1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -25,8 +25,10 @@ public class UIManager : MonoBehaviour
 
         [Header("Information Tab Panel ")]
     [SerializeField] private GameObject infoTabPanel;
+    [SerializeField] private TMP_Text superstitionNameText;
     [SerializeField] private TMP_Text superstitionDescriptionText;
-    [SerializeField] private TMP_Text superstitionFlavorText;
+    [SerializeField] private TMP_Text superstitionRewardText;
+    [SerializeField] private TMP_Text superstitionPenaltyText;
 
         [Header("Info Tab - Player Stats")]
     [SerializeField] private GameObject statsPanel;
@@ -254,17 +256,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetSuperstitionText(string name, string description, string flavorText)
+    public void UpdateSuperstitionUI(string name, string description, string rewardText, string penaltyText)
     {
         superstitionText.text = name;
-        superstitionDescriptionText.text = description;
-        superstitionFlavorText.text = flavorText;
 
-        //// reset broken sprites
-        //for (int i = 0; i < antingAntingImages.Length; i++)
-        //{
-        //    antingAntingImages[i].sprite = unbrokenAntingSprite[i];
-        //}
+        superstitionNameText.text = name;
+        superstitionDescriptionText.text = description;
+        superstitionRewardText.text = rewardText;
+        superstitionPenaltyText.text = penaltyText;
     }
 
     //private void CrackAntingAnting(int violationCount)

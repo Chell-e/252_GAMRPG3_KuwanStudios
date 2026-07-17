@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class NormalEnemy : BaseEnemy
 {
+        [Header("FOR ANIMATIONS")]
+    [SerializeField] private Animator animator;
+
     protected override void Awake()
     {
         base.Awake(); 

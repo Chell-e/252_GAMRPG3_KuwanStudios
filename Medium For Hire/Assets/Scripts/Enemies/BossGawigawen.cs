@@ -23,19 +23,19 @@ public class BossGawigawen : BaseEnemy
     [SerializeField] private Animator animator;
 
     [Header("Attack Settings")]
-    public float attackRange = 5f;
+    public float attackRange = 6f;
     public float attackThresholdY = -3.5f; // vertical threshold for attack
 
     private bool nextAttackIsAxe = true;
 
-    public float bossWeaponAttackDamage = 15f;
+    public float bossWeaponAttackDamage = 10f;
 
     protected override void OnEnable()
     {
         base.OnEnable();
 
         baseHealth = health.GetMaxHealth();
-        baseDamage = bossWeaponAttackDamage;
+        //baseDamage = bossWeaponAttackDamage;
 
         currentState = GawigawenState.Approach;
         nextAttackIsAxe = true;
@@ -55,7 +55,7 @@ public class BossGawigawen : BaseEnemy
         base.OnDisable();
 
         health.SetMaxHealth(baseHealth);
-        bossWeaponAttackDamage = baseDamage;
+        //bossWeaponAttackDamage = baseDamage;
 
         SuperstitionManager.OnSuperstitionBroken -= ApplyBuff;
     }

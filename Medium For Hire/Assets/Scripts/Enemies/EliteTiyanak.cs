@@ -28,8 +28,8 @@ public class EliteTiyanak : BaseEnemy
     private float distanceToPlayer;
 
     [Header("Trigger Distances")]
-    public float lureDistance = 7f;
-    public float transformDistance = 3f;
+    public float lureDistance = 5f;
+    public float transformDistance = 2f;
 
     // tiyanak speed cache
     private float originalBaseMoveSpeed;

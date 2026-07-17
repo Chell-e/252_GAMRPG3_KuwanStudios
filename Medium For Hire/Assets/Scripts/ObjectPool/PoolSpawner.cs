@@ -4,276 +4,367 @@ using UnityEngine;
 
 public class PoolSpawner : MonoBehaviour
 {
-    // ==== FROM LEVEL SELECT MANAGER
-    [SerializeField] private EnemyPoolData currentNormalPool;
-    [SerializeField] private EnemyPoolData currentElitePool;
-    [SerializeField] private BossData currentBoss;
-
-        [Header("Wave Progression")]
-            [Tooltip("Initial time between spawns")]
-    public float initialSpawnInterval = 1.8f;
-        [Tooltip("How much FASTER spawning gets each wave (value > 1). Example: 1.12 = 12% faster per wave")]
-    public float spawnRateMultiplier = 1.12f;
-        [Tooltip("Fastest possible spawn interval")]
-    private float minimumSpawnInterval = 0.25f;
-
-    [Header("Horde Size")]
-            [Tooltip("Base number of enemies per wave")]
-    public int baseHordeSize = 12;
-            [Tooltip("Number of enemies added each wave")]
-    public int hordeSizeIncrease = 7;
-
-            [Tooltip("How often a new wave triggers (in seconds)")]
-    public float timePerWave = 60f;
-
-        [Header("Boss")]
-            [Tooltip("Time when boss spawns")]
-    public float bossSpawnTime = 600f;  // 10 minutes
-
-        [Header("Elite")]
-            [Tooltip("Time between elite spawns")]
-    public float eliteSpawnInterval = 90f;
-
-        [Header("Difficulty Scaling")]
-            [Tooltip("Enemy stats multiplier per wave (HP, DMG)")]
-    public float statMultiplierPerWave = 1.12f;
-
-        [Header("Enemy Cap")]
-            [Tooltip("Max enemies (normal + elite) on screen")]
-    public int maxEnemiesOnScreen = 250;
-
-        [Header("Spawn Position")]
-            [Tooltip("How far off-screen to spawn (in viewport units)")]
-    public float spawnEdgeOffset = 1.3f;
-
-        [Header("Enemy Unlock Progression")]
-            [Tooltip("Seconds required to unlock a new enemy type")]
-    private float timeToUnlockNextEnemy = 60f;
-
-    private float currentSpawnInterval;
-    private float spawnTimer = 0f;
-    private float eliteTimer = 0f;
-    private float waveTimer = 0f;
-    private float elapsedTime = 0f;
-
-    private int currentWave = 0;
-    private int enemiesToSpawnThisWave;
-    private int enemiesSpawnedThisWave = 0;
-
-    private bool bossSpawned = false;
-
-    private int activeEnemyCount;
-    public int CurrentWave => currentWave;
-    public float ElapsedTime => elapsedTime;
-    public int CurrentEnemyCount => activeEnemyCount;
-    public bool IsAtEnemyCap() => maxEnemiesOnScreen > 0 && activeEnemyCount >= maxEnemiesOnScreen;
-
-    private bool HasNormalEnemies() => currentNormalPool != null && currentNormalPool.enemyPool != null && currentNormalPool.enemyPool.Count > 0;
-    private bool HasEliteEnemies() => currentElitePool != null && currentElitePool.enemyPool != null && currentElitePool.enemyPool.Count > 0;
-
     public static PoolSpawner Instance;
 
-    private void Awake() // for SINGLETON
+    [Header("Enemy Prefabs")]
+    [SerializeField] private GameObject[] normalEnemyPrefabs;
+    [SerializeField] private GameObject[] eliteEnemyPrefabs;
+    [SerializeField] private GameObject[] bossPrefabs;
+
+    [Header("Enemy Wave Progression")]
+    public float waveDuration = 60f; // how long a wave lasts
+    public float bossSpawnTime = 900f;
+
+    [Header("Spawn Rate")]
+    public float baseSpawnInterval = 1.3f; // time before spawning next enemy
+    public float minimumSpawnInterval = 0.15f; // cap to the fastest enemies can spawn
+    public float spawnIntervalDecrease = 0.08f; // spawn interval decreases by this, makes spawn rate faster
+
+    [Header("Enemy Caps")]
+    public int baseMaxEnemies = 30; // max enemies active at wave 0
+    public int maxEnemiesIncrease = 15; // increases enemies capped on screen w/ this num.
+    public int absoluteEnemyCap = 300; // allowed num. of active enemies
+
+    [Header("Difficulty Scaling")]
+    public float statMultiplierPerWave = 1.05f; // stat multiplier applied PER WAVE 1.05 = +5% health/dmg per wave
+    public float statMultiplierPerPlayerLevel = 1.08f; // stat multiplier applied PER PLAYER LVL 
+    public int maxPlayerLevel = 30;
+
+    [Header("Spawn System")]
+    public float spawnEdgeOffset = 1.1f; // just enuf out of the player's sight
+    public float timeToUnlockNextEnemy = 90f; // 1:30 mins = new enemy unlocked!
+    public float eliteSpawnInterval = 60f; // elites spawn every 1 min
+    public float maxDistanceFromPlayer = 15f; // how far an enemy is BEFORE they get respawned 
+    public float recycleCheckInterval = 1.5f; // every 1.3s, respawn a far away enemy nearer
+
+
+    // runtime 
+    [Header("--- THIS RUN'S ORDER OF ENEMIES")]
+    private GameObject[] shuffledNormals;
+    private GameObject[] shuffledElites;
+
+    [Header("--- TIMERS")]
+    [SerializeField] private float currentSpawnInterval;
+    [SerializeField] private float spawnTimer = 0f;
+    [SerializeField] private float eliteTimer = 0f;
+    [SerializeField] private float waveTimer = 0f;
+    [SerializeField] private float elapsedTime = 0f;
+    [SerializeField] private float recycleTimer = 0f;
+
+    [Header("--- ENEMY WAVE")]
+    [SerializeField] private int currentWave = 0;
+    [SerializeField] private int activeEnemyCount = 0;
+    [SerializeField] int currentMaxEnemies;
+    [SerializeField] private bool bossSpawned = false;
+
+    private void Awake()
     {
-        // singleton 
         if (Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
         else
         {
             Instance = this;
         }
     }
+
     private void Start()
     {
-        currentSpawnInterval = initialSpawnInterval;
-        enemiesToSpawnThisWave = baseHordeSize;
-    }
-
-    public void SetUpLevelData(LevelData levelData)
-    {
-        if (levelData == null)
-            return;
-
-        currentNormalPool = levelData.normalEnemies;
-        currentElitePool = levelData.eliteEnemies;
-        currentBoss = levelData.boss;
-
-        // clean up level
         ResetSpawnerState();
     }
 
     private void ResetSpawnerState()
     {
+        // clean slate 
         elapsedTime = 0f;
-
         currentWave = 0;
         waveTimer = 0f;
-
         spawnTimer = 0f;
         eliteTimer = 0f;
-
-        enemiesSpawnedThisWave = 0;
-        bossSpawned = false;
+        recycleTimer = 0f;
         activeEnemyCount = 0;
+        bossSpawned = false;
 
-        currentSpawnInterval = initialSpawnInterval;
-        enemiesToSpawnThisWave = baseHordeSize;
+        InitializeShuffledEnemies();
+        CalculateWaveSettings();
+    }
+
+    private void InitializeShuffledEnemies()
+    {
+        if (normalEnemyPrefabs == null || normalEnemyPrefabs.Length == 0) return;
+
+        int totalEnemies = normalEnemyPrefabs.Length;
+        shuffledNormals = new GameObject[totalEnemies];
+        shuffledElites = new GameObject[totalEnemies];
+
+        // pick the first random enemy
+        int firstChosenIndex = Random.Range(0, totalEnemies);
+        shuffledNormals[0] = normalEnemyPrefabs[firstChosenIndex];
+
+        // match its elite version
+        if (eliteEnemyPrefabs != null && firstChosenIndex < eliteEnemyPrefabs.Length)
+        {
+            shuffledElites[0] = eliteEnemyPrefabs[firstChosenIndex];
+        }
+
+        // remaining enemies are shuffled
+        List<int> remainingIndexes = new List<int>();
+        for (int i = 0; i < totalEnemies; i++)
+        {
+            if (i != firstChosenIndex)
+            {
+                remainingIndexes.Add(i);
+            }
+        }
+
+        // populate the rest of array slots w/ a random sequence
+        int currentSlot = 1;
+        while (remainingIndexes.Count > 0)
+        {
+            int randomListIndex = Random.Range(0, remainingIndexes.Count);
+            int actualEnemyIndex = remainingIndexes[randomListIndex];
+
+            shuffledNormals[currentSlot] = normalEnemyPrefabs[actualEnemyIndex];
+            if (eliteEnemyPrefabs != null && actualEnemyIndex < eliteEnemyPrefabs.Length)
+            {
+                shuffledElites[currentSlot] = eliteEnemyPrefabs[actualEnemyIndex];
+            }
+            remainingIndexes.RemoveAt(randomListIndex);
+            currentSlot++;
+        }
     }
 
     private void Update()
     {
-        if (PlayerController.Instance == null || !PlayerController.Instance.gameObject.activeSelf) return;
+        if (PlayerController.Instance == null || !PlayerController.Instance.gameObject.activeSelf)
+            return;
 
         elapsedTime += Time.deltaTime;
         waveTimer += Time.deltaTime;
         spawnTimer += Time.deltaTime;
         eliteTimer += Time.deltaTime;
+        recycleTimer += Time.deltaTime;
 
-        // --- normal enemy spawning
-        if (spawnTimer >= currentSpawnInterval && HasNormalEnemies() && !IsAtEnemyCap())
+        int playerLevel = 1;
+        if (PlayerController.Instance != null)
         {
-            spawnTimer -= currentSpawnInterval;
-            SpawnNormalEnemy();
-            enemiesSpawnedThisWave++;
-            
+            playerLevel = PlayerController.Instance.GetComponent<PlayerStats>().currentLevel;
+        }
+        playerLevel = Mathf.Clamp(playerLevel, 1, maxPlayerLevel);
+
+        float speedLimit = 0.5f;
+        float speedUp = 0.02f;
+
+        float playerLevelModifier = Mathf.Max(speedLimit, 1f - (playerLevel * speedUp));
+        float adjustedSpawnInterval = Mathf.Max(minimumSpawnInterval, currentSpawnInterval * playerLevelModifier);
+
+        // SPAWNING
+        if (spawnTimer >= adjustedSpawnInterval && !IsAtEnemyCap())
+        {
+            spawnTimer = 0f;
+            SpawnNormalEnemy(playerLevel);
         }
 
-        // --- elite spawning
-        if (eliteTimer >= eliteSpawnInterval && HasEliteEnemies() && !IsAtEnemyCap())
+        if (eliteTimer >= eliteSpawnInterval && !IsAtEnemyCap())
         {
-            eliteTimer -= eliteSpawnInterval;
-            SpawnElite();
-            
+            eliteTimer = 0f;
+            SpawnEliteEnemy(playerLevel);
         }
 
-        // --- wave progression
-        if (waveTimer >= timePerWave)
+        if (recycleTimer >= recycleCheckInterval)
         {
-            Debug.Log($"Wave {currentWave} | Spawn Interval: {currentSpawnInterval:F3}s | Horde: {enemiesToSpawnThisWave}");
+            recycleTimer = 0f;
+            RecycleFarEnemies(playerLevel);
+        }
+        // SPAWNING
 
-            AdvanceWave();
+        // WAVE PROGRESSION
+        if (waveTimer >= waveDuration)
+        {
             waveTimer = 0f;
+            AdvanceWave();
         }
 
-        HandleBossSpawn();
+        // BOSS 
+        if (!bossSpawned && elapsedTime >= bossSpawnTime)
+        {
+            SpawnBoss(playerLevel);
+        }
     }
 
     private void AdvanceWave()
     {
         currentWave++;
-
-        //currentSpawnInterval = Mathf.Max(minimumSpawnInterval, currentSpawnInterval / spawnRateMultiplier);
-        currentSpawnInterval = Mathf.Max(minimumSpawnInterval,initialSpawnInterval / Mathf.Pow(spawnRateMultiplier, currentWave));
-        enemiesToSpawnThisWave = baseHordeSize + (currentWave * hordeSizeIncrease);
-
-        enemiesSpawnedThisWave = 0; // reset count for new wave
-
+        CalculateWaveSettings();
     }
 
-    private void SpawnNormalEnemy()
+    private void CalculateWaveSettings()
     {
-        GameObject prefab = GetRandomPrefabFromPool(currentNormalPool);
-        if (prefab == null)
-            return;
+        currentSpawnInterval = Mathf.Max(minimumSpawnInterval, baseSpawnInterval - (currentWave * spawnIntervalDecrease));
+        currentMaxEnemies = Mathf.Max(absoluteEnemyCap, baseMaxEnemies + (currentWave * maxEnemiesIncrease));
+    }
+
+    private bool IsAtEnemyCap()
+    {
+        return activeEnemyCount >= currentMaxEnemies;
+    }
+
+    private void SpawnNormalEnemy(int clampedPlayerLevel)
+    {
+        GameObject prefab = GetUnlockedPrefabFromList(shuffledNormals);
+        if (prefab == null) return;
 
         GameObject enemy = PoolManager.SpawnObject(prefab, GetRandomSpawnPosition(), Quaternion.identity, PoolManager.PoolType.Enemy);
-        if (enemy == null)
-            return;
+        if (enemy != null)
+        {
+            ApplyScaling(enemy, clampedPlayerLevel);
+            activeEnemyCount++;
+        }
 
-        // apply scaling
-        ApplyScaling(enemy);
-        activeEnemyCount++;
     }
 
-    private void SpawnElite()
+    private void SpawnEliteEnemy(int clampedPlayerLevel)
     {
-        GameObject prefab = GetRandomPrefabFromPool(currentElitePool);
-        if (prefab == null)
-            return;
+        GameObject prefab = GetUnlockedPrefabFromList(shuffledElites);
+        if (prefab == null) return;
 
         GameObject elite = PoolManager.SpawnObject(prefab, GetRandomSpawnPosition(), Quaternion.identity, PoolManager.PoolType.Enemy);
-        if (elite == null)
-            return;
-
-        // apply scaling
-        ApplyScaling(elite);
-        activeEnemyCount++;
-    }
-
-    // 0-60: first enemy only, 60-120: first enemy + second enemy
-    private GameObject GetRandomPrefabFromPool(EnemyPoolData enemyPoolData)
-    {
-        if (enemyPoolData == null || enemyPoolData.enemyPool == null || enemyPoolData.enemyPool.Count == 0)
-            return null;
-
-            // calculate how many enemy types are currently unlocked
-        int maxPossibleIndex = Mathf.FloorToInt(elapsedTime / timeToUnlockNextEnemy) + 1;
-
-            // clamp it so it doesnt exceed list size
-        int unlockedCount = Mathf.Min(maxPossibleIndex, enemyPoolData.enemyPool.Count);
-
-            // get random enemy from unlocked enemies
-        int randomIndex = Random.Range(0, unlockedCount);
-        
-        EnemyData data = enemyPoolData.enemyPool[randomIndex];
-
-            // if data's not null, return prefab, otherwise return null
-        return data != null ? data.enemyPrefab : null;
-    }
-
-    private void ApplyScaling(GameObject enemyObj)
-    {
-        if (enemyObj == null) return;
-
-        BaseEnemy _enemy = enemyObj.GetComponent<BaseEnemy>();
-        if (_enemy != null)
+        if (elite != null)
         {
-            //float multiplier = 1f + (statMultiplierPerWave * CurrentWave);
-            float multiplier = Mathf.Pow(statMultiplierPerWave, currentWave);
-            _enemy.ScaleEnemyStat(multiplier);
-        }
-    }
-
-    private void HandleBossSpawn()
-    {
-        if (bossSpawned || currentBoss == null)
-            return;
-
-        if (elapsedTime >= bossSpawnTime)
-        {
-            Vector2 pos = GetRandomSpawnPosition();
-            PoolManager.SpawnObject(currentBoss.bossPrefab, pos, Quaternion.identity, PoolManager.PoolType.Enemy);
-            bossSpawned = true;
+            ApplyScaling(elite, clampedPlayerLevel);
             activeEnemyCount++;
         }
     }
 
-    //private int GetCurrentEnemyCount()
-    //{
-    //    if (PoolManager._enemyPoolEmpty == null) return 0;
+    private void SpawnBoss(int clampedPlayerLevel)
+    {
+        if (bossPrefabs == null || bossPrefabs.Length == 0) return;
 
-    //    int count = 0;
-    //    foreach (Transform child in PoolManager._enemyPoolEmpty.transform)
-    //    {
-    //        if (child.gameObject.activeSelf)
-    //            count++;
-    //    }
-    //    return count;
-    //}
+        int randomIndex = Random.Range(0, bossPrefabs.Length);
+        GameObject bossPrefab = bossPrefabs[randomIndex];
+
+        if (bossPrefab != null)
+        {
+            Vector2 spawnPos = GetRandomSpawnPosition();
+            GameObject boss = PoolManager.SpawnObject(bossPrefab, spawnPos, Quaternion.identity, PoolManager.PoolType.Enemy);
+
+            if (boss != null)
+            {
+                ApplyScaling(boss, clampedPlayerLevel);
+                activeEnemyCount++;
+            }
+
+            bossSpawned = true;
+        }
+    }
+
+    private void RecycleFarEnemies(int clampedPlayerLevel)
+    {
+        if (PoolManager._enemyPoolEmpty == null || PlayerController.Instance == null) return;
+
+        Vector3 playerPos = PlayerController.Instance.transform.position;
+        float maxDistSqr = maxDistanceFromPlayer * maxDistanceFromPlayer;
+
+        // temp list
+        List<GameObject> enemiesToRecycle = new List<GameObject>();
+
+        foreach (Transform child in PoolManager._enemyPoolEmpty.transform)
+        {
+            if (child.gameObject.activeSelf)
+            {
+                // if boss, don't recycle
+                if (IsBoss(child.gameObject)) continue;
+
+                float sqrDistance = (child.position - playerPos).sqrMagnitude;
+                if (sqrDistance > maxDistSqr)
+                {
+                    enemiesToRecycle.Add(child.gameObject);
+                }
+            }
+        }
+
+        // RECYCLE
+        for (int i = 0; i < enemiesToRecycle.Count; i++)
+        {
+            GameObject enemy = enemiesToRecycle[i];
+
+            PoolMember member = enemy.GetComponent<PoolMember>();
+            if (member != null && member.prefab != null)
+            {
+                // return far-away enemy to pool
+                PoolManager.ReturnObjectToPool(enemy);
+                NotifyEnemyDespawned();
+
+                GameObject respawnedEnemy = PoolManager.SpawnObject(member.prefab, GetRandomSpawnPosition(), Quaternion.identity, PoolManager.PoolType.Enemy);
+                Debug.Log("RESPAWNED (" + respawnedEnemy.name + ")");
+                if (respawnedEnemy != null)
+                {
+                    ApplyScaling(respawnedEnemy, clampedPlayerLevel);
+                    activeEnemyCount++;
+                }
+            }
+        }
+    }
+
+    private bool IsBoss(GameObject obj)
+    {
+        if (bossPrefabs == null) return false;
+
+        PoolMember member = obj.GetComponent<PoolMember>();
+        if (member == null) return false;
+
+        for (int i = 0; i < bossPrefabs.Length; i++)
+        {
+            if (bossPrefabs[i] == member.prefab) return true;
+        }
+        return false;
+    }
+
+    private GameObject GetUnlockedPrefabFromList(GameObject[] prefabArray)
+    {
+        if (prefabArray == null || prefabArray.Length == 0) return null;
+
+        int maxIndexAllowed = Mathf.FloorToInt(elapsedTime / timeToUnlockNextEnemy) + 1;
+        int currentRangeMax = Mathf.Min(maxIndexAllowed, prefabArray.Length);
+
+        int randomIndex = Random.Range(0, currentRangeMax);
+        return prefabArray[randomIndex];
+    }
+
+    private void ApplyScaling(GameObject enemyObj, int clampedPlayerLevel)
+    {
+        BaseEnemy enemy = enemyObj.GetComponent<BaseEnemy>();
+        if (enemy == null) return;
+
+        float waveScale = Mathf.Pow(statMultiplierPerWave, currentWave);
+        float playerScale = Mathf.Pow(statMultiplierPerPlayerLevel, clampedPlayerLevel);
+        float finalMultiplier = waveScale * playerScale;
+
+        enemy.ScaleEnemyStat(finalMultiplier);
+    }
 
     private Vector2 GetRandomSpawnPosition()
     {
-        Vector2 pos = Random.value > 0.5f
-            ? new Vector2(Random.value > 0.5f ? 1 - spawnEdgeOffset : spawnEdgeOffset, Random.value)
-            : new Vector2(Random.value, Random.value > 0.5f ? 1 - spawnEdgeOffset : spawnEdgeOffset);
+        Vector2 edgeCoordinate = Random.value > 0.5f
+                    ? new Vector2(Random.value > 0.5f ? 1f + (spawnEdgeOffset - 1f) : -(spawnEdgeOffset - 1f), Random.value)
+                    : new Vector2(Random.value, Random.value > 0.5f ? 1f + (spawnEdgeOffset - 1f) : -(spawnEdgeOffset - 1f));
 
-        return Camera.main.ViewportToWorldPoint(pos);
+        return Camera.main.ViewportToWorldPoint(edgeCoordinate);
     }
 
     public void NotifyEnemyDespawned()
     {
         activeEnemyCount = Mathf.Max(0, activeEnemyCount - 1);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (PlayerController.Instance != null)
+        {
+            Gizmos.color = Color.red;
+            // anyone outside the circle respawns
+            Gizmos.DrawWireSphere(PlayerController.Instance.transform.position, maxDistanceFromPlayer);
+        }
     }
 }

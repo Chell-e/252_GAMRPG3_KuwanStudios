@@ -108,11 +108,20 @@ public class EliteManananggal_UpperHalf : BaseEnemy
                 }
 
                 rb.velocity = Vector2.zero;
+
+                float totalHealthToRecover = health.GetMaxHealth() - health.GetCurrentHealth();
+                if (totalHealthToRecover > 0f && regenTimer > 0f)
+                {
+                    float gradualHeal = (totalHealthToRecover / regenTimer) * Time.deltaTime;
+                    health.Heal(gradualHeal);
+
+                }
+
                 regenTimer -= Time.deltaTime;
 
                 if (regenTimer <= 0f)
                 {
-                    health.ResetHealth();
+                    health.HealToFull();
                     SetUpperHalfColliderEnabled(true);
                     currentState = ManananggalState.Approach;
                 }
@@ -182,15 +191,6 @@ public class EliteManananggal_UpperHalf : BaseEnemy
     private void SetUpperHalfColliderEnabled(bool enabled)
     {
         Collider2D col = GetComponent<Collider2D>();
-        if (col != null)
-        {
-            col.enabled = enabled;
-        }
-    }
-
-    private void SetLowerHalfColliderEnabled(bool enabled)
-    {
-        Collider2D col = lowerHalfInstance.GetComponent<Collider2D>();
         if (col != null)
         {
             col.enabled = enabled;

@@ -14,10 +14,10 @@ public class SuperstitionManager : MonoBehaviour
     public bool hasSuperstition => activeSuperstition != null;
 
     [Header("Timers")]
-    [SerializeField] private float milestoneTimer = 0f; // deserve mo ba reward ?
-    [SerializeField] private float nakedtimer = 0f; // no superstition equipped, thus, naked
-    private float milestoneDuration = 120f; // 2 mins
-    private float sitanGracePeriod = 20f; // 10s corruption brrr
+    private float milestoneTimer = 0f; // deserve mo ba reward ?
+    private float nakedtimer = 0f; // no superstition equipped, thus, naked
+    [SerializeField] private float milestoneDuration = 120f; // 2 mins
+    [SerializeField] private float sitanGracePeriod = 30f; // 30s corruption brrr
 
     [Header("Sitan's Corruption")]
     private bool sitanCorruptionActive = false;
@@ -107,14 +107,13 @@ public class SuperstitionManager : MonoBehaviour
     {
         if (_superstitionData == null)
         {
-            UIManager.Instance.SetSuperstitionText("None", "No Active Superstition.", "No flavor text.");
             return;
         }
 
         activeSuperstition = _superstitionData;
         activeSuperstition.Initialize(StageManager.Instance);
 
-        UIManager.Instance.SetSuperstitionText(activeSuperstition.superstitionName, activeSuperstition.description, activeSuperstition.flavorText);
+        UIManager.Instance.UpdateSuperstitionUI(activeSuperstition.superstitionName, activeSuperstition.description, activeSuperstition.rewardText, activeSuperstition.penaltyText);
 
         // reset whenever a spirit is appeased
         nakedtimer = 0f;
@@ -150,8 +149,6 @@ public class SuperstitionManager : MonoBehaviour
             activeSuperstition.Deinitialize();
             activeSuperstition = null;
         }
-
-        UIManager.Instance.SetSuperstitionText("None", "...", "Spirits will offer only once and they'll begone; Find them once more.");
 
         nakedtimer = 0f;
     }

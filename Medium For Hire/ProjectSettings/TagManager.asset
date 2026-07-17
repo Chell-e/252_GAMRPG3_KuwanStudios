@@ -16,7 +16,7 @@ TagManager:
   - EnemyTriggers
   - Enemy
   - PickupTrigger
-  - 
+  - Enemy Projectiles
   - 
   - 
   - 
@@ -53,4 +53,7 @@ TagManager:
     locked: 0
   - name: Characters
     uniqueID: 4090201597
+    locked: 0
+  - name: Enemy HP Bars
+    uniqueID: 2333163205
     locked: 0
