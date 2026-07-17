@@ -1,0 +1,33 @@
+{
+  "dialogueLines":
+  [
+    {
+      "id": "tutorial_gameEnd_1",
+      "illustration": "invisible",
+      "portrait": "elias",
+      "bodyText": "...They've stopped attacking?",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_gameEnd_2",
+      "illustration": "invisible",
+      "portrait": "manong_kapre",
+      "bodyText": "They finally retreated. Kid, you're quite good at fighting I'll give you that.",
+      "nameText": "???"
+    },
+    {
+      "id": "tutorial_gameEnd_3",
+      "illustration": "invisible",
+      "portrait": "manong_kapre",
+      "bodyText": "It won't be long till they bring the stronger ones here, you should take shelter in the <i>Balete</i>.",
+      "nameText": "???"
+    },
+    {
+      "id": "tutorial_gameEnd_4",
+      "illustration": "invisible",
+      "portrait": "elias",
+      "bodyText": "T-they're able to call for reinforcements?!",
+      "nameText": "Elias"
+    }
+  ]
+}

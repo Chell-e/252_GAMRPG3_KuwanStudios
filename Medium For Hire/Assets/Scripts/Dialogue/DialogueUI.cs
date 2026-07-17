@@ -76,13 +76,22 @@ public class DialogueUI : MonoBehaviour
             "Portraits/" + dialogueLine.portrait
             );
 
+        bool spriteLoaded = Resources.Load<Sprite>(
+            "Portraits/" + dialogueLine.portrait
+            );
+
         this.dialogueText.text = dialogueLine.bodyText;
         if (!isHidden)
+        {
             typingAnimation = StartCoroutine(TypewriteDialogue());
+        }
         else
+        {
             SkipTyping();
+        }
+            
 
-            this.nameText.text = dialogueLine.nameText;
+        this.nameText.text = dialogueLine.nameText;
     }
 
     public void ToggleHide()
@@ -100,12 +109,11 @@ public class DialogueUI : MonoBehaviour
     IEnumerator TypewriteDialogue()
     {
         OnDialogueTyping?.Invoke();
-        Debug.Log("CURRENTLY TYPING!");
+        
+            //Debug.Log("CURRENTLY TYPING!");
         isTyping = true;
 
-        //dialogueText.text = message;
         dialogueText.ForceMeshUpdate();
-
         dialogueText.maxVisibleCharacters = 0;
 
         int total = dialogueText.textInfo.characterCount;
@@ -116,8 +124,9 @@ public class DialogueUI : MonoBehaviour
             yield return new WaitForSecondsRealtime(1f / charPerSecond);
         }
 
-        Debug.Log("DONE TYPING!");
+            //Debug.Log("DONE TYPING!");
         isTyping = false;
+
         OnDialogueFinished?.Invoke();
     }
 

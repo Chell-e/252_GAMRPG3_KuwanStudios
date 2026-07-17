@@ -22,6 +22,7 @@ public class DialogueManager : MonoBehaviour
     // singleton stuff
 
     [Header("SETTINGS")]
+        [Tooltip("- Whether on dialogue end, load to the target scene.")]
     public bool changeSceneOnEnd;
     public string targetScene;
 
@@ -33,6 +34,7 @@ public class DialogueManager : MonoBehaviour
     [Header("REFERENCES")]
     public DialogueUI dialogueUI; // the ui object to manipulate/load
 
+    public System.Action OnDialogueEnd;
 
     public void StartDialogue(DialogueFile dialogueSequence)
     {
@@ -98,6 +100,7 @@ public class DialogueManager : MonoBehaviour
 
     public void RunScrollUp()
     {
+        dialogueUI.SkipTyping();
         PreviousLine();
         dialogueUI.SkipTyping();
     }
@@ -158,5 +161,7 @@ public class DialogueManager : MonoBehaviour
         {
             GameSceneManager.Instance.LoadScene(targetScene);
         }
+
+        OnDialogueEnd?.Invoke();
     }
 }

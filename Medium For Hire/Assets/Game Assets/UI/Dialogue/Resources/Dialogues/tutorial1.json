@@ -1,0 +1,117 @@
+{
+  "dialogueLines":
+  [
+    {
+      "id": "tutorial_dialogue1_1",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "<i>Lola…!</i>",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_2",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "...",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_3",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "I keep having the same nightmares...",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_4",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "How long has it been? It feels like three days have already passed...",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_5",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "The skies have been fully covered by dark clouds.",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_6",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "I can't even tell if it's day or night anymore.",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_7",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "I'm low on food and <i>Lola</i> has not yet come back from outside...",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_8",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "Why was this book so important to her?",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_9",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "...!?",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_10",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "Since when was this page here?",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_11",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "<i>Balete tree</i>...",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_12",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "...!!",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_13",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "<i>\"An ally is in the Balete trees...\",</i>\nthat's what <i>Lola</i> said.",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_14",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "I need to know more about this book.",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_15",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "I have to go there.",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_dialogue1_15",
+      "illustration": "",
+      "portrait": "elias",
+      "bodyText": "I don't know what's happening, but I trust in you, <i>Lola</i>.",
+      "nameText": "Elias"
+    }
+  ]
+}

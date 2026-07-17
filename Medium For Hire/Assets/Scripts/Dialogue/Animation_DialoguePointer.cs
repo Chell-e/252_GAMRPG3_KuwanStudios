@@ -45,7 +45,6 @@ public class Animation_DialoguePointer : MonoBehaviour
         {
             case DialoguePointerState.Still:
                 ResetArrow();
-                Debug.Log("POINTER DETECTS TYPING COMPLETE!");
                 break;
 
             case DialoguePointerState.Bobbing:
@@ -102,7 +101,7 @@ public class Animation_DialoguePointer : MonoBehaviour
         }
         else
         {
-            SetState(DialoguePointerState.Still);
+            SetState(DialoguePointerState.Bobbing);
         }
 
     }

@@ -1,0 +1,26 @@
+{
+  "dialogueLines":
+  [
+    {
+      "id": "tutorial_movement_1",
+      "illustration": "invisible",
+      "portrait": "elias",
+      "bodyText": "I'm so close!",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_movement_2",
+      "illustration": "invisible",
+      "portrait": "???",
+      "bodyText": "!!!",
+      "nameText": "???"
+    },
+    {
+      "id": "tutorial_movement_3",
+      "illustration": "invisible",
+      "portrait": "elias",
+      "bodyText": "What's that noise?",
+      "nameText": "Elias"
+    }
+  ]
+}

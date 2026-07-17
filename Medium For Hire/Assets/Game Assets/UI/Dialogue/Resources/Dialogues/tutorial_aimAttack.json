@@ -1,0 +1,26 @@
+{
+  "dialogueLines":
+  [
+    {
+      "id": "tutorial_aimAttack1_1",
+      "illustration": "invisible",
+      "portrait": "elias",
+      "bodyText": "H-hello...? Are you okay?",
+      "nameText": "Elias"
+    },
+    {
+      "id": "tutorial_aimAttack1_2",
+      "illustration": "invisible",
+      "portrait": "elias",
+      "bodyText": "Hey please stop!",
+      "nameText": "???"
+    },
+    {
+      "id": "tutorial_aimAttack1_3",
+      "illustration": "invisible",
+      "portrait": "elias",
+      "bodyText": "Rah why aren't you listening to me?",
+      "nameText": "Elias"
+    }
+  ]
+}
