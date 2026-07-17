@@ -73,13 +73,15 @@ public class PlayerController : MonoBehaviour
         //playerStats.currentHealth = playerStats.maxHealth;
 
         // update exp slider UI
-        UIManager.Instance.UpdateExpUI();
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateExpUI();
     }
 
     void Update() // for most update logic stuff
     {
-        if (GameStateManager.Instance.currentState != GameState.Gameplay)
-            return;
+        // ----- COMMENTED THIS OUT 4 THE TUTORIAL 
+        //if (GameStateManager.Instance.currentState != GameState.Gameplay)
+        //    return;
 
         // dashing
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
