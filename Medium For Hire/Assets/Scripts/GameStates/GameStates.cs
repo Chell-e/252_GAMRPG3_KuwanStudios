@@ -6,9 +6,11 @@ using UnityEngine;
 [Serializable]
 public enum GameState
 {
-    Gameplay, // default state; RMB to toggle, WASD to move, etc.
-    Tabbed, // paused with TAB; display obtained upgrades, stats, etc disable gameplay controls
-    SelectionPrompt, // superstition confirm, upgrade select; disable gameplay controls + pause game
-    Cutscene // interactable dialogue popped up; disable gameplay controls + pause game
+    Gameplay,           // gameplay only; game is running, all game inputs are accessible
+    CombatPrompt,        // pop-up selection + tab + pause
+    CombatDialogue,     // dialogue + tab + pause; dialogue navigation and tabbing
+
+    Cutscene,           // dialogue ONLY; dialogue navigation
+
 }
 

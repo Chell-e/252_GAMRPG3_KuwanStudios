@@ -85,7 +85,7 @@ public class MainWeapon_TboliBells : BaseWeapon
         playerEvents.OnAfterGetUpgrade += OnAfterGetUpgrade;
     }
 
-    private void OnAimToggle()
+    private void OnAimToggle(AimContext aimContext)
     {
         isAimed = !isAimed;
 

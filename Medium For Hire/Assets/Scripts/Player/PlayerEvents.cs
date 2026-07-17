@@ -16,7 +16,7 @@ public class PlayerEvents : MonoBehaviour
 
     public System.Action OnAimActivate;
     public System.Action OnAimDeactivate;
-    public System.Action OnAimToggle;
+    public System.Action<AimContext> OnAimToggle;
 
     public System.Func<float, float> OnBeforeGetExp;
     public System.Func<float, float> OnAfterGetExp;
@@ -27,10 +27,7 @@ public class PlayerEvents : MonoBehaviour
 
     // *****Below is mostly for tutorial inputs
         // movement
-    public System.Action OnPressW;
-    public System.Action OnPressA;
-    public System.Action OnPressS;
-    public System.Action OnPressD;
+    public System.Action<MovementContext> OnAfterMove;
 
     public System.Action OnAfterDash;
 
@@ -58,4 +55,15 @@ public class DamageContext
 public class ExpContext
 {
     public float exp;
+}
+
+
+public class MovementContext
+{
+    public Vector2 inputAxes;
+}
+
+public class AimContext
+{
+    public bool isAiming; // if true, went from Hip to Aimed
 }

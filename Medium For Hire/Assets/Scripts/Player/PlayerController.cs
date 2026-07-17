@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    // ***  singleton stuff
     public static PlayerController Instance;
     private void Awake() // for SINGLETON
     {
@@ -18,7 +20,12 @@ public class PlayerController : MonoBehaviour
             Instance = this;
         }
     }
+    // ***  singleton stuff
 
+    [Header("SETTINGS")]
+    [SerializeField] public List<GameState> actionableGameStates;
+
+    [Header("REFERENCES")]
     [SerializeField] public PlayerStats playerStats;
     [SerializeField] public PlayerEvents Events;
     [SerializeField] public WeaponManager weaponManager;
@@ -56,13 +63,13 @@ public class PlayerController : MonoBehaviour
     //private Vector2 lastFacingDirection = Vector2.right;
     private Vector2 lastFacingDirectionX = Vector2.right;
 
-    
-
+    // * DRIVER CODE
+    // mainly Start() and Update()
     void Start()
     {
         trailRenderer = GetComponentInChildren<TrailRenderer>();
         //playerStats = GetComponent<PlayerStats>();
-        
+
         /*exp needed for each level up(currently 10 muna per level)
         for (int i = 0; i < playerStats.maxLevel; i++)
             {
@@ -80,8 +87,8 @@ public class PlayerController : MonoBehaviour
     void Update() // for most update logic stuff
     {
         // ----- COMMENTED THIS OUT 4 THE TUTORIAL 
-        //if (GameStateManager.Instance.currentState != GameState.Gameplay)
-        //    return;
+        if (CheckIsGameStateActionable() == false)
+            return;
 
         // dashing
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
@@ -104,9 +111,6 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButtonDown(1)) // *******MAKE SURE THAT THIS TRIGGERS UpdateFinalStats() ON ALL WEAPONS
-            ToggleAimMode(); // toggle
-
         // shrine interaction
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -118,57 +122,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // get player input from Input Controller
-        float inputX = Input.GetAxis("Horizontal");
-        float inputY = Input.GetAxis("Vertical");
 
-        if (inputX != 0) // update lastFacingDirectionX only when we move horizontally
-        {
-            lastFacingDirectionX = new Vector2(inputX, 0);
-        }
-        
-        // set movement direction
-        moveDirection = new Vector2(inputX, inputY).normalized;
+        RunAimToggleLogic();
 
-        // flips sprite based on movement direction
-        if (inputX < 0)
-            spriteRenderer.flipX = true;
-        if (inputX > 0)
-            spriteRenderer.flipX = false;
-
-        // animation
-        if (inputX != 0 || inputY != 0)
-        {
-            animator.SetBool("isRunning", true);
-        }
-        else
-        {
-            animator.SetBool("isRunning", false);
-        }
-    }
-
-    private IEnumerator DashCoroutine()
-    {
-        trailRenderer.emitting = true;
-        yield return new WaitForSeconds(dashDuration);
-        isDashing = false;
-
-        trailRenderer.emitting = false;
-        yield return new WaitForSeconds(dashCooldown);
-        canDash = true;
-    }
-
-    public void SetCurrentShrine(BaseShrine shrine)
-    {
-        currentShrine = shrine;
-    }
-
-    public void ClearCurrentShrine(BaseShrine shrine)
-    {
-        if (currentShrine == shrine)
-        {
-            currentShrine = null;
-        }
+        RunMoveLogic();
     }
 
     void FixedUpdate() // for physics update stuff
@@ -206,16 +163,83 @@ public class PlayerController : MonoBehaviour
         );
     }
 
-    public Vector2 GetLastFacingDirectionX() // to be called outside this class
+    // * DRIVER CODE
+
+
+    // *** CORE LOGIC
+    // these are functions that coordinate smaller functions below
+    private void RunAimToggleLogic()
     {
-        return lastFacingDirectionX;
+        if (Input.GetMouseButtonDown(1)) // *******MAKE SURE THAT THIS TRIGGERS UpdateFinalStats() ON ALL WEAPONS
+            ToggleAimMode(); // 
+    }
+
+    private void RunMoveLogic()
+    {
+        // get player input from Input Controller
+        float inputX = Input.GetAxis("Horizontal");
+        float inputY = Input.GetAxis("Vertical");
+        AnimatePlayerSprite(inputX, inputY);
+
+
+        if (inputX != 0) // update lastFacingDirectionX only when we move horizontally
+        {
+            lastFacingDirectionX = new Vector2(inputX, 0);
+        }
+
+        // set movement direction
+        moveDirection = new Vector2(inputX, inputY).normalized;
+
+
+        // invoke OnAfterMove after player movement inputs
+        if (inputX != 0 || inputY != 0)
+        {
+            MovementContext movementContext = new MovementContext();
+            movementContext.inputAxes = new Vector2(inputX, inputY);
+
+            Events.OnAfterMove?.Invoke(movementContext);
+        }
+    }
+    // *** CORE LOGIC
+
+
+    // ** SUB FUNCTIONS
+    // more "individual" functions
+    private bool CheckIsGameStateActionable()
+    {
+        // evaluates whether the current GameState matches actionableGameStates 
+
+        if (GameStateManager.Instance == null)
+        {
+            // IF GameStateManager DOES NOT EXIST
+            // LET US THROUGH!!!
+            return true;
+        }
+
+
+        foreach (GameState actionableState in actionableGameStates)
+        {
+            // FOR EVERY LISTED GameState under actionableGameStates...
+            if (GameStateManager.Instance.currentState == actionableState)
+            {
+                // IF CURRENT GAME STATE MATCHES ANY
+                // LET US THROUGH!!!
+                return true;
+            }
+        }
+
+        // OR ELSE, BREAK!
+        return false;
     }
 
     private void ToggleAimMode()
     {
-        Events.OnAimToggle?.Invoke();
-
         playerStats.isAiming = !playerStats.isAiming;
+
+        AimContext aimContext = new AimContext();
+        aimContext.isAiming = playerStats.isAiming;
+        Events.OnAimToggle?.Invoke(aimContext);
+
         if (playerStats.isAiming)
         {
             Events.OnAimActivate?.Invoke();
@@ -228,18 +252,47 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void AnimatePlayerSprite(float inputX, float inputY)
+    {
+        // flips sprite based on movement direction
+        if (inputX < 0)
+            spriteRenderer.flipX = true;
+        if (inputX > 0)
+            spriteRenderer.flipX = false;
+
+        // animation
+        if (inputX != 0 || inputY != 0)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
+    }
+    // ** SUB FUNCTIONS
+
+
+    // TOOLS
+    // external, getters/setters, non-method stuff (e.g., IEnumerator)
+    public Vector2 GetLastFacingDirectionX() // to be called outside this class
+    {
+        return lastFacingDirectionX;
+    }
+
     public void TakeDamage(float damage, object damageSource = null)
     {
         DamageContext context = new DamageContext(); // context object
         context.damage = damage;
 
-            // this below gives the enemy the option to pass itself as a target for proccing OnBeforeGetHit events.
-            // simply pass "this" if so ---> TakeDamage(10, this)
+        // this below gives the enemy the option to pass itself as a target for proccing OnBeforeGetHit events.
+        // simply pass "this" if so ---> TakeDamage(10, this)
         context.target = damageSource is BaseEnemy enemy
             ? enemy
-            : null; 
+            : null;
 
-        /*EVENT*/ Events.OnBeforeGetHit?.Invoke(context);
+        /*EVENT*/
+        Events.OnBeforeGetHit?.Invoke(context);
 
         //if (!context.isNulled)
         //    GetComponent<HealthComponent>().TakeDamage(damage);
@@ -254,18 +307,59 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    // call this for proccing OnDamage effects 
+        // call this for proccing OnDamage effects 
     public void DealDamage(float damage, BaseEnemy enemy)
     {
         DamageContext context = new DamageContext();
         context.damage = damage;
         context.target = enemy;
 
-            // invoke events
-        /*EVENT*/ Events.OnBeforeDealDamage?.Invoke(context);
+        // invoke events
+        /*EVENT*/
+        Events.OnBeforeDealDamage?.Invoke(context);
 
         enemy.TakeDamage(damage);
 
-        /*EVENT*/ Events.OnAfterDealDamage?.Invoke(context);
+        /*EVENT*/
+        Events.OnAfterDealDamage?.Invoke(context);
     }
+    // TOOLS
+
+
+    // EVENTS & LISTENERS
+    // put events and listeners here
+
+    // EVENTS & LISTENERS
+
+
+
+
+    private IEnumerator DashCoroutine()
+    {
+        trailRenderer.emitting = true;
+        yield return new WaitForSeconds(dashDuration);
+        isDashing = false;
+
+        trailRenderer.emitting = false;
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+
+    public void SetCurrentShrine(BaseShrine shrine)
+    {
+        currentShrine = shrine;
+    }
+
+    public void ClearCurrentShrine(BaseShrine shrine)
+    {
+        if (currentShrine == shrine)
+        {
+            currentShrine = null;
+        }
+    }
+
+
+   
+
+
 }

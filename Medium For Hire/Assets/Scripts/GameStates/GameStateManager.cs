@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameStateManager : MonoBehaviour
 {
+    // ***  singleton stuff
     public static GameStateManager Instance;
     private void Awake()
     {
@@ -18,12 +19,13 @@ public class GameStateManager : MonoBehaviour
             Instance = this;
         }
     }
+    // ***  singleton stuff
 
     public static event Action<GameState> OnStateChanged;
-    [SerializeField] public GameState currentState { get; private set; }
+    [SerializeField] public GameState currentState;
     void Start()
     {
-        SetState(GameState.Gameplay);
+        //SetState(GameState.Gameplay);
     }
 
     public void SetState(GameState newState)
@@ -41,7 +43,22 @@ public class GameStateManager : MonoBehaviour
 
     public void HandleTimeScale(GameState state)
     {
-        Time.timeScale = (state == GameState.Gameplay) ? 1f : 0f;
+        if (state == GameState.Gameplay)
+        {
+            Time.timeScale = 1f;
+        }
+
+        if (state == GameState.Cutscene
+            || state == GameState.CombatDialogue)
+        {
+            Time.timeScale = 0f;
+        }
+
+        if (state == GameState.CombatPrompt)
+        {
+            Time.timeScale = 0.1f;
+        }
+
     }
 
 }

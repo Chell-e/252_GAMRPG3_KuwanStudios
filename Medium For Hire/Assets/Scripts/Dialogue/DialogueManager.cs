@@ -22,59 +22,46 @@ public class DialogueManager : MonoBehaviour
     // singleton stuff
 
     [Header("SETTINGS")]
+    [SerializeField] public List<GameState> actionableGameStates;
         [Tooltip("- Whether on dialogue end, load to the target scene.")]
-    public bool changeSceneOnEnd;
+    public bool loadSceneOnEnd;
     public string targetScene;
 
     [Header("DEBUG")]
+    public GameState previousGameState; // STORE WHAT THE GameState was before initiating dialogue!!!!!!!
     public DialogueFile currentSequence; // which dialogue to load 
     public int currentIndex; // current dialogue line displayed
     public int exploredIndex; // the "farthest" dialogue line displayed; caps the backtracking scroll function 
+    
 
     [Header("REFERENCES")]
     public DialogueUI dialogueUI; // the ui object to manipulate/load
 
     public System.Action OnDialogueEnd;
 
-    public void StartDialogue(DialogueFile dialogueSequence)
+
+
+    // * DRIVER CODE
+    // mainly Start() and Update()
+    void Update()
     {
-        dialogueUI.gameObject.SetActive(true);
-
-        currentSequence = dialogueSequence;
-        currentIndex = 0;
-        exploredIndex = 0;
-
-        PauseGame();
-    }
-
-    public void DisplayCurrentLine()
-    {
-        dialogueUI.PlayDialogue( currentSequence.dialogueLines[currentIndex] );
-    }
-
-    // ====================== DIALOGUE NAVIGATION
-    public void NextLine()
-    {
-        if (currentIndex >= currentSequence.dialogueLines.Length-1)
-        {
-            EndDialogue();
-            return;
-        }
-
-        currentIndex++;
-        DisplayCurrentLine();
-
-        if (currentIndex > exploredIndex)
-            exploredIndex = currentIndex;
-    }
-
-    public void PreviousLine()
-    {
-        if (currentIndex == 0)
+        if (CheckIsGameStateActionable() == false)
             return;
 
-        currentIndex--;
-        DisplayCurrentLine();
+
+        if (Input.GetMouseButtonDown(0)) //on LMB
+            RunLeftClick();
+
+        if (Input.GetMouseButtonDown(1)) //on LMB
+            RunRightClick();
+
+
+        float wheel = Input.mouseScrollDelta.y;
+        if (wheel > 0)
+            RunScrollUp();
+
+        if (wheel < 0)
+            RunScrollDown();
     }
 
     public void RunLeftClick()
@@ -92,19 +79,16 @@ public class DialogueManager : MonoBehaviour
 
         NextLine();
     }
-
     public void RunRightClick()
     {
         dialogueUI.ToggleHide();
     }
-
     public void RunScrollUp()
     {
         dialogueUI.SkipTyping();
         PreviousLine();
         dialogueUI.SkipTyping();
     }
-
     public void RunScrollDown()
     {
         if (currentIndex < exploredIndex)
@@ -113,55 +97,106 @@ public class DialogueManager : MonoBehaviour
             dialogueUI.SkipTyping();
         }
     }
-    // ====================== DIALOGUE NAVIGATION
+    // * DRIVER CODE
 
 
-
-    void Update()
+    // *** CORE LOGIC
+    // these are functions that coordinate smaller functions below
+    public void StartDialogue(DialogueFile dialogueSequence, GameState gameState = GameState.Cutscene)
     {
-        if (GameStateManager.Instance == null
-                || GameStateManager.Instance.currentState == GameState.Cutscene)
-        {
-            // bypass the game state check if GameStateManager does not exist!
-            // ------
+        dialogueUI.gameObject.SetActive(true);
 
-            if (Input.GetMouseButtonDown(0)) //on LMB
-                RunLeftClick();
+        currentSequence = dialogueSequence;
+        currentIndex = 0;
+        exploredIndex = 0;
 
-            if (Input.GetMouseButtonDown(1)) //on LMB
-                RunRightClick();
+        previousGameState = GameStateManager.Instance.currentState;
+        GameStateManager.Instance?.SetState(gameState);
 
-
-            float wheel = Input.mouseScrollDelta.y;
-            if (wheel > 0)
-                RunScrollUp();
-
-            if (wheel < 0)
-                RunScrollDown();
-        }
-            
+        DisplayCurrentLine();
     }
-
-    public void PauseGame()
-    {
-        Time.timeScale = 0f;
-    }
-
-    public void ResumeGame()
-    {
-        Time.timeScale = 1f;
-    }
-
     public void EndDialogue()
     {
-        dialogueUI.gameObject.SetActive(false);
-        ResumeGame();
-
-        if (changeSceneOnEnd)
-        {
+        if (loadSceneOnEnd)
             GameSceneManager.Instance.LoadScene(targetScene);
-        }
 
+
+        dialogueUI.gameObject.SetActive(false);
+        GameStateManager.Instance?.SetState(previousGameState);
+
+
+        // event
         OnDialogueEnd?.Invoke();
     }
+    // *** CORE LOGIC
+
+
+    // ** SUB FUNCTIONS
+    // more "individual" functions
+    public void DisplayCurrentLine()
+    {
+        dialogueUI.PlayDialogue(currentSequence.dialogueLines[currentIndex]);
+    }
+    
+    public void NextLine()
+    {
+        if (currentIndex >= currentSequence.dialogueLines.Length - 1)
+        {
+            EndDialogue();
+            return;
+        }
+
+        currentIndex++;
+        DisplayCurrentLine();
+
+        if (currentIndex > exploredIndex)
+            exploredIndex = currentIndex;
+    }
+    public void PreviousLine()
+    {
+        if (currentIndex == 0)
+            return;
+
+        currentIndex--;
+        DisplayCurrentLine();
+    }
+    // ** SUB FUNCTIONS
+
+
+    // TOOLS
+    // external, getters/setters, non-method stuff (e.g., IEnumerator)
+    private bool CheckIsGameStateActionable()
+    {
+        // evaluates whether the current GameState matches actionableGameStates 
+
+        if (GameStateManager.Instance == null)
+        {
+            // IF GameStateManager DOES NOT EXIST
+            // LET US THROUGH!!!
+            return true;
+        }
+
+
+        foreach (GameState actionableState in actionableGameStates)
+        {
+            // FOR EVERY LISTED GameState under actionableGameStates...
+            if (GameStateManager.Instance.currentState == actionableState)
+            {
+                // IF CURRENT GAME STATE MATCHES ANY
+                // LET US THROUGH!!!
+                return true;
+            }
+        }
+
+        // OR ELSE, BREAK!
+        return false;
+    }
+    // TOOLS
+
+
+    // EVENTS & LISTENERS
+    // put events and listeners here
+
+    // EVENTS & LISTENERS
+
 }

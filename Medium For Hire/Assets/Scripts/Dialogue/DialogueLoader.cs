@@ -26,7 +26,6 @@ public class DialogueLoader : MonoBehaviour
         Debug.Log(json.text);
 
         dialogueManager.StartDialogue(dialogue);
-        dialogueManager.DisplayCurrentLine();
     }
 
     private void Start()
