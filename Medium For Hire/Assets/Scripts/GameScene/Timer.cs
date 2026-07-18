@@ -9,8 +9,10 @@ public class Timer : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI timerText;
     public float elapseTime;
-
     public bool isTimerRunning = true;
+
+    [Header("BOSS TIMER")]
+    public float bossTimer = 15.0f;
 
     private void OnEnable()
     {
@@ -29,6 +31,14 @@ public class Timer : MonoBehaviour
         int seconds = Mathf.FloorToInt(elapseTime % 60);
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+        // for boss timer
+        float targetBossSeconds = bossTimer * 60f;
+        if (UIManager.Instance != null && UIManager.Instance.BossTimerForeground != null)
+        {
+            float progressPercentage = Mathf.Clamp01(elapseTime / targetBossSeconds);
+            UIManager.Instance.BossTimerForeground.fillAmount = progressPercentage;
+        }
     }
 
     private void StopTimer()

@@ -6,6 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Superstitions/Sukob")]
 public class Sukob_Superstition : SuperstitionData
 {
+    [Header("Reward and Penalty")]
+    public int rewardCardChoices = 4;
+    public int penaltyCardChoices = 1;
+
     private string lastDomainPicked = "";
 
     public override void Initialize(StageManager stage)
@@ -28,6 +32,16 @@ public class Sukob_Superstition : SuperstitionData
         }
     }
 
+    public override void ApplyReward()
+    {
+
+    }
+
+    public override void ApplyPenalty()
+    {
+
+    }
+
     private void HandleOffenseDomain() => CheckConsecutive("Offense");
     private void HandleSurvivalDomain() => CheckConsecutive("Survival");
     private void HandleUtilityDomain() => CheckConsecutive("Utility");
@@ -42,4 +56,5 @@ public class Sukob_Superstition : SuperstitionData
 
         lastDomainPicked = currentDomain;
     }
+
 }

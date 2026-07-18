@@ -7,30 +7,29 @@ using System.Reflection;
 using Unity.VisualScripting;
 using System.Linq.Expressions;
 using UnityEngine.SceneManagement;
+
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-        [Header("Superstition UI")]
+    [Header("Superstition UI")]
     [SerializeField] private TMP_Text superstitionText;
-    //[SerializeField] private Image[] antingAntingImages;
-    //[SerializeField] private Sprite[] unbrokenAntingSprite;
-    //[SerializeField] private Sprite[] crackedAntingSprites;
 
-        [Header("Pause Panel")]
+    [Header("Pause Panel")]
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject optionsPanel;
     public bool IsPausePanelActive { get; private set; }
     public bool IsOptionsPanelActive { get; private set; }
+    public bool IsTabPanelActive { get; private set; }
 
-        [Header("Information Tab Panel ")]
+    [Header("Information Tab Panel ")]
     [SerializeField] private GameObject infoTabPanel;
     [SerializeField] private TMP_Text superstitionNameText;
     [SerializeField] private TMP_Text superstitionDescriptionText;
     [SerializeField] private TMP_Text superstitionRewardText;
     [SerializeField] private TMP_Text superstitionPenaltyText;
 
-        [Header("Info Tab - Player Stats")]
+    [Header("Info Tab - Player Stats")]
     [SerializeField] private GameObject statsPanel;
     [SerializeField] private TMP_Text healthStatsText;
     [SerializeField] private TMP_Text damageStatsText;
@@ -39,15 +38,23 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text moveSpeedStatsText;
     [SerializeField] private TMP_Text pickupRangeStatsText;
 
-        [Header("Info Tab - Hovered Item")]
+    [Header("Info Tab - Hovered Item")]
     [SerializeField] private GameObject hoveredItemPanel;
     [SerializeField] private TMP_Text hoveredItemNameText;
     [SerializeField] private TMP_Text hoveredItemDescriptionText;
 
-        [Header("EXP UI")]
+    [Header("EXP UI")]
     [SerializeField] private Slider expSlider;
     [SerializeField] private TMP_Text expText;
     [SerializeField] private TMP_Text levelText;
+
+
+    [Header("BOSS TIMER UI")]
+    [SerializeField] private Image bossTimerForeground;
+    [SerializeField] private Image bossTimerBackground;
+
+    public Image BossTimerForeground => bossTimerForeground;
+    public Image BossTimerBackground => bossTimerBackground;
 
         [Header("HP UI")]
     [SerializeField] private Slider hpSlider;
@@ -62,7 +69,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider grudgeProgress;
     [SerializeField] private Slider guardProgress;
     [SerializeField] private Slider guideProgress;
-
 
         [Header("MiniWeapon UI")]
     [SerializeField] private Transform slotContainer;
@@ -155,7 +161,10 @@ public class UIManager : MonoBehaviour
         // dont do this
         //UpdateHpUI();
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (StageManager.Instance == null) return;
+        if (StageManager.Instance.isGameOver) return;
+
+        if (Input.GetKeyDown(KeyCode.Tab) && IsPausePanelActive == false)
         {
             ToggleInfoTab();
         }
@@ -167,12 +176,14 @@ public class UIManager : MonoBehaviour
         {
             UpdateInfoTabStat();
 
+            IsTabPanelActive = true;
             infoTabPanel.SetActive(true);
             ShowPlayerStatsInfo();
             Time.timeScale = 0f; // pause
         }
         else
         {
+            IsTabPanelActive = false;
             infoTabPanel.SetActive(false);
 
             // check if they're in the upgrade screen
@@ -229,15 +240,17 @@ public class UIManager : MonoBehaviour
     {
         if (isDisplayed)
         {
-            Time.timeScale = 0f;
             IsPausePanelActive = true;
             pausePanel.gameObject.SetActive(true);
+            Time.timeScale = 0f;
         }
         else
         {
-            Time.timeScale = 1f;
             IsPausePanelActive = false;
             pausePanel.gameObject.SetActive(false);
+
+            if (IsTabPanelActive) return;
+            Time.timeScale = 1f;
         }
     }
 
@@ -265,19 +278,6 @@ public class UIManager : MonoBehaviour
         superstitionRewardText.text = rewardText;
         superstitionPenaltyText.text = penaltyText;
     }
-
-    //private void CrackAntingAnting(int violationCount)
-    //{
-    //    int indexToCrack = violationCount - 1;
-
-    //    if (indexToCrack >= 0 && indexToCrack < antingAntingImages.Length)
-    //    {
-    //        antingAntingImages[indexToCrack].sprite = crackedAntingSprites[indexToCrack];
-
-    //        StartCoroutine(ShakeAmulet(antingAntingImages[indexToCrack].rectTransform));
-    //        antingAntingImages[indexToCrack].color = new Color(0.5f, 0.5f, 0.5f, 1f);
-    //    }
-    //}
 
     private IEnumerator ShakeAmulet(RectTransform rt)
     {

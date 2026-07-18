@@ -15,6 +15,16 @@ public class NoLeftovers_Superstition : SuperstitionData
         ExpOrb.OnExpOrbExpire -= HandleOrbExpired;
     }
 
+    public override void ApplyReward()
+    {
+
+    }
+
+    public override void ApplyPenalty()
+    {
+
+    }
+
     private void HandleOrbExpired()
     {
         // break rule count +1

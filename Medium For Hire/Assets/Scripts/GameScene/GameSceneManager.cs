@@ -27,7 +27,9 @@ public class GameSceneManager : MonoBehaviour
         }
 
         if (SceneManager.GetActiveScene().name == "GameScene")
-        {       
+        {
+            if (StageManager.Instance.isGameOver) return;
+
             if (Input.GetKeyDown(KeyCode.Escape) && !UIManager.Instance.IsOptionsPanelActive)
             {
                 UIManager.Instance.TogglePauseScreen(true);

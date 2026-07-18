@@ -18,6 +18,8 @@ public class StageManager : MonoBehaviour
     public static LevelData CurrentLevel { get; set; }
     public static int CurrentLevelRewards { get; set; }
 
+    public static bool IsGameOver { get; private set; }
+
     // temp storage for the current run
     private Dictionary<string, (int normal, int elite, int boss)> runKills = new Dictionary<string, (int, int, int)>();
 
@@ -37,13 +39,6 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-
-        //if (CurrentLevel == null)
-        //{
-        //    Debug.Log("No level...");
-        //    return;
-        //}
-
         AssembleStage();
 
         if (SoundManager.Instance == null) return;
@@ -59,8 +54,10 @@ public class StageManager : MonoBehaviour
     private void OnEnable()
     {
         isGameOver = false;
+        Time.timeScale = 1f;
 
         Events.OnPlayerDeath += CompleteLevel;
+        OnDeath.OnBossDeath += CompleteLevel;
         //SuperstitionManager.OnSuperstitionBroken += CheckSuperstition;
 
     }
@@ -73,6 +70,7 @@ public class StageManager : MonoBehaviour
         }
 
         Events.OnPlayerDeath -= CompleteLevel;
+        OnDeath.OnBossDeath -= CompleteLevel;
         //SuperstitionManager.OnSuperstitionBroken -= CheckSuperstition;
 
     }
@@ -80,28 +78,6 @@ public class StageManager : MonoBehaviour
     private void AssembleStage()
     {
         Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
-
-        //// SET UP MAP
-        //if (CurrentLevel.map.mapPrefab != null)
-        //{
-        //    Instantiate(CurrentLevel.map.mapPrefab, Vector3.zero, Quaternion.identity);
-        //}
-
-        //// SET UP POOL SPAWNER
-        //if (poolSpawner != null)
-        //{
-        //    poolSpawner.SetUpLevelData(CurrentLevel);
-        //}
-        //else
-        //{
-        //    Debug.Log("Missing pool spawner reference.");
-        //}
-
-        //// SET UP SUPERSTITION
-        //if (CurrentLevel.superstition != null)
-        //{
-        //    SuperstitionManager.Instance.ActivateSuperstition(CurrentLevel.superstition);
-        //}
     }
 
     public void RegisterKill(string name, string type)
@@ -121,9 +97,13 @@ public class StageManager : MonoBehaviour
     public void CompleteLevel()
     {
         isGameOver = true;
+        Time.timeScale = 0f;
 
         // stop music
-        SoundManager.Instance.StopBGM();
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.StopBGM();
+        }
 
         if (PlayerData.Instance != null)
         {

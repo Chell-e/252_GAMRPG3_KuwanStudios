@@ -8,6 +8,8 @@ public class OnDeath : MonoBehaviour
     [SerializeField] public PlayerEvents Events;
     private HealthComponent health;
 
+    public static event System.Action OnBossDeath;
+
     private void Awake()
     {
         health = GetComponent<HealthComponent>();
@@ -49,7 +51,10 @@ public class OnDeath : MonoBehaviour
 
     public void HandleEnemyDeath(BaseEnemy baseEnemy)
     {
-        DropLoot(baseEnemy);
+        if (baseEnemy.enemyType != EnemyType.Boss)
+        {
+            DropLoot(baseEnemy);
+        }
 
         baseEnemy.SpawnDeathAnimation();
 
@@ -57,6 +62,11 @@ public class OnDeath : MonoBehaviour
         PoolSpawner.Instance.NotifyEnemyDespawned();
 
         StageManager.Instance.RegisterKill(baseEnemy.enemyID, baseEnemy.enemyType.ToString());
+
+        if (baseEnemy.enemyType == EnemyType.Boss)
+        {
+            OnBossDeath?.Invoke();
+        }
     }
 
     private void DropLoot(BaseEnemy enemy)

@@ -16,6 +16,9 @@ public abstract class SuperstitionData : ScriptableObject
         // call when the stage ends (cleans up events)
     public abstract void Deinitialize();
 
+    public abstract void ApplyReward();
+    public abstract void ApplyPenalty();
+
     protected void BreakRule(int count)
     {
             // notify superstition manager if the rule was broken

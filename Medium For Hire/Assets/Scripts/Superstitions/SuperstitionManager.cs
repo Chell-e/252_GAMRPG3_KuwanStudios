@@ -153,16 +153,6 @@ public class SuperstitionManager : MonoBehaviour
         nakedtimer = 0f;
     }
 
-    public void ApplyReward()
-    {
-
-    }
-
-    public void ApplyPenalty()
-    {
-
-    }
-
     public void ResetTotalViolations()
     {
         totalViolations = 0;

@@ -30,6 +30,8 @@ public abstract class BaseEnemy : MonoBehaviour
     public float AttackDamage { get; set; }
     public float BaseMoveSpeed { get; set; }
 
+    [SerializeField] private Animator anim;
+
     // new
     [Header("Runtime Stats")]
     [SerializeField] private float moveSpeedMultiplier = 1.0f;
@@ -79,6 +81,8 @@ public abstract class BaseEnemy : MonoBehaviour
 
         if (health != null)
             health.ResetHealth();
+
+        //OnDeath.OnBossDeath += StopAnimation;
     }
 
     public virtual void ScaleEnemyStat(float statMultiplier)
@@ -218,6 +222,8 @@ public abstract class BaseEnemy : MonoBehaviour
         {
             hitFlash.ResetFlash();
         }
+
+        //OnDeath.OnBossDeath -= StopAnimation;
     }
 
 
@@ -249,4 +255,9 @@ public abstract class BaseEnemy : MonoBehaviour
             explosionVFX.transform.localScale = this.transform.localScale * 1.5f;
         }
     }
+
+    //public void StopAnimation()
+    //{
+    //    this.anim.enabled = false;
+    //}
 }
