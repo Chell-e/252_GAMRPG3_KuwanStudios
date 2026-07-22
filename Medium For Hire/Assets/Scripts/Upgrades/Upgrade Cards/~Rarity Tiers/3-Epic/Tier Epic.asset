@@ -15,4 +15,7 @@ MonoBehaviour:
   rarityName: Epic
   rarityWeight: 5
   upgradePool:
-  - {fileID: 11400000, guid: a8c57e1e363c03843b2d1c149e59c392, type: 2}
+  - {fileID: 11400000, guid: 853bbb24d2e26544ea634f88516bc38e, type: 2}
+  - {fileID: 11400000, guid: dc0981cf6cc02ce4391390f59129011b, type: 2}
+  - {fileID: 11400000, guid: f16498ab1f5664f4e826082304ce5e7f, type: 2}
+  - {fileID: 11400000, guid: 5bd64e0b0caf06c46897b331b38181e3, type: 2}

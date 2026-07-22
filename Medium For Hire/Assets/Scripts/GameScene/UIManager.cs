@@ -45,7 +45,6 @@ public class UIManager : MonoBehaviour
 
     [Header("EXP UI")]
     [SerializeField] private Slider expSlider;
-    [SerializeField] private TMP_Text expText;
     [SerializeField] private TMP_Text levelText;
 
 
@@ -119,8 +118,6 @@ public class UIManager : MonoBehaviour
     {
         expSlider.maxValue = PlayerController.Instance.playerStats.GetPlayerStat(Stat.ExpToLevel);
         expSlider.value = PlayerController.Instance.playerStats.GetPlayerStat(Stat.CurrentExp);
-
-        expText.text = expSlider.value + " / " + expSlider.maxValue;
 
         levelText.text = "Level " + PlayerController.Instance.playerStats.GetPlayerStat(Stat.CurrentLevel);
     }

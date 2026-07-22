@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5863f17fe82e31a489f1252892f75abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  expReward: 5
   possibleDrops:
   - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
   enemyType: 0
@@ -206,10 +207,12 @@ MonoBehaviour:
   baseMoveSpeed: 1
   currentScaledDamage: 0
   deathAnimationPrefab: {fileID: 3874769906211055584, guid: dffbc71a182f77c48a1e66c25dd4d19a, type: 3}
+  anim: {fileID: 0}
   moveSpeedMultiplier: 1
   incomingDamageMultiplier: 1
   isKnockedBack: 0
   damageTick: 0.7
+  animator: {fileID: 0}
 --- !u!114 &830175651863537479
 MonoBehaviour:
   m_ObjectHideFlags: 0

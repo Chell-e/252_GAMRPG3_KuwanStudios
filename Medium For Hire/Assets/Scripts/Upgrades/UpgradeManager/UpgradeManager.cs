@@ -39,7 +39,7 @@ public class UpgradeManager : MonoBehaviour
     // * DRIVER CODE
     private void Start()
     {
-        StartUpgradeSelect();
+        //StartUpgradeSelect();
 
         //List<BaseUpgradeData> hand = Roller.BulkRoll(Acquired.acquiredUpgrades, handSize);
 

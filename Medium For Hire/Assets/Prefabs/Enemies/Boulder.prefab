@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5064522776517952860}
   - component: {fileID: 6625092820257747785}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 8211984611739033476}
   - component: {fileID: 6418687593842830559}
   - component: {fileID: 2542276604791502095}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Boulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

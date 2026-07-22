@@ -221,14 +221,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0d2d6693ca45a8429e9e5d2b59d3d59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  expReward: 15
   possibleDrops:
   - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
+  - {fileID: 11400000, guid: d322d117e05644d468a4553df2f70e41, type: 2}
   enemyType: 1
   enemyID: Bungisngis
   attackDamage: 3
   baseMoveSpeed: 1
   currentScaledDamage: 0
   deathAnimationPrefab: {fileID: 3874769906211055584, guid: dffbc71a182f77c48a1e66c25dd4d19a, type: 3}
+  anim: {fileID: 0}
   moveSpeedMultiplier: 1
   incomingDamageMultiplier: 1
   isKnockedBack: 0

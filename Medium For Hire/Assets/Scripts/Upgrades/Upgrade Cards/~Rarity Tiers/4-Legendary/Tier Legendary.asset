@@ -15,4 +15,7 @@ MonoBehaviour:
   rarityName: Legendary
   rarityWeight: 1
   upgradePool:
-  - {fileID: 11400000, guid: 159181a38ff07764284207c75914031d, type: 2}
+  - {fileID: 11400000, guid: 34662d8316540f045b67788899893c53, type: 2}
+  - {fileID: 11400000, guid: 41739431b41b976418ec366c54c7c267, type: 2}
+  - {fileID: 11400000, guid: 88e7bed1c48ae5740af400212827f61a, type: 2}
+  - {fileID: 11400000, guid: e1fb04e40b241ea4ebc351ae9d908e2a, type: 2}

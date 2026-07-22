@@ -249,7 +249,7 @@ public class PlayerStats : MonoBehaviour
 
         if (currentExp >= expToLevel)
         {
-            if (OLD_UpgradeManager.Instance == null) return;
+            //if (OLD_UpgradeManager.Instance == null) return;
 
             currentExp = 0;
             currentLevel++;
@@ -259,10 +259,11 @@ public class PlayerStats : MonoBehaviour
             remainingLevels--;
 
 
-            if ((currentLevel + 1) % 3 == 0) OLD_UpgradeManager.Instance.ShowUpgradeOptions(true);
-            else OLD_UpgradeManager.Instance.ShowUpgradeOptions(false);
+            //if ((currentLevel + 1) % 3 == 0) OLD_UpgradeManager.Instance.ShowUpgradeOptions(true);
+            //else OLD_UpgradeManager.Instance.ShowUpgradeOptions(false);
 
-
+            UpgradeManager.Instance.StartUpgradeSelect();
+            Debug.Log("leveled up!");
 
             UIManager.Instance.UpdateExpUI();
         }

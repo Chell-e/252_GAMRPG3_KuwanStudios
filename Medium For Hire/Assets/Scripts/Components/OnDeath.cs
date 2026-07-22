@@ -71,16 +71,54 @@ public class OnDeath : MonoBehaviour
 
     private void DropLoot(BaseEnemy enemy)
     {
+        if (enemy.possibleDrops == null) return;
 
         foreach (var drop in enemy.possibleDrops)
         {
-            if (drop == null)
-                return;
+            if (drop == null) continue;
 
-            var random = Random.value;
-            if (random <= drop.dropChance)
+            float roll = Random.Range(0f, 100f);
+            if (roll <= drop.dropChance)
             {
-                PoolManager.SpawnObject(drop.itemPrefab, transform.position, Quaternion.identity, PoolManager.PoolType.ExpOrb);
+                int orbCount = (enemy.enemyType == EnemyType.Elite) ? 5 : 1;
+                
+                for (int i = 0; i < orbCount; i++)
+                {
+                    Vector3 spawnPos = transform.position;
+
+                    if (orbCount > 1)
+                    {
+                        Vector2 offset = UnityEngine.Random.insideUnitCircle * 0.5f;
+                        spawnPos += new Vector3(offset.x, offset.y, 0f);
+                    }
+
+                    // first target pool is xp orbs
+                    PoolManager.PoolType targetPool = PoolManager.PoolType.ExpOrb;
+                    // if there's an hp orb, its pool will be targeted 
+                    if (drop.itemPrefab.GetComponent<HealthOrb>() != null)
+                    {
+                        targetPool = PoolManager.PoolType.HpOrb;
+                    }
+
+                    GameObject spawnedDrop = PoolManager.SpawnObject(
+                        drop.itemPrefab, transform.position, Quaternion.identity, targetPool
+                    );
+
+                    if (spawnedDrop == null) continue;
+
+                    // if xp orb
+                    if (spawnedDrop.TryGetComponent<ExpOrb>(out var expOrb))
+                    {
+                        int finalXp = enemy.expReward;
+                        expOrb.Initialize(finalXp);
+                    }
+                    else if (PlayerController.Instance != null && spawnedDrop.TryGetComponent<HealthOrb>(out var healthOrb))
+                    {
+                        float healAmnt = healthOrb.hpToGive;
+                        PlayerController.Instance.GetComponent<HealthComponent>().Heal(healAmnt);
+                    }
+                }
+
                 break;
             }
         }

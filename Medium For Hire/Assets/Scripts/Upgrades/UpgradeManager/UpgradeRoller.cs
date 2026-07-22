@@ -23,6 +23,10 @@ public class UpgradeRoller : MonoBehaviour
         {
             Instance = this;
         }
+
+        for (int i = 0; i < upgradePool.tiers.Count; i++)
+            pity.Add(0f);
+
     }
     // singleton stuff
 
@@ -39,8 +43,6 @@ public class UpgradeRoller : MonoBehaviour
     // * DRIVER CODE
     private void Start()
     {
-        for (int i = 0; i < upgradePool.tiers.Count; i++)
-            pity.Add(0f);
 
         //StartUpgradeSelect();
 

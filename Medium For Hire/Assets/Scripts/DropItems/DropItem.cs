@@ -5,5 +5,5 @@ using UnityEngine;
 public abstract class DropItem : ScriptableObject
 {
     public GameObject itemPrefab;
-    [Range(0f, 1f)] public float dropChance;
+    public float dropChance;
 }

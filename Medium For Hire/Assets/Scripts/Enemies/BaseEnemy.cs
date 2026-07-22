@@ -13,7 +13,8 @@ public enum EnemyType
 
 public abstract class BaseEnemy : MonoBehaviour
 {
-    [Header("Enemy Info")]
+    [Header("Enemy Info & Drops")]
+    public int expReward;
     [SerializeField] public DropItem[] possibleDrops;
     public EnemyType enemyType;
     public string enemyID;
