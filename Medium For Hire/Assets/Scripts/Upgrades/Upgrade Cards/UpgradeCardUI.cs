@@ -65,7 +65,7 @@ public class UpgradeCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         colorIndex = CheckDomain(); // CheckDomain() returns a number matching a specific color whtvr
         // might not be good practice
 
-        Debug.Log("color index is " + colorIndex);
+        //Debug.Log("color index is " + colorIndex);
 
         if (cardBackground != null) cardBackground.sprite = NewDomainBackgrounds[colorIndex];
 
@@ -133,7 +133,7 @@ public class UpgradeCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         ClearProjectedDomainPips();
 
-        Debug.Log("hovered");
+        //Debug.Log("hovered");
 
         domainBorderHovered.enabled = true;
         domainBorderNormal.enabled = false;
@@ -157,7 +157,7 @@ public class UpgradeCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("exited hover");
+        //Debug.Log("exited hover");
 
         domainBorderHovered.enabled = false;
         domainBorderNormal.enabled = true;

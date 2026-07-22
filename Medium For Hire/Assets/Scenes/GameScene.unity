@@ -13449,6 +13449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  lastState: 0
 --- !u!1 &1134174579
 GameObject:
   m_ObjectHideFlags: 0
@@ -20205,6 +20206,7 @@ Transform:
   - {fileID: 520015645}
   - {fileID: 1388174818}
   - {fileID: 1024280335}
+  - {fileID: 2085761324}
   - {fileID: 2038611120}
   - {fileID: 1143977122}
   - {fileID: 1265621446}
@@ -25314,12 +25316,12 @@ GameObject:
   - component: {fileID: 2038611120}
   - component: {fileID: 2038611119}
   m_Layer: 0
-  m_Name: ~Upgrade Manager
+  m_Name: OLD~Upgrade Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2038611119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25354,6 +25356,8 @@ MonoBehaviour:
   cardPrefab: {fileID: 5195733446731502837, guid: 0b32391dc8885a3418bfc13a9de2edf6, type: 3}
   cardContainer: {fileID: 1122408987}
   cardsToShow: 3
+  isOpen: 0
+  spawnedCards: []
 --- !u!4 &2038611120
 Transform:
   m_ObjectHideFlags: 0
@@ -25909,6 +25913,106 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &2085761321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2085761324}
+  - component: {fileID: 2085761323}
+  - component: {fileID: 2085761322}
+  - component: {fileID: 2085761326}
+  - component: {fileID: 2085761325}
+  m_Layer: 0
+  m_Name: ~Upgrade Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2085761322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085761321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792767b019cb6b94fb58ee6234195fec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiers:
+  - {fileID: 11400000, guid: 7b460f80485f6e744af1cee6c4b1dee1, type: 2}
+  - {fileID: 11400000, guid: c80395df9bf374a4e826a2e8a947a536, type: 2}
+  - {fileID: 11400000, guid: bd5cab6fa472f7a46b9c50729f8da764, type: 2}
+  - {fileID: 11400000, guid: 7d4aadd68c5b3b84189a6011406ccfec, type: 2}
+--- !u!114 &2085761323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085761321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1960b559273e1b4449d6ae0e387ce8d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handSize: 3
+  upgradePool: {fileID: 2085761322}
+  Roller: {fileID: 2085761326}
+  Acquired: {fileID: 2085761325}
+  cardContainer: {fileID: 1122408987}
+  cardPrefab: {fileID: 5195733446731502837, guid: 0b32391dc8885a3418bfc13a9de2edf6, type: 3}
+--- !u!4 &2085761324
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085761321}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1583053706}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2085761325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085761321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d669def3206a4754fa00e0491be20717, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cards: []
+  picks: 
+--- !u!114 &2085761326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085761321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1be32ab0e11b2643b544870b7f25904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pityIncrement: 1
+  pity: []
+  lastPityIndices: 
+  upgradePool: {fileID: 2085761322}
 --- !u!1 &2088881450
 GameObject:
   m_ObjectHideFlags: 0

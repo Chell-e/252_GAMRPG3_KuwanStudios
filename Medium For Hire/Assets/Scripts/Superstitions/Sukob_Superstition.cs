@@ -17,18 +17,18 @@ public class Sukob_Superstition : SuperstitionData
         // reset
         lastDomainPicked = "";
 
-        UpgradeManager.Instance.OnOffenseDomainUpgradeChosen += HandleOffenseDomain;
-        UpgradeManager.Instance.OnSurvivalDomainUpgradeChosen += HandleSurvivalDomain;
-        UpgradeManager.Instance.OnUtilityDomainUpgradeChosen += HandleUtilityDomain;
+        OLD_UpgradeManager.Instance.OnOffenseDomainUpgradeChosen += HandleOffenseDomain;
+        OLD_UpgradeManager.Instance.OnSurvivalDomainUpgradeChosen += HandleSurvivalDomain;
+        OLD_UpgradeManager.Instance.OnUtilityDomainUpgradeChosen += HandleUtilityDomain;
     }
 
     public override void Deinitialize()
     {
-        if (UpgradeManager.Instance != null)
+        if (OLD_UpgradeManager.Instance != null)
         {
-            UpgradeManager.Instance.OnOffenseDomainUpgradeChosen -= HandleOffenseDomain;
-            UpgradeManager.Instance.OnSurvivalDomainUpgradeChosen -= HandleSurvivalDomain;
-            UpgradeManager.Instance.OnUtilityDomainUpgradeChosen -= HandleUtilityDomain;
+            OLD_UpgradeManager.Instance.OnOffenseDomainUpgradeChosen -= HandleOffenseDomain;
+            OLD_UpgradeManager.Instance.OnSurvivalDomainUpgradeChosen -= HandleSurvivalDomain;
+            OLD_UpgradeManager.Instance.OnUtilityDomainUpgradeChosen -= HandleUtilityDomain;
         }
     }
 

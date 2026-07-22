@@ -110,7 +110,8 @@ public class DialogueManager : MonoBehaviour
         currentIndex = 0;
         exploredIndex = 0;
 
-        previousGameState = GameStateManager.Instance.currentState;
+        if (GameStateManager.Instance != null)
+            previousGameState = GameStateManager.Instance.currentState;
         GameStateManager.Instance?.SetState(gameState);
 
         DisplayCurrentLine();

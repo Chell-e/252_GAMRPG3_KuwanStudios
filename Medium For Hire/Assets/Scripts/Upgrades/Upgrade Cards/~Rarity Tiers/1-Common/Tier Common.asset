@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96256eaa71b5f240a62c1f1358dc1ff, type: 3}
+  m_Name: Tier Common
+  m_EditorClassIdentifier: 
+  rarityName: Common
+  rarityWeight: 100
+  upgradePool:
+  - {fileID: 11400000, guid: 48a5579906a4e2747a189c8f07ee4abd, type: 2}
+  - {fileID: 11400000, guid: eddf72feb85b5814898c09f407480a16, type: 2}
+  - {fileID: 11400000, guid: 66e3b825db719204f8cb168d6637516e, type: 2}

@@ -23,6 +23,8 @@ public class GameStateManager : MonoBehaviour
 
     public static event Action<GameState> OnStateChanged;
     [SerializeField] public GameState currentState;
+
+    [SerializeField] private GameState lastState;
     void Start()
     {
         //SetState(GameState.Gameplay);
@@ -37,6 +39,19 @@ public class GameStateManager : MonoBehaviour
         OnStateChanged?.Invoke(newState);
 
         Debug.Log($"Game State changed to: {newState}");
+
+        return;
+    }
+
+    public void ReturnState()
+    {
+        currentState = lastState;
+
+        HandleTimeScale(lastState);
+
+        OnStateChanged?.Invoke(lastState);
+
+        Debug.Log($"Game State REVERTED to: {lastState}");
 
         return;
     }

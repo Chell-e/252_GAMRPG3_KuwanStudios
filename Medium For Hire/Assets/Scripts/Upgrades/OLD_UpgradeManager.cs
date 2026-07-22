@@ -6,15 +6,16 @@ using System.Linq;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
-public enum UpgradePool
+public enum OLD_UpgradePool
 {
     Normal,
     Special
 }
 
-public class UpgradeManager : MonoBehaviour
+public class OLD_UpgradeManager : MonoBehaviour
 {
-    public static UpgradeManager Instance;
+    // singleton stuff
+    public static OLD_UpgradeManager Instance;
     private void Awake() // for SINGLETON
     {
         // singleton 
@@ -27,7 +28,7 @@ public class UpgradeManager : MonoBehaviour
             Instance = this;
         }
     }
-
+    // singleton stuff
 
         [Header("Pool & UI")]
     [SerializeField] public BaseUpgradeData[] normalUpgradePool; // this data type supports both StatUpgrade and WeaponUnlock
@@ -83,9 +84,9 @@ public class UpgradeManager : MonoBehaviour
         // ROLL QUALIFYING UPGRADES
         List<BaseUpgradeData> rolledUpgrades; // list of upgrades that qualify
         if (isSpecial)
-            rolledUpgrades = RollUpgrades(UpgradePool.Special);
+            rolledUpgrades = RollUpgrades(OLD_UpgradePool.Special);
         else
-            rolledUpgrades = RollUpgrades(UpgradePool.Normal);
+            rolledUpgrades = RollUpgrades(OLD_UpgradePool.Normal);
         // ROLL QUALIFYING UPGRADES
 
 
@@ -116,19 +117,19 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    private List<BaseUpgradeData> RollUpgrades(UpgradePool upgradePoolType)
+    private List<BaseUpgradeData> RollUpgrades(OLD_UpgradePool upgradePoolType)
     {
         Debug.Log(upgradePoolType);
         
         
         // COPY LISTS TO DRAW FROM
         var upgradeListOfType =     // make a copy of the upgrade pool specified
-            (upgradePoolType == UpgradePool.Normal)
+            (upgradePoolType == OLD_UpgradePool.Normal)
             ? normalUpgradePool.ToList()
             : specialUpgradePool.ToList();
 
         List<BaseUpgradeData> upgradeListOfPriority = new List<BaseUpgradeData>();
-        if (upgradePoolType == UpgradePool.Special)
+        if (upgradePoolType == OLD_UpgradePool.Special)
             upgradeListOfPriority = uniqueUpgradePool.ToList(); // need to make ALL qualifying unique upgrades to show up.
         // COPY LISTS TO DRAW FROM
 
