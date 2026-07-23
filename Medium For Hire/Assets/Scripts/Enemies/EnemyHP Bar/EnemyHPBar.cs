@@ -9,7 +9,7 @@ public class EnemyHPBar : MonoBehaviour
     public float currentHealthValue { get; private set; }
 
     [SerializeField] private RectTransform topBar;
-    [SerializeField] private RectTransform bottomBar;
+    //[SerializeField] private RectTransform bottomBar;
     [SerializeField] private float animationSpeed = 10f;
 
     private BaseEnemy enemy;
@@ -72,11 +72,11 @@ public class EnemyHPBar : MonoBehaviour
             maxHealthValue = health.GetMaxHealth();
             currentHealthValue = health.GetCurrentHealth();
 
-            if (topBar != null && bottomBar != null)
+            if (topBar != null) // && bottomBar != null
             {
                 float initialWidth = CalculateWidthForHealth(currentHealthValue);
                 topBar.SetWidth(initialWidth);
-                bottomBar.SetWidth(initialWidth);
+                //bottomBar.SetWidth(initialWidth);
             }    
         }
     }
@@ -120,16 +120,16 @@ public class EnemyHPBar : MonoBehaviour
         {
             topBar.SetWidth(endWidth);
 
-            while (Mathf.Abs(bottomBar.rect.width - endWidth) > 0.5f)
-            {
-                bottomBar.SetWidth(Mathf.Lerp(bottomBar.rect.width, endWidth, Time.deltaTime * animationSpeed));
-                yield return null;
-            }
-            bottomBar.SetWidth(endWidth);
+            //while (Mathf.Abs(bottomBar.rect.width - endWidth) > 0.5f)
+            //{
+            //    bottomBar.SetWidth(Mathf.Lerp(bottomBar.rect.width, endWidth, Time.deltaTime * animationSpeed));
+            //    yield return null;
+            //}
+            //bottomBar.SetWidth(endWidth);
         }
         else // HEALING
         {
-            bottomBar.SetWidth(endWidth);
+            //bottomBar.SetWidth(endWidth);
 
             while (Mathf.Abs(topBar.rect.width - endWidth) > 0.5f)
             {

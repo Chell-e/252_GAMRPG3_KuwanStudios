@@ -48,9 +48,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text levelText;
 
 
-    [Header("BOSS TIMER UI")]
+    [Header("BOSS UI")]
     [SerializeField] private Image bossTimerForeground;
     [SerializeField] private Image bossTimerBackground;
+    [SerializeField] private TMP_Text bossHpText;
 
     public Image BossTimerForeground => bossTimerForeground;
     public Image BossTimerBackground => bossTimerBackground;
@@ -274,6 +275,11 @@ public class UIManager : MonoBehaviour
         superstitionDescriptionText.text = description;
         superstitionRewardText.text = rewardText;
         superstitionPenaltyText.text = penaltyText;
+    }
+
+    public void UpdateBossHpText(GameObject boss)
+    {
+        bossHpText.text = boss.name;
     }
 
     private IEnumerator ShakeAmulet(RectTransform rt)

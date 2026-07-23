@@ -37,6 +37,7 @@ public class PoolSpawner : MonoBehaviour
     public float maxDistanceFromPlayer = 15f; // how far an enemy is BEFORE they get respawned 
     public float recycleCheckInterval = 1.5f; // every 1.3s, respawn a far away enemy nearer
 
+    private GameObject currBoss;
 
     // runtime 
     [Header("--- THIS RUN'S ORDER OF ENEMIES")]
@@ -248,6 +249,12 @@ public class PoolSpawner : MonoBehaviour
         {
             Vector2 spawnPos = GetRandomSpawnPosition();
             GameObject boss = PoolManager.SpawnObject(bossPrefab, spawnPos, Quaternion.identity, PoolManager.PoolType.Enemy);
+            SetBossHPBar(boss);
+
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.UpdateBossHpText(boss);
+            }
 
             if (boss != null)
             {
@@ -257,6 +264,16 @@ public class PoolSpawner : MonoBehaviour
 
             bossSpawned = true;
         }
+    }
+
+    public void SetBossHPBar(GameObject boss)
+    {
+        currBoss = boss;
+    }
+
+    public GameObject GetBossHPBar()
+    {
+        return currBoss;
     }
 
     private void RecycleFarEnemies(int clampedPlayerLevel)
