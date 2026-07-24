@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
-  m_Name: GameUI_Icon_Gabay1
+  m_Name: GameUI_Icon_Hanan1
   m_EditorClassIdentifier: 
   hashCode: -1076761068
   material: {fileID: 9198092923957464691}
@@ -38,14 +38,14 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  spriteSheet: {fileID: 2800000, guid: 015e149792d8c4043827e15fa67c0d6b, type: 3}
+  spriteSheet: {fileID: 2800000, guid: 1941ef09e7e805e44a1c726891d34564, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
     m_Scale: 1
-    m_Name: guide
-    m_HashCode: 121297306
+    m_Name: hanan1
+    m_HashCode: -336433831
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
@@ -57,8 +57,8 @@ MonoBehaviour:
     m_GlyphRect:
       m_X: 0
       m_Y: 0
-      m_Width: 600
-      m_Height: 600
+      m_Width: 32
+      m_Height: 32
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
@@ -89,7 +89,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 015e149792d8c4043827e15fa67c0d6b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1941ef09e7e805e44a1c726891d34564, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []

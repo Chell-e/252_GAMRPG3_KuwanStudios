@@ -15,7 +15,7 @@ PlayerSettings:
   companyName: DefaultCompany
   productName: The Torn Pages
   defaultCursor: {fileID: 2800000, guid: 89bf90708fae6cf44be080c76e7dbeac, type: 3}
-  cursorHotspot: {x: 0, y: 0}
+  cursorHotspot: {x: 5, y: 1}
   m_SplashScreenBackgroundColor: {r: 0.053844783, g: 0.04552332, b: 0.103773594, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
@@ -173,7 +173,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.DefaultCompany.Medium-For-Hire
+    Standalone: com.DefaultCompany.The-Torn-Pages
   buildNumber:
     Standalone: 0
     VisionOS: 0

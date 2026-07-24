@@ -27,13 +27,13 @@ public class SimpleStatTooltip : MonoBehaviour , ITooltipProvider
         switch (statForTooltip)
         {
             case (Stat.DomainOffense):
-                tooltipString = "<sprite name=\"grudge\"> Ancestral Grudge: " + playerStats.GetPlayerStat(statForTooltip);
+                tooltipString = "<sprite name=\"mayari1\"> Mayari's Path: " + playerStats.GetPlayerStat(statForTooltip);
                 break;
             case (Stat.DomainSurvival):
-                tooltipString = "<sprite name=\"guard\"> Ancestral Guardian: " + playerStats.GetPlayerStat(statForTooltip);
+                tooltipString = "<sprite name=\"tala1\"> Tala's Path: " + playerStats.GetPlayerStat(statForTooltip);
                 break;
             case (Stat.DomainUtility):
-                tooltipString = "<sprite name=\"guide\"> Ancestral Guidance: " + playerStats.GetPlayerStat(statForTooltip);
+                tooltipString = "<sprite name=\"hanan1\"> Hanan's Path: " + playerStats.GetPlayerStat(statForTooltip);
                 break;
             default:
                 break;

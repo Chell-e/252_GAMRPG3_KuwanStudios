@@ -151,7 +151,7 @@ public class UIManager : MonoBehaviour
     {
         var newSlot = Instantiate(weaponSlotPrefab, slotContainer);
         newSlot.SetupSlot(_weaponUnlock, _weaponData);
-        newSlot.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+        newSlot.transform.localScale = new Vector3(0.55f, 0.55f, 0.55f);
     }
 
     private void Update()

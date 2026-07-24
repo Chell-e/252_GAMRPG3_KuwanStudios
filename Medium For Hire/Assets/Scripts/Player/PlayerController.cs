@@ -243,12 +243,16 @@ public class PlayerController : MonoBehaviour
         if (playerStats.isAiming)
         {
             Events.OnAimActivate?.Invoke();
-            UnityEngine.Cursor.SetCursor(aimCursor, Vector2.zero, CursorMode.Auto);
+
+            Vector2 hotspotCenter = new Vector2(36/2, 39/2);
+            UnityEngine.Cursor.SetCursor(aimCursor, hotspotCenter, CursorMode.Auto);
         }
         else
         {
             Events.OnAimDeactivate?.Invoke();
-            UnityEngine.Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
+
+            Vector2 hotspotDefault = new Vector2(5, 1);
+            UnityEngine.Cursor.SetCursor(defaultCursor, hotspotDefault, CursorMode.Auto);
         }
     }
 

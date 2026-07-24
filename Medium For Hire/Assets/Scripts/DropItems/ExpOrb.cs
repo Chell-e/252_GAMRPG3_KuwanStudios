@@ -48,7 +48,8 @@ public class ExpOrb : MonoBehaviour
         isDecaying = false;
         isCollected = false;
         isBeingSucked= false;
-        
+        trailRenderer.Clear();
+
         if (rb != null)
         {
             rb.velocity = Vector3.zero;
