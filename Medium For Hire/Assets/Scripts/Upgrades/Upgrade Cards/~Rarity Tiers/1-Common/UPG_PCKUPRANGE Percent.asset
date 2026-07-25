@@ -22,4 +22,8 @@ MonoBehaviour:
   canDuplicate: 0
   requirements:
   - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}
-  statsUpgraded: []
+  statsUpgraded:
+  - statToUpgrade: 7
+    value: 15
+  - statToUpgrade: 11
+    value: 1

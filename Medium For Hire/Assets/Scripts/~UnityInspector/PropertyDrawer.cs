@@ -1,5 +1,7 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
+
 
 [CustomPropertyDrawer(typeof(DisplayWithoutEdit))]
 public class DisplayWithoutEditDrawer : PropertyDrawer
@@ -16,3 +18,4 @@ public class DisplayWithoutEditDrawer : PropertyDrawer
         GUI.enabled = true;
     }
 }
+#endif

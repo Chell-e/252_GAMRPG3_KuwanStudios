@@ -22,7 +22,7 @@ MonoBehaviour:
     <style="guard">+55% Max
     HP.</style>'
   rarityStars: 2
-  maxPicks: 2
+  maxPicks: -1
   canDuplicate: 0
   requirements:
   - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}

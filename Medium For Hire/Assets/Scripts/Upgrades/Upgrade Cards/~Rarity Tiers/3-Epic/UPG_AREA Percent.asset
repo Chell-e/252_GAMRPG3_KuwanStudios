@@ -19,7 +19,7 @@ MonoBehaviour:
   description: 'Increase the AoE of your weapons significantly.
 
 
-    <style="guide">+200%
+    <style="guide">+250%
     Area.</style>'
   rarityStars: 3
   maxPicks: 1
@@ -28,6 +28,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}
   statsUpgraded:
   - statToUpgrade: 6
-    value: 200
+    value: 250
   - statToUpgrade: 11
     value: 1

@@ -22,7 +22,7 @@ MonoBehaviour:
     <style="guide">+50%
     Area.</style>'
   rarityStars: 2
-  maxPicks: 3
+  maxPicks: 2
   canDuplicate: 0
   requirements:
   - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}
