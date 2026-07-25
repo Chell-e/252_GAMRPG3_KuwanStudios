@@ -8,14 +8,14 @@ public class StatusEffect_Vulnerable : BaseStatusEffect
 {
     public float newDamageMultiplier;
 
-    public override void OnApply(BaseEnemy _enemy, float _power)
+    public override void OnApply(BaseEnemy _enemy, float _potencyModifier)
     {
         // set enemy incoming damage
         _enemy.SetIncomingDamageModifier(newDamageMultiplier);
         Debug.Log("APPLIED HOLY WATER");
     }
 
-    public override void OnTick(BaseEnemy _enemy, float _power, float _timeElapsed)
+    public override void OnTick(BaseEnemy _enemy, float _potencyModifier, float _timeElapsed)
     {
         Debug.Log("TICKING HOLY WATER");
     }

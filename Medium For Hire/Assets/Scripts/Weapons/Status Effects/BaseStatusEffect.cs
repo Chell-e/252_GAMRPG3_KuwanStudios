@@ -9,8 +9,8 @@ public abstract class BaseStatusEffect : ScriptableObject
     public float lifetime; // runtime timer for duration
     //public bool canStack;
 
-    public abstract void OnApply(BaseEnemy _enemy, float _power);
-    public abstract void OnTick(BaseEnemy _enemy, float _power, float _timeElapsed);
+    public abstract void OnApply(BaseEnemy _enemy, float _potencyModifier);
+    public abstract void OnTick(BaseEnemy _enemy, float _potencyModifier, float _timeElapsed);
     public abstract void OnExpire(BaseEnemy _enemy);
 
     /*public void Initialize(float _duration, float _potency)

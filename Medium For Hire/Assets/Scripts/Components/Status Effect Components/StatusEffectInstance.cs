@@ -9,10 +9,10 @@ public class StatusEffectInstance
     public float remainingTime;
     public float power;
 
-    public StatusEffectInstance(BaseStatusEffect _statusEffectData, float _power)
+    public StatusEffectInstance(BaseStatusEffect _statusEffectData, float _potencyModifier)
     {
         statusEffect = _statusEffectData;
         remainingTime = statusEffect.lifetime;
-        power = _power;
+        power = _potencyModifier;
     }
 }

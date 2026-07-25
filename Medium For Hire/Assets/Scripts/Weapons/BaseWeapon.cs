@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class BaseWeapon : MonoBehaviour, ITooltipProvider
 {
-    [SerializeField] protected PlayerController playerController;
-    [SerializeField] protected PlayerStats playerStats;
-    [SerializeField] protected PlayerEvents playerEvents;
+    [Header("REFERENCES")]
+    protected PlayerController playerController;
+    protected PlayerStats playerStats;
+    protected PlayerEvents playerEvents;
     public virtual void Initialize(PlayerController _playerController)
     {
         this.playerController = _playerController;

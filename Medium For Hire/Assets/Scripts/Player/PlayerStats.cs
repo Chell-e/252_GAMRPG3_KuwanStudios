@@ -174,11 +174,11 @@ public class PlayerStats : MonoBehaviour
 
             // ATK SPEED
             case Stat.AttackSpeedPercent:
-                return dmgPercent;
+                return atkSpeedPercent;
 
             // PROJECTILE SPEED
             case Stat.ProjectileSpeedPercent:
-                return dmgPercent;
+                return projectileSpeedPercent;
 
             // AOE 
             case Stat.AreaPercent:

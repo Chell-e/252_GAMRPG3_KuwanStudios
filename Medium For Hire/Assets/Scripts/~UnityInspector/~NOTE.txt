@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/78964086/how-to-display-a-private-field-in-the-unity-inspector-as-read-only
