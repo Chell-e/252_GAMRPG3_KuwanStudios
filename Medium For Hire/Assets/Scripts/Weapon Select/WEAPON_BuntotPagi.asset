@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15ac5d7a458107342a8244769e6f7982, type: 3}
+  m_Name: WEAPON_BuntotPagi
+  m_EditorClassIdentifier: 
+  weaponName: Buntot Pagi
+  weaponPrefab: {fileID: 1851991169932104044, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
+  mainWeaponUIData: {fileID: 11400000, guid: d2faddea6471e7d409b6dd355d13bfa9, type: 2}

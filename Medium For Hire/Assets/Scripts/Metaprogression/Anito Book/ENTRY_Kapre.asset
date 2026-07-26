@@ -16,6 +16,14 @@ MonoBehaviour:
   chapterName: Kapre
   chapterDescription: Hairy horse
   chapterUnlocked: 0
+  storyUnlocked: 0
   killsNeededToUnlockName: 0
   killsNeededToUnlockImage: 0
   killsNeededToUnlockDesc: 0
+  shortStory: "The kapre is a Philippine cryptid creature with the appearance of
+    an phenomenally tall, long-legged, god type of hairy humanoid, that sits in big
+    trees and smokes cigars. It is often seen waiting for people as they walk through
+    a path. It scares away little children who play at night. If you're stuck in
+    a place and you keep going around in circles, you're said to be played around
+    by a kapre. To escape its control, you must remove your shirt/clothing, and wear
+    it inside-out.\r"

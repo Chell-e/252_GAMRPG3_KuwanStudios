@@ -16,13 +16,11 @@ public class StageManager : MonoBehaviour
     public bool isGameOver = false;
     public int tornPagesCollected = 0;
 
-    public static LevelData CurrentLevel { get; set; }
-    //public static int CurrentLevelRewards { get; set; }
+    public static WeaponData SelectedWeapon { get; set; }
 
     public static bool IsGameOver { get; private set; }
 
     // temp storage for the current run
-    //private Dictionary<string, (int enemy)> runKills = new Dictionary<string, (int))>();
     private Dictionary<string, int> runKills = new Dictionary<string, int>();
 
     private void Awake() // for SINGLETON
@@ -78,7 +76,15 @@ public class StageManager : MonoBehaviour
 
     private void AssembleStage()
     {
-        Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
+        if (mapPrefab != null)
+        {
+            Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
+        }
+
+        if (SelectedWeapon != null)
+        {
+            WeaponManager.Instance.EquipMainWeapon(SelectedWeapon);
+        }
     }
 
     public void RegisterKill(string name)
@@ -113,7 +119,7 @@ public class StageManager : MonoBehaviour
                 var permanentData = PlayerData.Instance.GetEnemyKillData(kill.Key);
                 permanentData.killAmount += kill.Value;
             }
-            // add pilon rewards
+            // add torn pages rewards
             PlayerData.Instance.AddTornPages(tornPagesCollected);
             Debug.Log("torn pages collected: " + tornPagesCollected);
         }

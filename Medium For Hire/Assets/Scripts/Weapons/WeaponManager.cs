@@ -4,6 +4,23 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
+    public static WeaponManager Instance;
+
+    // for SINGLETON
+    private void Awake()
+    {
+        // singleton 
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    // for SINGLETON
+
     [Header("DEBUG")]
     [SerializeField] List<GameObject> subWeapons = new List<GameObject>();
 
@@ -16,18 +33,15 @@ public class WeaponManager : MonoBehaviour
 
     // * DRIVER CODE
     // mainly Start() and Update()
-    private void Awake()
-    {
-        
-    }
+
 
     private void Start()
     {
-        playerController = PlayerController.Instance;
-        playerStats = PlayerController.Instance.playerStats;
-
-        mainWeapon.GetComponent<BaseWeapon>().Initialize(playerController); // dont forget to Initialize() function 
-        UIManager.Instance.SetupMainWeaponSlot(mainWeaponUIData, mainWeapon.GetComponent<BaseWeapon>());
+        CheckPlayerReference();
+        EquipMainWeapon(StageManager.SelectedWeapon);
+        
+        //mainWeapon.GetComponent<BaseWeapon>().Initialize(playerController); // dont forget to Initialize() function 
+        //UIManager.Instance.SetupMainWeaponSlot(mainWeaponUIData, mainWeapon.GetComponent<BaseWeapon>());
     }
 
     // * DRIVER CODE
@@ -35,13 +49,34 @@ public class WeaponManager : MonoBehaviour
 
     // *** CORE LOGIC
     // these are functions that coordinate smaller functions below
+    public void EquipMainWeapon(WeaponData weaponData)
+    {
+        if (weaponData == null) return;
 
+        CheckPlayerReference();
+        mainWeapon = Instantiate(weaponData.weaponPrefab, transform);
+
+        InitializeCurrentMainWeapon(weaponData);
+    }
     // *** CORE LOGIC
 
 
     // ** SUB FUNCTIONS
     // more "individual" functions
+    private void InitializeCurrentMainWeapon(WeaponData weaponData)
+    {
+        if (mainWeapon == null) return;
 
+        CheckPlayerReference();
+        mainWeapon.GetComponent<BaseWeapon>().Initialize(playerController);
+        UIManager.Instance.SetupMainWeaponSlot(weaponData.mainWeaponUIData, mainWeapon.GetComponent<BaseWeapon>());
+    }
+
+    private void CheckPlayerReference()
+    {
+        if (playerController == null) playerController = PlayerController.Instance;
+        if (playerController != null) playerStats = PlayerController.Instance.playerStats;
+    }
     // ** SUB FUNCTIONS
 
 
@@ -70,7 +105,6 @@ public class WeaponManager : MonoBehaviour
 
         return instance.GetComponent<BaseWeapon>(); // return a reference to the added weapon
     }
-
     // TOOLS
 
 

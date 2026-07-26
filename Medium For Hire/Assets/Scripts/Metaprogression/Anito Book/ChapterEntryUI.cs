@@ -15,9 +15,14 @@ public class ChapterEntryUI : MonoBehaviour
     public Image illusHoveredFrame;
     public Image illusLock;
     public Image illusHoveredLock;
-    public Image descFrame;
-    public Image storyFrame;
+    public Image descHoverFrame;
+    public Image storyHoverFrame;
+    public Image storyHoverLock;
     public Image storyLock;
+    public GameObject storyButton;
+    public GameObject shortStoryPage;
+    public TextMeshProUGUI storyPage1;
+    public TextMeshProUGUI storyPage2;
 
     // * DRIVER CODE
     // mainly Start() and Update()
@@ -71,14 +76,58 @@ public class ChapterEntryUI : MonoBehaviour
     {
         illusHoveredFrame.enabled = true;
         illusHoveredLock.enabled = true;
-        descFrame.enabled = true;
+        descHoverFrame.enabled = true;
     }
 
     public void DisableHoveredPrimaryUnlockable()
     {
         illusHoveredFrame.enabled = false;
         illusHoveredLock.enabled = false;
-        descFrame.enabled = false;
+        descHoverFrame.enabled = false;
+    }
+
+    public void EnableHoveredSecondaryUnlockable()
+    {
+        storyHoverFrame.enabled = true;
+        storyHoverLock.enabled = true;
+    }
+
+    public void DisableHoveredSecondaryUnlockable()
+    {
+        storyHoverFrame.enabled = false;
+        storyHoverLock.enabled= false;
+    }
+
+    public void DisplayStoryPage(ChapterEntry _entry)
+    {
+        shortStoryPage.SetActive(true);
+
+        if (storyPage1 == null || storyPage2 == null || string.IsNullOrEmpty(_entry.shortStory)) return;
+        
+        Canvas.ForceUpdateCanvases();
+        storyPage1.text = _entry.shortStory;
+        storyPage1.ForceMeshUpdate();
+
+        if (storyPage1.isTextOverflowing)
+        {
+            int firsOverflowCharIndex = storyPage1.firstOverflowCharacterIndex;
+
+            string storyPage1Content = _entry.shortStory.Substring(0, firsOverflowCharIndex);
+            string storyPage2Content = _entry.shortStory.Substring(firsOverflowCharIndex);
+
+            storyPage1.text = storyPage1Content.Trim();
+            storyPage2.text = storyPage2Content.Trim();
+        }
+        else
+        {
+            storyPage2.text = "";
+        }
+    }
+
+    public void CloseStoryPage()
+    {
+        if (storyPage != null) shortStoryPage.SetActive(false);
+        if (infoPage != null) infoPage.SetActive(true);
     }
     //public void 
     // ** SUB FUNCTIONS
@@ -94,27 +143,4 @@ public class ChapterEntryUI : MonoBehaviour
     // put events and listeners here
 
     // EVENTS & LISTENERS
-
-
-    private void Start()
-    {
-        //Setup(chapterEntry);
-    }
-
-    public void Setup(ChapterEntry entry)
-    {
-        //chapterEntry = entry;
-        //creaturePage = _creaturePage;
-
-        //bool isNameUnlocked = BestiaryManager.Instance.IsNameUnlocked(pageEntry);
-
-        //nameText.text = isNameUnlocked ? pageEntry.name : "???";
-        //descriptionText.text = isNameUnlocked ? pageEntry.chapterDescription : "Undiscovered.";
-    }
-
-
-    public void OnClick()
-    {
-        //creaturePage.SetCreaturePage(pageEntry);
-    }
 }

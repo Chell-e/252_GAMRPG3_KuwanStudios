@@ -16,6 +16,8 @@ MonoBehaviour:
   chapterName: Gawigawen
   chapterDescription: Description
   chapterUnlocked: 0
-  killsNeededToUnlockName: 0
-  killsNeededToUnlockImage: 0
-  killsNeededToUnlockDesc: 0
+  storyUnlocked: 0
+  killsNeededToUnlockName: 1
+  killsNeededToUnlockImage: 1
+  killsNeededToUnlockDesc: 1
+  shortStory: 

@@ -12,8 +12,8 @@ public class ShopManager : MonoBehaviour
     public TextMeshProUGUI costText;
     public Button buyButton;
 
-    [Header("Pilon Display")]
-    public TextMeshProUGUI pilonBalanceText;
+    [Header("Torn Pages Display")]
+    public TextMeshProUGUI tornPagesAmountText;
 
     private string selectedStat;
 
@@ -25,7 +25,7 @@ public class ShopManager : MonoBehaviour
 
     public void UpdateBalanceUI()
     {
-        pilonBalanceText.text = PlayerData.Instance.tornPagesAmount.ToString();
+        tornPagesAmountText.text = PlayerData.Instance.tornPagesAmount.ToString();
     }
 
     public void OnStatIconClicked(string statName)

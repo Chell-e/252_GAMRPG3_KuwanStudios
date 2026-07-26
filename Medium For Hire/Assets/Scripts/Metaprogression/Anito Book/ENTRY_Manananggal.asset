@@ -16,6 +16,12 @@ MonoBehaviour:
   chapterName: Manananggal
   chapterDescription: Description
   chapterUnlocked: 0
-  killsNeededToUnlockName: 0
-  killsNeededToUnlockImage: 0
-  killsNeededToUnlockDesc: 0
+  storyUnlocked: 0
+  killsNeededToUnlockName: 1
+  killsNeededToUnlockImage: 1
+  killsNeededToUnlockDesc: 1
+  shortStory: "The Manananggal (\"self-segmenter\") is a Filipino Aswang (evil spirit)
+    that detaches her torso from her lower half and then takes flight during the
+    night to eat infants.\r\n\r\nThis creature's name was derived from the Filipino
+    word, \"tanggal,\" which means \"to separate\" because of the manananggal's ability
+    to separate itself from its lower body.\r"

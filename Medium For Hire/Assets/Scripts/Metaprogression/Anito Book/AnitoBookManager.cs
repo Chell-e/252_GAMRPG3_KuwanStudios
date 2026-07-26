@@ -34,17 +34,11 @@ public class AnitoBookManager : MonoBehaviour
             playerData = PlayerData.Instance;
     }
 
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    OnBackPressed();
-        //}
-    }
-
     public void InitializeEntryData(ChapterEntry _entryData)
     {
         entryData = _entryData;
+        
+        entryUI.CloseStoryPage();
 
         if (entryData.chapterUnlocked == true)
         {
@@ -55,6 +49,8 @@ public class AnitoBookManager : MonoBehaviour
             entryUI.illusLock.enabled = true;
             ClearPage(entryData);
         }
+
+        RefreshStoryButton();
 
         DoReqLogic();
     }
@@ -67,10 +63,6 @@ public class AnitoBookManager : MonoBehaviour
     {
         if (entryData == null) return;
 
-        //if (CheckRequirement_Illus()) entryUI.LoadIllustration(entryData);
-        //if (CheckRequirement_Name()) entryUI.LoadName(entryData);
-        //if (CheckRequirement_Desc()) entryUI.LoadDescription(entryData);
-
         if (CheckRequirement_Illus() && CheckRequirement_Name() && CheckRequirement_Desc() 
             && entryData.chapterUnlocked == false)
         {
@@ -79,6 +71,15 @@ public class AnitoBookManager : MonoBehaviour
         else
         {
             entryUI.DisableHoveredPrimaryUnlockable();
+        }
+
+        if(entryData.chapterUnlocked == true && CheckRequirement_TornPages() && !entryData.storyUnlocked)
+        {
+            entryUI.EnableHoveredSecondaryUnlockable();
+        }
+        else
+        {
+            entryUI.DisableHoveredSecondaryUnlockable();
         }
     }
 
@@ -101,6 +102,59 @@ public class AnitoBookManager : MonoBehaviour
 
         entryData.chapterUnlocked = true;
     }
+
+    public void UnlockStoryButton()
+    {
+        if (entryData == null) return;
+
+        if (!entryData.chapterUnlocked || !CheckRequirement_TornPages()) return;
+    
+        entryData.storyUnlocked = true;
+
+        RefreshStoryButton();
+        DoReqLogic();
+
+        //entryUI.DisableHoveredSecondaryUnlockable();
+        //entryUI.storyLock.enabled = false;
+        //entryUI.storyButton.SetActive(true);
+    }
+
+    public void RefreshStoryButton()
+    {
+        ////entryUI.DisableHoveredSecondaryUnlockable();
+
+        //if (entryData.storyUnlocked == false && CheckRequirement_TornPages() == false)
+        //{
+        //    entryUI.DisableHoveredSecondaryUnlockable();
+        //}
+        //if (entryData.storyUnlocked == true && CheckRequirement_TornPages())
+        //{
+        //    entryUI.EnableHoveredSecondaryUnlockable();
+        //}
+
+        if (entryData == null) return;
+
+        if (entryData.storyUnlocked)
+        {
+            entryUI.storyButton.SetActive(true);
+            entryUI.storyLock.enabled = false;
+        }
+        else
+        {
+            entryUI.storyButton.SetActive(false);
+            entryUI.storyLock.enabled = true;
+        }
+    }
+
+    public void LoadStoryData()
+    {
+        if (entryData == null) return;
+
+        if (entryData.storyUnlocked)
+        {
+            entryUI.DisplayStoryPage(entryData);
+        }
+    }
     // *** CORE LOGIC
 
 
@@ -122,7 +176,11 @@ public class AnitoBookManager : MonoBehaviour
     {
         return playerData.GetEnemyKillData(entryData.chapterName).killAmount
             >= entryData.killsNeededToUnlockDesc;
+    }
 
+    private bool CheckRequirement_TornPages()
+    {
+        return playerData.tornPagesAmount >= 6;
     }
 
     private void ClearPage(ChapterEntry _entryData)

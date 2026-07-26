@@ -16,6 +16,17 @@ MonoBehaviour:
   chapterName: Tiyanak
   chapterDescription: Description
   chapterUnlocked: 0
+  storyUnlocked: 0
   killsNeededToUnlockName: 1
   killsNeededToUnlockImage: 1
   killsNeededToUnlockDesc: 1
+  shortStory: "The word aswang actually refers to a range of mythological monsters
+    from were-dogs, to vampires, to a gruesome \u201Cviscera sucker.\u201D All can
+    change their appearance at will, however \u2014 and all hunger for human flesh
+    and blood. At night, it is rumored to prowl villages, using deceptive sounds
+    to confuse its prey. With its backward feet and bloodshot eyes, the aswang\u2019s
+    unsettling appearance is as terrifying as its hunger for human flesh.\r\n\r\nStories
+    of the aswang have been passed down for centuries, with written accounts dating
+    back to the 16th century when Spanish colonizers recorded the creature in the
+    Doctrina Christiana. The aswang comes in various forms, such as the bird-like
+    Tik-tik and the man-eating Manananggal, which can split its body and fly.\r\n"

@@ -18,7 +18,7 @@ public class GameSceneManager : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "ShopScene")
+        if (SceneManager.GetActiveScene().name == "ShopScene" || SceneManager.GetActiveScene().name == "AnitoBook")
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {

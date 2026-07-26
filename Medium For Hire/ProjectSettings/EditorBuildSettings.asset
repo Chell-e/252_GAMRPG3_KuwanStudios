@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JobScene.unity
     guid: 5d5d8659303daee439a096602b7b3e8d
+  - enabled: 1
+    path: Assets/Scenes/WeaponSelectScreen.unity
+    guid: 918220c7681800443a2adceac18c167a
   m_configObjects: {}

@@ -16,6 +16,8 @@ MonoBehaviour:
   chapterName: 
   chapterDescription: 
   chapterUnlocked: 0
+  storyUnlocked: 0
   killsNeededToUnlockName: 30
   killsNeededToUnlockImage: 50
   killsNeededToUnlockDesc: 0
+  shortStory: 

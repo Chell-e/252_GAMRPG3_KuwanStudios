@@ -9,9 +9,14 @@ public class ChapterEntry : ScriptableObject
     public string chapterName;
     public string chapterDescription;
     public bool chapterUnlocked;
+    public bool storyUnlocked;
 
     [Header("Unlock Threshold")]
     public int killsNeededToUnlockName;
     public int killsNeededToUnlockImage;
     public int killsNeededToUnlockDesc;
+
+    [Header("Short Story")]
+    [TextArea(2, 10)]
+    public string shortStory;
 }

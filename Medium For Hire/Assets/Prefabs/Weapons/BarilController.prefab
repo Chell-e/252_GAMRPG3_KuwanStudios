@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7475256533497731224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7923734320827362278}
+  - component: {fileID: 278243502530118662}
+  m_Layer: 3
+  m_Name: BarilController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7923734320827362278
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7475256533497731224}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &278243502530118662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7475256533497731224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3b2ff6f9b98e94490d67ea0c37f552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  finalCooldown: 0
+  finalDamage: 0
+  finalBulletSpeed: 0
+  finalReloadTime: 0
+  finalMaxAmmo: 0
+  finalPierceChance: 0
+  isOffenseEvolved: 0
+  finalMomentumStackDmg: 0
+  isSurvivalEvolved: 0
+  isUtilityEvolved: 0
+  utilityPierceBonus: 5
+  attackPrefab: {fileID: 205847624460809574, guid: 6e99a30245b5c4e4096dcc11d8cfb686, type: 3}
+  vfxPrefab: {fileID: 523699139964408799, guid: 02ffafb5e0ba4ec44b31c17ea2931bd1, type: 3}

@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1851991169932104044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3734507932742154699}
+  - component: {fileID: 3462922337020890904}
+  m_Layer: 3
+  m_Name: BuntotPagiController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3734507932742154699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851991169932104044}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3462922337020890904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851991169932104044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 055ddd59b00b62e4d9b92fe3a9848da9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  finalCooldown: 0
+  finalDamage: 0
+  finalKnockbackPower: 0
+  finalRadius: 0
+  isOffenseEvolved: 0
+  isSurvivalEvolved: 0
+  isUtilityEvolved: 0
+  attackPrefab: {fileID: 2721691645414660662, guid: 51ab9e2b5b4f3594f9a77ea6fef16874, type: 3}
+  passiveVFX: {fileID: 8970471785680225648, guid: 70d0d0cc0f34457458f0cebac1c5154a, type: 3}
+  aimedVFX: {fileID: 5093090907328674924, guid: 9f1cda77f8539aa4d9fc3a30f08d3e26, type: 3}

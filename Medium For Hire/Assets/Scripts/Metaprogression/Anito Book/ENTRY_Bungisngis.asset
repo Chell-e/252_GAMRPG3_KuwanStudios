@@ -16,6 +16,13 @@ MonoBehaviour:
   chapterName: Bungisngis
   chapterDescription: description
   chapterUnlocked: 0
-  killsNeededToUnlockName: 0
-  killsNeededToUnlockImage: 0
-  killsNeededToUnlockDesc: 0
+  storyUnlocked: 0
+  killsNeededToUnlockName: 1
+  killsNeededToUnlockImage: 1
+  killsNeededToUnlockDesc: 1
+  shortStory: "A Cyclops, in Greek mythology and later Roman mythology, was a member
+    of a primordial race of giants, each with a single eye in the center of his forehead.
+    The word \u201Ccyclops\u201D literally means \u201Cround-eyed or \u201Ccircle-eyed\u201D.\r\n\r\nIn
+    a famous episode of Homer\u2019s Odyssey, the hero Odysseus encounters the cyclops
+    Polyphemus, the son of Poseidon and Thoosa, who lives with his fellow cyclopes
+    in a distant country.\r"
