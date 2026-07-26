@@ -16,7 +16,7 @@ public class ExpOrb : MonoBehaviour
     // ==== EVENTS ====
 
     public int expToGive;
-    public float expireTime = 30f;
+    public float expireTime = 20f;
     public float decayStartsTime = 5f;
 
     private float spawnTimeElapsed = 0f;

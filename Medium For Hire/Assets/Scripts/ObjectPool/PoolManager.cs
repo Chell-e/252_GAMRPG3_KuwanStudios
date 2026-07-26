@@ -13,6 +13,7 @@ public class PoolManager : MonoBehaviour
     public static GameObject _enemyPoolEmpty;
     public static GameObject _expOrbPoolEmpty;
     public static GameObject _hpOrbPoolEmpty;
+    public static GameObject _tornPagePoolEmpty;
     public static GameObject _projectilePoolEmpty;
 
     private static GameObject _gameObjectsEmpty;
@@ -22,6 +23,7 @@ public class PoolManager : MonoBehaviour
         Enemy,
         ExpOrb,
         HpOrb,
+        TornPage,
         Projectile,
         None
     }
@@ -44,6 +46,9 @@ public class PoolManager : MonoBehaviour
 
         _hpOrbPoolEmpty = new GameObject("Hp Orb Pooled Objects");
         _hpOrbPoolEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+
+        _tornPagePoolEmpty = new GameObject("Torn Page Pooled Objects");
+        _tornPagePoolEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
 
         _projectilePoolEmpty = new GameObject("Projectile Pooled Objects");
         _projectilePoolEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
@@ -132,6 +137,8 @@ public class PoolManager : MonoBehaviour
                 return _expOrbPoolEmpty;
             case PoolType.HpOrb:
                 return _hpOrbPoolEmpty;
+            case PoolType.TornPage:
+                return _tornPagePoolEmpty;
             case PoolType.Projectile:
                 return _projectilePoolEmpty;
             case PoolType.None:

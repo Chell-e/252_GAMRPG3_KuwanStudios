@@ -25,7 +25,7 @@ public class ShopManager : MonoBehaviour
 
     public void UpdateBalanceUI()
     {
-        pilonBalanceText.text = PlayerData.Instance.pilonAmount.ToString();
+        pilonBalanceText.text = PlayerData.Instance.tornPagesAmount.ToString();
     }
 
     public void OnStatIconClicked(string statName)
@@ -49,7 +49,7 @@ public class ShopManager : MonoBehaviour
         else
         {
             costText.text = cost.ToString(); ;
-            buyButton.interactable = PlayerData.Instance.pilonAmount >= cost;
+            buyButton.interactable = PlayerData.Instance.tornPagesAmount >= cost;
         }
     }
 
@@ -58,9 +58,9 @@ public class ShopManager : MonoBehaviour
         int currentLvl = GetStatLevel(selectedStat);
         int cost = GetCost(selectedStat, currentLvl);
 
-        if (PlayerData.Instance.pilonAmount >= cost && currentLvl < 5)
+        if (PlayerData.Instance.tornPagesAmount >= cost && currentLvl < 5)
         {
-            PlayerData.Instance.pilonAmount -= cost;
+            PlayerData.Instance.tornPagesAmount -= cost;
 
             if (selectedStat == "Health") PlayerData.Instance.healthLevel++;
             else if (selectedStat == "Damage") PlayerData.Instance.damageLevel++;

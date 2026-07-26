@@ -13,8 +13,8 @@ public class PlayerData
     public int projectileSpeedLevel = 0;
     public int pickupRangeLevel = 0;
 
-    // ===== PILON =====
-    public int pilonAmount;
+    // ===== Torn Pages =====
+    public int tornPagesAmount;
 
 
     // ===== UNLOCKED ITEMS =====
@@ -25,7 +25,7 @@ public class PlayerData
 
 
     // *EVENTS
-    public delegate void OnPlayerDataChange(int pilonAmount, int healthLevel, int damageLevel, int attackSpeedLevel, int moveSpeedLevel, int projectileSpeedLevel, int pickupRangeLevel);
+    public delegate void OnPlayerDataChange(int tornPagesAmount, int healthLevel, int damageLevel, int attackSpeedLevel, int moveSpeedLevel, int projectileSpeedLevel, int pickupRangeLevel);
     public static event OnPlayerDataChange onDataChange;
 
     private static PlayerData _instance;
@@ -49,9 +49,9 @@ public class PlayerData
     }
 
     // add more later here (stats to permanently upgrade)
-    private PlayerData(int _pilonAmount, int _healthLevel, int _damageLevel, int _attackSpeedLevel, int _moveSpeedLevel, int _projectileSpeedLevel, int _pickupRangeLevel)
+    private PlayerData(int _tornPagesAmount, int _healthLevel, int _damageLevel, int _attackSpeedLevel, int _moveSpeedLevel, int _projectileSpeedLevel, int _pickupRangeLevel)
     {
-        this.pilonAmount = _pilonAmount;
+        this.tornPagesAmount = _tornPagesAmount;
         this.healthLevel = _healthLevel;
         this.damageLevel = _damageLevel;
         this.attackSpeedLevel = _attackSpeedLevel;
@@ -60,9 +60,9 @@ public class PlayerData
         this.pickupRangeLevel = _pickupRangeLevel;
     }
 
-    public void SetPlayerData(int _pilonAmount, List<EnemyKillData> _enemyKills, int _healthLevel, int _damageLevel, int _attackSpeedLevel, int _moveSpeedLevel, int _projectileSpeedLevel, int _pickupRangeLevel)
+    public void SetPlayerData(int _tornPagesAmount, List<EnemyKillData> _enemyKills, int _healthLevel, int _damageLevel, int _attackSpeedLevel, int _moveSpeedLevel, int _projectileSpeedLevel, int _pickupRangeLevel)
     {
-        this.pilonAmount = _pilonAmount;
+        this.tornPagesAmount = _tornPagesAmount;
         this.enemyKills = _enemyKills;
 
         this.healthLevel = _healthLevel;
@@ -94,18 +94,18 @@ public class PlayerData
         // add all kills
         var data = GetEnemyKillData(name);
 
-        return data.normalKills + data.eliteKills + data.bossKills;
+        return data.killAmount;
     }
 
-    public void AddPilon(int amount)
+    public void AddTornPages(int amount)
     {
-        pilonAmount += amount;
+        tornPagesAmount += amount;
         InvokeChange();
     }
 
     public void InvokeChange()
     {
-        onDataChange?.Invoke(pilonAmount, healthLevel, damageLevel, attackSpeedLevel, moveSpeedLevel, projectileSpeedLevel, pickupRangeLevel);
+        onDataChange?.Invoke(tornPagesAmount, healthLevel, damageLevel, attackSpeedLevel, moveSpeedLevel, projectileSpeedLevel, pickupRangeLevel);
     }
 }
 
@@ -113,15 +113,17 @@ public class PlayerData
 public class EnemyKillData
 {
     public string enemyName;
-    public int normalKills;
-    public int eliteKills;
-    public int bossKills;
+    public int killAmount;
+    //public int normalKills;
+    //public int eliteKills;
+    //public int bossKills;
 
     public EnemyKillData(string name)
     {
         enemyName = name;
-        normalKills = 0;
-        eliteKills = 0;
-        bossKills = 0;
+        //normalKills = 0;
+        //eliteKills = 0;
+        //bossKills = 0;
+        killAmount = 0;
     }
 }

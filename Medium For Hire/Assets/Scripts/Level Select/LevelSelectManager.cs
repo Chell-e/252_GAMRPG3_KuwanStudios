@@ -94,7 +94,7 @@ public class LevelSelectManager : MonoBehaviour
         }
 
         StageManager.CurrentLevel = currentLevel;
-        StageManager.CurrentLevelRewards = currentLevelRewards;
+        //StageManager.CurrentLevelRewards = currentLevelRewards;
 
         SceneManager.LoadScene("GameScene");
     }

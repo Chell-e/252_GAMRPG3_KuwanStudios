@@ -60,7 +60,7 @@ public class SaveDataJSON : MonoBehaviour
             // dont't forget to update singleton
             //PlayerData.SetInstance(loadedData);
             playerData.SetPlayerData(
-                loadedData.pilonAmount, 
+                loadedData.tornPagesAmount, 
                 loadedData.enemyKills, 
                 loadedData.healthLevel, 
                 loadedData.damageLevel, 

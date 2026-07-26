@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expToGive: 5
-  expireTime: 30
+  expireTime: 20
   decayStartsTime: 5
   moveSpeed: 12
   acceleration: 25

@@ -61,7 +61,7 @@ public class OnDeath : MonoBehaviour
         PoolManager.ReturnObjectToPool(gameObject);
         PoolSpawner.Instance.NotifyEnemyDespawned();
 
-        StageManager.Instance.RegisterKill(baseEnemy.enemyID, baseEnemy.enemyType.ToString());
+        StageManager.Instance.RegisterKill(baseEnemy.enemyID);
 
         if (baseEnemy.enemyType == EnemyType.Boss)
         {

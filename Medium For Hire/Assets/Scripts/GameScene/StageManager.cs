@@ -14,15 +14,16 @@ public class StageManager : MonoBehaviour
 
     public static StageManager Instance;
     public bool isGameOver = false;
+    public int tornPagesCollected = 0;
 
     public static LevelData CurrentLevel { get; set; }
-    public static int CurrentLevelRewards { get; set; }
+    //public static int CurrentLevelRewards { get; set; }
 
     public static bool IsGameOver { get; private set; }
 
     // temp storage for the current run
-    private Dictionary<string, (int normal, int elite, int boss)> runKills = new Dictionary<string, (int, int, int)>();
-
+    //private Dictionary<string, (int enemy)> runKills = new Dictionary<string, (int))>();
+    private Dictionary<string, int> runKills = new Dictionary<string, int>();
 
     private void Awake() // for SINGLETON
     {
@@ -80,18 +81,17 @@ public class StageManager : MonoBehaviour
         Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
     }
 
-    public void RegisterKill(string name, string type)
+    public void RegisterKill(string name)
     {
         if (!runKills.ContainsKey(name))
-            runKills[name] = (0, 0, 0);
+            runKills[name] = 1;
+        else
+            runKills[name] += 1;
+    }
 
-        var currentRun = runKills[name];
-
-        if (type == "Normal") currentRun.normal = currentRun.normal + 1;
-        else if (type == "Elite") currentRun.elite = currentRun.elite + 1;
-        else if (type == "Boss") currentRun.boss = currentRun.boss + 1;
-
-        runKills[name] = currentRun;
+    public void RegisterTornPages()
+    {
+        tornPagesCollected++;
     }
 
     public void CompleteLevel()
@@ -111,13 +111,11 @@ public class StageManager : MonoBehaviour
             foreach (var kill in runKills)
             {
                 var permanentData = PlayerData.Instance.GetEnemyKillData(kill.Key);
-                permanentData.normalKills += kill.Value.normal;
-                permanentData.eliteKills += kill.Value.elite;
-                permanentData.bossKills += kill.Value.boss;
+                permanentData.killAmount += kill.Value;
             }
             // add pilon rewards
-            PlayerData.Instance.AddPilon(CurrentLevelRewards);
-            Debug.Log("current level rewards: " + CurrentLevelRewards);
+            PlayerData.Instance.AddTornPages(tornPagesCollected);
+            Debug.Log("torn pages collected: " + tornPagesCollected);
         }
         else
         {

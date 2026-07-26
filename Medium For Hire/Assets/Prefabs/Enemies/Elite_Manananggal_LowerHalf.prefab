@@ -528,6 +528,7 @@ MonoBehaviour:
   possibleDrops:
   - {fileID: 11400000, guid: 53bb9f040dd5eef439374a83c82a8dd3, type: 2}
   - {fileID: 11400000, guid: d322d117e05644d468a4553df2f70e41, type: 2}
+  - {fileID: 11400000, guid: 7e193226eb44bdd4ca722f35e45b3b18, type: 2}
   enemyType: 1
   enemyID: Manananggal
   attackDamage: 1

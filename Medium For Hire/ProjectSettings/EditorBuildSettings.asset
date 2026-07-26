@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ShopScene.unity
     guid: 40ec203bce12697469cf8930dbd79129
   - enabled: 1
-    path: Assets/Scenes/BestiaryScene.unity
+    path: Assets/Scenes/AnitoBook.unity
     guid: 1d3cdae4910517a48aa234868a56c3a2
   - enabled: 1
     path: Assets/Scenes/JobScene.unity

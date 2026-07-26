@@ -6476,6 +6476,7 @@ MonoBehaviour:
   timer: {fileID: 788068719}
   mapPrefab: {fileID: 2488523864008172844, guid: f9980a0fbaab86342ab21bcae4426be9, type: 3}
   isGameOver: 0
+  tornPagesCollected: 0
 --- !u!114 &520015647
 MonoBehaviour:
   m_ObjectHideFlags: 0
