@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         // dashing
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        if (Input.GetKey(KeyCode.LeftShift) && canDash)
         {
             isDashing = true;
             canDash = false;
@@ -279,11 +279,7 @@ public class PlayerController : MonoBehaviour
 
     // TOOLS
     // external, getters/setters, non-method stuff (e.g., IEnumerator)
-    public Vector2 GetLastFacingDirectionX() // to be called outside this class
-    {
-        return lastFacingDirectionX;
-    }
-
+   
     public void TakeDamage(float damage, object damageSource = null)
     {
         DamageContext context = new DamageContext(); // context object
@@ -327,16 +323,6 @@ public class PlayerController : MonoBehaviour
         /*EVENT*/
         Events.OnAfterDealDamage?.Invoke(context);
     }
-    // TOOLS
-
-
-    // EVENTS & LISTENERS
-    // put events and listeners here
-
-    // EVENTS & LISTENERS
-
-
-
 
     private IEnumerator DashCoroutine()
     {
@@ -349,11 +335,18 @@ public class PlayerController : MonoBehaviour
         canDash = true;
     }
 
+    // TOOLS
+
+
+    public Vector2 GetLastFacingDirectionX() // to be called outside this class
+    {
+        return lastFacingDirectionX;
+    }
+
     public void SetCurrentShrine(BaseShrine shrine)
     {
         currentShrine = shrine;
     }
-
     public void ClearCurrentShrine(BaseShrine shrine)
     {
         if (currentShrine == shrine)
@@ -362,8 +355,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // EVENTS & LISTENERS
+    // put events and listeners here
 
-   
+    // EVENTS & LISTENERS
+
+
+
+
+
+
+
+
+
 
 
 }

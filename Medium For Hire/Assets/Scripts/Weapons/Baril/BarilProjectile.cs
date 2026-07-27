@@ -22,6 +22,8 @@ public class BarilProjectile : MonoBehaviour
     [Header("REFERENCES")]
     private MainWeapon_Baril weapon; // get stats from this
     private CircleCollider2D collider;
+    [Space]
+    [SerializeField] private GameObject[] bulletSprites;
     //
     // * DRIVER CODE
     public void Initialize(MainWeapon_Baril _weapon)
@@ -76,6 +78,20 @@ public class BarilProjectile : MonoBehaviour
         {
             momentumStacks++;
             DoScaleStats();
+
+            if (momentumStacks <= 1)
+            {
+                bulletSprites[0].SetActive(false);
+                bulletSprites[1].SetActive(true);
+
+            }
+            else if (momentumStacks <= 2)
+            {
+                bulletSprites[1].SetActive(false);
+                bulletSprites[2].SetActive(true);
+
+            }
+
         }
             
 

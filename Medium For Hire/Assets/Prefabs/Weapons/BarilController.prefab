@@ -50,6 +50,7 @@ MonoBehaviour:
   finalReloadTime: 0
   finalMaxAmmo: 0
   finalPierceChance: 0
+  attackOffset: 0.2
   isOffenseEvolved: 0
   finalMomentumStackDmg: 0
   isSurvivalEvolved: 0

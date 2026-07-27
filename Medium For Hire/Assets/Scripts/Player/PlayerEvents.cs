@@ -29,6 +29,7 @@ public class PlayerEvents : MonoBehaviour
         // movement
     public System.Action<MovementContext> OnAfterMove;
 
+    public System.Action OnBeforeDash;
     public System.Action OnAfterDash;
 
     //      # aiming & attacking

@@ -42,10 +42,12 @@ public class MainWeapon_Baril : BaseWeapon
     private float cooldownTimer = 99f;
     private bool isAimed = false;
 
-    private float reloadTimer = 99f;
+    private float reloadTimer = 0f;
     private float ammo = 99f;
 
     private bool isBulletTimed = false;
+
+    private float attackOffset = .2f;
 
 
     //==========
@@ -97,12 +99,6 @@ public class MainWeapon_Baril : BaseWeapon
     // *** CORE LOGIC
     private void DoTick() // to be called per update
     {
-        cooldownTimer += Time.deltaTime;
-        
-        // aim CD bonus
-        if (isAimed)
-            cooldownTimer += Time.deltaTime;
-
         // ammo check
         if (ammo <= 0)
         {
@@ -118,6 +114,14 @@ public class MainWeapon_Baril : BaseWeapon
             return;
         }
 
+        
+        // tick cooldown
+        cooldownTimer += Time.deltaTime;
+
+        // aim CD bonus
+        if (isAimed)
+            cooldownTimer += Time.deltaTime;
+
 
         if (cooldownTimer >= finalCooldown)
         {
@@ -126,7 +130,9 @@ public class MainWeapon_Baril : BaseWeapon
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 mouseWorldPos = new Vector3(mousePos.x, mousePos.y, 0);
 
-            DoAttack(transform.position, mouseWorldPos);
+            Vector3 offsetVector = GetOffsetDirection(mouseWorldPos - this.transform.position);
+
+            DoAttack(transform.position + offsetVector, mouseWorldPos);
             ammo--;
         }
 
@@ -267,8 +273,12 @@ public class MainWeapon_Baril : BaseWeapon
         string _cooldownTimer = (cooldownTimer).ToString("0.0");
         string _finalCooldown = (finalCooldown).ToString("0.0");
 
+        string _currentAmmo = ammo.ToString();
+        string _maxAmmo = finalMaxAmmo.ToString();
+
         string description =
             $"{_name}" +
+            $"\nAmmo: {_currentAmmo}/{_maxAmmo}" +
             $"\nCooldown: {_cooldownTimer}/{_finalCooldown}s";
 
 
@@ -292,6 +302,14 @@ public class MainWeapon_Baril : BaseWeapon
         DoScaleStats();
     }
 
+
+    private Vector2 GetOffsetDirection(Vector2 _directionVector)
+    {
+        Vector2 directionOffset = _directionVector.normalized;
+        directionOffset *= attackOffset;
+
+        return directionOffset;
+    }
     // TOOLS
 
 
