@@ -11,7 +11,8 @@ public class ExpOrb : MonoBehaviour
         // Action --> delegate method returns void
             // can use generic Action<T> to pass data with the event
 
-    public static event Action OnExpOrbExpire;    
+    public static event Action OnExpOrbExpire;
+    public static event Action OnExpOrbCollectedWhileDashing;
 
     // ==== EVENTS ====
 
@@ -134,9 +135,16 @@ public class ExpOrb : MonoBehaviour
             return;
         }
 
+        PlayerController player = collision.GetComponent<PlayerController>();
+
         // player 
-        if (collision.GetComponent<PlayerController>())
+        if (player)
         {
+            if (player.IsDashing)
+            {
+                ExpOrb.OnExpOrbCollectedWhileDashing?.Invoke();
+            }
+
             isCollected = true;
             trailRenderer.emitting = false;
 

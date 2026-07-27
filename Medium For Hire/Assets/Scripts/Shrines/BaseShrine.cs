@@ -12,10 +12,14 @@ public enum ShrineType
 
 public class BaseShrine : MonoBehaviour
 {
+    public static BaseShrine Instance;
+
     [SerializeField] private ShrineType currentType = ShrineType.Empty;
 
     [SerializeField] private GameObject interactionPromptUI;
     [SerializeField] private Sprite emptyShrineSprite;
+
+    public float healAmount = 5f;
 
     [Header("Spirit Shrine")]
     [SerializeField] private string spiritName = "The Shrine of Spirits";
@@ -42,6 +46,10 @@ public class BaseShrine : MonoBehaviour
     [SerializeField] private Sprite apolakiSprite;
     [SerializeField] private string apolakiIdleAnim = "Apolaki_Idle";
     [SerializeField] private string apolakiDisappearAnim = "Apolaki_Disappear";
+    private int elitesToBeKilled = 3;
+    private int elitesKilled = 0;
+    private bool isApolakiShrineActive = false;
+    List<BaseEnemy> targets = new List<BaseEnemy>();
 
     private string shrineName;
     private string shrineFlavorText;
@@ -58,6 +66,16 @@ public class BaseShrine : MonoBehaviour
 
     protected void Awake()
     {
+        // singleton 
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         shrineAnim = GetComponentInChildren<Animator>();
     }
@@ -66,6 +84,14 @@ public class BaseShrine : MonoBehaviour
     {
         interactionPromptUI.SetActive(false);
         SetShrineType(ShrineType.Empty);
+    }
+
+    private void Update()
+    {
+        if (isApolakiShrineActive)
+        {
+            CheckChallengeCompleted();
+        }
     }
 
     public void SetShrineType(ShrineType newType)
@@ -157,11 +183,44 @@ public class BaseShrine : MonoBehaviour
         }
         else if (currentType == ShrineType.Apolaki)
         {
-            // challenge logic here
-            Debug.Log("CHALLENGE ACCEPTED");
+            // spawn elites (marked)
+            isApolakiShrineActive = true;
+
+            targets = PoolSpawner.Instance.SpawnChallengeEliteEnemies(
+                PlayerController.Instance.GetComponent<PlayerStats>().currentLevel);
+
+            foreach (BaseEnemy target in targets)
+            {
+                target.OnAfterEnemyDeath += HandleTargetDeath;
+            }
         }
 
         DespawnShrine();
+        ShrineHealsPlayer();
+    }
+
+    public void HandleTargetDeath()
+    {
+        elitesKilled++;
+        //Debug.Log("target killed");
+    }
+
+    private void CheckChallengeCompleted()
+    {
+        if (elitesKilled >= elitesToBeKilled)
+        {
+            // win
+            isApolakiShrineActive = false;
+            
+            // unsubscribe
+            foreach (BaseEnemy target in targets)
+            {
+                target.OnAfterEnemyDeath -= HandleTargetDeath;
+            }
+
+            // reward 1 mini-weapon
+
+        }
     }
 
     public void ExecuteDecline()
@@ -182,6 +241,15 @@ public class BaseShrine : MonoBehaviour
         else
         {
             VacateSpot();
+        }
+    }
+
+    private void ShrineHealsPlayer()
+    {
+        if (PlayerController.Instance != null)
+        {
+            PlayerController.Instance.GetComponent<HealthComponent>().Heal(healAmount);
+            //Debug.Log("player healed by shrine");
         }
     }
 

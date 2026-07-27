@@ -1,0 +1,5 @@
+-Will use a layout similar to this original one
+-Without the scroll bar
+-Update the visuals to match the new box asset
+-Right Side white area will also have a custom box asset 
+-Lock Icon from Bestiary might also be used for the weapons

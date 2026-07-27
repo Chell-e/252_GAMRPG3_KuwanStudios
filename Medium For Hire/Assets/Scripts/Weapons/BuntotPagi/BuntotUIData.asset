@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d789124abbfe41a418bac04b3de46be1, type: 3}
   m_Name: BuntotUIData
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 9ad2215c00825a84cacf84bd317849ec, type: 3}
+  icon: {fileID: 21300000, guid: 262e7eaf9317b1341a72e7286629a976, type: 3}
   title: 
   subtitle: 
   flavorText: 

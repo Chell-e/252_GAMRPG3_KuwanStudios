@@ -242,6 +242,30 @@ PrefabInstance:
       propertyPath: uiSoundFeedbacks.Array.data[1].soundType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 9025666254154166450, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
+      propertyPath: sfxClips.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9025666254154166450, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
+      propertyPath: sfxClips.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 23f9dcd06ed531148adde630a6c24fd3, type: 3}
+    - target: {fileID: 9025666254154166450, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
+      propertyPath: sfxClips.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 0709be6b76b66424ab8927ee2dbded35, type: 3}
+    - target: {fileID: 9025666254154166450, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
+      propertyPath: sfxClips.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: d1c1e0e38a20198448ee5df0264dcc51, type: 3}
+    - target: {fileID: 9025666254154166450, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
+      propertyPath: sfxClips.Array.data[7]
+      value: 
+      objectReference: {fileID: 8300000, guid: a8b8dcbf3308cf94380319cdd16a60d4, type: 3}
+    - target: {fileID: 9025666254154166450, guid: 46e927cc7d7416740907cc08b342ed97, type: 3}
+      propertyPath: sfxClips.Array.data[8]
+      value: 
+      objectReference: {fileID: 8300000, guid: 839eafddea680b44d8851106e5305b78, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -464,7 +488,7 @@ GameObject:
   - component: {fileID: 881951623}
   - component: {fileID: 881951622}
   m_Layer: 5
-  m_Name: Title
+  m_Name: img
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -487,7 +511,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 130}
-  m_SizeDelta: {x: 1920, y: 340}
+  m_SizeDelta: {x: 1827, y: 275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &881951622
 MonoBehaviour:
@@ -509,7 +533,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 50714613721692e478dca1f47716b168, type: 3}
+  m_Texture: {fileID: 2800000, guid: 4c2b74dcd9d8bb841951faf24cf0c25b, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -707,7 +731,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1050583344}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

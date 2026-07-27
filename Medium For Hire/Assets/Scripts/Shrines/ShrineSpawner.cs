@@ -9,12 +9,13 @@ public class ShrineSpawner : MonoBehaviour
     [Header("Shrine Spawn Times")]
     [SerializeField] private float spiritSpawnDelay = 10; // 10 sec
     [SerializeField] private float akasiSpawnDelay = 60f; // 1 min
-    [SerializeField] private float apolakiSpawnDelay = 300f; // 5 min
+    [SerializeField] private float apolakiSpawnDelay = 5f; // 5 min
     private float attemptedDelay = 5f;
 
     [Header("Respawn Times")]
-    [SerializeField] private float spiritCooldown = 30f;
-    [SerializeField] private float apolakiCooldown = 300f; // 5 mins
+    [SerializeField] public float spiritCooldown = 30f;
+    [SerializeField] public float akasiCooldown = 360f;
+    [SerializeField] public float apolakiCooldown = 300f; // 5 mins
 
     [Header("Map References")]
     [SerializeField] private List<BaseShrine> allShrineSpots;
@@ -81,6 +82,10 @@ public class ShrineSpawner : MonoBehaviour
         if (oldType == ShrineType.Spirit)
         {
             StartCoroutine(InhabitEmptyShrine(ShrineType.Spirit, spiritCooldown));
+        }
+        else if (oldType == ShrineType.Akasi)
+        {
+            StartCoroutine(InhabitEmptyShrine(ShrineType.Spirit, akasiCooldown));
         }
         else if (oldType == ShrineType.Apolaki)
         {

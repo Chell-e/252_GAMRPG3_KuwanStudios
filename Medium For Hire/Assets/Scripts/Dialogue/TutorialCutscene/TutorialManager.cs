@@ -30,10 +30,11 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private bool isDialogueActive = false;
     private Coroutine successWaitTime;
 
-    [SerializeField] private bool hasMovedN = false;
-    [SerializeField] private bool hasMovedS = false;
-    [SerializeField] private bool hasMovedE = false;
-    [SerializeField] private bool hasMovedW = false;
+    //[SerializeField] private bool hasMovedN = false;
+    //[SerializeField] private bool hasMovedS = false;
+    //[SerializeField] private bool hasMovedE = false;
+    //[SerializeField] private bool hasMovedW = false;
+    [SerializeField] private bool movementTriggerEntered = false;
 
     [SerializeField] private bool hasAimActivated = false;
     [SerializeField] private bool hasAimDeactivated = false;
@@ -44,6 +45,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] TutorialFiles tutorialFiles;
     [SerializeField] DialogueManager dialogueManager;
     [SerializeField] PlayerEvents playerEvents;
+    [SerializeField] GameObject tutorialTexts;
 
     // *** DRIVER CODE
     // mainly Start() and Update()
@@ -81,15 +83,20 @@ public class TutorialManager : MonoBehaviour
         if (isDialogueActive)
             return;
 
+        if (GameStateManager.Instance.currentState == GameState.Gameplay)
+            ShowTutorialTexts();
+
         switch (tutorialIndex)
         {
             case 1: // -    MOVEMENT SEGMENT
-                if (hasMovedN && hasMovedS && hasMovedE && hasMovedW)
+                if (movementTriggerEntered)
                 {
                     isDialogueActive = true;
 
                     await System.Threading.Tasks.Task.Delay(2000);
                     PlayDialogue(tutorialFiles.tutorial_movement);
+
+                    if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(8);
                 }
                 break;
 
@@ -103,7 +110,7 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
 
-            case 3: // -    AIM TOGGLE SEGMENT
+            case 3: // -    UPGRADE SEGMENT
                 if (true)
                 {
                     isDialogueActive = true;
@@ -158,6 +165,11 @@ public class TutorialManager : MonoBehaviour
         Debug.Log($"DIALOGUE ENDED! tutorialIndex: {tutorialIndex}");
     }
 
+    private void ShowTutorialTexts()
+    {
+        tutorialTexts.SetActive(true);
+    }
+
     private void HandlePlayerMovement(MovementContext movementContext)
     {
         // detect inputs only when we're in the relevant tutorial segment!
@@ -165,15 +177,15 @@ public class TutorialManager : MonoBehaviour
             return;
 
 
-        if (movementContext.inputAxes.x > 0)
-            hasMovedE = true;
-        if (movementContext.inputAxes.x < 0)
-            hasMovedW = true;
+        //if (movementContext.inputAxes.x > 0)
+        //    hasMovedE = true;
+        //if (movementContext.inputAxes.x < 0)
+        //    hasMovedW = true;
 
-        if (movementContext.inputAxes.y > 0)
-            hasMovedN = true;
-        if (movementContext.inputAxes.y < 0)
-            hasMovedS = true;
+        //if (movementContext.inputAxes.y > 0)
+        //    hasMovedN = true;
+        //if (movementContext.inputAxes.y < 0)
+        //    hasMovedS = true;
     }
 
     private void HandlePlayerAimToggle(AimContext aimContext)
@@ -197,5 +209,13 @@ public class TutorialManager : MonoBehaviour
     {
 
     }
+
+    public void OnMovementTriggerEnter()
+    {
+        movementTriggerEntered = true;
+        Debug.Log("zone entered");
+    }
+
+    //public void 
     // EVENTS & LISTENERS
 }

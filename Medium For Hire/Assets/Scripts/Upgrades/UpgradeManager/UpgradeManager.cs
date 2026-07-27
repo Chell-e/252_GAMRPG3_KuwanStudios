@@ -162,15 +162,15 @@ public class UpgradeManager : MonoBehaviour
 
                 case StatUpgradeType.OffenseBonus:
                     playerStats.offenseDomainStat += stat.value;
-                    //OnOffenseDomainUpgradeChosen?.Invoke();
+                    OnOffenseDomainUpgradeChosen?.Invoke();
                     break;
                 case StatUpgradeType.SurvivalBonus:
                     playerStats.survivalDomainStat += stat.value;
-                    //OnSurvivalDomainUpgradeChosen?.Invoke();
+                    OnSurvivalDomainUpgradeChosen?.Invoke();
                     break;
                 case StatUpgradeType.UtilityBonus:
                     playerStats.utilityDomainStat += stat.value;
-                    //OnUtilityDomainUpgradeChosen?.Invoke();
+                    OnUtilityDomainUpgradeChosen?.Invoke();
                     break;
 
 
@@ -284,4 +284,9 @@ public class UpgradeManager : MonoBehaviour
         EndUpgradeSelect();
     }
     // EVENTS & LISTENERS
+
+    public System.Action OnOffenseDomainUpgradeChosen;
+    public System.Action OnSurvivalDomainUpgradeChosen;
+    public System.Action OnUtilityDomainUpgradeChosen;
+
 }

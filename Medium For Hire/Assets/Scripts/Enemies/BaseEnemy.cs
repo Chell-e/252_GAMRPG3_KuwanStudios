@@ -261,4 +261,7 @@ public abstract class BaseEnemy : MonoBehaviour
     //{
     //    this.anim.enabled = false;
     //}
+
+
+    public System.Action OnAfterEnemyDeath;
 }

@@ -269,6 +269,10 @@ public class UIManager : MonoBehaviour
 
     public void UpdateSuperstitionUI(string name, string description, string rewardText, string penaltyText)
     {
+
+        if (rewardText == null) superstitionRewardText.text = " ";
+        if (penaltyText == null) superstitionPenaltyText.text = " ";
+
         superstitionText.text = name;
 
         superstitionNameText.text = name;

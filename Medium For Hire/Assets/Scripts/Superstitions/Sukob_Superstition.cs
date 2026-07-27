@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Superstitions/Sukob")]
+[CreateAssetMenu(menuName = "SuperstitionData/Sukob")]
 public class Sukob_Superstition : SuperstitionData
 {
-    [Header("Reward and Penalty")]
-    public int rewardCardChoices = 4;
-    public int penaltyCardChoices = 1;
+    //[Header("Reward and Penalty")]
+    //public int rewardCardChoices = 4;
+    //public int penaltyCardChoices = 1;
 
     private string lastDomainPicked = "";
 
@@ -17,18 +17,18 @@ public class Sukob_Superstition : SuperstitionData
         // reset
         lastDomainPicked = "";
 
-        OLD_UpgradeManager.Instance.OnOffenseDomainUpgradeChosen += HandleOffenseDomain;
-        OLD_UpgradeManager.Instance.OnSurvivalDomainUpgradeChosen += HandleSurvivalDomain;
-        OLD_UpgradeManager.Instance.OnUtilityDomainUpgradeChosen += HandleUtilityDomain;
+        UpgradeManager.Instance.OnOffenseDomainUpgradeChosen += HandleOffenseDomain;
+        UpgradeManager.Instance.OnSurvivalDomainUpgradeChosen += HandleSurvivalDomain;
+        UpgradeManager.Instance.OnUtilityDomainUpgradeChosen += HandleUtilityDomain;
     }
 
     public override void Deinitialize()
     {
-        if (OLD_UpgradeManager.Instance != null)
+        if (UpgradeManager.Instance != null)
         {
-            OLD_UpgradeManager.Instance.OnOffenseDomainUpgradeChosen -= HandleOffenseDomain;
-            OLD_UpgradeManager.Instance.OnSurvivalDomainUpgradeChosen -= HandleSurvivalDomain;
-            OLD_UpgradeManager.Instance.OnUtilityDomainUpgradeChosen -= HandleUtilityDomain;
+            UpgradeManager.Instance.OnOffenseDomainUpgradeChosen -= HandleOffenseDomain;
+            UpgradeManager.Instance.OnSurvivalDomainUpgradeChosen -= HandleSurvivalDomain;
+            UpgradeManager.Instance.OnUtilityDomainUpgradeChosen -= HandleUtilityDomain;
         }
     }
 
@@ -50,7 +50,7 @@ public class Sukob_Superstition : SuperstitionData
     {
         if (currentDomain == lastDomainPicked)
         {
-            Debug.Log("RULE BROKEN: Chose " + lastDomainPicked + " last time, chose " + currentDomain + " this time");
+            //Debug.Log("RULE BROKEN: Chose " + lastDomainPicked + " last time, chose " + currentDomain + " this time");
             BreakRule(1);
         }
 

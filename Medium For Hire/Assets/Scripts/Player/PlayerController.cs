@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
@@ -42,13 +43,18 @@ public class PlayerController : MonoBehaviour
         [Header("Dashing Ability")]
     [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float dashDuration = 0.3f;
-    [SerializeField] private float dashCooldown = 1f;
+    [SerializeField] public float dashCooldown = 1f;
     private Vector2 dashDir;
     private bool isDashing;
     private bool canDash = true;
     TrailRenderer trailRenderer;
+    private float dashRestrictionTimer = 0f;
+    private float dashSuperstitionRestriction = 10f;
+    public bool IsDashRestricted => dashRestrictionTimer > 0f;
+    public bool IsDashing => isDashing;
 
-        [Header("Player Map Boundaries")] // for limiting player to map boundaries
+
+    [Header("Player Map Boundaries")] // for limiting player to map boundaries
     [SerializeField] private Vector2 minPos;
     [SerializeField] private Vector2 maxPos;
 
@@ -91,8 +97,18 @@ public class PlayerController : MonoBehaviour
             return;
 
         // dashing
+        if (dashRestrictionTimer > 0f)
+        {
+            dashRestrictionTimer -= Time.deltaTime;
+        }
+
         if (Input.GetKey(KeyCode.LeftShift) && canDash)
         {
+            if (IsDashRestricted)
+            {
+                OnDashWhileRestricted?.Invoke();
+            }
+
             isDashing = true;
             canDash = false;
 
@@ -119,6 +135,7 @@ public class PlayerController : MonoBehaviour
                 if (currentShrine.CurrentType == ShrineType.Spirit && SuperstitionManager.Instance.hasSuperstition) return;
 
                 currentShrine.Interact();
+                ApplyDashRestriction(dashSuperstitionRestriction);
             }
         }
 
@@ -335,6 +352,11 @@ public class PlayerController : MonoBehaviour
         canDash = true;
     }
 
+    private void ApplyDashRestriction(float duration)
+    {
+        dashRestrictionTimer = duration;
+    }
+
     // TOOLS
 
 
@@ -357,6 +379,8 @@ public class PlayerController : MonoBehaviour
 
     // EVENTS & LISTENERS
     // put events and listeners here
+
+    public static event Action OnDashWhileRestricted;
 
     // EVENTS & LISTENERS
 

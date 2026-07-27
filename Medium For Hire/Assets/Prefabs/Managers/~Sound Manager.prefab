@@ -313,5 +313,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 971b7d180ca9f4e4b8250d9384018f29, type: 3}
   - {fileID: 8300000, guid: 4117b86439cb9b047a152e64ad8cc2bc, type: 3}
   - {fileID: 8300000, guid: fc04fc6ca5ad7f34abb1259814800102, type: 3}
+  - {fileID: 8300000, guid: 23f9dcd06ed531148adde630a6c24fd3, type: 3}
+  - {fileID: 8300000, guid: 0709be6b76b66424ab8927ee2dbded35, type: 3}
+  - {fileID: 8300000, guid: d1c1e0e38a20198448ee5df0264dcc51, type: 3}
+  - {fileID: 8300000, guid: a8b8dcbf3308cf94380319cdd16a60d4, type: 3}
+  - {fileID: 8300000, guid: 839eafddea680b44d8851106e5305b78, type: 3}
   normalBGMVolume: 0
   loweredBGMVolume: 0.2

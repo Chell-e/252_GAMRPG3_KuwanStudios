@@ -4,22 +4,20 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-    [Header("Speech Bubble UI")]
-    public GameObject speechBubble;
-    public GameObject greeting;
-    public TextMeshProUGUI shopInfoDialogue;
-    public TextMeshProUGUI levelText;
-    public TextMeshProUGUI costText;
+    [Header("DESCRIPTION BOX UI")]
+    public TextMeshProUGUI itemName;
+    public TextMeshProUGUI itemDescription;
+    public TextMeshProUGUI itemLevel;
+    public TextMeshProUGUI cost;
     public Button buyButton;
 
-    [Header("Torn Pages Display")]
+    [Header("CURRENCY UI")]
     public TextMeshProUGUI tornPagesAmountText;
 
     private string selectedStat;
 
     void Start()
     {
-        speechBubble.SetActive(false);
         UpdateBalanceUI();
     }
 
@@ -31,24 +29,23 @@ public class ShopManager : MonoBehaviour
     public void OnStatIconClicked(string statName)
     {
         selectedStat = statName;
-        speechBubble.SetActive(true);
-        greeting.SetActive(false);
 
         int currentLvl = GetStatLevel(statName);
         int bonus = GetStatBonus(statName);
         int cost = GetCost(statName, currentLvl);
 
-        shopInfoDialogue.text = "It can boost your " + statName + " by +" + bonus + "% permanently. Want to buy it?";
-        levelText.text = "Current Level: " + currentLvl + "/5";
+        itemName.text = statName;
+        itemDescription.text = "Boosts your " + statName + " by +" + bonus + "%";
+        itemLevel.text = currentLvl + "/3";
 
         if (currentLvl >= 5)
         {
-            costText.text = "FULLY UPGRADED";
+            this.cost.text = "Fully Upgraded";
             buyButton.interactable = false;
         }
         else
         {
-            costText.text = cost.ToString(); ;
+            this.cost.text = cost.ToString(); ;
             buyButton.interactable = PlayerData.Instance.tornPagesAmount >= cost;
         }
     }
@@ -58,16 +55,16 @@ public class ShopManager : MonoBehaviour
         int currentLvl = GetStatLevel(selectedStat);
         int cost = GetCost(selectedStat, currentLvl);
 
-        if (PlayerData.Instance.tornPagesAmount >= cost && currentLvl < 5)
+        if (PlayerData.Instance.tornPagesAmount >= cost && currentLvl < 3)
         {
             PlayerData.Instance.tornPagesAmount -= cost;
 
             if (selectedStat == "Health") PlayerData.Instance.healthLevel++;
             else if (selectedStat == "Damage") PlayerData.Instance.damageLevel++;
-            else if (selectedStat == "AtkSpeed") PlayerData.Instance.attackSpeedLevel++;
-            else if (selectedStat == "MoveSpeed") PlayerData.Instance.moveSpeedLevel++;
-            else if (selectedStat == "ProjSpeed") PlayerData.Instance.projectileSpeedLevel++;
-            else if (selectedStat == "Pickup") PlayerData.Instance.pickupRangeLevel++;
+            else if (selectedStat == "Attack Speed") PlayerData.Instance.attackSpeedLevel++;
+            else if (selectedStat == "Move Speed") PlayerData.Instance.moveSpeedLevel++;
+            else if (selectedStat == "Projectile Speed") PlayerData.Instance.projectileSpeedLevel++;
+            else if (selectedStat == "Pickup Range") PlayerData.Instance.pickupRangeLevel++;
 
             SaveDataJSON.Instance.SaveData();
             UpdateBalanceUI();
@@ -79,10 +76,10 @@ public class ShopManager : MonoBehaviour
     {
         if (s == "Health") return PlayerData.Instance.healthLevel;
         if (s == "Damage") return PlayerData.Instance.damageLevel;
-        if (s == "AtkSpeed") return PlayerData.Instance.attackSpeedLevel;
-        if (s == "MoveSpeed") return PlayerData.Instance.moveSpeedLevel;
-        if (s == "ProjSpeed") return PlayerData.Instance.projectileSpeedLevel;
-        if (s == "Pickup") return PlayerData.Instance.pickupRangeLevel;
+        if (s == "Attack Speed") return PlayerData.Instance.attackSpeedLevel;
+        if (s == "Move Speed") return PlayerData.Instance.moveSpeedLevel;
+        if (s == "Projectile Speed") return PlayerData.Instance.projectileSpeedLevel;
+        if (s == "Pickup Range") return PlayerData.Instance.pickupRangeLevel;
         return 0;
     }
 
@@ -90,17 +87,17 @@ public class ShopManager : MonoBehaviour
     {
         if (s == "Health") return PlayerStats.healthBonusPerLevel;
         if (s == "Damage") return PlayerStats.dmgBonusPerLevel;
-        if (s == "AtkSpeed") return PlayerStats.atkSpeedBonusPerLevel;
-        if (s == "MoveSpeed") return PlayerStats.moveSpeedBonusPerLevel;
-        if (s == "ProjSpeed") return PlayerStats.projSpeedBonusPerLevel;
-        if (s == "Pickup") return PlayerStats.pickupRangeBonusPerLevel;
+        if (s == "Attack Speed") return PlayerStats.atkSpeedBonusPerLevel;
+        if (s == "Move Speed") return PlayerStats.moveSpeedBonusPerLevel;
+        if (s == "Projectile Speed") return PlayerStats.projSpeedBonusPerLevel;
+        if (s == "Pickup Range") return PlayerStats.pickupRangeBonusPerLevel;
         return 0;
     }
 
     private int GetCost(string s, int lvl)
     {
-        if (s == "Damage" || s == "AtkSpeed") return 150 + (lvl * 150);
-        if (s == "Health" || s == "MoveSpeed") return 100 + (lvl * 100);
-        return 75 + (lvl * 75);
+        if (s == "Damage" || s == "Attack Speed") return 20 + (lvl * 3);
+        if (s == "Health" || s == "Move Speed") return 15 + (lvl * 2);
+        return 10 + (lvl * 2);
     }
 }

@@ -1,10 +1,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PoolSpawner : MonoBehaviour
 {
     public static PoolSpawner Instance;
+
+    // FOR TUTORIAL
+    [SerializeField] private bool isSpawningEnabled = true;
 
     [Header("Enemy Prefabs")]
     [SerializeField] private GameObject[] normalEnemyPrefabs;
@@ -138,6 +142,10 @@ public class PoolSpawner : MonoBehaviour
 
     private void Update()
     {
+        // FOR TUTORIAL
+        if (!isSpawningEnabled) return;
+        // FOR TUTORIAL
+
         if (PlayerController.Instance == null || !PlayerController.Instance.gameObject.activeSelf)
             return;
 
@@ -238,6 +246,62 @@ public class PoolSpawner : MonoBehaviour
         }
     }
 
+    public List<BaseEnemy> SpawnChallengeEliteEnemies(int clampedPlayerLevel)
+    {
+        int elitesToKill = 3;
+
+        List<BaseEnemy> challengeElites = new List<BaseEnemy>();
+
+        for (int i = 0; i < elitesToKill; i++)
+        {
+            GameObject prefab = GetUnlockedPrefabFromList(shuffledElites);
+            //if (prefab == null) return;
+
+            Vector3 playerPos = PlayerController.Instance.transform.position;
+
+            var radians = 2 * Mathf.PI / elitesToKill * i;
+
+            var horizontal = Mathf.Sin(radians);
+            var vertical = Mathf.Cos(radians);
+
+            var spawnDir = new Vector3(horizontal, 0, vertical);
+            float radius = 5f;
+
+            var spawnPos = playerPos + spawnDir * radius;
+
+            GameObject challengeElite = PoolManager.SpawnObject(prefab, spawnPos, Quaternion.identity, PoolManager.PoolType.Enemy);
+            challengeElites.Add(challengeElite.GetComponent<BaseEnemy>());
+
+            if (challengeElite != null)
+            {
+                ApplyScaling(challengeElite, clampedPlayerLevel);
+                activeEnemyCount++;
+            }
+        }
+
+        return challengeElites;
+    }
+
+    public void TriggerBatchSpawn(int enemyCount)
+    {
+        int playerLevel = 1;
+
+        if (PlayerController.Instance != null)
+        {
+            playerLevel = PlayerController.Instance.playerStats.currentLevel;
+        }
+        playerLevel = Mathf.Clamp(playerLevel, 1, maxPlayerLevel);
+
+        for (int i = 0; i < enemyCount; i++)
+        {
+            SpawnNormalEnemy(playerLevel);
+        }
+    }
+
+    public void SetSpawningEnabled(bool enable)
+    {
+        isSpawningEnabled = enable;
+    }
     private void SpawnBoss(int clampedPlayerLevel)
     {
         if (bossPrefabs == null || bossPrefabs.Length == 0) return;
@@ -314,7 +378,7 @@ public class PoolSpawner : MonoBehaviour
                 NotifyEnemyDespawned();
 
                 GameObject respawnedEnemy = PoolManager.SpawnObject(member.prefab, GetRandomSpawnPosition(), Quaternion.identity, PoolManager.PoolType.Enemy);
-                Debug.Log("RESPAWNED (" + respawnedEnemy.name + ")");
+                //Debug.Log("RESPAWNED (" + respawnedEnemy.name + ")");
                 if (respawnedEnemy != null)
                 {
                     ApplyScaling(respawnedEnemy, clampedPlayerLevel);

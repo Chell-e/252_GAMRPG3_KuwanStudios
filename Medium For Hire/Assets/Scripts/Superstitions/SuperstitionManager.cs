@@ -16,8 +16,8 @@ public class SuperstitionManager : MonoBehaviour
     [Header("Timers")]
     private float milestoneTimer = 0f; // deserve mo ba reward ?
     private float nakedtimer = 0f; // no superstition equipped, thus, naked
-    [SerializeField] private float milestoneDuration = 120f; // 2 mins
-    [SerializeField] private float sitanGracePeriod = 30f; // 30s corruption brrr
+    [SerializeField] private float milestoneDuration = 180f; // 3 mins
+    [SerializeField] private float sitanGracePeriod = 40f; // 30s corruption brrr
 
     [Header("Sitan's Corruption")]
     private bool sitanCorruptionActive = false;
@@ -64,12 +64,17 @@ public class SuperstitionManager : MonoBehaviour
             // DO THEY HAVE A SUPERSTITION? AND DID THEY FOLLOW IT?
             if (hasSuperstition && totalViolations == 0)
             {
-                //ApplyReward();
-                //Debug.Log("APLPYING REWARD");
+                // REWARD
+                activeSuperstition.ApplyReward();
 
                 if (NotificationManager.Instance != null)
                 {
                     NotificationManager.Instance.ShowNotification(pleasedSpiritsNotif);
+
+                    if (SoundManager.Instance != null)
+                    {
+                        SoundManager.Instance.PlaySFX(7);
+                    }
                 }
             }
         }
@@ -94,6 +99,12 @@ public class SuperstitionManager : MonoBehaviour
                     if (NotificationManager.Instance != null)
                     {
                         NotificationManager.Instance.ShowNotification(sitansCorruptionNotif);
+
+                        if (SoundManager.Instance != null)
+                        {
+                            //SoundManager.Instance.PlaySFX(5);
+                            SoundManager.Instance.PlaySFX(6);
+                        }
                     }
                 }
 
@@ -113,7 +124,8 @@ public class SuperstitionManager : MonoBehaviour
         activeSuperstition = _superstitionData;
         activeSuperstition.Initialize(StageManager.Instance);
 
-        UIManager.Instance.UpdateSuperstitionUI(activeSuperstition.superstitionName, activeSuperstition.description, activeSuperstition.rewardText, activeSuperstition.penaltyText);
+        UIManager.Instance.UpdateSuperstitionUI(activeSuperstition.superstitionName, activeSuperstition.description,
+            activeSuperstition.rewardText, activeSuperstition.penaltyText);
 
         // reset whenever a spirit is appeased
         nakedtimer = 0f;
@@ -134,6 +146,11 @@ public class SuperstitionManager : MonoBehaviour
         if (NotificationManager.Instance != null)
         {
             NotificationManager.Instance.ShowNotification(angeredSpiritsNotif);
+            
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySFX(4);
+            }
         }
         //Debug.Log("Total violations: " + totalViolations);
 
@@ -144,10 +161,13 @@ public class SuperstitionManager : MonoBehaviour
     {
         if (activeSuperstition != null)
         {
-            // ApplyPenalty();
+            // PENALTY
+            activeSuperstition.ApplyPenalty();
 
             activeSuperstition.Deinitialize();
             activeSuperstition = null;
+
+            UIManager.Instance.UpdateSuperstitionUI("None", "...", null, null);
         }
 
         nakedtimer = 0f;

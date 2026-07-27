@@ -112,13 +112,6 @@
       "portrait": "elias",
       "bodyText": "I don't know what's happening, but I trust in you, <i>Lola</i>.",
       "nameText": "Elias"
-    },
-    {
-      "id": "tutorial_dialogue1_16",
-      "illustration": "invisible",
-      "portrait": "placeholder",
-      "bodyText": "WASD to move.\n\nMove to proceed!",
-      "nameText": "PLACEHOLDER"
     }
   ]
 }

@@ -38,7 +38,7 @@ public class WeaponManager : MonoBehaviour
     private void Start()
     {
         CheckPlayerReference();
-        EquipMainWeapon(StageManager.SelectedWeapon);
+        //EquipMainWeapon(StageManager.SelectedWeapon);
         
         //mainWeapon.GetComponent<BaseWeapon>().Initialize(playerController); // dont forget to Initialize() function 
         //UIManager.Instance.SetupMainWeaponSlot(mainWeaponUIData, mainWeapon.GetComponent<BaseWeapon>());

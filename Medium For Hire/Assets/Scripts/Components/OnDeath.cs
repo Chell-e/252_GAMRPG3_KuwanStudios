@@ -67,6 +67,8 @@ public class OnDeath : MonoBehaviour
         {
             OnBossDeath?.Invoke();
         }
+
+        baseEnemy.OnAfterEnemyDeath?.Invoke();
     }
 
     private void DropLoot(BaseEnemy enemy)

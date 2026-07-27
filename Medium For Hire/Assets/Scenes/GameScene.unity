@@ -2232,6 +2232,7 @@ MonoBehaviour:
   currentType: 0
   interactionPromptUI: {fileID: 1369749342}
   emptyShrineSprite: {fileID: 21300000, guid: 76f5406993724f34da738e64b88b2b2a, type: 3}
+  healAmount: 5
   spiritName: The Shrine of Spirits
   spiritSprite: {fileID: 21300000, guid: c7e4916691dd81546867e45c342af7b6, type: 3}
   spiritIdleAnim: Spirit_Idle
@@ -2239,6 +2240,8 @@ MonoBehaviour:
   possibleSuperstitions:
   - {fileID: 11400000, guid: 6b99bf322a4ab7247b0f417fc19f81bb, type: 2}
   - {fileID: 11400000, guid: 4b015a8946d1d8d4abd700c7940a733a, type: 2}
+  - {fileID: 11400000, guid: 1fb59a6d6ef278940a2bc3623ffa4ad9, type: 2}
+  - {fileID: 11400000, guid: 4587e382a67ad5844a5aef6c77b20ddb, type: 2}
   rolledSuperstition: {fileID: 0}
   akasiName: The Shrine of Akasi
   akasiFlavorText: "You feel a calm presence. And then a voice speaks,\n\n\u201CChild,
@@ -2989,16 +2992,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 288500645}
   m_CullTransparentMesh: 1
---- !u!1 &302976643 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7475256533497731224, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-  m_PrefabInstance: {fileID: 1142186283730201830}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &302976644 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7923734320827362278, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-  m_PrefabInstance: {fileID: 1142186283730201830}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &306004352
 GameObject:
   m_ObjectHideFlags: 0
@@ -4769,6 +4762,7 @@ MonoBehaviour:
   currentType: 0
   interactionPromptUI: {fileID: 2009668910}
   emptyShrineSprite: {fileID: 21300000, guid: 76f5406993724f34da738e64b88b2b2a, type: 3}
+  healAmount: 5
   spiritName: The Shrine of Spirits
   spiritSprite: {fileID: 21300000, guid: c7e4916691dd81546867e45c342af7b6, type: 3}
   spiritIdleAnim: Spirit_Idle
@@ -4776,6 +4770,8 @@ MonoBehaviour:
   possibleSuperstitions:
   - {fileID: 11400000, guid: 6b99bf322a4ab7247b0f417fc19f81bb, type: 2}
   - {fileID: 11400000, guid: 4b015a8946d1d8d4abd700c7940a733a, type: 2}
+  - {fileID: 11400000, guid: 1fb59a6d6ef278940a2bc3623ffa4ad9, type: 2}
+  - {fileID: 11400000, guid: 4587e382a67ad5844a5aef6c77b20ddb, type: 2}
   rolledSuperstition: {fileID: 0}
   akasiName: The Shrine of Akasi
   akasiFlavorText: "You feel a calm presence. And then a voice speaks,\n\n\u201CChild,
@@ -6501,8 +6497,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spiritSpawnDelay: 10
   akasiSpawnDelay: 60
-  apolakiSpawnDelay: 300
+  apolakiSpawnDelay: 5
   spiritCooldown: 30
+  akasiCooldown: 360
   apolakiCooldown: 300
   allShrineSpots:
   - {fileID: 1196857244}
@@ -6976,11 +6973,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -240}
   m_SizeDelta: {x: 800, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!4 &556430023 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3734507932742154699, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
-  m_PrefabInstance: {fileID: 1360204312125309052}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &570956021
 GameObject:
   m_ObjectHideFlags: 0
@@ -10424,6 +10416,7 @@ MonoBehaviour:
   currentType: 0
   interactionPromptUI: {fileID: 1099803522}
   emptyShrineSprite: {fileID: 21300000, guid: 76f5406993724f34da738e64b88b2b2a, type: 3}
+  healAmount: 5
   spiritName: The Shrine of Spirits
   spiritSprite: {fileID: 21300000, guid: c7e4916691dd81546867e45c342af7b6, type: 3}
   spiritIdleAnim: Spirit_Idle
@@ -10431,6 +10424,8 @@ MonoBehaviour:
   possibleSuperstitions:
   - {fileID: 11400000, guid: 6b99bf322a4ab7247b0f417fc19f81bb, type: 2}
   - {fileID: 11400000, guid: 4b015a8946d1d8d4abd700c7940a733a, type: 2}
+  - {fileID: 11400000, guid: 1fb59a6d6ef278940a2bc3623ffa4ad9, type: 2}
+  - {fileID: 11400000, guid: 4587e382a67ad5844a5aef6c77b20ddb, type: 2}
   rolledSuperstition: {fileID: 0}
   akasiName: The Shrine of Akasi
   akasiFlavorText: "You feel a calm presence. And then a voice speaks,\n\n\u201CChild,
@@ -10690,7 +10685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 1483406992}
   cooldownFill: {fileID: 954632555}
-  weaponData: {fileID: 1778442133}
+  weaponData: {fileID: 0}
   tooltipTrigger: {fileID: 954632553}
 --- !u!114 &954632555
 MonoBehaviour:
@@ -10773,7 +10768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subWeapons: []
-  mainWeapon: {fileID: 302976643}
+  mainWeapon: {fileID: 0}
   mainWeaponUIData: {fileID: 11400000, guid: d2faddea6471e7d409b6dd355d13bfa9, type: 2}
 --- !u!4 &958651462
 Transform:
@@ -10789,9 +10784,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1040966775}
-  - {fileID: 1778442132}
-  - {fileID: 556430023}
-  - {fileID: 302976644}
   m_Father: {fileID: 1308892168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &960965077
@@ -12256,6 +12248,7 @@ MonoBehaviour:
   currentType: 0
   interactionPromptUI: {fileID: 626759785}
   emptyShrineSprite: {fileID: 21300000, guid: 76f5406993724f34da738e64b88b2b2a, type: 3}
+  healAmount: 5
   spiritName: The Shrine of Spirits
   spiritSprite: {fileID: 21300000, guid: c7e4916691dd81546867e45c342af7b6, type: 3}
   spiritIdleAnim: Spirit_Idle
@@ -12263,6 +12256,8 @@ MonoBehaviour:
   possibleSuperstitions:
   - {fileID: 11400000, guid: 6b99bf322a4ab7247b0f417fc19f81bb, type: 2}
   - {fileID: 11400000, guid: 4b015a8946d1d8d4abd700c7940a733a, type: 2}
+  - {fileID: 11400000, guid: 1fb59a6d6ef278940a2bc3623ffa4ad9, type: 2}
+  - {fileID: 11400000, guid: 4587e382a67ad5844a5aef6c77b20ddb, type: 2}
   rolledSuperstition: {fileID: 0}
   akasiName: The Shrine of Akasi
   akasiFlavorText: "You feel a calm presence. And then a voice speaks,\n\n\u201CChild,
@@ -14828,6 +14823,7 @@ MonoBehaviour:
   currentType: 0
   interactionPromptUI: {fileID: 1177946052}
   emptyShrineSprite: {fileID: 21300000, guid: 76f5406993724f34da738e64b88b2b2a, type: 3}
+  healAmount: 5
   spiritName: The Shrine of Spirits
   spiritSprite: {fileID: 21300000, guid: c7e4916691dd81546867e45c342af7b6, type: 3}
   spiritIdleAnim: Spirit_Idle
@@ -14835,6 +14831,8 @@ MonoBehaviour:
   possibleSuperstitions:
   - {fileID: 11400000, guid: 6b99bf322a4ab7247b0f417fc19f81bb, type: 2}
   - {fileID: 11400000, guid: 4b015a8946d1d8d4abd700c7940a733a, type: 2}
+  - {fileID: 11400000, guid: 1fb59a6d6ef278940a2bc3623ffa4ad9, type: 2}
+  - {fileID: 11400000, guid: 4587e382a67ad5844a5aef6c77b20ddb, type: 2}
   rolledSuperstition: {fileID: 0}
   akasiName: The Shrine of Akasi
   akasiFlavorText: "You feel a calm presence. And then a voice speaks,\n\n\u201CChild,
@@ -15972,7 +15970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 1146688091}
   cooldownFill: {fileID: 1257388389}
-  weaponData: {fileID: 1778442133}
+  weaponData: {fileID: 0}
   tooltipTrigger: {fileID: 1257388387}
 --- !u!114 &1257388389
 MonoBehaviour:
@@ -16071,8 +16069,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSuperstition: {fileID: 0}
   totalViolations: 0
-  milestoneDuration: 120
-  sitanGracePeriod: 30
+  milestoneDuration: 180
+  sitanGracePeriod: 40
   sitanStatMultiplier: 1
   pleasedSpiritsNotif: {fileID: 11400000, guid: 35799e488568d614497de36b7b7af16c, type: 2}
   angeredSpiritsNotif: {fileID: 11400000, guid: 86e9ba105f0db1b4a9bb4acce12292fa, type: 2}
@@ -16737,6 +16735,7 @@ MonoBehaviour:
   currentType: 0
   interactionPromptUI: {fileID: 1325732716}
   emptyShrineSprite: {fileID: 21300000, guid: 76f5406993724f34da738e64b88b2b2a, type: 3}
+  healAmount: 5
   spiritName: The Shrine of Spirits
   spiritSprite: {fileID: 21300000, guid: c7e4916691dd81546867e45c342af7b6, type: 3}
   spiritIdleAnim: Spirit_Idle
@@ -16744,6 +16743,8 @@ MonoBehaviour:
   possibleSuperstitions:
   - {fileID: 11400000, guid: 6b99bf322a4ab7247b0f417fc19f81bb, type: 2}
   - {fileID: 11400000, guid: 4b015a8946d1d8d4abd700c7940a733a, type: 2}
+  - {fileID: 11400000, guid: 1fb59a6d6ef278940a2bc3623ffa4ad9, type: 2}
+  - {fileID: 11400000, guid: 4587e382a67ad5844a5aef6c77b20ddb, type: 2}
   rolledSuperstition: {fileID: 0}
   akasiName: The Shrine of Akasi
   akasiFlavorText: "You feel a calm presence. And then a voice speaks,\n\n\u201CChild,
@@ -22844,22 +22845,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1777822239}
   m_CullTransparentMesh: 1
---- !u!4 &1778442132 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4498846563333681413, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-  m_PrefabInstance: {fileID: 576841333487459784}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1778442133 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6820204304449407640, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-  m_PrefabInstance: {fileID: 576841333487459784}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89bd4214a83b63f40948bc053d287e92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1780990494
 GameObject:
   m_ObjectHideFlags: 0
@@ -24890,6 +24875,7 @@ MonoBehaviour:
   currentType: 0
   interactionPromptUI: {fileID: 512908908}
   emptyShrineSprite: {fileID: 21300000, guid: 76f5406993724f34da738e64b88b2b2a, type: 3}
+  healAmount: 5
   spiritName: The Shrine of Spirits
   spiritSprite: {fileID: 21300000, guid: c7e4916691dd81546867e45c342af7b6, type: 3}
   spiritIdleAnim: Spirit_Idle
@@ -24897,6 +24883,8 @@ MonoBehaviour:
   possibleSuperstitions:
   - {fileID: 11400000, guid: 6b99bf322a4ab7247b0f417fc19f81bb, type: 2}
   - {fileID: 11400000, guid: 4b015a8946d1d8d4abd700c7940a733a, type: 2}
+  - {fileID: 11400000, guid: 1fb59a6d6ef278940a2bc3623ffa4ad9, type: 2}
+  - {fileID: 11400000, guid: 4587e382a67ad5844a5aef6c77b20ddb, type: 2}
   rolledSuperstition: {fileID: 0}
   akasiName: The Shrine of Akasi
   akasiFlavorText: "You feel a calm presence. And then a voice speaks,\n\n\u201CChild,
@@ -27515,67 +27503,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7339752049152240653}
   m_CullTransparentMesh: 1
---- !u!1001 &576841333487459784
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 958651462}
-    m_Modifications:
-    - target: {fileID: 3471294961658200306, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-      propertyPath: m_Name
-      value: TboliBellsController
-      objectReference: {fileID: 0}
-    - target: {fileID: 3471294961658200306, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4498846563333681413, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4498846563333681413, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4498846563333681413, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4498846563333681413, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4498846563333681413, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4498846563333681413, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4498846563333681413, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4498846563333681413, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4498846563333681413, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4498846563333681413, guid: c36fec0e566586048863e0b89deb941d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c36fec0e566586048863e0b89deb941d, type: 3}
 --- !u!224 &608516429316911521
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27668,67 +27595,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &1142186283730201830
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 958651462}
-    m_Modifications:
-    - target: {fileID: 7475256533497731224, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-      propertyPath: m_Name
-      value: BarilController
-      objectReference: {fileID: 0}
-    - target: {fileID: 7475256533497731224, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923734320827362278, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923734320827362278, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923734320827362278, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923734320827362278, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923734320827362278, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923734320827362278, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923734320827362278, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923734320827362278, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923734320827362278, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923734320827362278, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
 --- !u!1001 &1161975669968280999
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27790,67 +27656,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b235ca86486e58049bf1bfb8220327da, type: 3}
---- !u!1001 &1360204312125309052
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 958651462}
-    m_Modifications:
-    - target: {fileID: 1851991169932104044, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
-      propertyPath: m_Name
-      value: BuntotPagiController
-      objectReference: {fileID: 0}
-    - target: {fileID: 1851991169932104044, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3734507932742154699, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3734507932742154699, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3734507932742154699, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3734507932742154699, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3734507932742154699, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3734507932742154699, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3734507932742154699, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3734507932742154699, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3734507932742154699, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3734507932742154699, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4f43a724f3b5ecc47ba7ba8bf98b28db, type: 3}
 --- !u!224 &1718200421573661001
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28425,7 +28230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 4323119342054729802}
   cooldownFill: {fileID: 8951836629349227687}
-  weaponData: {fileID: 1778442133}
+  weaponData: {fileID: 0}
   tooltipTrigger: {fileID: 1960322264772143855}
 --- !u!1 &8213544307702469958
 GameObject:

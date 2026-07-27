@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: No Leftovers
   m_EditorClassIdentifier: 
   superstitionName: No Leftovers
-  description: 'EXP Orbs expire after a few seconds. Do not let them. '
-  flavorText: "\u201CA wasted grain is a soul gone hungry,\u201D Lolo would always
-    say. He\u2019d discourage me from leaving leftover rice, as it\u2019d anger the
-    spirits."
-  rewardText: 'Gain +1 level instantly.  '
-  penaltyText: 'Increases current EXP required to level up by 2.5%.  '
+  description: EXP orbs disappear after 20 seconds. Do not let any expire.
+  flavorText: 
+  rewardText: Increase player level cap by 5.
+  penaltyText: Increase EXP required to level up by 20%
+  playerLevelCapIncrease: 5
+  expToLevelUpIncrease: 20
+  playerController: {fileID: 0}
+  playerStats: {fileID: 0}

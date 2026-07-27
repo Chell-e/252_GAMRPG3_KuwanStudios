@@ -669,7 +669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionableGameStates: 
   loadSceneOnEnd: 1
-  targetScene: MainMenu
+  targetScene: TutorialSequence
   previousGameState: 0
   currentSequence:
     dialogueLines: []
