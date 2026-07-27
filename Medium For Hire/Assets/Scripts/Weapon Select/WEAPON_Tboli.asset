@@ -12,6 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15ac5d7a458107342a8244769e6f7982, type: 3}
   m_Name: WEAPON_Tboli
   m_EditorClassIdentifier: 
-  weaponName: TBoli Bells
   weaponPrefab: {fileID: 3471294961658200306, guid: c36fec0e566586048863e0b89deb941d, type: 3}
   mainWeaponUIData: {fileID: 11400000, guid: 705a1e095bac4944ba296634c69185c1, type: 2}
+  weaponTitle: 'KAMPANANG T''BOLI
+
+    <size=24>"<i>Warding Bells</i>"'
+  weaponDescription: Masterworked brass that sounds like purification.
+  normalBehavior: 'Medium damaging ring around you.
+
+
+
+    <size=23><sprite name="m2">RMB:
+    Blast around your cursor.'
+  aimedBehavior: 'Medium damaging ring around you.
+
+    Empower <sprite name="m2">RMB
+    Blast.
+
+
+    <size=23><sprite name="m2">RMB: Blast around your cursor.'

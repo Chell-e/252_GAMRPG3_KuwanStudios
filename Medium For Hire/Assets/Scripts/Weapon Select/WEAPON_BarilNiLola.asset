@@ -12,6 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15ac5d7a458107342a8244769e6f7982, type: 3}
   m_Name: WEAPON_BarilNiLola
   m_EditorClassIdentifier: 
-  weaponName: Baril Ni Lola
   weaponPrefab: {fileID: 7475256533497731224, guid: f2f7e90f8740ab94d8efcccd36a472fb, type: 3}
   mainWeaponUIData: {fileID: 11400000, guid: 365fdb250c5dd894eaeb80f0cda48e83, type: 2}
+  weaponTitle: 'LANTAKA
+
+    <size=24>"<i>Grandma''s Cannon</i>"'
+  weaponDescription: A shrunken cannon that somehow now fits in your hand.
+  normalBehavior: Fire at your cursor.
+  aimedBehavior: 'Fire at your cursor quickly.
+
+
+    Reload when out of ammo.'

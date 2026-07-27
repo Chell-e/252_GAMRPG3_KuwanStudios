@@ -1166,7 +1166,7 @@ GameObject:
   - component: {fileID: 686494248}
   - component: {fileID: 686494247}
   m_Layer: 5
-  m_Name: Scrollbar
+  m_Name: InfoScrollbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1235,7 +1235,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1117770507}
   m_HandleRect: {fileID: 1117770506}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.5
   m_Size: 0.56842107
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1291,7 +1291,7 @@ GameObject:
   - component: {fileID: 836505533}
   - component: {fileID: 836505532}
   m_Layer: 5
-  m_Name: Name
+  m_Name: WeaponName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1336,7 +1336,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Weapon Name
+  m_text: 'KAMPANANG T''BOLI
+
+    <size=24>"<i>Warding Bells</i>"'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
   m_sharedMaterial: {fileID: 2603448136184377945, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
@@ -1369,7 +1371,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 16
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1602,7 +1604,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -409.99994}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 650, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &951196480
@@ -2105,7 +2107,7 @@ GameObject:
   - component: {fileID: 1203964199}
   - component: {fileID: 1203964198}
   m_Layer: 5
-  m_Name: Aimed
+  m_Name: AimedColumn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2129,7 +2131,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 195, y: -59}
-  m_SizeDelta: {x: 200, y: 100}
+  m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1203964198
 MonoBehaviour:
@@ -2151,7 +2153,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Aimed
+  m_text: '<sprite name="aimed1">
+
+    Aimed'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
   m_sharedMaterial: {fileID: 2603448136184377945, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
@@ -2240,7 +2244,7 @@ GameObject:
   - component: {fileID: 1238285618}
   - component: {fileID: 1238285617}
   m_Layer: 5
-  m_Name: Info (1)
+  m_Name: AimedInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2285,7 +2289,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: lorem ipsum dolor met lorem ipsum dolor met lorem ipsum dolor met lore
+  m_text: 'Medium damaging ring around you.
+
+    Empower <sprite name="m2">RMB Blast.
+
+
+    <size=23><sprite
+    name="m2">RMB: Blast around your cursor.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
   m_sharedMaterial: {fileID: 2603448136184377945, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
@@ -2320,7 +2330,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2374,7 +2384,7 @@ GameObject:
   - component: {fileID: 1376934353}
   - component: {fileID: 1376934352}
   m_Layer: 5
-  m_Name: Auto
+  m_Name: NormalColumn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2398,7 +2408,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -258, y: -59}
-  m_SizeDelta: {x: 150, y: 100}
+  m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1376934352
 MonoBehaviour:
@@ -2420,7 +2430,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Auto
+  m_text: '<sprite name="normal1">
+
+    Normal'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
   m_sharedMaterial: {fileID: 2603448136184377945, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
@@ -3008,6 +3020,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9aa5ed892393d41bcfd8010d198c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameText: {fileID: 836505532}
+  descriptionText: {fileID: 1854517608}
+  normalText: {fileID: 2120326472}
+  aimedText: {fileID: 1238285617}
 --- !u!1 &1715617574
 GameObject:
   m_ObjectHideFlags: 0
@@ -3095,7 +3111,7 @@ GameObject:
   - component: {fileID: 1854517609}
   - component: {fileID: 1854517608}
   m_Layer: 5
-  m_Name: Flavor Text
+  m_Name: FlavorText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3140,8 +3156,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: lorem ipsum dolor met lorem ipsum dolor met lorem ipsum dolor met lorem
-    ipsum dolor met lorem ipsum dolor met
+  m_text: Masterworked brass that sounds like purification.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
   m_sharedMaterial: {fileID: 2603448136184377945, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
@@ -3168,8 +3183,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3617,7 +3632,7 @@ GameObject:
   - component: {fileID: 2120326473}
   - component: {fileID: 2120326472}
   m_Layer: 5
-  m_Name: Info
+  m_Name: NormalInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3662,7 +3677,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: lorem ipsum dolor met lorem ipsum dolor met lorem ipsum dolor met lore
+  m_text: 'Medium damaging ring around you.
+
+
+
+    <size=23><sprite name="m2">RMB:
+    Blast around your cursor.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
   m_sharedMaterial: {fileID: 2603448136184377945, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
@@ -3697,7 +3717,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
