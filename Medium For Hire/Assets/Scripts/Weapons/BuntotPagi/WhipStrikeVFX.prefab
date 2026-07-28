@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4422336282587602623}
   - component: {fileID: 5732850382179403315}
   - component: {fileID: 5093090907328674924}
+  - component: {fileID: 762309607321295706}
   m_Layer: 0
   m_Name: WhipStrikeVFX
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 516289135, guid: 09fc0bacf9208f9479e2b6ed923c828d, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.39215687}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
@@ -146,7 +147,25 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  spritesheet:
-  - {fileID: 516289135, guid: 09fc0bacf9208f9479e2b6ed923c828d, type: 3}
-  - {fileID: 437410910, guid: 09fc0bacf9208f9479e2b6ed923c828d, type: 3}
-  - {fileID: 1707009304, guid: 09fc0bacf9208f9479e2b6ed923c828d, type: 3}
+  anim: {fileID: 0}
+--- !u!95 &762309607321295706
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3244935403461157516}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 56e013b85d9087b4cbf65ef3eb1955e5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

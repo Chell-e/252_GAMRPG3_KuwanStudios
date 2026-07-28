@@ -11,6 +11,7 @@ public class SuperstitionManager : MonoBehaviour
     public SuperstitionData activeSuperstition;
     public int totalViolations = 0;
 
+    public float CurrentSitanMultiplier => sitanCorruptionActive ? sitanMultiplier : 1.0f;
     public bool hasSuperstition => activeSuperstition != null;
 
     [Header("Timers")]
@@ -20,8 +21,8 @@ public class SuperstitionManager : MonoBehaviour
     [SerializeField] private float sitanGracePeriod = 40f; // 30s corruption brrr
 
     [Header("Sitan's Corruption")]
-    private bool sitanCorruptionActive = false;
-    public float sitanStatMultiplier = 1.0f;
+    public bool sitanCorruptionActive = false;
+    public float sitanMultiplier = 1.0f; // base.. then scales up
     //public float sitanSpawnMultiplier = 1f; 
 
     [Header("Notifications SO")]
@@ -108,8 +109,7 @@ public class SuperstitionManager : MonoBehaviour
                     }
                 }
 
-                sitanStatMultiplier += 0.01f * Time.deltaTime; // scales up enemy stat modifiers (+1% per second)
-                //sitanSpawnMultiplier += 0.01f * Time.deltaTime; 
+                sitanMultiplier += 0.01f * Time.deltaTime; // scales up enemy stat modifiers (+1% per second)
             }
         }
     }
@@ -130,7 +130,14 @@ public class SuperstitionManager : MonoBehaviour
         // reset whenever a spirit is appeased
         nakedtimer = 0f;
         sitanCorruptionActive = false;
-        sitanStatMultiplier = 1.0f;
+        sitanMultiplier = 1.0f;
+
+        // revert enemies back
+        if (PoolSpawner.Instance != null)
+        {
+            PoolSpawner.Instance.RecalculateActiveEnemiesStats();
+            Debug.Log("enemy stats back 2 normal");
+        }
 
         if (NotificationManager.Instance != null)
         {

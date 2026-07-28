@@ -10,6 +10,7 @@ public class GameSceneManager : MonoBehaviour
     public static GameSceneManager Instance;
 
     public static string previousSceneName;
+    public GameObject settingsPanel;
 
     private void Awake()
     {
@@ -18,11 +19,20 @@ public class GameSceneManager : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "ShopScene" || SceneManager.GetActiveScene().name == "AnitoBook")
+        if (SceneManager.GetActiveScene().name == "ShopScene"
+            || SceneManager.GetActiveScene().name == "AnitoBook")
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 LoadPreviousScene();
+            }
+        }
+
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                settingsPanel.SetActive(false);
             }
         }
 

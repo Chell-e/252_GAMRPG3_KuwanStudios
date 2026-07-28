@@ -10,12 +10,10 @@ public class TabiTabi_Superstition : SuperstitionData
     public float shrineCooldownIncrease = 0.15f;
 
     [Header("REFERENCES")]
-    private BaseShrine shrine;
     private ShrineSpawner shrineSpawner;
 
     public override void Initialize(StageManager stage)
     {
-        shrine = BaseShrine.Instance;
         shrineSpawner = ShrineSpawner.Instance;
 
         PlayerController.OnDashWhileRestricted += HandleSuperstitionViolation;
@@ -29,23 +27,18 @@ public class TabiTabi_Superstition : SuperstitionData
 
     public override void ApplyReward()
     {
-        if (shrine == null) return;
+        if (shrineSpawner == null) return;
 
-        var finalHpToHealByShrine = shrine.healAmount;
-        finalHpToHealByShrine += (hpToHealByShrine * finalHpToHealByShrine);
+        shrineSpawner.allShrineHealAmount += (shrineSpawner.allShrineHealAmount * hpToHealByShrine);
     }
 
     public override void ApplyPenalty()
     {
-        if (shrine == null) return;
+        if (shrineSpawner == null) return;
 
-        var finalSpiritCooldown = shrineSpawner.spiritCooldown;
-        var finalAkasiCooldown = shrineSpawner.akasiCooldown;
-        var finalApolakiCooldown = shrineSpawner.apolakiCooldown;
-
-        finalSpiritCooldown += (finalSpiritCooldown * shrineCooldownIncrease);
-        finalAkasiCooldown += (finalAkasiCooldown * shrineCooldownIncrease);
-        finalApolakiCooldown += (finalApolakiCooldown * shrineCooldownIncrease);
+        shrineSpawner.spiritCooldown += (shrineSpawner.spiritCooldown * shrineCooldownIncrease);
+        shrineSpawner.akasiCooldown += (shrineSpawner.akasiCooldown * shrineCooldownIncrease);
+        shrineSpawner.apolakiCooldown += (shrineSpawner.apolakiCooldown * shrineCooldownIncrease);
     }
 
     private void HandleSuperstitionViolation()

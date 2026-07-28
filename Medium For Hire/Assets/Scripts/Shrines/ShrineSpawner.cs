@@ -6,6 +6,10 @@ public class ShrineSpawner : MonoBehaviour
 {
     public static ShrineSpawner Instance;
 
+    public float allShrineHealAmount = 5f;
+    public int challengeCap = 3;
+    public bool isChallengeActive = false;
+
     [Header("Shrine Spawn Times")]
     [SerializeField] private float spiritSpawnDelay = 10; // 10 sec
     [SerializeField] private float akasiSpawnDelay = 60f; // 1 min
@@ -15,10 +19,11 @@ public class ShrineSpawner : MonoBehaviour
     [Header("Respawn Times")]
     [SerializeField] public float spiritCooldown = 30f;
     [SerializeField] public float akasiCooldown = 360f;
-    [SerializeField] public float apolakiCooldown = 300f; // 5 mins
+    [SerializeField] public float apolakiCooldown = 5f; // 5 mins
 
     [Header("Map References")]
     [SerializeField] private List<BaseShrine> allShrineSpots;
+    public List<BaseShrine> activeShrines = new List<BaseShrine>();
 
     [Header("Notification SO Shrines")]
     [SerializeField] private NotificationSO spiritNotif;
@@ -42,12 +47,20 @@ public class ShrineSpawner : MonoBehaviour
     {
         StartCoroutine(InhabitEmptyShrine(ShrineType.Spirit, spiritSpawnDelay));
         StartCoroutine(InhabitEmptyShrine(ShrineType.Akasi, akasiSpawnDelay));
-        StartCoroutine(InhabitEmptyShrine(ShrineType.Apolaki, apolakiSpawnDelay));
+
+        if (challengeCap > 0) StartCoroutine(InhabitEmptyShrine(ShrineType.Apolaki, apolakiSpawnDelay));
     }
 
     private IEnumerator InhabitEmptyShrine(ShrineType type, float delay)
     {
         yield return new WaitForSeconds(delay);
+
+        // if challenge is active OR exhausted the shrine, dont spawn anymore
+        if (type == ShrineType.Apolaki)
+        {
+            if (isChallengeActive || challengeCap <= 0)
+                yield break;
+        }
 
         // create list of empty spots
         List<BaseShrine> emptySpots = new List<BaseShrine>();
@@ -85,11 +98,11 @@ public class ShrineSpawner : MonoBehaviour
         }
         else if (oldType == ShrineType.Akasi)
         {
-            StartCoroutine(InhabitEmptyShrine(ShrineType.Spirit, akasiCooldown));
+            StartCoroutine(InhabitEmptyShrine(ShrineType.Akasi, akasiCooldown));
         }
         else if (oldType == ShrineType.Apolaki)
         {
-            StartCoroutine(InhabitEmptyShrine(ShrineType.Apolaki, apolakiCooldown));
+            //StartCoroutine(InhabitEmptyShrine(ShrineType.Apolaki, apolakiCooldown));
         }
     }
 
@@ -107,5 +120,13 @@ public class ShrineSpawner : MonoBehaviour
         {
             NotificationManager.Instance.ShowNotification(apolakiNotif);
         }
+    }
+
+    public void CompleteApolakiChallenge()
+    {
+        isChallengeActive = false;
+
+        if (challengeCap > 0) 
+            StartCoroutine(InhabitEmptyShrine(ShrineType.Apolaki, apolakiCooldown));
     }
 }

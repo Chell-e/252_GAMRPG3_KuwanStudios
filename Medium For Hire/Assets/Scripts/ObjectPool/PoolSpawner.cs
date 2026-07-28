@@ -41,7 +41,8 @@ public class PoolSpawner : MonoBehaviour
     public float maxDistanceFromPlayer = 15f; // how far an enemy is BEFORE they get respawned 
     public float recycleCheckInterval = 1.5f; // every 1.3s, respawn a far away enemy nearer
 
-    private GameObject currBoss;
+    [Header("BANNED ELITE IN CHALLENGE SHRINE")]
+    public GameObject bannedElite;
 
     // runtime 
     [Header("--- THIS RUN'S ORDER OF ENEMIES")]
@@ -146,6 +147,8 @@ public class PoolSpawner : MonoBehaviour
         if (!isSpawningEnabled) return;
         // FOR TUTORIAL
 
+        CalculateWaveSettings();
+
         if (PlayerController.Instance == null || !PlayerController.Instance.gameObject.activeSelf)
             return;
 
@@ -174,13 +177,11 @@ public class PoolSpawner : MonoBehaviour
             spawnTimer = 0f;
             SpawnNormalEnemy(playerLevel);
         }
-
         if (eliteTimer >= eliteSpawnInterval && !IsAtEnemyCap())
         {
             eliteTimer = 0f;
             SpawnEliteEnemy(playerLevel);
         }
-
         if (recycleTimer >= recycleCheckInterval)
         {
             recycleTimer = 0f;
@@ -210,8 +211,15 @@ public class PoolSpawner : MonoBehaviour
 
     private void CalculateWaveSettings()
     {
-        currentSpawnInterval = Mathf.Max(minimumSpawnInterval, baseSpawnInterval - (currentWave * spawnIntervalDecrease));
-        currentMaxEnemies = Mathf.Max(absoluteEnemyCap, baseMaxEnemies + (currentWave * maxEnemiesIncrease));
+
+        // SITAN CORRUPTION
+        float sitanScale = Mathf.Max(0.001f, SuperstitionManager.Instance.CurrentSitanMultiplier); // prevents division by 0
+
+        float targetInterval = baseSpawnInterval - (currentWave * spawnIntervalDecrease);
+        currentSpawnInterval = Mathf.Max(minimumSpawnInterval, targetInterval/sitanScale);
+
+        float targetCap = baseMaxEnemies + (currentWave * maxEnemiesIncrease);
+        currentMaxEnemies = Mathf.Min(absoluteEnemyCap, Mathf.RoundToInt(targetCap * sitanScale));
     }
 
     private bool IsAtEnemyCap()
@@ -251,10 +259,37 @@ public class PoolSpawner : MonoBehaviour
         int elitesToKill = 3;
 
         List<BaseEnemy> challengeElites = new List<BaseEnemy>();
+        List<GameObject> includedChallengeElites = new List<GameObject>();
+
+        int maxIndexAllowed = Mathf.FloorToInt(elapsedTime / timeToUnlockNextEnemy) + 1;
+        int currentRangeMax = Mathf.Min(maxIndexAllowed, shuffledElites.Length);
+
+        for (int j = 0; j < currentRangeMax; j++)
+        {
+            GameObject includedElite = shuffledElites[j];
+
+            if (includedElite != null && includedElite != bannedElite)
+            {
+                includedChallengeElites.Add(includedElite);
+            }
+        }
+
+        if (includedChallengeElites.Count == 0)
+        {
+            foreach (GameObject elite in shuffledElites)
+            {
+                if (elite != null && elite != bannedElite)
+                {
+                    includedChallengeElites.Add(elite);
+                }
+            }
+        }
+
+        if (includedChallengeElites.Count == 0) return challengeElites;
 
         for (int i = 0; i < elitesToKill; i++)
         {
-            GameObject prefab = GetUnlockedPrefabFromList(shuffledElites);
+            GameObject prefab = includedChallengeElites[Random.Range(0, includedChallengeElites.Count)];
             //if (prefab == null) return;
 
             Vector3 playerPos = PlayerController.Instance.transform.position;
@@ -274,6 +309,12 @@ public class PoolSpawner : MonoBehaviour
 
             if (challengeElite != null)
             {
+                BaseEnemy enemy = challengeElite.GetComponent<BaseEnemy>();
+                if (enemy != null)
+                {
+                    challengeElites.Add(enemy);
+                }
+
                 ApplyScaling(challengeElite, clampedPlayerLevel);
                 activeEnemyCount++;
             }
@@ -302,6 +343,7 @@ public class PoolSpawner : MonoBehaviour
     {
         isSpawningEnabled = enable;
     }
+
     private void SpawnBoss(int clampedPlayerLevel)
     {
         if (bossPrefabs == null || bossPrefabs.Length == 0) return;
@@ -313,12 +355,10 @@ public class PoolSpawner : MonoBehaviour
         {
             Vector2 spawnPos = GetRandomSpawnPosition();
             GameObject boss = PoolManager.SpawnObject(bossPrefab, spawnPos, Quaternion.identity, PoolManager.PoolType.Enemy);
-            SetBossHPBar(boss);
+            //SetBossHPBar(boss);
 
-            if (UIManager.Instance != null)
-            {
-                UIManager.Instance.UpdateBossHpText(boss);
-            }
+            HealthComponent bossHealth = boss.GetComponent<HealthComponent>();
+            if (bossHealth != null) UIManager.Instance.SetupBossHpBar(bossHealth, bossPrefab.name);
 
             if (boss != null)
             {
@@ -330,15 +370,15 @@ public class PoolSpawner : MonoBehaviour
         }
     }
 
-    public void SetBossHPBar(GameObject boss)
-    {
-        currBoss = boss;
-    }
+    //public void SetBossHPBar(GameObject boss)
+    //{
+    //    currBoss = boss;
+    //}
 
-    public GameObject GetBossHPBar()
-    {
-        return currBoss;
-    }
+    //public GameObject GetBossHPBar()
+    //{
+    //    return currBoss;
+    //}
 
     private void RecycleFarEnemies(int clampedPlayerLevel)
     {
@@ -413,14 +453,18 @@ public class PoolSpawner : MonoBehaviour
         return prefabArray[randomIndex];
     }
 
-    private void ApplyScaling(GameObject enemyObj, int clampedPlayerLevel)
+    public void ApplyScaling(GameObject enemyObj, int clampedPlayerLevel)
     {
         BaseEnemy enemy = enemyObj.GetComponent<BaseEnemy>();
         if (enemy == null) return;
 
         float waveScale = Mathf.Pow(statMultiplierPerWave, currentWave);
         float playerScale = Mathf.Pow(statMultiplierPerPlayerLevel, clampedPlayerLevel);
-        float finalMultiplier = waveScale * playerScale;
+
+        // SITAN CORRUPTION
+        float sitanScale = SuperstitionManager.Instance.CurrentSitanMultiplier;
+
+        float finalMultiplier = waveScale * playerScale * sitanScale;
 
         enemy.ScaleEnemyStat(finalMultiplier);
     }
@@ -438,6 +482,25 @@ public class PoolSpawner : MonoBehaviour
     {
         activeEnemyCount = Mathf.Max(0, activeEnemyCount - 1);
     }
+
+    public void RecalculateActiveEnemiesStats()
+    {
+        if (PoolManager._enemyPoolEmpty == null) return;
+
+        int playerLevel = 1;
+        if (PlayerController.Instance != null)
+        {
+            playerLevel = Mathf.Clamp(PlayerController.Instance.GetComponent<PlayerStats>().currentLevel, 1, maxPlayerLevel);
+        }
+
+        foreach (Transform child in PoolManager._enemyPoolEmpty.transform)
+        {
+            if (child.gameObject.activeSelf)
+            {
+                ApplyScaling(child.gameObject, playerLevel);
+            }
+        }
+    }    
 
     private void OnDrawGizmosSelected()
     {

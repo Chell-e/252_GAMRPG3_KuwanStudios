@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 6252735324589897253}
   - component: {fileID: 3301168207532333302}
   m_Layer: 8
-  m_Name: Boss_Gawigawen
+  m_Name: Gawigawen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

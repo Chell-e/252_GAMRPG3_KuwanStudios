@@ -12,8 +12,6 @@ public enum ShrineType
 
 public class BaseShrine : MonoBehaviour
 {
-    public static BaseShrine Instance;
-
     [SerializeField] private ShrineType currentType = ShrineType.Empty;
 
     [SerializeField] private GameObject interactionPromptUI;
@@ -66,16 +64,6 @@ public class BaseShrine : MonoBehaviour
 
     protected void Awake()
     {
-        // singleton 
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         shrineAnim = GetComponentInChildren<Animator>();
     }
@@ -132,6 +120,11 @@ public class BaseShrine : MonoBehaviour
                 break;
         }
 
+        if (currentType != ShrineType.Empty)
+        {
+            ShrineSpawner.Instance.activeShrines.Add(this);
+        }
+
         if (isPlayerInside && currentType != ShrineType.Empty)
         {
             interactionPromptUI.SetActive(true);
@@ -185,6 +178,8 @@ public class BaseShrine : MonoBehaviour
         {
             // spawn elites (marked)
             isApolakiShrineActive = true;
+            ShrineSpawner.Instance.isChallengeActive = true;
+            ShrineSpawner.Instance.challengeCap--;
 
             targets = PoolSpawner.Instance.SpawnChallengeEliteEnemies(
                 PlayerController.Instance.GetComponent<PlayerStats>().currentLevel);
@@ -202,7 +197,6 @@ public class BaseShrine : MonoBehaviour
     public void HandleTargetDeath()
     {
         elitesKilled++;
-        //Debug.Log("target killed");
     }
 
     private void CheckChallengeCompleted()
@@ -221,6 +215,7 @@ public class BaseShrine : MonoBehaviour
             // reward 1 mini-weapon
             UpgradeManager.Instance.Reward_ChallengeShrine();
 
+            ShrineSpawner.Instance.CompleteApolakiChallenge();
         }
     }
 
@@ -249,8 +244,14 @@ public class BaseShrine : MonoBehaviour
     {
         if (PlayerController.Instance != null)
         {
-            PlayerController.Instance.GetComponent<HealthComponent>().Heal(healAmount);
-            //Debug.Log("player healed by shrine");
+            float amountToHeal = ShrineSpawner.Instance.allShrineHealAmount;
+
+            HealthComponent playerHealth = PlayerController.Instance.GetComponent<HealthComponent>();
+
+            if (playerHealth != null)
+            {
+                playerHealth.Heal(amountToHeal);
+            }
         }
     }
 
@@ -282,6 +283,8 @@ public class BaseShrine : MonoBehaviour
     public void VacateSpot()
     {
         ShrineType previousType = currentType;
+        ShrineSpawner.Instance.activeShrines.Remove(this);
+
         SetShrineType(ShrineType.Empty);
 
         if (ShrineSpawner.Instance != null)

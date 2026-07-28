@@ -10,7 +10,8 @@ public class WhipStrikeVFX : MonoBehaviour
 
     [Header("DEBUG")]
     private SpriteRenderer sr;
-    [SerializeField] private Sprite[] spritesheet; 
+    [SerializeField] private Animator anim;
+    //[SerializeField] private Sprite[] spritesheet; 
 
     private float timer;
 
@@ -18,8 +19,8 @@ public class WhipStrikeVFX : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
 
-        int randomIndex = Random.Range(0, spritesheet.Length);
-        sr.sprite = spritesheet[randomIndex];
+        //int randomIndex = Random.Range(0, spritesheet.Length);
+        //sr.sprite = spritesheet[randomIndex];
 
 
         sr.size = _size;

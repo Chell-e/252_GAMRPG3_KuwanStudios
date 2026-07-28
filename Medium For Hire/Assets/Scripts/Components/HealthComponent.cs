@@ -16,6 +16,7 @@ public class HealthComponent : MonoBehaviour
 
     public event Action OnDeath;
     public event Action<float> OnEliteHealthChanged;
+    public event Action<float> OnBossHealthChanged;
 
     private void Awake()
     {
@@ -47,6 +48,7 @@ public class HealthComponent : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         OnEliteHealthChanged?.Invoke(-amount);
+        OnBossHealthChanged?.Invoke(-amount);
 
         // for manananggal
         if (currentHealth <= 0f && !CanDie)

@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Information Tab Panel ")]
     [SerializeField] private GameObject infoTabPanel;
+    [SerializeField] private GameObject activeSuperstitionPanel;
     [SerializeField] private TMP_Text superstitionNameText;
     [SerializeField] private TMP_Text superstitionDescriptionText;
     [SerializeField] private TMP_Text superstitionRewardText;
@@ -52,6 +53,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image bossTimerForeground;
     [SerializeField] private Image bossTimerBackground;
     [SerializeField] private TMP_Text bossHpText;
+    public BossEnemyHPBar bossHpBarUI;
 
     public Image BossTimerForeground => bossTimerForeground;
     public Image BossTimerBackground => bossTimerBackground;
@@ -281,9 +283,15 @@ public class UIManager : MonoBehaviour
         superstitionPenaltyText.text = penaltyText;
     }
 
-    public void UpdateBossHpText(GameObject boss)
+    //public void UpdateBossHpText(GameObject boss)
+    //{
+    //    bossHpText.text = boss.name;
+    //}
+
+    public void SetupBossHpBar(HealthComponent health, string bossName)
     {
-        bossHpText.text = boss.name;
+        bossHpText.text = bossName;
+        bossHpBarUI.DisplayBossHPBar(health);
     }
 
     private IEnumerator ShakeAmulet(RectTransform rt)
