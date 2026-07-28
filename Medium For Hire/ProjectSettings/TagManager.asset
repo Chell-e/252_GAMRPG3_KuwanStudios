@@ -57,3 +57,6 @@ TagManager:
   - name: Enemy HP Bars
     uniqueID: 2333163205
     locked: 0
+  - name: Camera
+    uniqueID: 4226511699
+    locked: 0

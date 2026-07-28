@@ -264,12 +264,14 @@ public class UIManager : MonoBehaviour
         if (IsOptionsPanelActive)
         {
             optionsPanel.gameObject.SetActive(true);
-            pausePanel.gameObject.SetActive(false);
+
+            GameStateManager.Instance.SetState(GameState.Options);
         }
         else
         {
             optionsPanel.gameObject.SetActive(false);
-            pausePanel.gameObject.SetActive(true);
+
+            GameStateManager.Instance.PreviousState();
         }
     }
 

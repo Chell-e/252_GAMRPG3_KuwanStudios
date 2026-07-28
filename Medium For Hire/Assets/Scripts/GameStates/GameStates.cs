@@ -9,6 +9,7 @@ public enum GameState
     Gameplay, 
     Pause,         // ESC
     InfoTab,        // TAB
+    Options,
     ShrinePanel,    // interact w/ shrine
     UpgradePanel,
     GameOver,

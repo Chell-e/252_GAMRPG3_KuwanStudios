@@ -42,16 +42,17 @@ public class GameSceneManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                UIManager.Instance.TogglePauseScreen();
-                //if (GameStateManager.Instance.currentState == GameState.Gameplay)
-                //{
-                //    UIManager.Instance.TogglePauseScreen(true);
-                //}
-                //else if (GameSceneManager.Instance.currentState != GameState.Gameplay)
-                //{
-                //    UIManager.Instance.ToggleOptionsPanel(false);
-                //    UIManager.Instance.TogglePauseScreen(true);
-                //}
+
+                if (GameStateManager.Instance.stateStack.Peek() != GameState.Options)
+                {
+                    UIManager.Instance.TogglePauseScreen();
+
+                }
+                else if (GameStateManager.Instance.stateStack.Peek() == GameState.Options)
+                {
+                    UIManager.Instance.ToggleOptionsPanel();
+
+                }
             }
         }
     }

@@ -78,6 +78,7 @@ public class GameStateManager : MonoBehaviour
 
         if (state == GameState.Pause
             || state == GameState.InfoTab
+            || state == GameState.Options
             || state == GameState.ShrinePanel
             || state == GameState.Dialogue
             || state == GameState.UpgradePanel
