@@ -41,7 +41,7 @@ public class StageManager : MonoBehaviour
         AssembleStage();
 
         if (SoundManager.Instance == null) return;
-        SoundManager.Instance.PlayBGM(0, true);
+        SoundManager.Instance.PlayBGM(2, true);
     }
 
     private void Update()
@@ -56,7 +56,7 @@ public class StageManager : MonoBehaviour
         //Time.timeScale = 1f;
         //GameStateManager.Instance.SetState(GameState.Gameplay);
 
-        Events.OnPlayerDeath += CompleteLevel;
+        Events.OnPlayerDeath += LevelLost;
         OnDeath.OnBossDeath += CompleteLevel;
         //SuperstitionManager.OnSuperstitionBroken += CheckSuperstition;
 
@@ -69,10 +69,23 @@ public class StageManager : MonoBehaviour
             SoundManager.Instance.StopBGM();
         }
 
-        Events.OnPlayerDeath -= CompleteLevel;
+        Events.OnPlayerDeath -= LevelLost;
         OnDeath.OnBossDeath -= CompleteLevel;
         //SuperstitionManager.OnSuperstitionBroken -= CheckSuperstition;
 
+    }
+
+    public void OnBossSpawned()
+    {
+        if (isGameOver) return;
+
+        if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM(1, true);
+    }
+
+    private void LevelLost()
+    {
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(9);
+        CompleteLevel();
     }
 
     private void AssembleStage()

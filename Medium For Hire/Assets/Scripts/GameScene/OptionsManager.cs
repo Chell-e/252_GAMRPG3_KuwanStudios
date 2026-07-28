@@ -10,15 +10,15 @@ public class OptionsManager : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
 
-        [Header("Graphics")]
-    [SerializeField] private Toggle fullscreenToggle;
+    //    [Header("Graphics")]
+    //[SerializeField] private Toggle fullscreenToggle;
     
     private void Start()
     {
         musicSlider.value = PlayerPrefs.GetFloat("musicVolume", 1f);
         sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", 1f);
 
-        fullscreenToggle.isOn = Screen.fullScreen; 
+        //fullscreenToggle.isOn = Screen.fullScreen; 
 
         musicSlider.onValueChanged.AddListener(OnMusicSliderChanged);
         sfxSlider.onValueChanged.AddListener(OnSFXSliderChanged);
@@ -48,8 +48,8 @@ public class OptionsManager : MonoBehaviour
 
     private void sfxVolume (float value) { }
 
-    public void ApplyGraphics()
-    {
-        Screen.fullScreen = fullscreenToggle.isOn;
-    }
+    //public void ApplyGraphics()
+    //{
+    //    Screen.fullScreen = fullscreenToggle.isOn;
+    //}
 }

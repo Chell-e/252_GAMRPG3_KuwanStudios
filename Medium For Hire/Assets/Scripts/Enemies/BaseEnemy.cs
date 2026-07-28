@@ -201,6 +201,8 @@ public abstract class BaseEnemy : MonoBehaviour
 
         if (hitFlash != null)
             hitFlash.TriggerHitFlash();
+
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(11);
     }
     // ====================== DAMAGE
 

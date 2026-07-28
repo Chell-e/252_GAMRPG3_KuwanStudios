@@ -17,6 +17,7 @@ public class HealthComponent : MonoBehaviour
     public event Action OnDeath;
     public event Action<float> OnEliteHealthChanged;
     public event Action<float> OnBossHealthChanged;
+    public event Action OnPlayerHealed;
 
     private void Awake()
     {
@@ -67,6 +68,7 @@ public class HealthComponent : MonoBehaviour
     {
         IsDead = true;
         OnDeath?.Invoke();
+        OnPlayerHealed -= PlayerHealSFX;
     }
 
     public void ApplyHealthMultiplier(float amount)
@@ -88,6 +90,12 @@ public class HealthComponent : MonoBehaviour
         currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
 
         OnEliteHealthChanged?.Invoke(currentHealth - preHeal);
+        OnPlayerHealed += PlayerHealSFX;
+    }
+
+    private void PlayerHealSFX()
+    {
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(10);
     }
 
     public void HealToFull()

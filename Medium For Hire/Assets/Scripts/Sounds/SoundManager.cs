@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+//using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -22,6 +24,7 @@ public class SoundManager : MonoBehaviour
         [Header("Low BGM Settings")]
     [SerializeField] private float normalBGMVolume;
     [SerializeField] private float loweredBGMVolume = 0.2f;
+
 
     private void Awake()
     {
@@ -43,6 +46,22 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (SceneManager.GetActiveScene().name == "MainMenu") 
+            SoundManager.Instance.PlayBGM(3, true);
     }
 
     public void PlaySFX(int audioIndex)

@@ -1,0 +1,15 @@
+-The In-Game-Click SFX is separate from the Navigation Click SFX
+	-Can be used in the upgrade UI when Hovering(2) or Clicking(1)
+	-Can be used in Shrines Pressing E/Accepting(1) or Declining(2)
+	-(1) can be used as SFX for "Dialogue Next"
+	-(1) can be used for when in manual aim mode, (2) for auto aim mode
+
+-XP-Absorbed-SFX has 3 variants to make it sound nice when absorbing and spamming the SFX
+
+-Hit-Enemy-Feedback for when enemies get hit by the weapon
+
+-Player-Damaged for when the player is hit
+	-player should also flash when hit like the enemies (based on v0.2 gameplay in case it hasn't been done yet)
+
+
+

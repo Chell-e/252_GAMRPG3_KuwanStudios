@@ -367,6 +367,7 @@ public class PoolSpawner : MonoBehaviour
             }
 
             bossSpawned = true;
+            StageManager.Instance.OnBossSpawned();
         }
     }
 
