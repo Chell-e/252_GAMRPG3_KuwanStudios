@@ -65,8 +65,9 @@ public class SuperstitionManager : MonoBehaviour
             // DO THEY HAVE A SUPERSTITION? AND DID THEY FOLLOW IT?
             if (hasSuperstition && totalViolations == 0)
             {
-                // REWARD
+                // REWARD & VANISH
                 activeSuperstition.ApplyReward();
+                EraseSuperstition();
 
                 if (NotificationManager.Instance != null)
                 {
@@ -127,6 +128,11 @@ public class SuperstitionManager : MonoBehaviour
         UIManager.Instance.UpdateSuperstitionUI(activeSuperstition.superstitionName, activeSuperstition.description,
             activeSuperstition.rewardText, activeSuperstition.penaltyText);
 
+        if (NotificationManager.Instance != null && sitanCorruptionActive)
+        {
+            NotificationManager.Instance.ShowNotification(sitansEndNotif);
+        }
+
         // reset whenever a spirit is appeased
         nakedtimer = 0f;
         sitanCorruptionActive = false;
@@ -137,11 +143,6 @@ public class SuperstitionManager : MonoBehaviour
         {
             PoolSpawner.Instance.RecalculateActiveEnemiesStats();
             Debug.Log("enemy stats back 2 normal");
-        }
-
-        if (NotificationManager.Instance != null)
-        {
-            NotificationManager.Instance.ShowNotification(sitansEndNotif);
         }
     }
 
@@ -170,14 +171,21 @@ public class SuperstitionManager : MonoBehaviour
         {
             // PENALTY
             activeSuperstition.ApplyPenalty();
+            EraseSuperstition();
+        }
 
+        nakedtimer = 0f;
+    }
+
+    public void EraseSuperstition()
+    {
+        if (activeSuperstition != null)
+        {
             activeSuperstition.Deinitialize();
             activeSuperstition = null;
 
             UIManager.Instance.UpdateSuperstitionUI("None", "...", null, null);
         }
-
-        nakedtimer = 0f;
     }
 
     public void ResetTotalViolations()
