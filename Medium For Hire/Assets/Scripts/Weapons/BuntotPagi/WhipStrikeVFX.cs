@@ -10,12 +10,18 @@ public class WhipStrikeVFX : MonoBehaviour
 
     [Header("DEBUG")]
     private SpriteRenderer sr;
+    [SerializeField] private Sprite[] spritesheet; 
 
     private float timer;
 
     public void Init(Vector2 _size, Vector2 _localPosition)
     {
         sr = GetComponent<SpriteRenderer>();
+
+        int randomIndex = Random.Range(0, spritesheet.Length);
+        sr.sprite = spritesheet[randomIndex];
+
+
         sr.size = _size;
         transform.position = (Vector2)transform.position + _localPosition;
         if (_localPosition.x < 0)

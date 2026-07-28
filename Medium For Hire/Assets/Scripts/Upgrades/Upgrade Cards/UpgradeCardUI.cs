@@ -53,7 +53,13 @@ public class UpgradeCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             || colorIndex == 1
             || colorIndex == 2)
         {
-            if (domainFill != null) domainFill.sprite = domainBars[colorIndex];
+            if (domainFill != null)
+            {
+                domainFill.sprite = domainBars[colorIndex];
+                domainSlider.value = CheckDomainPowerInPlayer();
+            } 
+
+
         }
         else
         {
@@ -147,38 +153,34 @@ public class UpgradeCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         return domainBackgroundIndex;
     }
 
-    // TOOLS
-
-
-    // EVENTS & LISTENERS
-    // put events and listeners here
-    public void OnPointerEnter(PointerEventData eventData)
+    private int CheckDomainPowerInPlayer()
     {
-        cardHighlight.enabled = true;
-        Debug.Log("DETECTED POINTER ENTER, SHOULD ENABLE OUTLINE!");
-    }
+        if (upgradeData is StatUpgrade == false) return 0;
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        cardHighlight.enabled = false;
-        Debug.Log("EXITED POINTER, SHOULD DISABLE!");
-    }
+        StatUpgrade statUpgrade = upgradeData as StatUpgrade;
+        int domainPower = 0;
 
-    private void OnDestroy()
-    {
-        if (selectButton != null)
+        foreach (StatUpgradeData statData in statUpgrade.statsUpgraded)
         {
-            selectButton.onClick.RemoveAllListeners();
+            switch (statData.statToUpgrade)
+            {
+                case StatUpgradeType.OffenseBonus:
+                    domainPower = (int)PlayerStats.Instance.GetPlayerStat(Stat.DomainOffense);
+                    break;
+                case StatUpgradeType.SurvivalBonus:
+                    domainPower = (int)PlayerStats.Instance.GetPlayerStat(Stat.DomainSurvival);
+                    break;
+                case StatUpgradeType.UtilityBonus:
+                    domainPower = (int)PlayerStats.Instance.GetPlayerStat(Stat.DomainUtility);
+                    break;
+            }
         }
+
+        Debug.Log($"check domain power will return: {domainPower}");
+        return domainPower;
     }
 
-    // EVENTS & LISTENERS
-
-
-
-    //
-    // Works but no longer in use:
-    /*private int CheckDomainPower()
+    private int CheckDomainPowerOfCard()
     {
         if (upgradeData is StatUpgrade == false) return 0;
 
@@ -203,6 +205,73 @@ public class UpgradeCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         return domainPower;
     }
+    // TOOLS
+
+
+    // EVENTS & LISTENERS
+    // put events and listeners here
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        cardHighlight.enabled = true;
+
+        domainSlider.value = CheckDomainPowerInPlayer() + CheckDomainPowerOfCard();
+
+
+        Debug.Log("DETECTED POINTER ENTER, SHOULD ENABLE OUTLINE!");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        cardHighlight.enabled = false;
+
+        domainSlider.value = CheckDomainPowerInPlayer();
+
+        Debug.Log("EXITED POINTER, SHOULD DISABLE!");
+    }
+
+    private void OnDestroy()
+    {
+        if (selectButton != null)
+        {
+            selectButton.onClick.RemoveAllListeners();
+        }
+    }
+
+    // EVENTS & LISTENERS
+
+
+
+    //
+    // Works but no longer in use:
+    /*
+        private int CheckDomainPower()
+    {
+        if (upgradeData is StatUpgrade == false) return 0;
+
+        StatUpgrade statUpgrade = upgradeData as StatUpgrade;
+        int domainPower = 0;
+
+        foreach (StatUpgradeData statData in statUpgrade.statsUpgraded)
+        {
+            switch (statData.statToUpgrade)
+            {
+                case StatUpgradeType.OffenseBonus:
+                    domainPower = statData.value;
+                    break;
+                case StatUpgradeType.SurvivalBonus:
+                    domainPower = statData.value;
+                    break;
+                case StatUpgradeType.UtilityBonus:
+                    domainPower = statData.value;
+                    break;
+            }
+        }
+
+        Debug.Log($"check domain power will return: {domainPower}");
+        return domainPower;
+    }
+ 
+     
     private string DomainIconsToTags(int _iconIndex, int _amount)
     {
         string iconTag = "";

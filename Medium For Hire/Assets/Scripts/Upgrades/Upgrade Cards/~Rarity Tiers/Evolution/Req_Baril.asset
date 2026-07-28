@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4fef7707804c014a841221203fbf9e2, type: 3}
-  m_Name: Status_Reeled
+  m_Script: {fileID: 11500000, guid: 5fe4ed61691d9704ab213405a2e31753, type: 3}
+  m_Name: Req_Baril
   m_EditorClassIdentifier: 
-  effectName: Reeled
-  lifetime: 0.5
-  pullPower: 15
-  potencyModifier: 1
-  stoppingDistance: 0.5
+  requiredWeapon: 3

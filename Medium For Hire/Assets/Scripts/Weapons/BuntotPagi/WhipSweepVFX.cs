@@ -3,8 +3,9 @@ using UnityEngine;
 public class WhipSweepVFX : MonoBehaviour
 {
     [Header("SETTINGS")]
-    public float duration = 0.25f;
+    public float duration = 0.5f;
     public AnimationCurve scaleCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    public AnimationCurve spinCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     public AnimationCurve alphaCurve = AnimationCurve.EaseInOut(0, 1, 1, 0);
 
 
@@ -47,8 +48,8 @@ public class WhipSweepVFX : MonoBehaviour
         float scale = scaleCurve.Evaluate(t) * maxScale;
         transform.localScale = new Vector3(scale, scale, 1f);
 
-        float spin = scaleCurve.Evaluate(t) * maxScale;
-        transform.localRotation = Quaternion.Euler(0f, 0f, -spin * 100f);
+        float spin = spinCurve.Evaluate(t) * maxScale;
+        transform.localRotation = Quaternion.Euler(0f, 0f, spin * 100f);
 
         // Fade
         if (sr != null)

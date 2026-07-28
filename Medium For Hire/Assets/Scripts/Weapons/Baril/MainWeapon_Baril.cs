@@ -12,9 +12,9 @@ public class MainWeapon_Baril : BaseWeapon
     public enum BarilEvolution
     {
         Base,
-        Momentum,
-        BulletTime,
-        Ricochet
+        MomentumStacks,
+        InfiniteAmmo,
+        PierceRicochet
     }
 
     [Header("BASE STATS")]
@@ -59,8 +59,6 @@ public class MainWeapon_Baril : BaseWeapon
 
         [Header("TALA EVO")]
     public bool isSurvivalEvolved = false;
-    private float baseTimeFactor = 0.85f;
-    private float finalTimeFactor;
 
         [Header("HANAN EVO")]
     public bool isUtilityEvolved = false;
@@ -134,6 +132,9 @@ public class MainWeapon_Baril : BaseWeapon
 
             DoAttack(transform.position + offsetVector, mouseWorldPos);
             ammo--;
+
+            // negate ammo loss if Survival Evolution
+            if (isSurvivalEvolved) ammo++;
         }
 
     }
@@ -193,9 +194,9 @@ public class MainWeapon_Baril : BaseWeapon
         if (isSurvivalEvolved)
         {
             // movespeed buff is stored in the Evolution Upgrade Card if ever!
-            finalTimeFactor =
-                baseTimeFactor
-                - (playerStats.GetPlayerStat(Stat.DomainSurvival) * .001f); // 10 domain = 10% slower time
+            //finalTimeFactor =
+            //    baseTimeFactor
+            //    - (playerStats.GetPlayerStat(Stat.DomainSurvival) * .001f); // 10 domain = 10% slower time
         }
 
         // GUIDE
@@ -324,11 +325,6 @@ public class MainWeapon_Baril : BaseWeapon
     private void OnAimToggle(AimContext aimContext)
     {
         isAimed = !isAimed;
-
-        if (isAimed && isSurvivalEvolved)
-        {
-            DoBulletTime();
-        }
     }
 
     private void OnAfterGetUpgrade()

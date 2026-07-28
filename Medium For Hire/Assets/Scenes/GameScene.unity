@@ -10963,6 +10963,7 @@ MonoBehaviour:
   subWeapons: []
   mainWeapon: {fileID: 0}
   mainWeaponUIData: {fileID: 11400000, guid: d2faddea6471e7d409b6dd355d13bfa9, type: 2}
+  mainWeaponData: {fileID: 11400000, guid: 3102ba28631dd7c48accdb26f7b73b26, type: 2}
 --- !u!4 &958651462
 Transform:
   m_ObjectHideFlags: 0
@@ -15822,14 +15823,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.2627451}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 590c99c77263b624c9e5e9eb025611f9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aefa9212c72c89e4d88128775bde5a60, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

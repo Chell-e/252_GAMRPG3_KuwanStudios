@@ -867,7 +867,7 @@ MonoBehaviour:
         m_MethodName: SelectWeapon
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 3102ba28631dd7c48accdb26f7b73b26, type: 2}
+          m_ObjectArgument: {fileID: 11400000, guid: 333f389aa56847445a38aae0ac4cfd59, type: 2}
           m_ObjectArgumentAssemblyTypeName: WeaponData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1762,7 +1762,7 @@ GameObject:
   - component: {fileID: 951196480}
   - component: {fileID: 951196481}
   m_Layer: 5
-  m_Name: Weapon Choices
+  m_Name: Weapons Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1843,7 +1843,7 @@ GameObject:
   - component: {fileID: 970967639}
   - component: {fileID: 970967638}
   m_Layer: 5
-  m_Name: ScrollArea
+  m_Name: WeaponChoices ScrollArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4003,12 +4003,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Medium damaging ring around you.
+  m_text: ' Short ranged, left-and-right slash.
 
 
-
-    <size=23><sprite name="m2">RMB:
-    Blast around your cursor.'
+    <size=23><sprite name="dash1">
+    Dash: Slash enemies in the way.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
   m_sharedMaterial: {fileID: 2603448136184377945, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}

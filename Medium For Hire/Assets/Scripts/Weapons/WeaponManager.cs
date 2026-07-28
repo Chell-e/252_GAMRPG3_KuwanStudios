@@ -31,6 +31,9 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] public GameObject mainWeapon;
     [SerializeField] WeaponUnlock mainWeaponUIData;
 
+    [SerializeField] public WeaponData mainWeaponData;
+
+
     // * DRIVER CODE
     // mainly Start() and Update()
 
@@ -39,9 +42,11 @@ public class WeaponManager : MonoBehaviour
     {
         CheckPlayerReference();
         //EquipMainWeapon(StageManager.SelectedWeapon);
-        
+
         //mainWeapon.GetComponent<BaseWeapon>().Initialize(playerController); // dont forget to Initialize() function 
         //UIManager.Instance.SetupMainWeaponSlot(mainWeaponUIData, mainWeapon.GetComponent<BaseWeapon>());
+
+        if (mainWeaponData != null) EquipMainWeapon(mainWeaponData); // DONT FORGET TO REMOVE AFTER DEBUGGING
     }
 
     // * DRIVER CODE

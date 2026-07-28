@@ -7,7 +7,10 @@ using UnityEngine.Scripting;
 public enum WeaponSource
 {
     JuruPakal=1,
-    TboliBells=2
+    TboliBells=2,
+    Baril=3,
+    Buntot=4,
+    DugotDaga=5
 }
 
 [CreateAssetMenu(menuName = "Upgrades/Upgrade Requirements/Weapon Requirement")]
@@ -27,6 +30,12 @@ public class WeaponRequirement : BaseUpgradeRequirement
 
             case (WeaponSource.TboliBells):
                 return mainWeapon is MainWeapon_TboliBells;
+
+            case (WeaponSource.Baril):
+                return mainWeapon is MainWeapon_Baril;
+
+            case (WeaponSource.Buntot):
+                return mainWeapon is MainWeapon_BuntotPagi;
         }
 
         return false;
