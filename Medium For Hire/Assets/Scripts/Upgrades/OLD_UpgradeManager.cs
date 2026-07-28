@@ -103,7 +103,7 @@ public class OLD_UpgradeManager : MonoBehaviour
             // ensure correct scale so layout groups size/position correctly
             cardObject.transform.localScale = Vector3.one;
             
-            var cardUI = cardObject.GetComponent<UpgradeCardUI>();
+            var cardUI = cardObject.GetComponent<OLDUpgradeCardUI>();
             if (cardUI != null) cardUI.Setup(upgrade, OnCardSelected);
 
             spawnedCards.Add(cardObject);

@@ -10,117 +10,86 @@ using System.Collections.Generic;
 
 public class UpgradeCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [Header("UI References")]
+    [Header("STUFF TO RENDER")]
     public Image cardIcon; // ICON OR IMAGE 
-       /*GONE*/ public Image cardBackground; // not relevant anymore
+    public TextMeshProUGUI rarityText;
+    public TextMeshProUGUI titleText;
+    public TextMeshProUGUI descriptionText;
 
-    public TextMeshProUGUI cardTitle; // TITLE
-       /*GONE*/ public TextMeshProUGUI cardSubtitle; // not relevant anymore
-
-        /*GONE*/ public TextMeshProUGUI cardFlavorText; // not relevant anymore
-    public TextMeshProUGUI cardDescription; // DESCRIPTION
-        /*GONE*/ public TextMeshProUGUI cardDomainText; // not relevant anymore
-
-    [SerializeField] public Image domainBorderNormal;
-    [SerializeField] public Image domainBorderHovered;
-
-    public Transform domainPipLayoutGroup;
-    public Transform rarityPipLayoutGroup;
-
-    //public Image cardOutline;
+    [Header("CARD UI REFERENCES")]
+    public Image cardGraphic; // the main body of the card
+    public Image rarityFrame;
+    [Space]
+    public Slider domainSlider;
+    public Image domainFill;
+    [Space]
+    public Image cardHighlight; // for hovering
     public Button selectButton; // button for events?
 
-    //private UpgradeDefinition definition;
-    //private Action<UpgradeDefinition> onSelected;
+    [Header("VARIETIES")]
+    public Sprite[] cardColors;
+    public Sprite[] domainBars;
+    [Space]
+    public Sprite[] rarityBars;
+    public string[] rarityTexts;
 
-        /*GONE*/ [SerializeField] private Sprite[] domainBackgrounds; // not relevant anymore
 
-    [SerializeField] private Sprite[] NewDomainBackgrounds;
 
-    // *** Try turning these into nested lists instead.
-    [SerializeField] private Sprite[] domainBars_Normal; // for hover[1] and not hover[0] 
-    [SerializeField] private Sprite[] domainBars_Hover; // for hover[1] and not hover[0] 
-
-    [SerializeField] private Sprite[] domainPips_Normal; // different colors for NON-WEAPON upgrades.
-
-    [SerializeField] GameObject domainPipPrefab; // prefab that populates ring binder layout group
-    [SerializeField] GameObject rarityPipPrefab; // 
-
+    [Header("DEBUG")]
+    private int colorIndex = 0;
+    [Space]
     private BaseUpgradeData upgradeData;
     private Action<BaseUpgradeData> onSelected;
 
-    private int colorIndex = 0;
-    private int totalPips = 0;
-
-    private List<GameObject> projectedDomainPips = new List<GameObject>();
-
-
+    // * DRIVER CODE
     public void Setup(BaseUpgradeData _upgradeData, Action<BaseUpgradeData> _onSelectedCallback)
     {
         upgradeData = _upgradeData;
         onSelected = _onSelectedCallback;
 
-        //cardBackground.sprite = domainBackgrounds[CheckDomain()];
 
         colorIndex = CheckDomain(); // CheckDomain() returns a number matching a specific color whtvr
-        // might not be good practice
+        if (colorIndex == 0
+            || colorIndex == 1
+            || colorIndex == 2)
+        {
+            if (domainFill != null) domainFill.sprite = domainBars[colorIndex];
+        }
+        else
+        {
+            // disable slider for yellow or white
+            int newWidth = 513; // these were trial-and-errored...
+            int newHeight = 730;
+            int offsetX = -23;
+            int offsetY = 20;
+            Vector3 offset = new Vector3(offsetX, offsetY, 0);
 
-        //Debug.Log("color index is " + colorIndex);
+            domainSlider.gameObject.SetActive(false);
+            cardGraphic.rectTransform.SetWidth(newWidth);
+            cardGraphic.rectTransform.SetHeight(newHeight);
+            cardGraphic.rectTransform.localPosition = offset;
 
-        if (cardBackground != null) cardBackground.sprite = NewDomainBackgrounds[colorIndex];
+            cardIcon.transform.localPosition -= offset;
+
+            rarityFrame.transform.localPosition -= offset; // adjust only the frame; the text is already centered
+            titleText.transform.localPosition -= offset;
+            descriptionText.transform.localPosition -= offset;
+
+        }
+
+
+        if (cardGraphic != null) cardGraphic.sprite = cardColors[colorIndex];
 
         if (cardIcon != null) cardIcon.sprite = _upgradeData.icon;
 
-        if (cardTitle != null) cardTitle.text = _upgradeData.title;
-        if (cardSubtitle != null) cardSubtitle.text = _upgradeData.subtitle;
+        
+        if (rarityText != null) rarityText.text = rarityTexts[colorIndex];
+        if (rarityFrame != null) rarityFrame.sprite = rarityBars[colorIndex];
 
-        if (cardFlavorText != null) cardFlavorText.text = _upgradeData.flavorText;
-        if (cardDescription != null) cardDescription.text = _upgradeData.description;
-        if (cardDomainText != null) cardDomainText.text = DomainIconsToTags(CheckDomain(), CheckDomainPower());
-        //if (cardOutline != null) cardOutline.color = _upgradeData.cardOutlineColor;
+        if (titleText != null) titleText.text = _upgradeData.title;
+        if (descriptionText != null) descriptionText.text = _upgradeData.description;
 
-        if (rarityPipLayoutGroup != null)
-        {
-            for (int i = 0; i < _upgradeData.rarityStars; i++)
-            {
-                GameObject rarityStar = Instantiate(rarityPipPrefab, rarityPipLayoutGroup.transform, false);
-            }
-        }
 
-        // spawn pips based on current player shit
-        if (domainPipLayoutGroup != null)
-        {
-            int playerDomainPower = 0; // player's current domain power of the given upgrade
-
-            // first, check for the card's domain type
-            switch (colorIndex)
-            {
-                case (0): // offense
-                    playerDomainPower = PlayerController.Instance.playerStats.offenseDomainStat;
-                    break;
-
-                case (1): // survival
-                    playerDomainPower = PlayerController.Instance.playerStats.survivalDomainStat;
-                    break;
-
-                case (2): //utility
-                    playerDomainPower = PlayerController.Instance.playerStats.utilityDomainStat;
-                    break;
-                default: // idk
-                    break;
-            }
-
-            for (int i = 0;
-                    i < playerDomainPower;
-                    i++)
-            {
-                if (i > 10) break;
-                GameObject domainPip = Instantiate(domainPipPrefab, domainPipLayoutGroup.transform, false);
-                domainPip.GetComponent<Image>().sprite = domainPips_Normal[colorIndex];
-
-                totalPips++;
-            }
-        }
 
         if (selectButton != null)
         {
@@ -128,69 +97,30 @@ public class UpgradeCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             selectButton.onClick.AddListener(() => onSelected?.Invoke(upgradeData));
         }
     }
+    // * DRIVER CODE
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        ClearProjectedDomainPips();
 
-        //Debug.Log("hovered");
+    // *** CORE LOGIC
+    // these are functions that coordinate smaller functions below
 
-        domainBorderHovered.enabled = true;
-        domainBorderNormal.enabled = false;
+    // *** CORE LOGIC
 
-        if (CheckDomainPower() + totalPips > 10) return;
 
-        for (int i = 0; i < CheckDomainPower(); i++)
-        {
-            GameObject projectedPip = Instantiate(domainPipPrefab, domainPipLayoutGroup.transform, false);
-            projectedPip.GetComponent<Image>().sprite = domainPips_Normal[colorIndex];
+    // ** SUB FUNCTIONS
+    // more "individual" functions
 
-            Color fadedColor = projectedPip.GetComponent<Image>().color;
-            fadedColor.a = .5f;
-            projectedPip.GetComponent<Image>().color = fadedColor;
+    // ** SUB FUNCTIONS
 
-            projectedDomainPips.Add(projectedPip);
-        }
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(domainPipLayoutGroup.GetComponent<RectTransform>());
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        //Debug.Log("exited hover");
-
-        domainBorderHovered.enabled = false;
-        domainBorderNormal.enabled = true;
-
-        ClearProjectedDomainPips();
-    }
-
-    private void ClearProjectedDomainPips()
-    {
-        if (projectedDomainPips.Count == 0) return;
-
-        foreach (GameObject pip in projectedDomainPips)
-        {
-            if (pip != null) Destroy(pip);
-        }
-        projectedDomainPips.Clear();
-    }
-
-    private void OnDestroy()
-    {
-        if (selectButton != null)
-        {
-            selectButton.onClick.RemoveAllListeners();
-        }
-    }
-
+    // TOOLS
+    // external, getters/setters, non-method stuff (e.g., IEnumerator)
     private int CheckDomain()
     {
         // 0 = grudge/red
         // 1 = guard/green
         // 2 = guide/blue
         // 3 = weapon/yellow
-        // 4 = max/purple
+        // 4 = max/white
 
         if (upgradeData is WeaponUnlock) return 3; // yellow
         if (upgradeData is WeaponEvolution) return 4; // purple
@@ -217,9 +147,40 @@ public class UpgradeCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         return domainBackgroundIndex;
     }
 
-    private int CheckDomainPower()
+    // TOOLS
+
+
+    // EVENTS & LISTENERS
+    // put events and listeners here
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        if (upgradeData is StatUpgrade == false) return 0; 
+        cardHighlight.enabled = true;
+        Debug.Log("DETECTED POINTER ENTER, SHOULD ENABLE OUTLINE!");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        cardHighlight.enabled = false;
+        Debug.Log("EXITED POINTER, SHOULD DISABLE!");
+    }
+
+    private void OnDestroy()
+    {
+        if (selectButton != null)
+        {
+            selectButton.onClick.RemoveAllListeners();
+        }
+    }
+
+    // EVENTS & LISTENERS
+
+
+
+    //
+    // Works but no longer in use:
+    /*private int CheckDomainPower()
+    {
+        if (upgradeData is StatUpgrade == false) return 0;
 
         StatUpgrade statUpgrade = upgradeData as StatUpgrade;
         int domainPower = 0;
@@ -242,7 +203,6 @@ public class UpgradeCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
         return domainPower;
     }
-
     private string DomainIconsToTags(int _iconIndex, int _amount)
     {
         string iconTag = "";
@@ -267,5 +227,5 @@ public class UpgradeCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             iconText += iconTag;
 
         return iconText;
-    }
+    }*/
 }

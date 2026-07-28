@@ -39,8 +39,8 @@ public class UpgradeManager : MonoBehaviour
     // * DRIVER CODE
     private void Start()
     {
-        //StartUpgradeSelect();
-
+        //StartUpgradeSelect(); // remove after debugging
+    
         //List<BaseUpgradeData> hand = Roller.BulkRoll(Acquired.acquiredUpgrades, handSize);
 
         //foreach (BaseUpgradeData card in hand)

@@ -8,4 +8,9 @@ public static class RectTransformExtensions
     {
         t.sizeDelta = new Vector2(width, t.rect.height);
     }
+
+    public static void SetHeight(this RectTransform t, float height)
+    {
+        t.sizeDelta = new Vector2(t.rect.width, height);
+    }
 }
