@@ -39,6 +39,11 @@ public class UpgradeRoller : MonoBehaviour
 
     [Header("REFERENCES")]
     public UpgradePool upgradePool;
+    [Space]
+    public List<BaseUpgradeData> specialPool_MiniweaponsAndEvolutions;
+
+    
+    
 
     // * DRIVER CODE
     private void Start()
@@ -74,7 +79,7 @@ public class UpgradeRoller : MonoBehaviour
             if (validPool.Count == 0)
             {
                 // if array's current list is at count 0, overwrite the list with what we rolled
-                validPool = GetAvailablePool(targetTier, acquiredUpgrades).ToList();
+                validPool = GetAvailablePool(targetTier.upgradePool, acquiredUpgrades).ToList();
                 validArray[tierIndex] = validPool;
             }
 
@@ -123,6 +128,21 @@ public class UpgradeRoller : MonoBehaviour
 
         pity = newPity;
     }
+
+    public List<BaseUpgradeData> SpecialRoll(List<BaseUpgradeData> sourcePool, Dictionary<BaseUpgradeData, int> acquiredUpgrades, int rewardsToOffer = 1)
+    {
+        List<BaseUpgradeData> availablePool = GetAvailablePool(sourcePool, acquiredUpgrades);
+
+        if (availablePool.Count <= 0) return new List<BaseUpgradeData>();
+        List<BaseUpgradeData> offeredPool = new List<BaseUpgradeData>();
+
+        for (int i = 0; i < rewardsToOffer; i++)
+        {
+            offeredPool.Add(availablePool[i]);
+        }
+
+        return offeredPool;
+    }
     // *** CORE LOGIC
 
 
@@ -150,11 +170,11 @@ public class UpgradeRoller : MonoBehaviour
         return upgradePool.tiers[upgradePool.tiers.Count - 1];
     }
 
-    public List<BaseUpgradeData> GetAvailablePool(UpgradeTier sourceTier, Dictionary<BaseUpgradeData, int> acquiredUpgrades)
+    public List<BaseUpgradeData> GetAvailablePool(List<BaseUpgradeData> sourcePool, Dictionary<BaseUpgradeData, int> acquiredUpgrades)
     {
         List<BaseUpgradeData> validPool = new List<BaseUpgradeData>();
 
-        foreach (BaseUpgradeData upgrade in sourceTier.upgradePool)
+        foreach (BaseUpgradeData upgrade in sourcePool)
         {
 
             int amountPicked = 0;

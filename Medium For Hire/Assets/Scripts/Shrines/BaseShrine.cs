@@ -219,6 +219,7 @@ public class BaseShrine : MonoBehaviour
             }
 
             // reward 1 mini-weapon
+            UpgradeManager.Instance.Reward_ChallengeShrine();
 
         }
     }

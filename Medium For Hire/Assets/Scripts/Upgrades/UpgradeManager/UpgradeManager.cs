@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -25,6 +26,7 @@ public class UpgradeManager : MonoBehaviour
 
     [Header("DEBUG")]
     private List<GameObject> displayedCards = new List<GameObject>(); // currently displayed cards
+    private bool isActive = false;
 
     [Header("REFERENCES")]
     public UpgradePool upgradePool;
@@ -54,8 +56,10 @@ public class UpgradeManager : MonoBehaviour
     [ContextMenu("Force Level-Up")]
     public void StartUpgradeSelect()
     {
+        if (isActive) return;
         GameStateManager.Instance?.SetState(GameState.Cutscene);
         UIManager.Instance?.ToggleUpgradeGraphics(true);
+        isActive = true;
 
         DrawHand();
     }
@@ -63,6 +67,8 @@ public class UpgradeManager : MonoBehaviour
     public void EndUpgradeSelect()
     {
         ClearHand();
+        Debug.Log("UPGRADE SELECTE END");
+        isActive = false;
 
         UIManager.Instance?.ToggleUpgradeGraphics(false);
         GameStateManager.Instance?.ReturnState();
@@ -73,6 +79,29 @@ public class UpgradeManager : MonoBehaviour
     {
         ClearHand();
         DrawHand();
+    }
+
+    public void Reward_ChallengeShrine()
+    {
+        GameStateManager.Instance?.SetState(GameState.Cutscene);
+        UIManager.Instance?.ToggleUpgradeGraphics(true);
+
+
+        List<BaseUpgradeData> hand = Roller.SpecialRoll(Roller.specialPool_MiniweaponsAndEvolutions, Acquired.acquiredUpgrades).ToList();
+
+        if (hand.Count <= 0 || hand == null)
+        {
+            DrawHand();
+            return; // EXIT IF THERE'S NOTHING OFFERED
+        } 
+
+        Debug.Log($"challenge hand was not empty; found: {hand.Count}");
+
+        foreach (BaseUpgradeData card in hand)
+        {
+            displayedCards.Add(DisplayCard(card));
+        }
+
     }
     // * DRIVER CODE
 
@@ -243,6 +272,8 @@ public class UpgradeManager : MonoBehaviour
     }
     public void ClearHand()
     {
+        if (displayedCards == null) return;
+
         foreach (var cardToRemove in displayedCards)
         {
             Destroy(cardToRemove);

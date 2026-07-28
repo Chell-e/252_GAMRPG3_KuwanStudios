@@ -17,7 +17,7 @@ public class StatusEffect_Vulnerable : BaseStatusEffect
 
     public override void OnTick(BaseEnemy _enemy, float _potencyModifier, float _timeElapsed)
     {
-        Debug.Log("TICKING HOLY WATER");
+        //Debug.Log("TICKING HOLY WATER");
     }
     public override void OnExpire(BaseEnemy _enemy)
     {
