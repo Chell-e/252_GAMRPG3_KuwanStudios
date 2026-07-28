@@ -65,7 +65,6 @@ public class TutorialManager : MonoBehaviour
 
         // immediately starts with dialogue1
         PlayDialogue(tutorialFiles.tutorial_dialogue1);
-        GameStateManager.Instance.currentState = GameState.Cutscene;
     }
 
     private void Update()
@@ -83,7 +82,7 @@ public class TutorialManager : MonoBehaviour
         if (isDialogueActive)
             return;
 
-        if (GameStateManager.Instance.currentState == GameState.Gameplay)
+        if (GameStateManager.Instance.stateStack.Peek() == GameState.Gameplay)
             ShowTutorialTexts();
 
         switch (tutorialIndex)
@@ -128,7 +127,7 @@ public class TutorialManager : MonoBehaviour
 
     // *** SUB FUNCTIONS
     // more "individual" functions
-    public void PlayDialogue(string fileName, GameState gameState = GameState.Cutscene)
+    public void PlayDialogue(string fileName)
     {
         TextAsset json = Resources.Load<TextAsset>("Dialogues/" + fileName);
 
@@ -141,7 +140,7 @@ public class TutorialManager : MonoBehaviour
         DialogueFile dialogue =
             JsonUtility.FromJson<DialogueFile>(json.text);
 
-        dialogueManager.StartDialogue(dialogue, gameState);
+        dialogueManager.StartDialogue(dialogue);
     }
     // *** SUB FUNCTIONS
 

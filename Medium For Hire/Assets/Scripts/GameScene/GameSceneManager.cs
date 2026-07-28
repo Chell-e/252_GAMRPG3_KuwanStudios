@@ -40,14 +40,18 @@ public class GameSceneManager : MonoBehaviour
         {
             if (StageManager.Instance.isGameOver) return;
 
-            if (Input.GetKeyDown(KeyCode.Escape) && !UIManager.Instance.IsOptionsPanelActive)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                UIManager.Instance.TogglePauseScreen(true);
-            }
-            else if (Input.GetKeyDown(KeyCode.Escape) && UIManager.Instance.IsOptionsPanelActive)
-            {
-                UIManager.Instance.ToggleOptionsPanel(false);
-                UIManager.Instance.TogglePauseScreen(true);
+                UIManager.Instance.TogglePauseScreen();
+                //if (GameStateManager.Instance.currentState == GameState.Gameplay)
+                //{
+                //    UIManager.Instance.TogglePauseScreen(true);
+                //}
+                //else if (GameSceneManager.Instance.currentState != GameState.Gameplay)
+                //{
+                //    UIManager.Instance.ToggleOptionsPanel(false);
+                //    UIManager.Instance.TogglePauseScreen(true);
+                //}
             }
         }
     }

@@ -50,8 +50,7 @@ public class ShrineUIManager : MonoBehaviour
 
     public void OpenNormalPanel(BaseShrine shrine, string title, string flavorText, string description)
     {
-        // pause time
-        Time.timeScale = 0f;
+        GameStateManager.Instance.SetState(GameState.ShrinePanel);
 
         currentActiveContext = shrine;
         currentActiveWindow = normalWindow;
@@ -62,13 +61,13 @@ public class ShrineUIManager : MonoBehaviour
         if (normalDescriptionText != null) normalDescriptionText.text = description;
 
         // open it up
-        if (currentActiveWindow != null) currentActiveWindow.SetActive(true);
+        if (currentActiveWindow != null) 
+            currentActiveWindow.SetActive(true);
     }
 
     public void OpenSuperstitionPanel(BaseShrine shrine, string title, SuperstitionData data)
     {
-        // pause time
-        Time.timeScale = 0f;
+        GameStateManager.Instance.SetState(GameState.ShrinePanel);
 
         currentActiveContext = shrine;
         currentActiveWindow = superstitionWindow;
@@ -79,7 +78,8 @@ public class ShrineUIManager : MonoBehaviour
         if (superstitionRewardText != null) superstitionRewardText.text = data.rewardText;
         if (superstitionPenaltyText != null) superstitionPenaltyText.text = data.penaltyText;
 
-        if (currentActiveWindow != null) currentActiveWindow.SetActive(true);
+        if (currentActiveWindow != null) 
+            currentActiveWindow.SetActive(true);
     }
 
     public void OnAccept()
@@ -106,7 +106,6 @@ public class ShrineUIManager : MonoBehaviour
         currentActiveWindow = null;
         currentActiveContext = null;
 
-        // unpause
-        Time.timeScale = 1f;
+        GameStateManager.Instance.PreviousState();
     }
 }

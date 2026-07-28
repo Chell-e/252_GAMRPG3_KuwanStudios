@@ -237,7 +237,7 @@ public class PlayerController : MonoBehaviour
         foreach (GameState actionableState in actionableGameStates)
         {
             // FOR EVERY LISTED GameState under actionableGameStates...
-            if (GameStateManager.Instance.currentState == actionableState)
+            if (GameStateManager.Instance.stateStack.Peek() == actionableState)
             {
                 // IF CURRENT GAME STATE MATCHES ANY
                 // LET US THROUGH!!!

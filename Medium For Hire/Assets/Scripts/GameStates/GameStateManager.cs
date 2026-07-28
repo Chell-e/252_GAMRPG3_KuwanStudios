@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+//using static UnityEditorInternal.VersionControl.ListControl;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -22,39 +24,50 @@ public class GameStateManager : MonoBehaviour
     // ***  singleton stuff
 
     public static event Action<GameState> OnStateChanged;
-    [SerializeField] public GameState currentState;
 
-    [SerializeField] private GameState lastState;
+    [SerializeField] public Stack<GameState> stateStack = new Stack<GameState>();
+    //[SerializeField] public GameState lastState;
+
+    [SerializeField] private Texture2D defaultCursor; // optional: leave null to use OS default
+
     void Start()
     {
         //SetState(GameState.Gameplay);
+        stateStack.Push(GameState.Gameplay);
     }
 
     public void SetState(GameState newState)
     {
-        currentState = newState;
+        if (newState != stateStack.Peek())
+        {
+            stateStack.Push(newState);
+        }
 
-        HandleTimeScale(newState);
+        HandleTimeScale(stateStack.Peek());
 
-        OnStateChanged?.Invoke(newState);
+        OnStateChanged?.Invoke(stateStack.Peek());
 
         Debug.Log($"Game State changed to: {newState}");
 
-        return;
+        if (stateStack.Peek() != GameState.Gameplay)
+        {
+            Vector2 hotspotDefault = new Vector2(5, 1);
+            UnityEngine.Cursor.SetCursor(defaultCursor, hotspotDefault, CursorMode.Auto);
+        }
+
     }
 
-    public void ReturnState()
+    public void PreviousState()
     {
-        currentState = lastState;
+        stateStack.Pop();
 
-        HandleTimeScale(lastState);
+        HandleTimeScale(stateStack.Peek());
 
-        OnStateChanged?.Invoke(lastState);
+        OnStateChanged?.Invoke(stateStack.Peek());
 
-        Debug.Log($"Game State REVERTED to: {lastState}");
-
-        return;
+        Debug.Log($"Game State REVERTED to: {stateStack.Peek()}");
     }
+
 
     public void HandleTimeScale(GameState state)
     {
@@ -63,17 +76,15 @@ public class GameStateManager : MonoBehaviour
             Time.timeScale = 1f;
         }
 
-        if (state == GameState.Cutscene
-            || state == GameState.CombatDialogue)
+        if (state == GameState.Pause
+            || state == GameState.InfoTab
+            || state == GameState.ShrinePanel
+            || state == GameState.Dialogue
+            || state == GameState.UpgradePanel
+            || state == GameState.GameOver)
         {
             Time.timeScale = 0f;
         }
-
-        if (state == GameState.CombatPrompt)
-        {
-            Time.timeScale = 0.1f;
-        }
-
     }
 
 }

@@ -57,7 +57,7 @@ public class UpgradeManager : MonoBehaviour
     public void StartUpgradeSelect()
     {
         if (isActive) return;
-        GameStateManager.Instance?.SetState(GameState.Cutscene);
+        GameStateManager.Instance?.SetState(GameState.UpgradePanel);
         UIManager.Instance?.ToggleUpgradeGraphics(true);
         isActive = true;
 
@@ -71,7 +71,7 @@ public class UpgradeManager : MonoBehaviour
         isActive = false;
 
         UIManager.Instance?.ToggleUpgradeGraphics(false);
-        GameStateManager.Instance?.ReturnState();
+        GameStateManager.Instance?.PreviousState();
     }
 
     [ContextMenu("Reroll Hand")]
@@ -83,7 +83,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void Reward_ChallengeShrine()
     {
-        GameStateManager.Instance?.SetState(GameState.Cutscene);
+        GameStateManager.Instance?.SetState(GameState.UpgradePanel);
         UIManager.Instance?.ToggleUpgradeGraphics(true);
 
 

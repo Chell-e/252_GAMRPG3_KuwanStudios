@@ -164,7 +164,7 @@ public class UIManager : MonoBehaviour
         if (StageManager.Instance == null) return;
         if (StageManager.Instance.isGameOver) return;
 
-        if (Input.GetKeyDown(KeyCode.Tab) && IsPausePanelActive == false)
+        if (Input.GetKeyDown(KeyCode.Tab)) 
         {
             ToggleInfoTab();
         }
@@ -172,24 +172,26 @@ public class UIManager : MonoBehaviour
 
     public void ToggleInfoTab()
     {
-        if (!infoTabPanel.activeSelf)
+        if (GameStateManager.Instance.stateStack.Peek() == GameState.Gameplay
+            || GameStateManager.Instance.stateStack.Peek() == GameState.ShrinePanel
+            || GameStateManager.Instance.stateStack.Peek() == GameState.InfoTab)
         {
-            UpdateInfoTabStat();
+            IsTabPanelActive = !IsTabPanelActive;
 
-            IsTabPanelActive = true;
-            infoTabPanel.SetActive(true);
-            ShowPlayerStatsInfo();
-            Time.timeScale = 0f; // pause
-        }
-        else
-        {
-            IsTabPanelActive = false;
-            infoTabPanel.SetActive(false);
-
-            // check if they're in the upgrade screen
-            if (!upgradeBackground.gameObject.activeSelf)
+            if (IsTabPanelActive)
             {
-                Time.timeScale = 1f;
+                UpdateInfoTabStat();
+
+                infoTabPanel.SetActive(true);
+                ShowPlayerStatsInfo();
+
+                GameStateManager.Instance.SetState(GameState.InfoTab);
+            }
+            else
+            {
+                GameStateManager.Instance.PreviousState();
+
+                infoTabPanel.SetActive(false);
             }
         }
     }
@@ -236,36 +238,38 @@ public class UIManager : MonoBehaviour
         endRunScreen.gameObject.SetActive(true);
     }
 
-    public void TogglePauseScreen(bool isDisplayed)
+    public void TogglePauseScreen() // ESC
     {
-        if (isDisplayed)
+
+        IsPausePanelActive = !IsPausePanelActive;
+
+        if (IsPausePanelActive)
         {
-            IsPausePanelActive = true;
             pausePanel.gameObject.SetActive(true);
-            Time.timeScale = 0f;
+
+            GameStateManager.Instance.SetState(GameState.Pause);
         }
         else
         {
-            IsPausePanelActive = false;
-            pausePanel.gameObject.SetActive(false);
+            GameStateManager.Instance.PreviousState();
 
-            if (IsTabPanelActive) return;
-            Time.timeScale = 1f;
+            pausePanel.gameObject.SetActive(false);
         }
     }
 
-    public void ToggleOptionsPanel(bool isDisplayed)
+    public void ToggleOptionsPanel()
     {
-        if (isDisplayed)
+        IsOptionsPanelActive = !IsOptionsPanelActive;
+
+        if (IsOptionsPanelActive)
         {
-            IsOptionsPanelActive = true;
             optionsPanel.gameObject.SetActive(true);
             pausePanel.gameObject.SetActive(false);
         }
         else
         {
-            IsOptionsPanelActive = false;
             optionsPanel.gameObject.SetActive(false);
+            pausePanel.gameObject.SetActive(true);
         }
     }
 

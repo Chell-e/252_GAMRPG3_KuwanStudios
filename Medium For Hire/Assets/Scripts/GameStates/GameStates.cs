@@ -6,11 +6,13 @@ using UnityEngine;
 [Serializable]
 public enum GameState
 {
-    Gameplay,           // gameplay only; game is running, all game inputs are accessible
-    CombatPrompt,        // pop-up selection + tab + pause
-    CombatDialogue,     // dialogue + tab + pause; dialogue navigation and tabbing
+    Gameplay, 
+    Pause,         // ESC
+    InfoTab,        // TAB
+    ShrinePanel,    // interact w/ shrine
+    UpgradePanel,
+    GameOver,
 
-    Cutscene,           // dialogue ONLY; dialogue navigation
-
+    Dialogue
 }
 

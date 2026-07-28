@@ -53,7 +53,8 @@ public class StageManager : MonoBehaviour
     private void OnEnable()
     {
         isGameOver = false;
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
+        //GameStateManager.Instance.SetState(GameState.Gameplay);
 
         Events.OnPlayerDeath += CompleteLevel;
         OnDeath.OnBossDeath += CompleteLevel;
@@ -103,7 +104,8 @@ public class StageManager : MonoBehaviour
     public void CompleteLevel()
     {
         isGameOver = true;
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
+        GameStateManager.Instance.SetState(GameState.GameOver);
 
         // stop music
         if (SoundManager.Instance != null)

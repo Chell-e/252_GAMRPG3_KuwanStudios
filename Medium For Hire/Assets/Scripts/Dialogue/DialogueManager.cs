@@ -28,7 +28,7 @@ public class DialogueManager : MonoBehaviour
     public string targetScene;
 
     [Header("DEBUG")]
-    public GameState previousGameState; // STORE WHAT THE GameState was before initiating dialogue!!!!!!!
+    //public GameState previousGameState; // STORE WHAT THE GameState was before initiating dialogue!!!!!!!
     public DialogueFile currentSequence; // which dialogue to load 
     public int currentIndex; // current dialogue line displayed
     public int exploredIndex; // the "farthest" dialogue line displayed; caps the backtracking scroll function 
@@ -102,7 +102,7 @@ public class DialogueManager : MonoBehaviour
 
     // *** CORE LOGIC
     // these are functions that coordinate smaller functions below
-    public void StartDialogue(DialogueFile dialogueSequence, GameState gameState = GameState.Cutscene)
+    public void StartDialogue(DialogueFile dialogueSequence)
     {
         dialogueUI.gameObject.SetActive(true);
 
@@ -110,9 +110,7 @@ public class DialogueManager : MonoBehaviour
         currentIndex = 0;
         exploredIndex = 0;
 
-        if (GameStateManager.Instance != null)
-            previousGameState = GameStateManager.Instance.currentState;
-        GameStateManager.Instance?.SetState(gameState);
+        GameStateManager.Instance?.SetState(GameState.Dialogue);
 
         DisplayCurrentLine();
     }
@@ -123,7 +121,7 @@ public class DialogueManager : MonoBehaviour
 
 
         dialogueUI.gameObject.SetActive(false);
-        GameStateManager.Instance?.SetState(previousGameState);
+        GameStateManager.Instance?.PreviousState();
 
 
         // event
@@ -181,7 +179,7 @@ public class DialogueManager : MonoBehaviour
         foreach (GameState actionableState in actionableGameStates)
         {
             // FOR EVERY LISTED GameState under actionableGameStates...
-            if (GameStateManager.Instance.currentState == actionableState)
+            if (GameStateManager.Instance.stateStack.Peek() == actionableState)
             {
                 // IF CURRENT GAME STATE MATCHES ANY
                 // LET US THROUGH!!!
