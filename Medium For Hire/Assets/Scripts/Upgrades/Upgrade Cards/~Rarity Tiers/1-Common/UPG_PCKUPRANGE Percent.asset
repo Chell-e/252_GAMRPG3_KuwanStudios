@@ -16,7 +16,7 @@ MonoBehaviour:
   title: Pickup Range
   subtitle: Stat
   flavorText: 
-  description: "Increase your pickup radius.\n\n+15% Pickup Range.\r"
+  description: "Increase your pickup radius.\n\n<color=#0000ff>+15% Pickup Range.</color>\r"
   rarityStars: 1
   maxPicks: 4
   canDuplicate: 0

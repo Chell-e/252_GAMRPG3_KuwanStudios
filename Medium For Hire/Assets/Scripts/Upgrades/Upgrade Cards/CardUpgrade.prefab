@@ -1599,7 +1599,7 @@ MonoBehaviour:
   m_text: 'Decrease the cooldowns of your weapons immensely.
 
 
-    <style="grudge">+500%
+    <style="guard">+500%
     Attack Speed.</style>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}

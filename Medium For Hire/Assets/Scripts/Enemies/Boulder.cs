@@ -6,12 +6,12 @@ public class Boulder : MonoBehaviour
 {
     [Header("Boulder Speed")]
     private Transform target;
-    [SerializeField] private float moveSpeed = 5f;
+   public float moveSpeed = 7f;
 
     private float damage;
 
     private float currentLifetime = 0f;
-    private float lifetime = 3f; // time before boulder is returned to pool
+    private float lifetime = 5f; // time before boulder is returned to pool
 
     private Vector3 move;
 

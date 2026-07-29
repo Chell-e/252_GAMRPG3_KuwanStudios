@@ -19,8 +19,8 @@ MonoBehaviour:
   description: 'Increase the speed of your weapons immensely.
 
 
-    <style="guide">+450%
-    Projectile Speed.</style>'
+    <color=#0000ff>+450%
+    Projectile Speed.</color>'
   rarityStars: 4
   maxPicks: 1
   canDuplicate: 0

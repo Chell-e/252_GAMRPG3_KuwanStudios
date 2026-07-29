@@ -2290,7 +2290,7 @@ GameObject:
   - component: {fileID: 202232332}
   - component: {fileID: 202232331}
   - component: {fileID: 202232330}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SP_01 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
@@ -5987,7 +5987,7 @@ GameObject:
   - component: {fileID: 512908909}
   - component: {fileID: 512908911}
   - component: {fileID: 512908910}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Prompt Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7289,7 +7289,7 @@ GameObject:
   - component: {fileID: 626759788}
   - component: {fileID: 626759787}
   - component: {fileID: 626759786}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Prompt Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10745,7 +10745,7 @@ GameObject:
   - component: {fileID: 920931597}
   - component: {fileID: 920931596}
   - component: {fileID: 920931595}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SP_01 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
@@ -12540,14 +12540,14 @@ MonoBehaviour:
   - {fileID: 7016573006937491978, guid: 9197dfee9f10c9043be7f69c2d527d03, type: 3}
   waveDuration: 60
   bossSpawnTime: 600
-  baseSpawnInterval: 1.3
-  minimumSpawnInterval: 0.25
-  spawnIntervalDecrease: 0.08
+  baseSpawnInterval: 1.5
+  minimumSpawnInterval: 0.5
+  spawnIntervalDecrease: 0.05
   baseMaxEnemies: 30
   maxEnemiesIncrease: 15
   absoluteEnemyCap: 300
-  statMultiplierPerWave: 1.15
-  statMultiplierPerPlayerLevel: 1.05
+  statMultiplierPerWave: 1.05
+  statMultiplierPerPlayerLevel: 1.03
   maxPlayerLevel: 30
   spawnEdgeOffset: 1.1
   timeToUnlockNextEnemy: 60
@@ -12664,7 +12664,7 @@ GameObject:
   - component: {fileID: 1032784293}
   - component: {fileID: 1032784296}
   - component: {fileID: 1032784295}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SP_01 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
@@ -13546,7 +13546,7 @@ GameObject:
   - component: {fileID: 1099803523}
   - component: {fileID: 1099803525}
   - component: {fileID: 1099803524}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Prompt Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15010,7 +15010,7 @@ GameObject:
   - component: {fileID: 1177946053}
   - component: {fileID: 1177946055}
   - component: {fileID: 1177946054}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Prompt Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15222,7 +15222,7 @@ GameObject:
   - component: {fileID: 1196857244}
   - component: {fileID: 1196857246}
   - component: {fileID: 1196857245}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SP_01
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
@@ -15831,7 +15831,7 @@ GameObject:
   - component: {fileID: 1236328897}
   - component: {fileID: 1236328898}
   - component: {fileID: 1236328899}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17056,7 +17056,7 @@ GameObject:
   - component: {fileID: 1324252984}
   - component: {fileID: 1324252983}
   - component: {fileID: 1324252982}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SP_01 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
@@ -17212,7 +17212,7 @@ GameObject:
   - component: {fileID: 1325732717}
   - component: {fileID: 1325732719}
   - component: {fileID: 1325732718}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Prompt Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18101,7 +18101,7 @@ GameObject:
   - component: {fileID: 1369749343}
   - component: {fileID: 1369749345}
   - component: {fileID: 1369749344}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Prompt Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20401,7 +20401,7 @@ GameObject:
   - component: {fileID: 1526136806}
   - component: {fileID: 1526136808}
   - component: {fileID: 1526136807}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20815,7 +20815,7 @@ GameObject:
   - component: {fileID: 1573511737}
   - component: {fileID: 1573511739}
   - component: {fileID: 1573511738}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21652,7 +21652,7 @@ GameObject:
   - component: {fileID: 1643743303}
   - component: {fileID: 1643743305}
   - component: {fileID: 1643743304}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22422,7 +22422,7 @@ GameObject:
   - component: {fileID: 1677222070}
   - component: {fileID: 1677222072}
   - component: {fileID: 1677222071}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24984,7 +24984,7 @@ GameObject:
   - component: {fileID: 1965332008}
   - component: {fileID: 1965332010}
   - component: {fileID: 1965332009}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25333,7 +25333,7 @@ GameObject:
   - component: {fileID: 1979904873}
   - component: {fileID: 1979904872}
   - component: {fileID: 1979904871}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SP_01 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}

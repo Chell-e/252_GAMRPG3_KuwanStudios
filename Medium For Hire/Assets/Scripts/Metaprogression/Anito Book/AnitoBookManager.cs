@@ -25,6 +25,8 @@ public class AnitoBookManager : MonoBehaviour
     [SerializeField] private ChapterEntryUI entryUI;
     public ChapterEntry entryData;
     public PlayerData playerData;
+    
+    private bool unlockSFXPlayedOnce = false;
 
     // * DRIVER CODE
     // mainly Start() and Update()
@@ -36,6 +38,8 @@ public class AnitoBookManager : MonoBehaviour
 
     public void InitializeEntryData(ChapterEntry _entryData)
     {
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(16);
+
         entryData = _entryData;
         
         entryUI.CloseStoryPage();
@@ -93,6 +97,12 @@ public class AnitoBookManager : MonoBehaviour
             return;
         }
 
+        if (!unlockSFXPlayedOnce)
+        {
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(17);
+            unlockSFXPlayedOnce = true;
+        }
+
         entryUI.LoadIllustration(entryData);
         entryUI.LoadName(entryData);
         entryUI.LoadDescription(entryData);
@@ -108,7 +118,8 @@ public class AnitoBookManager : MonoBehaviour
         if (entryData == null) return;
 
         if (!entryData.chapterUnlocked || !CheckRequirement_TornPages()) return;
-    
+
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(17);
         entryData.storyUnlocked = true;
 
         RefreshStoryButton();

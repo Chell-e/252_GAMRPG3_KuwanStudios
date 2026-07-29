@@ -328,5 +328,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 088a3edeb6fae454b8c7e7346de48708, type: 3}
   - {fileID: 8300000, guid: 1f8da3130e9a4004691651dcd3723b32, type: 3}
   - {fileID: 8300000, guid: 6838e88a0fa82dd4692fcabe4dfad206, type: 3}
+  - {fileID: 8300000, guid: 0cefbbd4c51e9354894969f558a9657c, type: 3}
+  - {fileID: 8300000, guid: 21d6a60af9d4ed44793b70e98e6fd598, type: 3}
   normalBGMVolume: 0
   loweredBGMVolume: 0.2

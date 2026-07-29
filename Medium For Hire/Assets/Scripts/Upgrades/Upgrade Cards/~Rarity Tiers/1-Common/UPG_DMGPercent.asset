@@ -19,7 +19,7 @@ MonoBehaviour:
   description: 'Increase the damage of your weapons.
 
 
-    +15% Damage.'
+    <color=#ff0000>+15% Damage.</color>'
   rarityStars: 1
   maxPicks: -1
   canDuplicate: 0

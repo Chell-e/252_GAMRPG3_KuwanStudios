@@ -19,8 +19,8 @@ MonoBehaviour:
   description: 'Increase the damage of your weapons significantly.
 
 
-    <style="grudge">+250%
-    Damage.</style>'
+    <color=#ff0000>+250%
+    Damage.</color>'
   rarityStars: 3
   maxPicks: -1
   canDuplicate: 0

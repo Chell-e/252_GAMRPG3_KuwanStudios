@@ -19,8 +19,8 @@ MonoBehaviour:
   description: 'Decrease the cooldowns of your weapons greatly.
 
 
-    +50% Attack
-    Speed.'
+    <color=#ff0000>+50%
+    Attack Speed.</color>'
   rarityStars: 2
   maxPicks: 2
   canDuplicate: 0

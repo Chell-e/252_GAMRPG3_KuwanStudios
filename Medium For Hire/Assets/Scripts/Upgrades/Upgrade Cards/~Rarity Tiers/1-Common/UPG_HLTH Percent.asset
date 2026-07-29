@@ -19,7 +19,7 @@ MonoBehaviour:
   description: 'Increase your maximum health.
 
 
-    +15% Max HP.'
+    <color=#00ff00>+15% Max HP.</color>'
   rarityStars: 1
   maxPicks: -1
   canDuplicate: 0

@@ -20,9 +20,9 @@ public class PoolSpawner : MonoBehaviour
     public float bossSpawnTime = 900f;
 
     [Header("Spawn Rate")]
-    public float baseSpawnInterval = 1.3f; // time before spawning next enemy
-    public float minimumSpawnInterval = 0.15f; // cap to the fastest enemies can spawn
-    public float spawnIntervalDecrease = 0.08f; // spawn interval decreases by this, makes spawn rate faster
+    public float baseSpawnInterval = 1.5f; // time before spawning next enemy
+    public float minimumSpawnInterval = 0.5f; // cap to the fastest enemies can spawn
+    public float spawnIntervalDecrease = 0.05f; // spawn interval decreases by this, makes spawn rate faster
 
     [Header("Enemy Caps")]
     public int baseMaxEnemies = 30; // max enemies active at wave 0
@@ -30,7 +30,7 @@ public class PoolSpawner : MonoBehaviour
     public int absoluteEnemyCap = 300; // allowed num. of active enemies
 
     [Header("Difficulty Scaling")]
-    public float statMultiplierPerWave = 1.08f; // stat multiplier applied PER WAVE 1.05 = +5% health/dmg per wave
+    public float statMultiplierPerWave = 1.1f; // stat multiplier applied PER WAVE 1.05 = +5% health/dmg per wave
     public float statMultiplierPerPlayerLevel = 1.05f; // stat multiplier applied PER PLAYER LVL 
     public int maxPlayerLevel = 30;
 
@@ -305,6 +305,8 @@ public class PoolSpawner : MonoBehaviour
             var spawnPos = playerPos + spawnDir * radius;
 
             GameObject challengeElite = PoolManager.SpawnObject(prefab, spawnPos, Quaternion.identity, PoolManager.PoolType.Enemy);
+            Color tmpColor = challengeElite.GetComponentInChildren<SpriteRenderer>().color = new Color(255f/255f, 146f/255f, 146f/255f, 255f/255f);
+
             challengeElites.Add(challengeElite.GetComponent<BaseEnemy>());
 
             if (challengeElite != null)
@@ -468,6 +470,7 @@ public class PoolSpawner : MonoBehaviour
         float finalMultiplier = waveScale * playerScale * sitanScale;
 
         enemy.ScaleEnemyStat(finalMultiplier);
+        Debug.Log($"enemy stat: {finalMultiplier}. sitanScale: {sitanScale}");
     }
 
     private Vector2 GetRandomSpawnPosition()

@@ -14,11 +14,14 @@ public class ShopManager : MonoBehaviour
     [Header("CURRENCY UI")]
     public TextMeshProUGUI tornPagesAmountText;
 
+    private int maxLevelStat = 3;
     private string selectedStat;
 
     void Start()
     {
         UpdateBalanceUI();
+
+        if (buyButton != null ) buyButton.interactable = false;
     }
 
     public void UpdateBalanceUI()
@@ -28,6 +31,8 @@ public class ShopManager : MonoBehaviour
 
     public void OnStatIconClicked(string statName)
     {
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(13);
+
         selectedStat = statName;
 
         int currentLvl = GetStatLevel(statName);
@@ -36,9 +41,11 @@ public class ShopManager : MonoBehaviour
 
         itemName.text = statName;
         itemDescription.text = "Boosts your " + statName + " by +" + bonus + "%";
-        itemLevel.text = currentLvl + "/3";
+        itemDescription.text = $"Boosts your {statName} by {bonus}%";
+        itemLevel.text = $"{currentLvl}/{maxLevelStat}";
+        ;
 
-        if (currentLvl >= 5)
+        if (currentLvl >= maxLevelStat)
         {
             this.cost.text = "Fully Upgraded";
             buyButton.interactable = false;
@@ -52,10 +59,12 @@ public class ShopManager : MonoBehaviour
 
     public void ConfirmPurchase()
     {
+        if (string.IsNullOrEmpty(selectedStat)) return;
+
         int currentLvl = GetStatLevel(selectedStat);
         int cost = GetCost(selectedStat, currentLvl);
 
-        if (PlayerData.Instance.tornPagesAmount >= cost && currentLvl < 3)
+        if (PlayerData.Instance.tornPagesAmount >= cost && currentLvl < maxLevelStat)
         {
             PlayerData.Instance.tornPagesAmount -= cost;
 
@@ -66,7 +75,9 @@ public class ShopManager : MonoBehaviour
             else if (selectedStat == "Projectile Speed") PlayerData.Instance.projectileSpeedLevel++;
             else if (selectedStat == "Pickup Range") PlayerData.Instance.pickupRangeLevel++;
 
-            SaveDataJSON.Instance.SaveData();
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(12);
+
+            if (SaveDataJSON.Instance != null) SaveDataJSON.Instance.SaveData();
             UpdateBalanceUI();
             OnStatIconClicked(selectedStat); 
         }

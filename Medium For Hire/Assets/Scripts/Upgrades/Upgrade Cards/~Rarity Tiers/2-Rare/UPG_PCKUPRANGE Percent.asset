@@ -19,7 +19,8 @@ MonoBehaviour:
   description: 'Increase your pickup radius greatly.
 
 
-    +55% Pickup Range.'
+    <color=#0000ff>+55% Pickup
+    Range.</color>'
   rarityStars: 2
   maxPicks: 3
   canDuplicate: 0

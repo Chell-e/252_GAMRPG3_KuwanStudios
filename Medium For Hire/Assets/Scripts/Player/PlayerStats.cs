@@ -253,8 +253,8 @@ public class PlayerStats : MonoBehaviour
 
             currentExp = 0;
             currentLevel++;
-            // every level up increases 50 more xp
-            expToLevel += 50;
+            // every level up increases 30 more xp
+            expToLevel += 30;
             // find a cleaner way for this
             remainingLevels--;
 
