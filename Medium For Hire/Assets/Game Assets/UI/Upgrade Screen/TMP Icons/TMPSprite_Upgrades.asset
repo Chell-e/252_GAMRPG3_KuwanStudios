@@ -45,7 +45,7 @@ MonoBehaviour:
   fallbackSpriteAssets:
   - {fileID: 11400000, guid: c49b4001cb3497546bf5af73112eec3c, type: 2}
   - {fileID: 11400000, guid: 2b5c64bd549dfeb4680a0da7ca24c74c, type: 2}
-  - {fileID: 11400000, guid: 1196e2c246602ce43b6a1773f5062a1d, type: 2}
+  - {fileID: 11400000, guid: 411d1eec5a9482f41a2d386fb4c6bdd9, type: 2}
   - {fileID: 11400000, guid: e60e2cae1e7978e4582fa087f7162973, type: 2}
   - {fileID: 11400000, guid: 86731f1706ab5a547b1772e12ff42963, type: 2}
   - {fileID: 11400000, guid: 1c19fbfadb68f034a8ba3c13bfb3e48c, type: 2}

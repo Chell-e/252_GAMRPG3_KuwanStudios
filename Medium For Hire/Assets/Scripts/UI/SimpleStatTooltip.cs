@@ -30,10 +30,10 @@ public class SimpleStatTooltip : MonoBehaviour , ITooltipProvider
                 tooltipString = "<sprite name=\"mayari1\"> Mayari's Path: " + playerStats.GetPlayerStat(statForTooltip);
                 break;
             case (Stat.DomainSurvival):
-                tooltipString = "<sprite name=\"tala1\"> Tala's Path: " + playerStats.GetPlayerStat(statForTooltip);
+                tooltipString = "<sprite name=\"hanan1\"> Hanan's Path: " + playerStats.GetPlayerStat(statForTooltip);
                 break;
             case (Stat.DomainUtility):
-                tooltipString = "<sprite name=\"hanan1\"> Hanan's Path: " + playerStats.GetPlayerStat(statForTooltip);
+                tooltipString = "<sprite name=\"tala1\"> Tala's Path: " + playerStats.GetPlayerStat(statForTooltip);
                 break;
             default:
                 break;
@@ -49,11 +49,11 @@ public class SimpleStatTooltip : MonoBehaviour , ITooltipProvider
         switch (statForTooltip)
         {
             case Stat.DomainOffense:
-                return "Ancestral Grudge";
+                return "Mayari's Path";
             case Stat.DomainSurvival:
-                return "Ancestral Guardian";
+                return "Hanan's Path";
             case Stat.DomainUtility:
-                return "Ancestral Guidance";
+                return "Tala's Path";
             default:
                 return statForTooltip.ToString();
         }

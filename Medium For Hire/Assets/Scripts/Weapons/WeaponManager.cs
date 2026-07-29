@@ -112,6 +112,14 @@ public class WeaponManager : MonoBehaviour
     }
     // TOOLS
 
+    [ContextMenu("Initialize All Miniweapons")]
+    private void InitializeAllMiniWeapons()
+    {
+        foreach (var miniweapon in subWeapons)
+        {
+            miniweapon.GetComponent<BaseWeapon>().Initialize(playerController);
+        }
+    }
 
     // EVENTS & LISTENERS
     // put events and listeners here

@@ -86,6 +86,27 @@ public class WhipAttack : MonoBehaviour
         Instantiate(weapon.passiveVFX, weapon.transform)
         .Init(sweepRadius);
 
+        if (weapon.isUtilityEvolved)
+        {
+            Collider2D[] pickupsHit = Physics2D.OverlapCircleAll
+            (
+                _position,
+                sweepRadius,
+                LayerMask.GetMask("PickupTrigger")
+            );
+
+            foreach (var pickupHit in pickupsHit)
+            {
+                if (pickupHit.GetComponent<ExpOrb>() != null)
+                    pickupHit.GetComponent<ExpOrb>().StartBeingSucked();
+
+                if (pickupHit.GetComponent<HealthOrb>() != null)
+                    pickupHit.GetComponent<HealthOrb>().StartBeingSucked();
+
+                if (pickupHit.GetComponent<TornPage>() != null)
+                    pickupHit.GetComponent<TornPage>().StartBeingSucked();
+            }
+        }
     }
 
     private void Strike()
@@ -131,6 +152,28 @@ public class WhipAttack : MonoBehaviour
 
         WhipStrikeVFX vfx = Instantiate(weapon.aimedVFX, this.transform.position, Quaternion.identity);
         vfx.Init(heightAndLength, offsetCenter);
+
+        if (weapon.isUtilityEvolved)
+        {
+            Collider2D[] pickupsHit = Physics2D.OverlapAreaAll
+            (
+                topLeft,
+                lowRight,
+                LayerMask.GetMask("PickupTrigger")
+            );
+
+            foreach (var pickupHit in pickupsHit)
+            {
+                if (pickupHit.GetComponent<ExpOrb>() != null)
+                    pickupHit.GetComponent<ExpOrb>().StartBeingSucked();
+
+                if (pickupHit.GetComponent<HealthOrb>() != null)
+                    pickupHit.GetComponent<HealthOrb>().StartBeingSucked();
+
+                if (pickupHit.GetComponent<TornPage>() != null)
+                    pickupHit.GetComponent<TornPage>().StartBeingSucked();
+            }
+        }
     }
 
     private void DoScaleStats()

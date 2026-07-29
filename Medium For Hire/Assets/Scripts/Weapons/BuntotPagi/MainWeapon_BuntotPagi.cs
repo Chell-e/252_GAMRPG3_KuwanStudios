@@ -10,12 +10,12 @@ using static WhipAttack;
 
 public class MainWeapon_BuntotPagi: BaseWeapon
 {
-    public enum TboliBellsEvolution
+    public enum BuntotPagiEvolutions
     {
         Base,
-        _MAYARI_GRUDGE,
-        _TALA_GUARD,
-        _HANAN_GUIDE
+        Twinned,
+        Whirlwind,
+        Collector
     }
 
     [Header("BASE STATS")]
@@ -92,6 +92,7 @@ public class MainWeapon_BuntotPagi: BaseWeapon
 
     }
 
+    [ContextMenu("Update Stats")]
     private void DoScaleStats()
     {
         // DMG
@@ -118,16 +119,19 @@ public class MainWeapon_BuntotPagi: BaseWeapon
         // GRUDGE
         if (isOffenseEvolved)
         {
+            finalCooldown = finalCooldown / 2f;
         }
 
         // GUARD
         if (isSurvivalEvolved)
         {
+            finalKnockbackPower = finalKnockbackPower * 5f;
         }
 
         // GUIDE
         if (isUtilityEvolved)
         {
+            finalRadius = finalRadius * 1.5f;
         }
     }
     // *** CORE LOGIC
@@ -144,7 +148,25 @@ public class MainWeapon_BuntotPagi: BaseWeapon
     private void DoAimedAttack(Vector2 _position)
     {
         GameObject aimedAttack = Instantiate(attackPrefab, _position, Quaternion.identity);
-        if (playerController.GetLastFacingDirectionX().x > 0)
+        aimedAttack.GetComponent<WhipAttack>().Initialize
+            (this,
+                WhipAttackType.Strike,
+                playerController.GetLastFacingDirectionX().x
+            );
+
+        // offense evolution: cast in opposite direction as well
+        if (isOffenseEvolved)
+        {
+            GameObject oppositeAttack = Instantiate(attackPrefab, _position, Quaternion.identity);
+
+            oppositeAttack.GetComponent<WhipAttack>().Initialize
+            (this,
+                WhipAttackType.Strike,
+                playerController.GetLastFacingDirectionX().x * -1f
+            );
+        }
+        
+        /*if (playerController.GetLastFacingDirectionX().x > 0)
         {
             aimedAttack.GetComponent<WhipAttack>().Initialize
             (this,
@@ -159,8 +181,8 @@ public class MainWeapon_BuntotPagi: BaseWeapon
                 WhipAttackType.Strike,
                 playerController.GetLastFacingDirectionX().x
             );
-        }
-            
+        }*/
+
     }
     // ** SUB FUNCTIONS
 

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d789124abbfe41a418bac04b3de46be1, type: 3}
+  m_Name: UNLOCK_Centavo
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: cae5fe5c4b4b04742b080b2e657838c4, type: 3}
+  title: Centavo
+  subtitle: Mini Weapon
+  flavorText: 
+  description: Flip and toss a coin at the nearest enemy, applying <color=#FF0000>heavy
+    knockback.</color>
+  rarityStars: 2
+  maxPicks: 1
+  canDuplicate: 0
+  requirements:
+  - {fileID: 11400000, guid: 20ea2f01ea2648e48a54f3aeff0c50de, type: 2}
+  weaponPrefab: {fileID: 5128518252944043318, guid: 203af80a10b14f848a374fb1a5a0ad86, type: 3}

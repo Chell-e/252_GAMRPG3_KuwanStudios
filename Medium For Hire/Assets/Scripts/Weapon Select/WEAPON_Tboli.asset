@@ -26,8 +26,8 @@ MonoBehaviour:
     Blast around your cursor.'
   aimedBehavior: 'Medium damaging ring around you.
 
-    Empower <sprite name="m2">RMB
-    Blast.
+    Cools down faster.
 
 
-    <size=23><sprite name="m2">RMB: Blast around your cursor.'
+    <size=23><sprite
+    name="m2">RMB: Blast around your cursor.'

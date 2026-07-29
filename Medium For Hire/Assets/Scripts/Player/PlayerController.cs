@@ -109,10 +109,15 @@ public class PlayerController : MonoBehaviour
                 OnDashWhileRestricted?.Invoke();
             }
 
+
             isDashing = true;
             canDash = false;
 
             dashDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+            DashContext dashContext = new DashContext();
+            dashContext.dashDirection = dashDir;
+            Events.OnBeforeDash?.Invoke(dashContext);
 
             if (dashDir == Vector2.zero)
             {
@@ -350,6 +355,8 @@ public class PlayerController : MonoBehaviour
         trailRenderer.emitting = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
+        
+        Events.OnAfterDash?.Invoke(); 
     }
 
     private void ApplyDashRestriction(float duration)

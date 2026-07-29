@@ -29,7 +29,7 @@ public class PlayerEvents : MonoBehaviour
         // movement
     public System.Action<MovementContext> OnAfterMove;
 
-    public System.Action OnBeforeDash;
+    public System.Action<DashContext> OnBeforeDash;
     public System.Action OnAfterDash;
 
     //      # aiming & attacking
@@ -67,4 +67,9 @@ public class MovementContext
 public class AimContext
 {
     public bool isAiming; // if true, went from Hip to Aimed
+}
+
+public class DashContext
+{
+    public Vector2 dashDirection;
 }
