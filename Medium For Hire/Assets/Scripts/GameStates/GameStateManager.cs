@@ -34,6 +34,7 @@ public class GameStateManager : MonoBehaviour
     {
         //SetState(GameState.Gameplay);
         stateStack.Push(GameState.Gameplay);
+        HandleTimeScale(stateStack.Peek());
     }
 
     public void SetState(GameState newState)

@@ -230,8 +230,11 @@ public class BaseShrine : MonoBehaviour
 
     public void DespawnShrine()
     {
+
         if (shrineAnim != null && !string.IsNullOrEmpty(disappearAnimName))
         {
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(15);
+
             StartCoroutine(PlayDisappear());
         }
         else

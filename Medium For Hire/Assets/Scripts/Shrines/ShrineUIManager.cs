@@ -84,6 +84,8 @@ public class ShrineUIManager : MonoBehaviour
 
     public void OnAccept()
     {
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(12);
+
         if (currentActiveContext == null) return;
         currentActiveContext.ExecuteAccept();
         CloseShrinePanel();
@@ -91,6 +93,8 @@ public class ShrineUIManager : MonoBehaviour
 
     public void OnDecline()
     {
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(11);
+
         if (currentActiveContext == null) return;
         currentActiveContext.ExecuteDecline();
         CloseShrinePanel();

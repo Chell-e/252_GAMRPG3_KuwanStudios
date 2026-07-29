@@ -66,7 +66,6 @@ public class GameSceneManager : MonoBehaviour
         previousSceneName = SceneManager.GetActiveScene().name;
 
         SceneManager.LoadScene(sceneName);
-
     }
 
     public void LoadPreviousScene()

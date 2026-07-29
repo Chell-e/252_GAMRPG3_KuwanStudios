@@ -12,18 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7be3d24aec72448b029dfe7952bee2, type: 3}
   m_Name: ENTRY_Kapre
   m_EditorClassIdentifier: 
-  chapterSprite: {fileID: 21300000, guid: 7ffc002b65a9c054aba3a4c27636ccdf, type: 3}
+  chapterSprite: {fileID: 21300000, guid: 322ec8ec25d379a47aaeb548b619cd63, type: 3}
   chapterName: Kapre
   chapterDescription: Hairy horse
-  chapterUnlocked: 0
+  chapterUnlocked: 1
   storyUnlocked: 0
   killsNeededToUnlockName: 0
   killsNeededToUnlockImage: 0
   killsNeededToUnlockDesc: 0
-  shortStory: "The kapre is a Philippine cryptid creature with the appearance of
-    an phenomenally tall, long-legged, god type of hairy humanoid, that sits in big
-    trees and smokes cigars. It is often seen waiting for people as they walk through
-    a path. It scares away little children who play at night. If you're stuck in
-    a place and you keep going around in circles, you're said to be played around
-    by a kapre. To escape its control, you must remove your shirt/clothing, and wear
-    it inside-out.\r"
+  shortStory: "The sweet, earthy smell of tobacco hit Marco just as he realized he\u2019d
+    walked in three circles around the ancient acacia tree.\r\n\r\nHe looked up into
+    the dark canopy. High above, two amber eyes glowed beside the burning ember of
+    an impossibly large pipe. Sitting comfortably on a massive branch, the giant,
+    hairy figure took a slow drag, exhaling a cloud of smoke that blanketed the trail.\r\n\r\nRemembering
+    his grandmother's advice, Marco didn't run. He calmly slipped off his shirt,
+    flipped it inside out, and put it back on.\r\n\r\nThe Kapre let out a low, rumbling
+    laugh that shook the leaves, charmed by the boy\u2019s respect for the old trick.
+    With a flick of the giant's wrist, the tangled brush cleared, revealing the direct
+    path back to the village.\r\n\r\nMarco gave a quiet nod of thanks and headed
+    home, guided through the dark by the faint smell of sweet leaf smoke.\r"

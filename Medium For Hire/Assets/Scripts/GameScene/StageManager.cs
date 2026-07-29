@@ -34,10 +34,14 @@ public class StageManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        //if (GameStateManager.Instance != null) GameStateManager.Instance.SetState(GameState.Gameplay);
+
     }
 
     private void Start()
     {
+
         AssembleStage();
 
         if (SoundManager.Instance == null) return;
@@ -54,7 +58,6 @@ public class StageManager : MonoBehaviour
     {
         isGameOver = false;
         //Time.timeScale = 1f;
-        //GameStateManager.Instance.SetState(GameState.Gameplay);
 
         Events.OnPlayerDeath += LevelLost;
         OnDeath.OnBossDeath += CompleteLevel;

@@ -308,6 +308,8 @@ public class UpgradeManager : MonoBehaviour
     // put events and listeners here
     private void OnCardSelected(BaseUpgradeData upgrade)
     {
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(12);
+
         ApplyUpgrade(upgrade);
 
         Roller.ApplyPity();
