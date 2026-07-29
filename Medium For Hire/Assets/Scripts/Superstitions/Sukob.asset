@@ -15,5 +15,5 @@ MonoBehaviour:
   superstitionName: Sukob
   description: Do not select an upgrade of the same Path consecutively.
   flavorText: 
-  rewardText: Next level-up guarantees an Epic or Legendary.
-  penaltyText: Next level-up removes the reroll option.
+  rewardText: Next level-up increases the chance for an Epic or Legendary.
+  penaltyText: Next level-up reduces the chance of an Epic or Legendary.

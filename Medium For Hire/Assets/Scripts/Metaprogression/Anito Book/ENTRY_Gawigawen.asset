@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chapterSprite: {fileID: 21300000, guid: ff4e6c8ebd0673b41ae41ba1c0d93122, type: 3}
   chapterName: Gawigawen
-  chapterDescription: Description
+  chapterDescription: A massive, six-headed giant wielding a huge spear. Though fierce,
+    this mountain guardian honors brave travelers, clearing safe paths for them with
+    a burst of booming laughter.
   chapterUnlocked: 0
   storyUnlocked: 0
   killsNeededToUnlockName: 1

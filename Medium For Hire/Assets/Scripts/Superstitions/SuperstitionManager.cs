@@ -11,7 +11,7 @@ public class SuperstitionManager : MonoBehaviour
     public SuperstitionData activeSuperstition;
     public int totalViolations = 0;
 
-    public float CurrentSitanMultiplier => sitanCorruptionActive ? sitanMultiplier : 1.0f;
+    public float CurrentSitanMultiplier => sitanCorruptionActive ? sitanMultiplier : 2.3f;
     public bool hasSuperstition => activeSuperstition != null;
 
     [Header("Timers")]

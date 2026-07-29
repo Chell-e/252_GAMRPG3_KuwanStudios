@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chapterSprite: {fileID: 21300000, guid: 3fc8a7aef62dd004186c3ee1fc1330a6, type: 3}
   chapterName: Tiyanak
-  chapterDescription: Description
+  chapterDescription: A monster that disguises itself as a crying baby to trick travelers.
+    Once picked up, it reveals fangs and sharp claws to attack.
   chapterUnlocked: 0
   storyUnlocked: 0
   killsNeededToUnlockName: 1

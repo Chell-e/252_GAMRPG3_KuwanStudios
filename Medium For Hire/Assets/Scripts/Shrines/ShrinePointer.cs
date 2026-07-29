@@ -9,10 +9,12 @@ public class ShrinePointer : MonoBehaviour
 
     void Update()
     {
-        if (SuperstitionManager.Instance.sitanCorruptionActive)
+        Vector3 nearestSpiritShrinePos = GetNearestSpiritShrine();
+
+        if (SuperstitionManager.Instance.sitanCorruptionActive && nearestSpiritShrinePos != Vector3.zero)
         {
             arrow.SetActive(true);
-            Vector3 pointingDirection = GetNearestShrine() - PlayerController.Instance.transform.position;
+            Vector3 pointingDirection = nearestSpiritShrinePos - PlayerController.Instance.transform.position;
             this.transform.right = pointingDirection.normalized;
         }
         else
@@ -21,22 +23,27 @@ public class ShrinePointer : MonoBehaviour
         }
     }
 
-    private Vector3 GetNearestShrine()
+    private Vector3 GetNearestSpiritShrine()
     {
         float minimumDistance = 999f;
         Vector3 nearestPosition = new Vector3();
 
         foreach (var shrine in ShrineSpawner.Instance.activeShrines)
         {
-            float dist = Vector3.Distance(PlayerController.Instance.transform.position,
-                shrine.transform.position);
-
-            if (dist < minimumDistance)
+            if (shrine != null && shrine.CurrentType == ShrineType.Spirit)
             {
-                minimumDistance = dist;
-                nearestPosition = shrine.transform.position;
+                float dist = Vector3.Distance(PlayerController.Instance.transform.position,
+                                shrine.transform.position);
 
+                if (dist < minimumDistance)
+                {
+                    minimumDistance = dist;
+                    nearestPosition = shrine.transform.position;
+
+                }
             }
+
+
         }
         return nearestPosition;
     }

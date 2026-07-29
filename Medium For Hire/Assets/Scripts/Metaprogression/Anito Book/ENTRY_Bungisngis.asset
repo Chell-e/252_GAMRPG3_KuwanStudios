@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chapterSprite: {fileID: 21300000, guid: ac94097527ed16047abdaad83918c155, type: 3}
   chapterName: Bungisngis
-  chapterDescription: description
+  chapterDescription: A huge, strong giant with a single big eye in the middle of
+    its forehead and long elephant tusks sticking out of its mouth. It gets its name
+    from its wild, loud laugh, which echoes through the woods whenever it sees something
+    funny. Though it is strong enough to lift a water buffalo with one hand, this
+    giant is easily tricked because it is very silly and loves to copy whatever people
+    do.
   chapterUnlocked: 0
   storyUnlocked: 0
   killsNeededToUnlockName: 1

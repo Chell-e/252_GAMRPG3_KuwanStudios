@@ -12546,8 +12546,8 @@ MonoBehaviour:
   baseMaxEnemies: 30
   maxEnemiesIncrease: 15
   absoluteEnemyCap: 300
-  statMultiplierPerWave: 1.05
-  statMultiplierPerPlayerLevel: 1.03
+  statMultiplierPerWave: 1.15
+  statMultiplierPerPlayerLevel: 1.05
   maxPlayerLevel: 30
   spawnEdgeOffset: 1.1
   timeToUnlockNextEnemy: 60
@@ -22960,11 +22960,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 715112328}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 15, y: 0}
   m_SizeDelta: {x: 1060, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1727578540
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3945,7 +3945,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bungisngis
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
   m_sharedMaterial: {fileID: 2603448136184377945, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
@@ -5492,7 +5492,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1663927114}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -5505,7 +5505,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Text Text Text Text Text Text Text Text Text Text Text Text '
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}
   m_sharedMaterial: {fileID: 2603448136184377945, guid: 33f75d3254c723f4c9f5fe64eeb9ec5c, type: 2}

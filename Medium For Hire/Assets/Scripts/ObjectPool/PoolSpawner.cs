@@ -30,8 +30,8 @@ public class PoolSpawner : MonoBehaviour
     public int absoluteEnemyCap = 300; // allowed num. of active enemies
 
     [Header("Difficulty Scaling")]
-    public float statMultiplierPerWave = 1.05f; // stat multiplier applied PER WAVE 1.05 = +5% health/dmg per wave
-    public float statMultiplierPerPlayerLevel = 1.03f; // stat multiplier applied PER PLAYER LVL 
+    public float statMultiplierPerWave = 1.08f; // stat multiplier applied PER WAVE 1.05 = +5% health/dmg per wave
+    public float statMultiplierPerPlayerLevel = 1.05f; // stat multiplier applied PER PLAYER LVL 
     public int maxPlayerLevel = 30;
 
     [Header("Spawn System")]

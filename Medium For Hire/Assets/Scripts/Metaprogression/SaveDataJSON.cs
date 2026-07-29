@@ -41,7 +41,7 @@ public class SaveDataJSON : MonoBehaviour
         string filePath = Path.Combine(Application.persistentDataPath + "PlayerData.json");
 
         //Debug.Log(json);
-        //Debug.Log(filePath);
+        Debug.Log(filePath);
 
         System.IO.File.WriteAllText(filePath, json);
         Debug.Log("Data saved.");

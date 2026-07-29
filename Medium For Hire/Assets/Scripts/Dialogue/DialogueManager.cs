@@ -18,6 +18,8 @@ public class DialogueManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM(4, true);
     }
     // singleton stuff
 

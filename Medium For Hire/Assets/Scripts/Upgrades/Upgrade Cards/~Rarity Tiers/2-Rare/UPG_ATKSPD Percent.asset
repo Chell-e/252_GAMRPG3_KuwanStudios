@@ -19,8 +19,8 @@ MonoBehaviour:
   description: 'Decrease the cooldowns of your weapons greatly.
 
 
-    <style="grudge">+50%
-    Attack Speed.</style>'
+    +50% Attack
+    Speed.'
   rarityStars: 2
   maxPicks: 2
   canDuplicate: 0

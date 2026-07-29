@@ -16,8 +16,7 @@ MonoBehaviour:
   title: Projectile Speed
   subtitle: Stat
   flavorText: 
-  description: "Increase the speed of your weapons.\n\n<style=\"guide\">+10% Projectile
-    Speed.</style>\r"
+  description: "Increase the speed of your weapons.\n\n+10% Projectile Speed.\r"
   rarityStars: 1
   maxPicks: -1
   canDuplicate: 0

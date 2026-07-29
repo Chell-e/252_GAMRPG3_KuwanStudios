@@ -19,8 +19,7 @@ MonoBehaviour:
   description: 'Increase the AoE of your weapons greatly.
 
 
-    <style="guide">+50%
-    Area.</style>'
+    +50% Area.'
   rarityStars: 2
   maxPicks: 2
   canDuplicate: 0

@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chapterSprite: {fileID: 21300000, guid: 322ec8ec25d379a47aaeb548b619cd63, type: 3}
   chapterName: Kapre
-  chapterDescription: Hairy horse
+  chapterDescription: A dark, hairy giant living in old trees, wearing a loincloth
+    and smoking a giant pipe. He enjoys tricking night travelers into getting lost,
+    leaving behind a sudden smell of sweet cigar smoke and rustling leaves.
   chapterUnlocked: 1
   storyUnlocked: 0
   killsNeededToUnlockName: 0

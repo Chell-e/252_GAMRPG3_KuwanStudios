@@ -16,11 +16,8 @@ MonoBehaviour:
   title: Attack Speed
   subtitle: Stat
   flavorText: 
-  description: 'Decrease the cooldowns of your weapons significantly.
-
-
-    <style="grudge">+200%
-    Attack Speed.</style>'
+  description: "Decrease the cooldowns of your weapons significantly.\n\n<color=\"#0000ff\">+200%
+    Attack Speed.</color>\r"
   rarityStars: 3
   maxPicks: 1
   canDuplicate: 0

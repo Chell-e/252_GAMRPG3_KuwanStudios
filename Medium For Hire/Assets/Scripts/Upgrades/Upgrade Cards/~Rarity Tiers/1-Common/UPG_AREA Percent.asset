@@ -16,7 +16,7 @@ MonoBehaviour:
   title: Area
   subtitle: Stat
   flavorText: 
-  description: "Increase the AoE of your weapons.\n\n<style=\"guide\">+10% Area.</style>\r"
+  description: "Increase the AoE of your weapons.\n\n<color=#0000ff>+10% Area.</color>\r\r"
   rarityStars: 1
   maxPicks: 5
   canDuplicate: 0

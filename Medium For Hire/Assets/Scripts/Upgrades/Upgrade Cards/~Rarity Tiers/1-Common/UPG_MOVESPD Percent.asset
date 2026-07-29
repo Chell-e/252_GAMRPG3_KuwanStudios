@@ -16,8 +16,7 @@ MonoBehaviour:
   title: Move Speed
   subtitle: Stat
   flavorText: 
-  description: "Increase the speed of your movements.\n\n<style=\"guard\">+15% Movement
-    Speed.</style>\r"
+  description: "Increase the speed of your movements.\n\n+15% Movement Speed.\r"
   rarityStars: 1
   maxPicks: 5
   canDuplicate: 0
