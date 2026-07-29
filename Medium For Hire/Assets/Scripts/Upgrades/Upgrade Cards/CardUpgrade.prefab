@@ -1240,11 +1240,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d731b1e87abd5544d86406965eece4c5, type: 3}
   - {fileID: 21300000, guid: 9529f7e3eefd21d499bcb50159247bb2, type: 3}
   - {fileID: 21300000, guid: 85277413ed8afde43a24cdf094051d5f, type: 3}
+  - {fileID: 21300000, guid: 85277413ed8afde43a24cdf094051d5f, type: 3}
   rarityTexts:
   - COMMON
   - RARE
   - EPIC
   - LEGENDARY
+  - EVOLUTION
 --- !u!1 &6292687045146705337
 GameObject:
   m_ObjectHideFlags: 0

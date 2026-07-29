@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Evolve_BarilOffense
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 36825a8155e213643a5843f30ac0526d, type: 3}
-  title: <sprite name="mayari1">Momentum<sprite name="mayari1">
+  title: <sprite name="mayari1"> Momentum <sprite name="mayari1">
   subtitle: 
-  flavorText: 'Ancestral Grudge
+  flavorText: '
 
 '
   description: Your bullets deal more damage whenever they pierce an enemy.

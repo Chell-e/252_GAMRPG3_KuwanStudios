@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65dc186d933334a4796e732bb2852278, type: 3}
-  m_Name: Evolve_BarilUtility
+  m_Name: EVOLVE_TboliSurvival
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 36825a8155e213643a5843f30ac0526d, type: 3}
-  title: <sprite name="tala1"> Ricochet <sprite name="tala1">
+  icon: {fileID: 21300000, guid: d64a6c2deb83c6644b4addc169b5c99c, type: 3}
+  title: <sprite name="hanan1"> Echo <sprite name="hanan1">
   subtitle: 
   flavorText: 
-  description: Your bullets seek out the closest enemy whenever they pierce an enemy.
+  description: Your rings now echo multiple times in place.
   rarityStars: 4
   maxPicks: 1
   canDuplicate: 0
   requirements:
-  - {fileID: 11400000, guid: fa9ac724d4218c246b7230d95406b432, type: 2}
-  - {fileID: 11400000, guid: 7b6251a8864a8204da222d122317d26e, type: 2}
-  evolutionType: 3
+  - {fileID: 11400000, guid: a5c2616b8131a0e4d860166b4a47f03a, type: 2}
+  - {fileID: 11400000, guid: 13d57e450f5eff44698f346e58b1c259, type: 2}
+  evolutionType: 2

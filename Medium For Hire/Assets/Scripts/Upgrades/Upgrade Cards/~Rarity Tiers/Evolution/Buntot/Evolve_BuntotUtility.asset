@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65dc186d933334a4796e732bb2852278, type: 3}
-  m_Name: Evolve_BarilUtility
+  m_Name: Evolve_BuntotUtility
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 36825a8155e213643a5843f30ac0526d, type: 3}
-  title: <sprite name="tala1"> Ricochet <sprite name="tala1">
+  icon: {fileID: 21300000, guid: 262e7eaf9317b1341a72e7286629a976, type: 3}
+  title: <sprite name="tala1"> Bounty <sprite name="tala1">
   subtitle: 
   flavorText: 
-  description: Your bullets seek out the closest enemy whenever they pierce an enemy.
+  description: Your attacks now collect pickups.
   rarityStars: 4
   maxPicks: 1
   canDuplicate: 0
   requirements:
   - {fileID: 11400000, guid: fa9ac724d4218c246b7230d95406b432, type: 2}
-  - {fileID: 11400000, guid: 7b6251a8864a8204da222d122317d26e, type: 2}
+  - {fileID: 11400000, guid: 4c600c1596145764c95c67580a721fd1, type: 2}
   evolutionType: 3
