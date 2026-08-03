@@ -15,13 +15,6 @@ MonoBehaviour:
   rarityName: Common
   rarityWeight: 100
   upgradePool:
-  - {fileID: 11400000, guid: 7efc95bfc0450ab44930efb8e197abd0, type: 2}
-  - {fileID: 11400000, guid: adf7b957de1f24f48b0f9ccdbe5fe360, type: 2}
-  - {fileID: 11400000, guid: 1739c58be9b61af4d85968b6fe59baf9, type: 2}
-  - {fileID: 11400000, guid: 301d62c9ed141a149ac3ded17d0823fe, type: 2}
-  - {fileID: 11400000, guid: 6c3e504ec9a81fc4fb07b0435a83b663, type: 2}
-  - {fileID: 11400000, guid: f2d0f48ef8234634a9f802ddde5eb2a0, type: 2}
-  - {fileID: 11400000, guid: d81f052b93273af43a54b3ef8d984451, type: 2}
   - {fileID: 11400000, guid: b47a631cc27d0244ea55f43499b875ed, type: 2}
   - {fileID: 11400000, guid: bd91addb9d2ce2349932647f3c52da73, type: 2}
   - {fileID: 11400000, guid: 560440d178d2c274a98a1e88221d62a1, type: 2}
@@ -31,3 +24,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 004da249934973741a6bccc277561f7b, type: 2}
   - {fileID: 11400000, guid: d80735fb8c9f54c4b9b410f16e776460, type: 2}
   - {fileID: 11400000, guid: fba3c13298753d24584ec2ed834d40f7, type: 2}
+  - {fileID: 11400000, guid: d81f052b93273af43a54b3ef8d984451, type: 2}
+  - {fileID: 11400000, guid: adf7b957de1f24f48b0f9ccdbe5fe360, type: 2}
+  - {fileID: 11400000, guid: 7efc95bfc0450ab44930efb8e197abd0, type: 2}
+  - {fileID: 11400000, guid: 1739c58be9b61af4d85968b6fe59baf9, type: 2}
+  - {fileID: 11400000, guid: 301d62c9ed141a149ac3ded17d0823fe, type: 2}
+  - {fileID: 11400000, guid: f2d0f48ef8234634a9f802ddde5eb2a0, type: 2}
+  - {fileID: 11400000, guid: 6c3e504ec9a81fc4fb07b0435a83b663, type: 2}

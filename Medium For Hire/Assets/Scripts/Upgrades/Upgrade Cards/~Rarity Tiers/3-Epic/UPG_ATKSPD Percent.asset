@@ -16,7 +16,7 @@ MonoBehaviour:
   title: Attack Speed
   subtitle: Stat
   flavorText: 
-  description: "Decrease the cooldowns of your weapons significantly.\n\n<color=\"#ff0000\">+200%
+  description: "Decrease the cooldowns of your weapons significantly.\n\n<color=#ff0000>+200%
     Attack Speed.</color>\r"
   rarityStars: 3
   maxPicks: 1
