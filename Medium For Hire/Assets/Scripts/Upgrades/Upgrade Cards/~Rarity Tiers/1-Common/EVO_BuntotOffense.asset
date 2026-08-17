@@ -17,7 +17,7 @@ MonoBehaviour:
   subtitle: 
   flavorText: 
   description: 
-  rarityStars: 0
+  rarityStars: 5
   maxPicks: 0
   canDuplicate: 0
   requirements: []

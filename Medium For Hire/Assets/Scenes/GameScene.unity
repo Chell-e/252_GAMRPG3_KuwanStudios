@@ -16982,7 +16982,7 @@ MonoBehaviour:
   areaPercent: 100
   movespeedPercent: 100
   movespeedAimingPercent: 50
-  pickupRangePercent: 100
+  pickupRangePercent: 150
   offenseDomainStat: 0
   survivalDomainStat: 0
   utilityDomainStat: 0
@@ -25777,6 +25777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beacfce1b94ba1747818a8f9a3a8d392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tweenDuration: 0
 --- !u!1 &1991615987
 GameObject:
   m_ObjectHideFlags: 0

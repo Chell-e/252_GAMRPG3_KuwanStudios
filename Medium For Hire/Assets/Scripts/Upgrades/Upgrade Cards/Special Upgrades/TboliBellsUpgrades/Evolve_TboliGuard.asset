@@ -24,6 +24,7 @@ MonoBehaviour:
 
     1 <style="guard">+1 Echo</style> for every <style="guard">5 Guardian<sprite
     name="guard"></style>.'
+  rarityStars: 5
   maxPicks: 1
   canDuplicate: 0
   requirements:

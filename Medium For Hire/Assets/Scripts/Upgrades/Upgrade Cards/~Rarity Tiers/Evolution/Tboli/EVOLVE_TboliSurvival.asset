@@ -17,7 +17,7 @@ MonoBehaviour:
   subtitle: 
   flavorText: 
   description: Your rings now echo multiple times in place.
-  rarityStars: 4
+  rarityStars: 5
   maxPicks: 1
   canDuplicate: 0
   requirements:

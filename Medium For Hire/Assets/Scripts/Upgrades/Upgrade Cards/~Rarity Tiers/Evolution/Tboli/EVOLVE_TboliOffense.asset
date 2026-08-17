@@ -19,7 +19,7 @@ MonoBehaviour:
 
 '
   description: Your rings now shatters enemy defenses permanently.
-  rarityStars: 4
+  rarityStars: 5
   maxPicks: 1
   canDuplicate: 0
   requirements:

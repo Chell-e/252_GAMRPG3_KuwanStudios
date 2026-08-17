@@ -17,7 +17,7 @@ MonoBehaviour:
   subtitle: 
   flavorText: 
   description: Your rings now chain between Enemies.
-  rarityStars: 4
+  rarityStars: 5
   maxPicks: 1
   canDuplicate: 0
   requirements:

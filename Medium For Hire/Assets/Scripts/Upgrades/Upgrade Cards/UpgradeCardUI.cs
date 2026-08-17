@@ -89,8 +89,8 @@ public class UpgradeCardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (cardIcon != null) cardIcon.sprite = _upgradeData.icon;
 
         
-        if (rarityText != null) rarityText.text = rarityTexts[colorIndex];
-        if (rarityFrame != null) rarityFrame.sprite = rarityBars[colorIndex];
+        if (rarityText != null) rarityText.text = rarityTexts[_upgradeData.rarityStars];
+        if (rarityFrame != null) rarityFrame.sprite = rarityBars[_upgradeData.rarityStars];
 
         if (titleText != null) titleText.text = _upgradeData.title;
         if (descriptionText != null) descriptionText.text = _upgradeData.description;

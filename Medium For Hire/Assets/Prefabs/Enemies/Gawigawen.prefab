@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 5096519058993142814}
   - component: {fileID: 6252735324589897253}
   - component: {fileID: 3301168207532333302}
+  - component: {fileID: 106024742538616313}
   m_Layer: 8
   m_Name: Gawigawen
   m_TagString: Untagged
@@ -114,7 +115,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7016573006937491978}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -304,6 +305,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d1b7b2f7c7c8c041bc2011c52d15a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!70 &106024742538616313
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7016573006937491978}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.06}
+  m_Size: {x: 1.06, y: 2.42}
+  m_Direction: 0
 --- !u!1 &7784587589516061988
 GameObject:
   m_ObjectHideFlags: 0

@@ -1236,12 +1236,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 43f662f493909bd4fa1336a4859abae3, type: 3}
   - {fileID: 21300000, guid: 590491bb921fbf9488127164181b0861, type: 3}
   rarityBars:
+  - {fileID: 21300000, guid: 85277413ed8afde43a24cdf094051d5f, type: 3}
   - {fileID: 21300000, guid: dee9d40bba6bbcb49b16d89902dcda4e, type: 3}
   - {fileID: 21300000, guid: d731b1e87abd5544d86406965eece4c5, type: 3}
   - {fileID: 21300000, guid: 9529f7e3eefd21d499bcb50159247bb2, type: 3}
   - {fileID: 21300000, guid: 85277413ed8afde43a24cdf094051d5f, type: 3}
   - {fileID: 21300000, guid: 85277413ed8afde43a24cdf094051d5f, type: 3}
   rarityTexts:
+  - SPECIAL
   - COMMON
   - RARE
   - EPIC

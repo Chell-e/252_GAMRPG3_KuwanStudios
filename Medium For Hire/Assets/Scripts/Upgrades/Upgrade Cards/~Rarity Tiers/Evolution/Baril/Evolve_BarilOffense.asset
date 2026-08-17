@@ -19,7 +19,7 @@ MonoBehaviour:
 
 '
   description: Your bullets deal more damage whenever they pierce an enemy.
-  rarityStars: 4
+  rarityStars: 5
   maxPicks: 1
   canDuplicate: 0
   requirements:

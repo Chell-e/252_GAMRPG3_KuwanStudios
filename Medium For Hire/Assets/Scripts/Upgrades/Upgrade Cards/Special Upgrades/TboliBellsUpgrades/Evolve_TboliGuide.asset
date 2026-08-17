@@ -24,6 +24,7 @@ MonoBehaviour:
 
     1 <style="guide">+1 Chain</style> for every <style="guide">5
     Guidance<sprite name="guide"></style>.'
+  rarityStars: 5
   maxPicks: 1
   canDuplicate: 0
   requirements:

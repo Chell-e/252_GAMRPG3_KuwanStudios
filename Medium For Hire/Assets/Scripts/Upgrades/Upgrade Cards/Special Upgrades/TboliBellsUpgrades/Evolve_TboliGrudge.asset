@@ -24,6 +24,7 @@ MonoBehaviour:
 
     10% <style="grudge">+5% Extra Damage</style>
     for every <style="grudge">1 Grudge<sprite name="grudge"></style>.'
+  rarityStars: 5
   maxPicks: 1
   canDuplicate: 0
   requirements:
